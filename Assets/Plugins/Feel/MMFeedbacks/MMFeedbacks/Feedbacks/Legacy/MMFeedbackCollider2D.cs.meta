@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5392495cf1075b44cb26df302c9c6d8e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacks/Feedbacks/Legacy/MMFeedbackCollider2D.cs
+  uploadId: 621683

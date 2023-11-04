@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b7361f52a93c32c48a670c64f5ae2ab6
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/NiceVibrations/MoreMountains.Feedbacks.NiceVibrations.asmdef
+  uploadId: 621683

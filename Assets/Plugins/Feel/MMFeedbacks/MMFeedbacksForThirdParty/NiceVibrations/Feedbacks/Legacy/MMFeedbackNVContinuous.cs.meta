@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bc46122b60040b643a6bace1e13fe12f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/NiceVibrations/Feedbacks/Legacy/MMFeedbackNVContinuous.cs
+  uploadId: 621683

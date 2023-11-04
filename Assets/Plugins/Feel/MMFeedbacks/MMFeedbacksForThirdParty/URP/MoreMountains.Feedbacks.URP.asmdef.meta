@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f81e926ef5b1a3e4fad4bc10bb9e5633
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/URP/MoreMountains.Feedbacks.URP.asmdef
+  uploadId: 621683

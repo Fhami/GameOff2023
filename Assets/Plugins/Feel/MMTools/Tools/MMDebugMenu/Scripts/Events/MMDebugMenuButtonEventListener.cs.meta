@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2313508e7b935c54d9877ca20548a1b5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMTools/Tools/MMDebugMenu/Scripts/Events/MMDebugMenuButtonEventListener.cs
+  uploadId: 621683

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f9bd36e0fdcb17346bb804d148559eb2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMTools/Editor/MMCurves/Editor/MMAntiCurves.curves
+  uploadId: 621683

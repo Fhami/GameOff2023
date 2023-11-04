@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5202bb69e6dc1a44cacdac58197df245
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMTools/Tools/MMReorderableList/reorderable-list-licence.txt
+  uploadId: 621683

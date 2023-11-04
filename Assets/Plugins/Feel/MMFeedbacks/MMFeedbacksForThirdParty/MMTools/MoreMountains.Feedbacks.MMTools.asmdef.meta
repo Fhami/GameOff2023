@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1dbcca72f42070548a895178556c5bc3
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/MMTools/MoreMountains.Feedbacks.MMTools.asmdef
+  uploadId: 621683

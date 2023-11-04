@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 41e9b1707d6e5d741880dbf9158c858c
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/TextMeshPro/MoreMountains.Feedbacks.TextMeshPro.asmdef
+  uploadId: 621683
