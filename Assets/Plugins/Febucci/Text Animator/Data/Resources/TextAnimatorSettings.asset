@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: TextAnimatorSettings
   m_EditorClassIdentifier: 
   behaviors:
-    defaultDatabase: {fileID: 0}
+    defaultDatabase: {fileID: 11400000, guid: 36aa02864747ca24995df71483217697, type: 2}
     enabled: 1
     openingSymbol: 60
     closingSymbol: 62
   appearances:
-    defaultDatabase: {fileID: 0}
+    defaultDatabase: {fileID: 11400000, guid: a3a68d0f174455446a0f9168aca1d9ea, type: 2}
     enabled: 1
     openingSymbol: 123
     closingSymbol: 125
   actions:
-    defaultDatabase: {fileID: 0}
+    defaultDatabase: {fileID: 11400000, guid: aa892529cd4559f46be79c0ad08242d9, type: 2}
     enabled: 1
     openingSymbol: 60
     closingSymbol: 62
