@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
-    public static class Bootstrap
+    /// <summary>
+    /// App entry point. Use for initializing stuff.
+    /// </summary>
+    public class Bootstrap : MonoBehaviour
     {
-        [RuntimeInitializeOnLoadMethod]
-        public static void Initialize()
+        private void Awake()
         {
-            Database.Initialize();
+            Instantiate(Resources.Load<GameManager>("Prefabs/GameManager"));
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
 }
+
