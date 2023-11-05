@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7a8c6e9765e02da42b4a27b8a0d14352
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/MMTools/Feedbacks/Legacy/MMFeedbackCanvasGroup.cs
+  uploadId: 621683

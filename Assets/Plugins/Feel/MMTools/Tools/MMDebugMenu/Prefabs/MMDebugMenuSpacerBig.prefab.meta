@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f72e7b8c96262ed4d976576afafd53b0
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMTools/Tools/MMDebugMenu/Prefabs/MMDebugMenuSpacerBig.prefab
+  uploadId: 621683

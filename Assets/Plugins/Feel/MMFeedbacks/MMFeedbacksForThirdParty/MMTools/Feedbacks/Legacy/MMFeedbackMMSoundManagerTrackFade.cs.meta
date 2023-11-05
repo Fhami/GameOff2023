@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d3f4d03182e9f7d4f95ba5c3cc78d6e5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/MMTools/Feedbacks/Legacy/MMFeedbackMMSoundManagerTrackFade.cs
+  uploadId: 621683

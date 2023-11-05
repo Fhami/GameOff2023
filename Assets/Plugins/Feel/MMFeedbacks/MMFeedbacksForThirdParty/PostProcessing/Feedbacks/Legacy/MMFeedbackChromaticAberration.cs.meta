@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 75a83e73a8ad76c4a9a82695f98ff05e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/PostProcessing/Feedbacks/Legacy/MMFeedbackChromaticAberration.cs
+  uploadId: 621683

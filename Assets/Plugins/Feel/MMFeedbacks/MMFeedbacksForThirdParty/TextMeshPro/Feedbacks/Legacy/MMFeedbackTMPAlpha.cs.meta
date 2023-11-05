@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b24ba469292593e45a0432cf1c12811c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/TextMeshPro/Feedbacks/Legacy/MMFeedbackTMPAlpha.cs
+  uploadId: 621683

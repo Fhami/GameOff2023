@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 83e4eb1c16a47f44e898b0393a5322e8
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMTools/Tools/MMShaders/MMToon.shader
+  uploadId: 621683

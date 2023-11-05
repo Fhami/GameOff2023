@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 70b911f076f05314cb89fd18bc44bce3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/MMTools/Feedbacks/Legacy/MMFeedbackMMSoundManagerTrackControl.cs
+  uploadId: 621683

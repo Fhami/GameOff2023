@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: dc2b0a81c117dd64e9622dc44b1fb80f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/TextMeshPro/Feedbacks/Legacy/MMFeedbackTMPOutlineColor.cs
+  uploadId: 621683

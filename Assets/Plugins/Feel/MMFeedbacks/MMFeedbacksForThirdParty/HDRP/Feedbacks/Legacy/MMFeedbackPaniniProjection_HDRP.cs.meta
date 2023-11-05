@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e14ebea8be3fa25419ba0e94e1b66587
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 3.15
+  assetPath: Assets/Feel/MMFeedbacks/MMFeedbacksForThirdParty/HDRP/Feedbacks/Legacy/MMFeedbackPaniniProjection_HDRP.cs
+  uploadId: 621683
