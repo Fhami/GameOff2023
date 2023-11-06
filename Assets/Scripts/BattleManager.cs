@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
+    // TODO: Maybe should rename this to GameEvent and include other events here too? So they can be used for conditions
     public enum CardEvent
     {
         NONE,
