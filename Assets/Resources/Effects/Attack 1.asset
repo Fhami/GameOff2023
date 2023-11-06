@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a87e7941f4443c5b3344390d736e681, type: 3}
   m_Name: Attack 1
   m_EditorClassIdentifier: 
-  value: 1
+  damage: 1
+  aoe: 0

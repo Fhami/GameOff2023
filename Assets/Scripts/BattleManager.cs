@@ -1,9 +1,19 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
+    public enum CardEvent
+    {
+        NONE,
+        CARD_DRAWN,
+        CARD_DISCARDED,
+        CARD_DESTROYED,
+        CARD_FADED,
+        CARD_PLAYED
+    }
+    
     /// <summary>
     /// Main manager used in BattleScene.
     /// </summary>
@@ -14,58 +24,59 @@ namespace DefaultNamespace
             Debug.Log("Hello from BattleManager!");
         }
 
-        /// <summary>
-        /// Executes each effect in the card in order.
-        /// </summary>
-        /// <param name="card">The card instance.</param>
-        /// <param name="player">The player character.</param>
-        /// <param name="dragTarget">The character we dragged this card on top of. This can be player or enemy.</param>
-        /// <param name="enemies">List of all enemies in the current battle.</param>
-        public void ExecuteCardEffects(
-            RuntimeCard card,
-            RuntimeCharacter player,
-            RuntimeCharacter dragTarget,
-            List<RuntimeCharacter> enemies)
+        public IEnumerator PlayCard(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
         {
-            foreach (Effect effect in card.cardData.effects)
+            card.cardState = CardState.PLAYING;
+            
+            // TODO: Execute passive abilities that trigger on CardEvent.CARD_PLAYED (I guess we do this here before executing this card's effects?)
+
+            // Execute card effects one by one
+            foreach (EffectData effectData in card.cardData.effects)
             {
-                switch (effect.effectTarget)
+                yield return effectData.Execute(card, player, target, enemies);
+
+                // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
+                if (card.cardState is CardState.FADED or CardState.DESTROYED)
                 {
-                    case EffectTarget.NONE:
-                        break;
-                    case EffectTarget.DRAG_TARGET:
-                        ApplyEffectToTarget(effect, dragTarget);
-                        break;
-                    case EffectTarget.ALL_ENEMIES:
-                        foreach (RuntimeCharacter target in enemies)
-                        {
-                            ApplyEffectToTarget(effect, target);
-                        }
-                        break;
-                    case EffectTarget.PLAYER:
-                        ApplyEffectToTarget(effect, player);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    yield break;
                 }
+            }
+
+            // If the card is not FADED or DESTROYED then we can move it to discard pile
+            if (card.cardState != CardState.FADED && card.cardState != CardState.DESTROYED)
+            {
+                yield return DiscardCard(card, player);
             }
         }
 
-        /// <summary>
-        /// Applies a single effect to a target.
-        /// </summary>
-        /// <param name="effect">The effect to apply.</param>
-        /// <param name="target">The target which the effect is applied to.</param>
-        private void ApplyEffectToTarget(Effect effect, RuntimeCharacter target)
+        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player)
         {
-            IProperty property = target.properties.Get(effect.propertyKey);
+            // TODO: Discard the card (visual + data)
+            
+            card.cardState = CardState.DISCARD_PILE;
+            
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
-            switch (property)
-            {
-                case Property<int> intProperty:
-                    intProperty.ApplyOperation(effect.operation, (int)effect.value);
-                    break;
-            }
+            // TODO: Execute passive abilities that trigger on CardEvent.CARD_DISCARDED
+            
+            throw new System.NotImplementedException();
+        }
+
+        // TODO: Call this after current turn ended
+        public void ClearCurrentTurnProperties(RuntimeCharacter player)
+        {
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
+            player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
+            player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+        }
+        
+        // TODO: Call this after current battle ended
+        public void ClearCurrentBattleProperties(RuntimeCharacter player)
+        {
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value = 0;
+            player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value = 0;
+            player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value = 0;
         }
     }
 }

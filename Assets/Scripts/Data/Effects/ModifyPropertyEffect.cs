@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -8,5 +10,10 @@ namespace DefaultNamespace
         public Operation operation;
         public PropertyKey propertyKey;
         public int value;
+        
+        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

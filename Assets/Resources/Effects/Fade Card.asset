@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a87e7941f4443c5b3344390d736e681, type: 3}
-  m_Name: Attack 2
+  m_Script: {fileID: 11500000, guid: 7d6a0340f3e14c00b5182e54ea165bdb, type: 3}
+  m_Name: Fade Card
   m_EditorClassIdentifier: 
-  damage: 2
-  aoe: 0

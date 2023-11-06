@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -27,7 +29,6 @@ namespace DefaultNamespace
         public bool fade;
         public bool destroy;
         public CardDragTarget cardDragTarget;
-        public List<Effect> effects;
-        public List<EffectData> effectsV2;
+        [Expandable] public List<EffectData> effects;
     }
 }
