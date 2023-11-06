@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
   m_Name: Blanket
   m_EditorClassIdentifier: 
-  rangeMin: 3
-  rangeMax: 7
-  skills:
-  - {fileID: 11400000, guid: a079da805bfb81b4696783c2b5ebe05d, type: 2}
+  sizeMin: 8
+  sizeMax: 9
+  skills: []

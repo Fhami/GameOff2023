@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
   m_Name: Poof
   m_EditorClassIdentifier: 
-  rangeMin: 8
-  rangeMax: 9
-  skills:
-  - {fileID: 11400000, guid: 0ca014d85873aa1428cb144eedcd9f6e, type: 2}
+  sizeMin: 1
+  sizeMax: 2
+  skills: []
