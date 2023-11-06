@@ -11,13 +11,15 @@
             CardData cardData = Database.cardData[name];
             
             // Create new instance of a card.
-            RuntimeCard runtimeCard = new RuntimeCard();
-            
-            runtimeCard.cardData = cardData;
+            RuntimeCard runtimeCard = new RuntimeCard
+            {
+                cardData = cardData,
+                properties = new()
+            };
 
-            runtimeCard.properties = new();
-            // runtimeCard.properties.Add(PropertyKey.COST, new Property<int>(cardData.cost));
-            
+            runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
+            runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
+
             return runtimeCard;
         }
     }

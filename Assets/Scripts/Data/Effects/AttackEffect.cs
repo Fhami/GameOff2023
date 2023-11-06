@@ -45,9 +45,11 @@ namespace DefaultNamespace
 
         private int GetDamageWithModifiers(RuntimeCard card, RuntimeCharacter player)
         {
-            // TODO: Get player attack with modifiers + card attack with modifiers
-            // TODO: Add ATK modifiers and POWER_UP value
-            return damage;
+            // Card damage formula: damage + player attack + player power-up + card attack
+            int playerAttack = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
+            int playerPowerUp = player.properties.Get<int>(PropertyKey.POWER_UP).GetValueWithModifiers(player);
+            int cardAttack = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
+            return damage + playerAttack + playerPowerUp + cardAttack;
         }
 
         private void DealDamage(RuntimeCharacter target, int incomingDamage)
