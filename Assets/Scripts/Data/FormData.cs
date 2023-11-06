@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {

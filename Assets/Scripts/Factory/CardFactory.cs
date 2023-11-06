@@ -17,8 +17,10 @@
                 properties = new()
             };
 
+            // Create cards's properties.
             runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
+            runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0));
 
             return runtimeCard;
         }

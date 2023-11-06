@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -15,8 +14,8 @@ namespace DefaultNamespace
         public int health;
         public int startSize;
         public int maxSize;
-        // public List<Modifier> formModifiers;
-        [Expandable]
-        public List<FormData> forms;
+        public int handSize;
+        public int turnCountDown;
+        [Expandable] public List<FormData> forms;
     }
 }

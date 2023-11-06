@@ -22,6 +22,9 @@
             runtimeCharacter.properties.Add(PropertyKey.MAX_HEALTH, new Property<int>(characterData.health));
             runtimeCharacter.properties.Add(PropertyKey.SIZE, new Property<int>(characterData.startSize));
             runtimeCharacter.properties.Add(PropertyKey.MAX_SIZE, new Property<int>(characterData.maxSize));
+            runtimeCharacter.properties.Add(PropertyKey.HAND_SIZE, new Property<int>(characterData.handSize));
+            runtimeCharacter.properties.Add(PropertyKey.TURN_COUNTDOWN, new Property<int>(characterData.turnCountDown));
+            runtimeCharacter.properties.Add(PropertyKey.MAX_TURN_COUNTDOWN, new Property<int>(characterData.turnCountDown));
             runtimeCharacter.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.POWER_UP, new Property<int>(0));

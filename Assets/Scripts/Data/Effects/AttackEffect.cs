@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -39,7 +38,7 @@ namespace DefaultNamespace
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter player)
         {
             int calculatedDamage = GetDamageWithModifiers(card, player);
-            // TODO: You can use rich text here to change the ATK value color if the ATK is modifier (you can just compare calculatedDamage with the card damage)
+            // TODO: You can use rich text here to change the ATK value color like in slay the spire if the ATK is modified (you can just compare calculatedDamage with the card damage)
             return $"ATK {calculatedDamage}";
         }
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -26,8 +25,6 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Card", fileName = "New Card")]
     public class CardData : ScriptableObject
     {
-        public bool fade;
-        public bool destroy;
         public CardDragTarget cardDragTarget;
         [Expandable] public List<EffectData> effects;
     }
