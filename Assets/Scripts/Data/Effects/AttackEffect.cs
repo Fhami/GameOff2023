@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -12,25 +13,57 @@ namespace DefaultNamespace
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
         {
-            // TODO: Deal damage (visuals + effect)
+            // TODO: Deal damage (effect)
+
+            // Get the damage with modifiers (card damage + modifiers from player)
+            int incomingDamage = GetDamageWithModifiers(card, player);
             
-            // Attack multiple targets
-            if (aoe)
+            if (aoe) // Handle damage to multiple targets
             {
                 foreach (RuntimeCharacter enemy in enemies)
                 {
-                    Property<int> targetHealth = enemy.properties.Get<int>(PropertyKey.HEALTH);
-                    targetHealth.Value = Mathf.Clamp(targetHealth.Value - damage, 0, int.MaxValue);
+                    DealDamage(enemy, incomingDamage);
                 }
             }
-            // Attack a single target
-            else
+            else // Handle damage to single target 
             {
-                Property<int> targetHealth = target.properties.Get<int>(PropertyKey.HEALTH);
-                targetHealth.Value = Mathf.Clamp(targetHealth.Value - damage, 0, int.MaxValue);
+                DealDamage(target, incomingDamage);
             }
             
+            // Clear power-up stack
+            player.properties.Get<int>(PropertyKey.POWER_UP).Value = 0;
+            
             throw new System.NotImplementedException();
+        }
+
+        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter player)
+        {
+            int calculatedDamage = GetDamageWithModifiers(card, player);
+            // TODO: You can use rich text here to change the ATK value color if the ATK is modifier (you can just compare calculatedDamage with the card damage)
+            return $"ATK {calculatedDamage}";
+        }
+
+        private int GetDamageWithModifiers(RuntimeCard card, RuntimeCharacter player)
+        {
+            // TODO: Get player attack with modifiers + card attack with modifiers
+            // TODO: Add ATK modifiers and POWER_UP value
+            return damage;
+        }
+
+        private void DealDamage(RuntimeCharacter target, int incomingDamage)
+        {
+            Property<int> targetShield = target.properties.Get<int>(PropertyKey.SHIELD);
+            Property<int> targetHealth = target.properties.Get<int>(PropertyKey.HEALTH);
+                    
+            // Calculate the damage after shield absorption
+            int damageAbsorbedByShield = Mathf.Min(incomingDamage, targetShield.Value);
+            int damageToTarget = incomingDamage - damageAbsorbedByShield;
+                    
+            // Reduce the target's shield by the damage absorbed
+            targetShield.Value = Mathf.Max(targetShield.Value - damageAbsorbedByShield, 0);
+                    
+            // Apply the remaining damage to the target's health
+            targetHealth.Value = Mathf.Clamp(targetHealth.Value - damageToTarget, 0, int.MaxValue);
         }
     }
 }

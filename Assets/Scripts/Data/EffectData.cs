@@ -7,5 +7,6 @@ namespace DefaultNamespace
     public abstract class EffectData : ScriptableObject
     {
         public abstract IEnumerator Execute(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies);
+        public abstract string GetDescriptionText(RuntimeCard card, RuntimeCharacter player);
     }
 }

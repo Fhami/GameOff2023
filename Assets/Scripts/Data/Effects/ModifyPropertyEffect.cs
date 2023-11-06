@@ -15,5 +15,10 @@ namespace DefaultNamespace
         {
             throw new System.NotImplementedException();
         }
+
+        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter player)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
