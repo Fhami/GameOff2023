@@ -24,8 +24,10 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Card", fileName = "New Card")]
     public class CardData : ScriptableObject
     {
-        public int cost;
+        public bool fade;
+        public bool destroy;
         public CardDragTarget cardDragTarget;
         public List<Effect> effects;
+        public List<EffectData> effectsV2;
     }
 }

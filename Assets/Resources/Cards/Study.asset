@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: Study
+  m_EditorClassIdentifier: 
+  cost: 1
+  fade: 0
+  destroy: 0
+  cardDragTarget: 3
+  effects:
+  - effectTarget: 1
+    propertyKey: 9
+    operation: 0
+    value: 2
+  effectsV2:
+  - {fileID: 11400000, guid: 53b5a4ac7fcc152458aaff4e52479692, type: 2}
+  - {fileID: 11400000, guid: 68b2abccf8d800049a8354c20f73e466, type: 2}

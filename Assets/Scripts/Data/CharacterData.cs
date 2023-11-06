@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using NaughtyAttributes;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -10,7 +13,10 @@ namespace DefaultNamespace
     public class CharacterData : ScriptableObject
     {
         public int health;
-        public int size;
+        public int startSize;
         public int maxSize;
+        // public List<Modifier> formModifiers;
+        [Expandable]
+        public List<FormData> forms;
     }
 }

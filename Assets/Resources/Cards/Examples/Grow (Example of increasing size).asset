@@ -13,8 +13,20 @@ MonoBehaviour:
   m_Name: Grow (Example of increasing size)
   m_EditorClassIdentifier: 
   cost: 1
-  cardDragTarget: 3
+  cardDragTarget: 2
   effects:
+  - effectTarget: 3
+    effectType: 2
+    propertyKey: 2
+    operation: 0
+    value: 4
+  - effectTarget: 3
+    effectType: 2
+    propertyKey: 1
+    operation: 1
+    value: 4
   - effectTarget: 1
     effectType: 2
+    propertyKey: 4
+    operation: 1
     value: 2

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: Attack
+  m_EditorClassIdentifier: 
+  cost: 1
+  fade: 0
+  destroy: 0
+  cardDragTarget: 3
+  effects:
+  - effectTarget: 1
+    propertyKey: 9
+    operation: 0
+    value: 2
+  effectsV2:
+  - {fileID: 11400000, guid: e1a36a2b0b538774d875963629b61705, type: 2}
+  - {fileID: 11400000, guid: db62e783da34c564288f5d179fbf8ab8, type: 2}

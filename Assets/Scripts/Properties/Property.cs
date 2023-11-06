@@ -5,22 +5,29 @@ namespace DefaultNamespace
 {
     public class Property<T> : IProperty
     {
-        public T Value { get; set; }
+        public T Value 
+        { 
+            get => _value;
+            set
+            {
+                _value = value;
+                OnChanged(this);
+            } 
+        }
 
         public List<Modifier> Modifiers { get; set; }
 
+        /// <summary>
+        /// Invoked when the base value (<see cref="Value"/>) changes or when
+        /// modifiers are added or removed from <see cref="Modifiers"/> list.
+        /// </summary>
         public Action<Property<T>> OnChanged { get; set; }
 
+        private T _value;
+        
         public Property(T value)
         {
             Value = value;
-        }
-
-        public void SetValue(T baseValue)
-        {
-            Value = baseValue;
-            
-            OnChanged?.Invoke(this);
         }
 
         public void AddModifier(Modifier modifier)

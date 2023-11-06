@@ -4,5 +4,6 @@
     {
         INCREASE,
         DECREASE,
+        SET
     }
 }

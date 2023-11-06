@@ -13,6 +13,8 @@ namespace DefaultNamespace
 
         public Property<T> Get<T>(PropertyKey key) => Properties[key] as Property<T>;
 
+        public IProperty Get(PropertyKey key) => Properties[key];
+        
         public bool Has(PropertyKey key)
         {
             return Properties.ContainsKey(key);

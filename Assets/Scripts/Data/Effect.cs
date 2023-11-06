@@ -31,7 +31,9 @@ namespace DefaultNamespace
     public class Effect
     {
         public EffectTarget effectTarget;
-        public EffectType effectType;
-        public int value;
+        // public EffectType effectType;
+        public PropertyKey propertyKey;
+        public Operation operation;
+        public uint value;
     }
 }
