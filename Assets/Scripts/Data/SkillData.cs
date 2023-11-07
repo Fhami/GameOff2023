@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -6,6 +7,6 @@ namespace DefaultNamespace
     public class SkillData : ScriptableObject
     {
         public int size;
-        // TODO: need to implement the skill logic and conditions
+        public List<ConditionData> conditions;
     }
 }
