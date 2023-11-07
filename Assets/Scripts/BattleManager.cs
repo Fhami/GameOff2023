@@ -39,7 +39,7 @@ namespace DefaultNamespace
                 // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
                 if (card.cardState is CardState.FADED or CardState.DESTROYED)
                 {
-                    yield break;
+                    break;
                 }
             }
 
