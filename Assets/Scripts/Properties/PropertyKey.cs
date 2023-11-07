@@ -5,6 +5,7 @@
         NONE,
         HEALTH,
         MAX_HEALTH,
+        ACTION_POINTS,
         SIZE,
         MAX_SIZE,
         HAND_SIZE,

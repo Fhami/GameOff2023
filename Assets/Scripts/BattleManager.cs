@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,16 @@ using UnityEngine;
 namespace DefaultNamespace
 {
     // TODO: Maybe should rename this to GameEvent and include other events here too? So they can be used for conditions
-    public enum CardEvent
+    public enum GameEvent
     {
         NONE,
         CARD_DRAWN,
         CARD_DISCARDED,
         CARD_DESTROYED,
         CARD_FADED,
-        CARD_PLAYED
+        CARD_PLAYED,
+        PLAYER_TURN_START,
+        PLAYER_TURN_END
     }
     
     /// <summary>
@@ -25,6 +28,49 @@ namespace DefaultNamespace
             Debug.Log("Hello from BattleManager!");
         }
 
+        // TODO: This should be called when player turn starts
+        public IEnumerator PlayerTurnStart(RuntimeCharacter player)
+        {
+            player.TryGetCurrentForm(out FormData form);
+            
+            // Reset player's action points to the base action point value of their current form
+            player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
+            // NOTE: If we want we could have similar property like POWER_UP but for action points (if some skill gives extra AP or reduces AP) then just calculate it here
+            
+            // TODO: Execute PLAYER_TURN_START skills/effects
+            
+            yield break;
+        }
+
+        // TODO: This should be called when player turn ends
+        public IEnumerator PlayerTurnEnd(RuntimeCharacter player)
+        {
+            player.TryGetCurrentForm(out FormData form);
+            
+            // TODO: Execute PLAYER_TURN_END skills/effects
+            
+            Property<int> size = player.properties.Get<int>(PropertyKey.SIZE);
+            Property<int> maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE);
+            
+            // TODO: Handle overload logic and overload effects. QUESTION: Do we allow size go over max size or do we cap it at max size?
+            if (size.Value > maxSize.Value)
+            {
+                throw new NotImplementedException();
+            }
+            if (size.Value <= 0)
+            {
+                // TODO: Handle player death when they turn into dust
+                throw new NotImplementedException();
+            }
+            
+            // Clear player properties that are only tracked per turn
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
+            player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
+            player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+            
+            yield break;
+        }
+        
         public IEnumerator PlayCard(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
         {
             card.cardState = CardState.PLAYING;
@@ -62,14 +108,6 @@ namespace DefaultNamespace
             // TODO: Execute passive abilities that trigger on CardEvent.CARD_DISCARDED
             
             throw new System.NotImplementedException();
-        }
-
-        // TODO: Call this after current turn ended
-        public void ClearCurrentTurnProperties(RuntimeCharacter player)
-        {
-            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
-            player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
-            player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
         }
         
         // TODO: Call this after current battle ended

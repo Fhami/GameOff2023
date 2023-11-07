@@ -9,6 +9,7 @@ namespace DefaultNamespace
     {
         public int sizeMin;
         public int sizeMax;
+        public int actionPoints;
         [Expandable] public List<SkillData> skills;
     }
 }
