@@ -51,15 +51,15 @@ namespace DefaultNamespace
             
             // TODO: Execute PLAYER_TURN_END skills/effects
             
-            Property<int> size = player.properties.Get<int>(PropertyKey.SIZE);
-            Property<int> maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE);
+            Property<int> power = player.properties.Get<int>(PropertyKey.POWER);
+            Property<int> maxPower = player.properties.Get<int>(PropertyKey.MAX_POWER);
             
-            // TODO: Handle overload logic and overload effects. QUESTION: Do we allow size go over max size or do we cap it at max size?
-            if (size.Value > maxSize.Value)
+            // TODO: Handle overload logic and overload effects. QUESTION: Do we allow power go over max power or do we cap it at max power?
+            if (power.Value > maxPower.Value)
             {
                 throw new NotImplementedException();
             }
-            if (size.Value <= 0)
+            if (power.Value <= 0)
             {
                 // TODO: Handle player death when they turn into dust
                 throw new NotImplementedException();

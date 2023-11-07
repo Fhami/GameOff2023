@@ -15,7 +15,7 @@
         /// </summary>
         public bool TryGetCurrentForm(out FormData form)
         {
-            int size = properties.Get<int>(PropertyKey.SIZE).Value;
+            int size = properties.Get<int>(PropertyKey.POWER).Value;
 
             foreach (FormData formData in characterData.forms)
             {

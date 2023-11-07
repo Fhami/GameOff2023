@@ -12,8 +12,8 @@ namespace DefaultNamespace
     public class CharacterData : ScriptableObject
     {
         public int health;
-        public int startSize;
-        public int maxSize;
+        public int startPower;
+        public int maxPower;
         public int handSize;
         public int turnCountDown;
         [Expandable] public List<FormData> forms;
