@@ -32,6 +32,10 @@ namespace DefaultNamespace
         public IEnumerator PlayerTurnStart(RuntimeCharacter player)
         {
             player.TryGetCurrentForm(out FormData form);
+
+            // Clear player shield stack
+            // TODO: If we have artifacts like "Don't remove shield at turn start" you can do it here.
+            player.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
             
             // Reset player's action points to the base action point value of their current form
             player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
