@@ -11,5 +11,6 @@ namespace DefaultNamespace
         public int sizeMax;
         public int actionPoints;
         [Expandable] public List<SkillData> skills;
+        [Expandable] public List<CardData> attackPattern;
     }
 }

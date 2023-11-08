@@ -14,7 +14,13 @@ namespace DefaultNamespace
             RuntimeCharacter targetCharacter,
             List<RuntimeCharacter> enemyCharacters)
         {
-            // TODO: Fade the card (visuals + effect)
+            // TODO: Fade the card (visuals + effect) / put card to FADE pile
+            
+            /*
+             * NOTE: Copied this description from Slay the Spire EXHAUST card. FADE is same as EXHAUST, right?
+             * Exhausting a card puts it in your exhaust pile. Cards in this pile are effectively removed from combat and cannot be used again.
+             * If you Exhaust a card that was in your deck, it will be returned to your deck at the end of combat.
+             */
             
             card.cardState = CardState.FADED;
             

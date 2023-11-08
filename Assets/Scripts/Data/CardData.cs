@@ -34,8 +34,17 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Card", fileName = "New Card")]
     public class CardData : ScriptableObject
     {
+        [InfoBox("Card type can be used for the card graphic and other things (you can refer to Slay the Spire).")]
         public CardType cardType;
+        
+        [InfoBox("Determines the valid drag target when player is dragging and dropping the card. " +
+                 "For example: an AOE attack card can be dropped anywhere because it doesn't need a target.")]
         public CardDragTarget cardDragTarget;
+        
+        [InfoBox("Unless you know what you're doing don't edit effect data directly from " +
+                 "here because it affects other cards that are using the same effect. " +
+                 "You can always create a new Effect from Assets/Create/Gamejam/Effect/ or " +
+                 "you can duplicate an existing effect and edit it.", EInfoBoxType.Warning)]
         [Expandable] public List<EffectData> effects;
     }
 }
