@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    // TODO: Maybe should rename this to GameEvent and include other events here too? So they can be used for conditions
     public enum GameEvent
     {
         NONE,
@@ -29,34 +28,32 @@ namespace DefaultNamespace
             yield break;
         }
 
-        // TODO: This should be called when player turn starts
+        // TODO: This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player)
         {
-            player.TryGetCurrentForm(out FormData form);
+            FormData form = player.GetCurrentForm();
 
-            // Clear player shield stack
-            // TODO: If we have artifacts like "Don't remove shield at turn start" you can do it here.
+            // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
             player.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
 
-            // Reset player's action points to the base action point value of their current form
-            // NOTE: If we want we could have similar property like POWER_UP but for action points (if some skill gives extra AP or reduces AP) then just calculate it here
+            // Reset action points to the base action point value of their current form // TODO: Can add a modifier here if we want
             player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
             
             // TODO: Execute PLAYER_TURN_START skills/effects
             
             // TODO: Draw cards based on player action point value?
             
-            // Clear player properties that are only tracked per turn
+            // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             
             yield break;
         }
 
-        // TODO: This should be called when player turn ends
+        // TODO: This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player)
         {
-            player.TryGetCurrentForm(out FormData form);
+            FormData form = player.GetCurrentForm();
             
             // TODO: Execute PLAYER_TURN_END skills/effects
             
@@ -64,7 +61,7 @@ namespace DefaultNamespace
             Property<int> maxPower = player.properties.Get<int>(PropertyKey.MAX_POWER);
             
             // TODO: Handle overload logic and overload effects. QUESTION: Do we allow power go over max power or do we cap it at max power?
-            if (power.Value > maxPower.Value)
+            if (power.Value >= maxPower.Value)
             {
                 throw new NotImplementedException();
             }
@@ -74,14 +71,21 @@ namespace DefaultNamespace
                 throw new NotImplementedException();
             }
             
-            // Clear player properties that are only tracked per turn
+            // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
             
             yield break;
         }
-        
+
+        /// <summary>
+        /// A coroutine that handles the logic for playing a card on player's turn. Enemies use another coroutine (<see cref="PlayEnemyTurn"/>).
+        /// </summary>
+        /// <param name="card">The card the player is going to play.</param>
+        /// <param name="player">The player character.</param>
+        /// <param name="target">The character the player drag &amp; drops the card on top of. This can be either player or enemy.</param>
+        /// <param name="enemies">The list of all enemies in the current battle.</param>
         public IEnumerator PlayCard(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
         {
             card.cardState = CardState.PLAYING;
@@ -106,7 +110,7 @@ namespace DefaultNamespace
                 yield return DiscardCard(card, player);
             }
         }
-
+        
         public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player)
         {
             // TODO: Discard the card (visual + data)
@@ -119,6 +123,87 @@ namespace DefaultNamespace
             // TODO: Execute passive abilities that trigger on CardEvent.CARD_DISCARDED
             
             throw new System.NotImplementedException();
+        }
+        
+        /// <summary>
+        /// Coroutine that should be called before enemy acts their intent.
+        /// </summary>
+        /// <param name="enemy">The enemy whose turn it is now.</param>
+        public IEnumerator EnemyTurnStart(RuntimeCharacter enemy)
+        {
+            FormData form = enemy.GetCurrentForm();
+
+            // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
+            enemy.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
+
+            // Reset action points to the base action point value of their current form // TODO: Can add a modifier here if we want
+            // NOTE: I think enemies don't need AP since they use attack patterns
+            enemy.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
+          
+            // Clear properties that are only tracked per turn
+            enemy.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
+            enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
+            
+            yield break;
+        }
+        
+        /// <summary>
+        /// Coroutine that should be called after enemy finished acting.
+        /// </summary>
+        /// <param name="enemy">The enemy whose turn just ended.</param>
+        public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
+        {
+            Property<int> power = enemy.properties.Get<int>(PropertyKey.POWER);
+            Property<int> maxPower = enemy.properties.Get<int>(PropertyKey.MAX_POWER);
+            
+            // TODO: Handle overload logic and overload effects. QUESTION: Do we allow power go over max power or do we cap it at max power?
+            if (power.Value >= maxPower.Value)
+            {
+                throw new NotImplementedException();
+            }
+            if (power.Value <= 0)
+            {
+                // TODO: Handle enemy death when they turn into dust
+                throw new NotImplementedException();
+            }
+            
+            // Clear properties that are only tracked per turn
+            enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+            
+            yield break;
+        }
+
+        /// <summary>
+        /// Coroutine that executes a single enemy turn.
+        /// </summary>
+        /// <param name="enemy">The enemy whose turn we execute.</param>
+        /// <param name="player">The (human) player.</param>
+        /// <param name="enemies">The list of all enemies in the current battle.</param>
+        /// <returns></returns>
+        public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            FormData form = enemy.GetCurrentForm();
+
+            // Get enemy's next intent (the next card they plan to use)
+            Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
+
+            CardData cardData = form.attackPattern[cardIndex.Value];
+
+            // Create card instance from the card data
+            // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
+            RuntimeCard card = CardFactory.Create(cardData.name);
+
+            // NOTE: I think for enemy we don't care about FADED, DESTROYED etc. since their cards probably don't use any of those
+            // so just execute the effects
+            foreach (EffectData effectData in card.cardData.effects)
+            {
+                yield return effectData.Execute(card, enemy, player, player, enemies);
+            }
+            
+            // Increment the index by 1 (wrap back to 0 if needed)
+            cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }
         
         // TODO: Call this after current battle ended

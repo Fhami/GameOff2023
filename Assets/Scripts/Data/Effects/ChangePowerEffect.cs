@@ -48,7 +48,7 @@ namespace DefaultNamespace
             foreach (RuntimeCharacter target in targets)
             {
                 // Get the target's form before we change it's power
-                target.TryGetCurrentForm(out FormData previousForm);
+                FormData previousForm = target.GetCurrentForm();
             
                 // Change target's power
                 Property<int> targetPower = target.properties.Get<int>(PropertyKey.POWER);
@@ -56,7 +56,7 @@ namespace DefaultNamespace
                 targetPower.Value += powerWithModifiers;
             
                 // Get the target's form after we changed it's power
-                target.TryGetCurrentForm(out FormData nextForm);
+                FormData nextForm = target.GetCurrentForm();
 
                 // If the form changed execute skills that trigger on ON_EXIT_FORM and ON_ENTER_FORM
                 if (previousForm != nextForm)

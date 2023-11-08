@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace
+﻿using System;
+
+namespace DefaultNamespace
 {
     /// <summary>
     /// The runtime instance of a character. This can be modified during runtime.
@@ -11,9 +13,9 @@
         public CharacterData characterData;
 
         /// <summary>
-        /// Try get the current form based on the character size.
+        /// Get character's current form based on their character power.
         /// </summary>
-        public bool TryGetCurrentForm(out FormData form)
+        public FormData GetCurrentForm()
         {
             int size = properties.Get<int>(PropertyKey.POWER).Value;
 
@@ -21,13 +23,12 @@
             {
                 if (size >= formData.powerMin && size <= formData.powerMax)
                 {
-                    form = formData;
-                    return true;
+                    return formData;
                 }
             }
 
-            form = null;
-            return false;
+            throw new Exception($"Could not find FormData for {characterData.name} when power is {size}. " +
+                                $"Make sure there's proper FormData assigned for this character in CharacterData.");
         }
     }
 }
