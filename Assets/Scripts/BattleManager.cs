@@ -36,15 +36,18 @@ namespace DefaultNamespace
             // Clear player shield stack
             // TODO: If we have artifacts like "Don't remove shield at turn start" you can do it here.
             player.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
-            
+
             // Reset player's action points to the base action point value of their current form
-            player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
             // NOTE: If we want we could have similar property like POWER_UP but for action points (if some skill gives extra AP or reduces AP) then just calculate it here
+            player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
             
             // TODO: Execute PLAYER_TURN_START skills/effects
             
             // TODO: Draw cards based on player action point value?
             
+            // Clear player properties that are only tracked per turn
+            player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
+
             yield break;
         }
 
