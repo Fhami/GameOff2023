@@ -101,7 +101,7 @@ namespace DefaultNamespace
                         case Operation.DECREASE:
                             return $"Decrease target power by {cardPowerWithModifiers.ToString()}.";
                         case Operation.SET:
-                            return $"Set target power by {cardPowerWithModifiers.ToString()}.";
+                            return $"Set target power to {cardPowerWithModifiers.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
