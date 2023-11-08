@@ -82,7 +82,7 @@ namespace DefaultNamespace
             // Execute card effects one by one
             foreach (EffectData effectData in card.cardData.effects)
             {
-                yield return effectData.Execute(card, player, target, enemies);
+                yield return effectData.Execute(card, player, player, target, enemies);
 
                 // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
                 if (card.cardState is CardState.FADED or CardState.DESTROYED)

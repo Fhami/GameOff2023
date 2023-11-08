@@ -6,7 +6,28 @@ namespace DefaultNamespace
 {
     public abstract class EffectData : ScriptableObject
     {
-        public abstract IEnumerator Execute(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies);
-        public abstract string GetDescriptionText(RuntimeCard card, RuntimeCharacter player);
+        /// <summary>
+        /// A coroutine for playing a single card. Executes card's effects and can also trigger different skills.
+        /// </summary>
+        /// <param name="card">The card being played.</param>
+        /// <param name="characterPlayingTheCard">The character who is playing the card.</param>
+        /// <param name="playerCharacter">The player character (human).</param>
+        /// <param name="targetCharacter">The target character. Can be either player or enemy.</param>
+        /// <param name="enemyCharacters">List of all enemies in the current battle. Can be used for AOE etc.</param>
+        /// <returns></returns>
+        public abstract IEnumerator Execute(
+            RuntimeCard card, 
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter playerCharacter, 
+            RuntimeCharacter targetCharacter, 
+            List<RuntimeCharacter> enemyCharacters);
+        
+        /// <summary>
+        /// Get the effect text for the card front.
+        /// </summary>
+        /// <param name="card">The card.</param>
+        /// <param name="playerCharacter">The player character (human)</param>
+        /// <returns></returns>
+        public abstract string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter);
     }
 }

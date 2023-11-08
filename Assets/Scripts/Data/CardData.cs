@@ -17,6 +17,15 @@ namespace DefaultNamespace
         PLAYER = 1 << 1,
         BACKGROUND = 1 << 2,
     }
+
+    // TODO: Include more types? We can use the CardType for filtering cards among other things.
+    // TODO: See Slay the Spire for reference. We can also show the CardType as a "subtitle" below the card name in the card graphic.
+    public enum CardType
+    {
+        NONE,
+        ATTACK,
+        DEFEND,
+    }
     
     /// <summary>
     /// The base data for a card which is immutable and should not be modified during runtime.
@@ -25,6 +34,7 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Card", fileName = "New Card")]
     public class CardData : ScriptableObject
     {
+        public CardType cardType;
         public CardDragTarget cardDragTarget;
         [Expandable] public List<EffectData> effects;
     }

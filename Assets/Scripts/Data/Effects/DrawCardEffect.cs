@@ -9,18 +9,17 @@ namespace DefaultNamespace
     {
         public int count;
         
-        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
+        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter playerCharacter, RuntimeCharacter targetCharacter, List<RuntimeCharacter> enemyCharacters)
         {
-            // TODO: Draw card (visuals + data)
-            
-            // TODO: Execute passive/active skills that trigger on CardEvent.CARD_DRAWN
-            
+            // TODO: VFX
+            // TODO: Draw card from draw pile and put it to hand
+            // TODO: Execute passive/active skills that trigger on GameEvent.CARD_DRAWN
             throw new System.NotImplementedException();
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter player)
+        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
-            return $"DRAW {count}";
+            return $"Draw {count} cards.";
         }
     }
 }

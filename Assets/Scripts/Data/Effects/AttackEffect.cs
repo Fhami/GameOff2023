@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,39 +8,65 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Effect/Attack Effect", fileName = "New Attack Effect")]
     public class AttackEffect : EffectData
     {
+        public EffectTarget effectTarget;
         public int damage;
-        public bool aoe;
         
-        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
+        public override IEnumerator Execute(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter playerCharacter,
+            RuntimeCharacter targetCharacter,
+            List<RuntimeCharacter> enemyCharacters)
         {
-            // TODO: Deal damage (effect)
+            // TODO: VFX
 
-            // Get the damage with modifiers (card damage + modifiers from player)
-            int incomingDamage = GetDamageWithModifiers(card, player);
+            // Calculate the damage with modifiers (card damage + modifiers from character who is playing the card)
+            int incomingDamage = GetDamageWithModifiers(card, characterPlayingTheCard);
             
-            if (aoe) // Handle damage to multiple targets
+            if (effectTarget == EffectTarget.ALL_ENEMIES) // Handle AOE damage to multiple targets
             {
-                foreach (RuntimeCharacter enemy in enemies)
+                foreach (RuntimeCharacter enemyCharacter in enemyCharacters)
                 {
-                    DealDamage(enemy, incomingDamage);
+                    DealDamage(enemyCharacter, incomingDamage);
                 }
             }
-            else // Handle damage to single target 
+            else if (effectTarget == EffectTarget.TARGET) // Handle damage to single target
             {
-                DealDamage(target, incomingDamage);
+                DealDamage(targetCharacter, incomingDamage);
+            }
+            else
+            {
+                throw new NotImplementedException("For now attack effect only supports TARGET and ALL_ENEMIES.");
             }
             
-            // Clear power-up stack
-            player.properties.Get<int>(PropertyKey.POWER_UP).Value = 0;
+            // Clear the power-up stack after the attack
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.POWER_UP).Value = 0;
             
-            throw new System.NotImplementedException();
+            yield break;
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter player)
+        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
-            int calculatedDamage = GetDamageWithModifiers(card, player);
-            // TODO: You can use rich text here to change the ATK value color like in slay the spire if the ATK is modified (you can just compare calculatedDamage with the card damage)
-            return $"ATK {calculatedDamage}";
+            // TODO: You can use rich text here to change the ATK value color in the card like in
+            // TODO: slay the spire if the ATK is modified (you can just compare calculatedDamage with the base card damage)
+            int damageWithModifiers = GetDamageWithModifiers(card, playerCharacter);
+
+            switch (effectTarget)
+            {
+                case EffectTarget.NONE: throw new NotSupportedException();
+                case EffectTarget.PLAYER: throw new NotSupportedException();
+                case EffectTarget.CARD_PLAYER: throw new NotSupportedException();
+                case EffectTarget.TARGET:
+                {
+                    return $"Deal {damageWithModifiers} damage.";
+                }
+                case EffectTarget.ALL_ENEMIES:
+                {
+                    return $"Deal {damageWithModifiers} damage to all enemies.";
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private int GetDamageWithModifiers(RuntimeCard card, RuntimeCharacter player)
