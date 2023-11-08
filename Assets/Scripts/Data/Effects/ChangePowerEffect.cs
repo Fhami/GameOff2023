@@ -63,6 +63,9 @@ namespace DefaultNamespace
                 {
                     target.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
                     
+                    // When form changes reset the attack pattern card index (only relevant to enemy characters).
+                    target.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+
                     // TODO: Execute skills that trigger on ON_ENTER_FORM, ON_EXIT_FORM
                 }
             

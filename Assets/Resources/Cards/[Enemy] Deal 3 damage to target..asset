@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
-  m_Name: Blanket
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: '[Enemy] Deal 3 damage to target.'
   m_EditorClassIdentifier: 
-  powerMin: 7
-  powerMax: 10
-  actionPoints: 0
-  skills: []
-  attackPattern:
-  - {fileID: 11400000, guid: f333c34d7fb656b4895b40d489536414, type: 2}
+  cardType: 1
+  cardDragTarget: 0
+  effects:
+  - {fileID: 11400000, guid: ad524a2de0e35b948ab4cb85fb70056e, type: 2}

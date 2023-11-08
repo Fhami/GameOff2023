@@ -19,7 +19,7 @@
 
             foreach (FormData formData in characterData.forms)
             {
-                if (size >= formData.sizeMin && size <= formData.sizeMax)
+                if (size >= formData.powerMin && size <= formData.powerMax)
                 {
                     form = formData;
                     return true;
