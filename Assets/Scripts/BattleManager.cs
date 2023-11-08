@@ -23,9 +23,10 @@ namespace DefaultNamespace
     /// </summary>
     public class BattleManager : MonoBehaviour
     {
-        private void Awake()
+        private IEnumerator Start()
         {
-            Debug.Log("Hello from BattleManager!");
+            // TODO: Initialize battle scene and start the battle!
+            yield break;
         }
 
         // TODO: This should be called when player turn starts
@@ -46,8 +47,9 @@ namespace DefaultNamespace
             // TODO: Draw cards based on player action point value?
             
             // Clear player properties that are only tracked per turn
+            player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
-
+            
             yield break;
         }
 

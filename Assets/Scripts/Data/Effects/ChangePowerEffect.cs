@@ -61,6 +61,8 @@ namespace DefaultNamespace
                 // If the form changed execute skills that trigger on ON_EXIT_FORM and ON_ENTER_FORM
                 if (previousForm != nextForm)
                 {
+                    target.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
+                    
                     // TODO: Execute skills that trigger on ON_ENTER_FORM, ON_EXIT_FORM
                 }
             
