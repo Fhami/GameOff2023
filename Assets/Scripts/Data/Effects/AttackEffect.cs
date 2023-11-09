@@ -27,12 +27,32 @@ namespace DefaultNamespace
             {
                 foreach (RuntimeCharacter enemyCharacter in enemyCharacters)
                 {
-                    DealDamage(enemyCharacter, incomingDamage);
+                    Property<int> evade = enemyCharacter.properties.Get<int>(PropertyKey.EVADE);
+                    
+                    if (evade.Value > 0) // Handle evade logic
+                    {
+                        // TODO: VFX / animation for evade
+                        evade.Value--;
+                    }
+                    else
+                    {
+                        DealDamage(enemyCharacter, incomingDamage);
+                    }
                 }
             }
             else if (effectTarget == EffectTarget.TARGET) // Handle damage to single target
             {
-                DealDamage(targetCharacter, incomingDamage);
+                Property<int> evade = targetCharacter.properties.Get<int>(PropertyKey.EVADE);
+                
+                if (evade.Value > 0) // Handle evade logic
+                {
+                    // TODO: VFX / animation for evade
+                    evade.Value--;
+                }
+                else
+                {
+                    DealDamage(targetCharacter, incomingDamage);
+                }
             }
             else
             {

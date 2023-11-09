@@ -7,7 +7,7 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Form", fileName = "New Form")]
     public class FormData : ScriptableObject
     {
-        [InfoBox("powerMin (inclusive) and powerMax (inclusive) indicates the power range when this form is active.")]
+        [InfoBox("powerMin (inclusive) and powerMax (inclusive) defines the power range when this form is active.")]
         public int powerMin;
         public int powerMax;
         public int actionPoints;

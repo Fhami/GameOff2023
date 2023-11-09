@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Enemy] Deal 3 damage to target.'
+  m_Name: Slash
   m_EditorClassIdentifier: 
   cardType: 1
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: ad524a2de0e35b948ab4cb85fb70056e, type: 2}
+  - {fileID: 11400000, guid: 0f4ba61768058044f891282eeb2c104c, type: 2}

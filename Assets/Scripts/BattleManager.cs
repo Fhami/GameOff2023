@@ -46,6 +46,15 @@ namespace DefaultNamespace
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
+            player.properties.Get<int>(PropertyKey.EVADE).Value = 0;
+            player.properties.Get<int>(PropertyKey.STUN).Value = 0;
+
+            // If player is stunned don't allow them to play any cards
+            if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
+            {
+                // TODO: Don't allow playing cards
+                throw new NotImplementedException();
+            }
             
             yield break;
         }
@@ -70,12 +79,15 @@ namespace DefaultNamespace
                 // TODO: Handle player death when they turn into dust
                 throw new NotImplementedException();
             }
+
+            // Clear stun (it's not stackable right?)
+            player.properties.Get<int>(PropertyKey.STUN).Value = 0;
             
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-            
+
             yield break;
         }
 
@@ -143,6 +155,7 @@ namespace DefaultNamespace
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
+            enemy.properties.Get<int>(PropertyKey.EVADE).Value = 0;
             
             yield break;
         }
@@ -167,6 +180,9 @@ namespace DefaultNamespace
                 throw new NotImplementedException();
             }
             
+            // Clear stun (it's not stackable right?)
+            enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
+            
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
@@ -184,6 +200,13 @@ namespace DefaultNamespace
         /// <returns></returns>
         public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            // If enemy is stunned don't allow them to play any cards
+            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
+            {
+                // TODO: Skip enemy turn logic / VFX? / animation?
+                throw new NotImplementedException();
+            }
+           
             FormData form = enemy.GetCurrentForm();
 
             // Get enemy's next intent (the next card they plan to use)
@@ -201,7 +224,7 @@ namespace DefaultNamespace
             {
                 yield return effectData.Execute(card, enemy, player, player, enemies);
             }
-            
+        
             // Increment the index by 1 (wrap back to 0 if needed)
             cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }

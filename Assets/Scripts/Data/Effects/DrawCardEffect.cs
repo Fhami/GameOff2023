@@ -19,6 +19,8 @@ namespace DefaultNamespace
         {
             if (characterPlayingTheCard.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value)
             {
+                // TODO: If we want we can make VFX + animation for what happens when we can't draw any more cards but are trying to
+                // TODO: I don't remember what Slay the Spire does..
                 yield break;
             }
             
