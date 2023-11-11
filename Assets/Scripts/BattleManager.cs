@@ -22,6 +22,9 @@ namespace DefaultNamespace
     /// </summary>
     public class BattleManager : MonoBehaviour
     {
+        //Only player can play cards so we put this here
+        [SerializeField] private CardController cardController;
+        
         private IEnumerator Start()
         {
             // TODO: Initialize battle scene and start the battle!

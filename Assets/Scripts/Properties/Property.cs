@@ -11,7 +11,7 @@ namespace DefaultNamespace
             set
             {
                 _value = value;
-                OnChanged(this);
+                OnChanged?.Invoke(this);
             } 
         }
 

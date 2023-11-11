@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -8,6 +9,8 @@ namespace DefaultNamespace
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
+
+        public DeckData PlayerDeck;
         
         private void Awake()
         {
@@ -15,6 +18,16 @@ namespace DefaultNamespace
             DontDestroyOnLoad(this);
             
             Debug.Log("Hello from GameManager!");
+        }
+
+        private void Start()
+        {
+            Init();
+        }
+
+        private void Init()
+        {
+            PlayerDeck = new DeckData();
         }
     }
 }

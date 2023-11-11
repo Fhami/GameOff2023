@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace
+﻿using UnityEngine;
+
+namespace DefaultNamespace
 {
     /// <summary>
     /// For creating card instances from card data.
@@ -23,6 +25,24 @@
             runtimeCard.properties.Add(PropertyKey.POWER, new Property<int>(0));
 
             return runtimeCard;
+        }
+
+        private const string CardPrefabPath = "CardPrefab";
+        private static Card cardPrefab;
+        
+        /// <summary>
+        /// Instantiate card prefab and update card visual from cardData
+        /// </summary>
+        public static Card CreateCardObject(RuntimeCard card)
+        {
+            //Load and cache card prefab
+            if (!cardPrefab)
+                cardPrefab = Resources.Load<Card>(CardPrefabPath);
+
+            var newCard = Object.Instantiate(cardPrefab);
+            newCard.InitCard(card);
+
+            return newCard;
         }
     }
 }

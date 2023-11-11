@@ -4,7 +4,7 @@ namespace DefaultNamespace
 {
     public class PropertyContainer
     {
-        public Dictionary<PropertyKey, IProperty> Properties { get; set; }
+        public Dictionary<PropertyKey, IProperty> Properties { get; set; } = new Dictionary<PropertyKey, IProperty>();
 
         public void Add<T>(PropertyKey key, Property<T> property)
         {
