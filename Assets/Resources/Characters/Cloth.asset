@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: Cloth
   m_EditorClassIdentifier: 
-  health: 12
-  startSize: 5
-  maxSize: 10
+  health: 1
+  startPower: 0
+  maxPower: 0
   handSize: 5
   turnCountDown: 2
   forms:
