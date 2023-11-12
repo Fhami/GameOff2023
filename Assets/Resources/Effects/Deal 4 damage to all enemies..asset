@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Deal 4 damage to all enemies.
   m_EditorClassIdentifier: 
   effectTarget: 4
-  damage: 4
+  value: 4
