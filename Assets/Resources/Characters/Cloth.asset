@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: Cloth
   m_EditorClassIdentifier: 
-  health: 12
+  health: 1
   startSize: 5
   maxSize: 10
   handSize: 5
-  turnCountDown: 2
+  staggerSize: 7
+  staggerCard: {fileID: 0}
   forms:
   - {fileID: 11400000, guid: c70021240bb1fe74a8c00625cb5d188b, type: 2}
   - {fileID: 11400000, guid: ced3dd129b431e34ba25016fce9591d4, type: 2}

@@ -5,15 +5,12 @@
         NONE,
         HEALTH,
         MAX_HEALTH,
-        ACTION_POINTS,
-        POWER,
-        MAX_POWER,
+        SIZE,
+        MAX_SIZE,
         HAND_SIZE,
-        TURN_COUNTDOWN,
-        MAX_TURN_COUNTDOWN,
         ATTACK,
         SHIELD,
-        POWER_UP,
+        STRENGTH,
         EVADE,
         STUN,
         CARDS_DISCARDED_ON_CURRENT_TURN_COUNT,
@@ -25,5 +22,6 @@
         CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN,
         FORM_CHANGED_COUNT_CURRENT_TURN,
         ENEMY_ATTACK_PATTERN_CARD_INDEX,
+        HAS_BEEN_STAGGERED_ONCE
     }
 }

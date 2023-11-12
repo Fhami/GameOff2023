@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeMin: 3
   sizeMax: 7
+  handSize: 4
   skills:
   - {fileID: 11400000, guid: a079da805bfb81b4696783c2b5ebe05d, type: 2}
+  attackPattern: []

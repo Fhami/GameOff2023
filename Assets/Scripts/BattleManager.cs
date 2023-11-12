@@ -39,8 +39,9 @@ namespace DefaultNamespace
             // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
             player.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
 
-            // Reset action points to the base action point value of their current form // TODO: Can add a modifier here if we want
-            player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
+            // Set character's hand size to match the form hand size
+            // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
+            player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
             
             // TODO: Execute PLAYER_TURN_START skills/effects
             
@@ -58,6 +59,11 @@ namespace DefaultNamespace
                 // TODO: Don't allow playing cards
                 throw new NotImplementedException();
             }
+            else
+            {
+                // TODO: Draw cards
+                int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
+            }
             
             yield break;
         }
@@ -68,21 +74,22 @@ namespace DefaultNamespace
             FormData form = player.GetCurrentForm();
             
             // TODO: Execute PLAYER_TURN_END skills/effects
-            
-            Property<int> power = player.properties.Get<int>(PropertyKey.POWER);
-            Property<int> maxPower = player.properties.Get<int>(PropertyKey.MAX_POWER);
-            
-            // TODO: Handle overload logic and overload effects. QUESTION: Do we allow power go over max power or do we cap it at max power?
-            if (power.Value >= maxPower.Value)
-            {
-                throw new NotImplementedException();
-            }
-            if (power.Value <= 0)
-            {
-                // TODO: Handle player death when they turn into dust
-                throw new NotImplementedException();
-            }
+            // TODO: Discard all remaining cards in your hand to the discard pile
 
+            // // If player's size exceed max size
+            // Property<int> size = player.properties.Get<int>(PropertyKey.SIZE);
+            // Property<int> maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE);
+            //
+            // if (size.Value >= maxSize.Value)
+            // {
+            //     throw new NotImplementedException();
+            // }
+            // if (size.Value <= 0)
+            // {
+            //     // TODO: Handle player death when they turn into dust
+            //     throw new NotImplementedException();
+            // }
+            
             // Clear stun (it's not stackable right?)
             player.properties.Get<int>(PropertyKey.STUN).Value = 0;
             
@@ -150,10 +157,6 @@ namespace DefaultNamespace
 
             // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
             enemy.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
-
-            // Reset action points to the base action point value of their current form // TODO: Can add a modifier here if we want
-            // NOTE: I think enemies don't need AP since they use attack patterns
-            enemy.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
           
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
@@ -169,19 +172,17 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn just ended.</param>
         public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
         {
-            Property<int> power = enemy.properties.Get<int>(PropertyKey.POWER);
-            Property<int> maxPower = enemy.properties.Get<int>(PropertyKey.MAX_POWER);
+            // Property<int> size = enemy.properties.Get<int>(PropertyKey.SIZE);
+            // Property<int> maxSize = enemy.properties.Get<int>(PropertyKey.MAX_SIZE);
             
-            // TODO: Handle overload logic and overload effects. QUESTION: Do we allow power go over max power or do we cap it at max power?
-            if (power.Value >= maxPower.Value)
-            {
-                throw new NotImplementedException();
-            }
-            if (power.Value <= 0)
-            {
-                // TODO: Handle enemy death when they turn into dust
-                throw new NotImplementedException();
-            }
+            // if (size.Value >= maxSize.Value)
+            // {
+            //     throw new NotImplementedException();
+            // }
+            // if (size.Value <= 0)
+            // {
+            //     throw new NotImplementedException();
+            // }
             
             // Clear stun (it's not stackable right?)
             enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;

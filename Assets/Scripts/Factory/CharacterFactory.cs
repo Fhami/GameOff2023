@@ -20,15 +20,12 @@
             // Create character's properties.
             runtimeCharacter.properties.Add(PropertyKey.HEALTH, new Property<int>(characterData.health));
             runtimeCharacter.properties.Add(PropertyKey.MAX_HEALTH, new Property<int>(characterData.health));
-            runtimeCharacter.properties.Add(PropertyKey.ACTION_POINTS, new Property<int>(0));
-            runtimeCharacter.properties.Add(PropertyKey.POWER, new Property<int>(characterData.startPower));
-            runtimeCharacter.properties.Add(PropertyKey.MAX_POWER, new Property<int>(characterData.maxPower));
+            runtimeCharacter.properties.Add(PropertyKey.SIZE, new Property<int>(characterData.startSize));
+            runtimeCharacter.properties.Add(PropertyKey.MAX_SIZE, new Property<int>(characterData.maxSize));
             runtimeCharacter.properties.Add(PropertyKey.HAND_SIZE, new Property<int>(characterData.handSize));
-            runtimeCharacter.properties.Add(PropertyKey.TURN_COUNTDOWN, new Property<int>(characterData.turnCountDown));
-            runtimeCharacter.properties.Add(PropertyKey.MAX_TURN_COUNTDOWN, new Property<int>(characterData.turnCountDown));
             runtimeCharacter.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
-            runtimeCharacter.properties.Add(PropertyKey.POWER_UP, new Property<int>(0));
+            runtimeCharacter.properties.Add(PropertyKey.STRENGTH, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.EVADE, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.STUN, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT, new Property<int>(0));
@@ -40,6 +37,7 @@
             runtimeCharacter.properties.Add(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN, new Property<bool>(false));
             runtimeCharacter.properties.Add(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX, new Property<int>(0));
+            runtimeCharacter.properties.Add(PropertyKey.HAS_BEEN_STAGGERED_ONCE, new Property<bool>(false));
 
             return runtimeCharacter;
         }

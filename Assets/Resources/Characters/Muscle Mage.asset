@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: Muscle Mage
   m_EditorClassIdentifier: 
-  health: 18
+  health: 3
   startSize: 5
   maxSize: 10
   handSize: 5
-  turnCountDown: 0
   forms:
   - {fileID: 11400000, guid: 5875dcd2b397567408a27b4fdd8f1bfd, type: 2}
   - {fileID: 11400000, guid: 313def8d18755ad47ab6593d91ec846e, type: 2}
