@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System;
+using DG.Tweening;
 
-public class MapNodeUI : MonoBehaviour, IPointerClickHandler
+public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] NodeInfo nodeInfo;
     [SerializeField] RectTransform _rect; 
@@ -17,6 +18,12 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] List<MapNodeUI> _prevNodes = new List<MapNodeUI>();
     [SerializeField] List<MapNodeUI> _nextNodes = new List<MapNodeUI>();
     [SerializeField] List<MapLineUI> _lines = new List<MapLineUI>();
+    [SerializeField] Animator _animator;
+    [SerializeField] ParticleSystem _unlockParticle;
+
+    [SerializeField] Color _enableDimColor;
+    [SerializeField] Color _disableDimColor;
+
     public Action<MapNodeUI> onClick;
     public bool isLock = false;
     public int row = 0;
@@ -39,5 +46,32 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler
     public void SetLock(bool val)
     {
         isLock = val;
+    }
+
+    public void Unlock()
+    {
+        SetLock(false);
+        _animator.SetTrigger("unlock");
+       // _unlockParticle.gameObject.SetActive(true);
+    }
+
+    public void Disable()
+    {
+        SetLock(true);
+        _ground_img.color = _disableDimColor;
+        _icon_img.color = _disableDimColor;
+        //_animator.SetTrigger("disable");
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isLock) return;
+        _animator.SetTrigger("enter");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (isLock) return;
+        _animator.SetTrigger("exit");
     }
 }
