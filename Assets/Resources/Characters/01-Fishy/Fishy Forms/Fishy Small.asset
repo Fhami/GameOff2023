@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
   m_Name: Fishy Small
   m_EditorClassIdentifier: 
-  powerMin: 0
-  powerMax: 0
-  actionPoints: 0
-  skills:
-  - {fileID: 11400000, guid: d38bfe9997e77a246b684ef0b166e945, type: 2}
+  sizeMin: 0
+  sizeMax: 0
+  handSize: 0
+  skills: []
   attackPattern: []

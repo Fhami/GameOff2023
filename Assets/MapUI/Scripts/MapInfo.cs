@@ -19,8 +19,11 @@ public class MapInfo : ScriptableObject
     public int minNode;
     public int maxNode;
     //public List<NodeInfo> possibleNode;
-    [SerializedDictionary("NodeType","SpawnChance")]
+    [SerializedDictionary("NodeType", "Chance")]
+    public List<NodeInfo> fixedNodes;
     public SerializedDictionary<NodeInfo, int> possibleNodes;
+    //public List<EncounterData> possibleEncounters;
+    public SerializedDictionary<NodeType, List<EncounterData>> possibleEncounters;
     //public List<NodeType>
 }
 

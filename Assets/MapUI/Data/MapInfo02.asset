@@ -20,7 +20,8 @@ MonoBehaviour:
     possibleNodes:
       _serializedList:
       - Key: {fileID: 11400000, guid: 2d64190def603084aaeb763479a90746, type: 2}
-        Value: 1
+        Value: 0
+    possibleEncounters: []
   - minNode: 1
     maxNode: 1
     possibleNodes:
@@ -29,3 +30,4 @@ MonoBehaviour:
         Value: 2
       - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
         Value: 5
+    possibleEncounters: []

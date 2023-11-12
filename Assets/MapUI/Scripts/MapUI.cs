@@ -20,7 +20,6 @@ public class MapUI : MonoBehaviour
     [SerializeField] CanvasGroup _canvasGroup;
     bool isShow = true;
     Tween _mapTween;
-
     Tween _player_tween;
 
     [SerializeField] List<MapRowUI> _mapRows = new List<MapRowUI>();
@@ -72,6 +71,9 @@ public class MapUI : MonoBehaviour
             MapNodeUI nodeUI = Instantiate(_node_ui_prefab);
             nodeUI.row = rowIndex;
             nodeUI.NodeInfo = RandomPossibleNode(rowSetting.possibleNodes);
+            nodeUI.EncounterData =RandomPossibleEncounter(nodeUI.NodeInfo.nodeType , rowSetting);
+
+            nodeUI.SetImage(nodeUI.NodeInfo.icon);
             nodeUI.transform.SetParent(rowUI.transform,false);
             nodeUI.transform.localScale = new Vector3(1, 1, 1);
             nodeUI.onClick = OnClickMapNode;
@@ -94,7 +96,7 @@ public class MapUI : MonoBehaviour
         {
             tempNodes[i] = node.Key;
             sum[i] = x += node.Value;
-            Debug.Log(sum[i]);
+            //Debug.Log(sum[i]);
             i++;
         }
         int choose = UnityEngine.Random.Range(0, x);
@@ -102,11 +104,22 @@ public class MapUI : MonoBehaviour
         for(int j = 0; j <sum.Length; j++)
         {
 
-            Debug.Log(choose +": =>"+ sum[j]);
+            //Debug.Log(choose +": =>"+ sum[j]);
             if (choose <= sum[j]) return tempNodes[j];
         }
 
         return null;
+    }
+
+    EncounterData RandomPossibleEncounter(NodeType nodeType, RowSetting rowSetting)
+    {
+        List<EncounterData> encounterData;
+        if (rowSetting.possibleEncounters.TryGetValue(nodeType, out encounterData))
+        {
+            int rand = UnityEngine.Random.Range(0,encounterData.Count);
+            return encounterData[rand];
+        }
+        else return null;
     }
 
     void ClearMap()
@@ -221,14 +234,17 @@ public class MapUI : MonoBehaviour
         else if (selectedNode.NodeInfo.nodeType == NodeType.Minor)
         {
             //Start Minor Encounter
+            // Do something with selectedNode.EncounterData
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Elite)
         {
             //Start Elite Encounter
+            // Do something with selectedNode.EncounterData
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Boss)
         {
             //Start Boss Encounter
+            // Do something with selectedNode.EncounterData
         }
 
         UnlockNextNode(selectedNode);
