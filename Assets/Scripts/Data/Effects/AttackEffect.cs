@@ -35,7 +35,7 @@ namespace DefaultNamespace
                     }
                     else
                     {
-                        yield return Attack(enemyCharacter, attackValueWithModifiers);
+                        yield return Attack(enemyCharacter, attackValueWithModifiers, playerCharacter, enemyCharacters);
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace DefaultNamespace
                 }
                 else
                 {
-                    yield return Attack(targetCharacter, attackValueWithModifiers);
+                    yield return Attack(targetCharacter, attackValueWithModifiers, playerCharacter, enemyCharacters);
                 }
             }
             else
@@ -86,7 +86,11 @@ namespace DefaultNamespace
             }
         }
 
-        private IEnumerator Attack(RuntimeCharacter target, int incomingAttack)
+        private IEnumerator Attack(
+            RuntimeCharacter target,
+            int incomingAttack,
+            RuntimeCharacter playerCharacter,
+            List<RuntimeCharacter> enemyCharacters)
         {
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
@@ -128,10 +132,10 @@ namespace DefaultNamespace
                 Property<bool> hasBeenStaggeredOnce = target.properties.Get<bool>(PropertyKey.HAS_BEEN_STAGGERED_ONCE);
                 if (!hasBeenStaggeredOnce.Value && size.Value == target.characterData.staggerSize)
                 {
-                    
+                    hasBeenStaggeredOnce.Value = true;
+                    yield return Stagger(target, playerCharacter, enemyCharacters);
                 }
                 // TODO: skills
-                // TODO: stagger
             }
             
             // TODO: form change effects
@@ -162,14 +166,16 @@ namespace DefaultNamespace
         private IEnumerator Stagger(
             RuntimeCharacter staggeredCharacter,
             RuntimeCharacter playerCharacter,
-            RuntimeCharacter targetCharacter,
             List<RuntimeCharacter> enemyCharacters)
         {
-            foreach (EffectData staggerEffect in staggeredCharacter.characterData.staggerEffects)
-            {
-            }
+            // TODO: Stagger VFX/animation?
             
-            yield break;
+            RuntimeCard staggerCard = CardFactory.Create(staggeredCharacter.characterData.staggerCard.name);
+
+            foreach (EffectData staggerEffect in staggerCard.cardData.effects)
+            {
+                yield return staggerEffect.Execute(staggerCard, staggeredCharacter, playerCharacter, playerCharacter, enemyCharacters);
+            }
         }
     }
 }
