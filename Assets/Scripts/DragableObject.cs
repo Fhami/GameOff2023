@@ -10,7 +10,7 @@ public class DragableObject : MonoBehaviour
     /// <summary>
     /// Use this to move when drag instead of directly moving card so we can easily move back when cancel
     /// </summary>
-    [SerializeField] private Transform target;
+    //[SerializeField] private Transform target;
 
     [SerializeField] private MMF_Player draggingFeedback;
     [SerializeField] private MMF_Player stopDragFeedback;
@@ -19,10 +19,12 @@ public class DragableObject : MonoBehaviour
     public bool dropped = false;
     [SerializeField] private bool isDragging = false;
     private Vector3 offset;
+    private Vector3 origin;
 
     private void OnMouseDown()
     {
-        offset = target.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        origin = transform.localPosition;
+        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         isDragging = true;
         dropped = false;
     }
@@ -47,7 +49,7 @@ public class DragableObject : MonoBehaviour
         newPosition.z = 0f;
 
         // Update the object's position
-        target.position = newPosition;
+        transform.position = newPosition;
     }
 
     private void OnMouseUp()
@@ -73,6 +75,6 @@ public class DragableObject : MonoBehaviour
 
     private void MoveToOrigin()
     {
-        target.DOLocalMove(Vector3.zero, 0.3f);
+        transform.DOLocalMove(origin, 0.3f);
     }
 }
