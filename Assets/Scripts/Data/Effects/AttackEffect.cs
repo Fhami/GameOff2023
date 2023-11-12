@@ -35,7 +35,7 @@ namespace DefaultNamespace
                     }
                     else
                     {
-                        Attack(enemyCharacter, attackValueWithModifiers);
+                        yield return Attack(enemyCharacter, attackValueWithModifiers);
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace DefaultNamespace
                 }
                 else
                 {
-                    Attack(targetCharacter, attackValueWithModifiers);
+                    yield return Attack(targetCharacter, attackValueWithModifiers);
                 }
             }
             else
@@ -60,10 +60,8 @@ namespace DefaultNamespace
             
             // Clear character's strength stack after the attack
             characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
-            
-            yield break;
         }
-
+        
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
             // TODO: You can use rich text here to change the ATK value color in the card like in
@@ -88,16 +86,7 @@ namespace DefaultNamespace
             }
         }
 
-        private int GetAttackValueWithModifiers(RuntimeCard card, RuntimeCharacter player)
-        {
-            // Card attack value formula: card base attack value + player attack with modifiers + player strength + card attack value modifiers
-            int playerAttackWithModifiers = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
-            int playerStrength = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
-            int cardAttackWithModifiers = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
-            return value + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
-        }
-
-        private void Attack(RuntimeCharacter target, int incomingAttack)
+        private IEnumerator Attack(RuntimeCharacter target, int incomingAttack)
         {
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
@@ -114,7 +103,38 @@ namespace DefaultNamespace
 
             // Apply the attack value by reducing target's size
             size.Value = Mathf.Clamp(size.Value - attack, 0, maxSize.GetValueWithModifiers(target));
+
+            // If the target's size dropped to 0 they'll take 1 damage to their health
+            if (size.Value <= 0)
+            {
+                Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
+                Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
+                health.Value = Mathf.Clamp(health.Value - 1, 0, maxHealth.GetValueWithModifiers(target));
+                
+                // If the target's health dropped to 0 they will DIE, otherwise they change back to their starting size
+                if (health.Value == 0)
+                {
+                    yield return Kill(target);
+                    // TODO: Kill the target (it can be player or enemy)
+                }
+                else
+                {
+                    // TODO: Change back to starting size
+                }
+            }
+            else // If the target size is still bigger than 0
+            {
+                // If the target has not been staggered yet and the new size matches the character's stagger size
+                Property<bool> hasBeenStaggeredOnce = target.properties.Get<bool>(PropertyKey.HAS_BEEN_STAGGERED_ONCE);
+                if (!hasBeenStaggeredOnce.Value && size.Value == target.characterData.staggerSize)
+                {
+                    
+                }
+                // TODO: skills
+                // TODO: stagger
+            }
             
+            // TODO: form change effects
             FormData formAfterAttack = target.GetCurrentForm();
 
             if (formBeforeAttack != formAfterAttack)
@@ -122,6 +142,34 @@ namespace DefaultNamespace
                 target.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
                 target.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
             }
+        }
+
+        private int GetAttackValueWithModifiers(RuntimeCard card, RuntimeCharacter player)
+        {
+            // Card attack value formula: card base attack value + player attack with modifiers + player strength + card attack value modifiers
+            int playerAttackWithModifiers = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
+            int playerStrength = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
+            int cardAttackWithModifiers = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
+            return value + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
+        }
+        
+        private IEnumerator Kill(RuntimeCharacter character)
+        {
+            // TODO: Kill VFX (+ apply possible on_death effects?)
+            yield break;
+        }
+        
+        private IEnumerator Stagger(
+            RuntimeCharacter staggeredCharacter,
+            RuntimeCharacter playerCharacter,
+            RuntimeCharacter targetCharacter,
+            List<RuntimeCharacter> enemyCharacters)
+        {
+            foreach (EffectData staggerEffect in staggeredCharacter.characterData.staggerEffects)
+            {
+            }
+            
+            yield break;
         }
     }
 }

@@ -107,7 +107,20 @@ namespace DefaultNamespace
             switch (effectTarget)
             {
                 case EffectTarget.NONE: throw new NotSupportedException();
-                case EffectTarget.PLAYER: throw new NotSupportedException("Use CARD_PLAYER instead! (I don't think we need this?)");
+                case EffectTarget.PLAYER:
+                {
+                    switch (operation)
+                    {
+                        case Operation.INCREASE:
+                            return $"Increase player size by {cardSizeWithModifiers.ToString()}.";
+                        case Operation.DECREASE:
+                            return $"Decrease player size by {cardSizeWithModifiers.ToString()}.";
+                        case Operation.SET:
+                            return $"Set player size to {cardSizeWithModifiers.ToString()}.";
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
                 case EffectTarget.CARD_PLAYER:
                 {
                     switch (operation)
