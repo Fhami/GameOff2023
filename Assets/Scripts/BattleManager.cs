@@ -39,8 +39,9 @@ namespace DefaultNamespace
             // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
             player.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
 
-            // Reset action points to the base action point value of their current form // TODO: Can add a modifier here if we want
-            player.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
+            // Set character's hand size to match the form hand size
+            // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
+            player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
             
             // TODO: Execute PLAYER_TURN_START skills/effects
             
@@ -57,6 +58,11 @@ namespace DefaultNamespace
             {
                 // TODO: Don't allow playing cards
                 throw new NotImplementedException();
+            }
+            else
+            {
+                // TODO: Draw cards
+                int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
             }
             
             yield break;
@@ -149,10 +155,6 @@ namespace DefaultNamespace
 
             // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
             enemy.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
-
-            // Reset action points to the base action point value of their current form // TODO: Can add a modifier here if we want
-            // NOTE: I think enemies don't need AP since they use attack patterns
-            enemy.properties.Get<int>(PropertyKey.ACTION_POINTS).Value = form.actionPoints;
           
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;

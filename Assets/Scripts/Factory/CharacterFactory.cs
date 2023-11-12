@@ -20,7 +20,6 @@
             // Create character's properties.
             runtimeCharacter.properties.Add(PropertyKey.HEALTH, new Property<int>(characterData.health));
             runtimeCharacter.properties.Add(PropertyKey.MAX_HEALTH, new Property<int>(characterData.health));
-            runtimeCharacter.properties.Add(PropertyKey.ACTION_POINTS, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.SIZE, new Property<int>(characterData.startSize));
             runtimeCharacter.properties.Add(PropertyKey.MAX_SIZE, new Property<int>(characterData.maxSize));
             runtimeCharacter.properties.Add(PropertyKey.HAND_SIZE, new Property<int>(characterData.handSize));

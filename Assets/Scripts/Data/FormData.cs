@@ -11,7 +11,7 @@ namespace DefaultNamespace
         [InfoBox("sizeMin (inclusive) and sizeMax (inclusive) defines the size range when this form is active.")]
         public int sizeMin;
         public int sizeMax;
-        public int actionPoints;
+        public int handSize;
         [Expandable] public List<SkillData> skills;
         [InfoBox("The cards the enemy character uses in this form.")]
         [Expandable] public List<CardData> attackPattern;
