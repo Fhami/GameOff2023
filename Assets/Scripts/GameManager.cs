@@ -16,13 +16,13 @@ namespace DefaultNamespace
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            
+            Init();
             Debug.Log("Hello from GameManager!");
         }
 
         private void Start()
         {
-            Init();
+            
         }
 
         private void Init()

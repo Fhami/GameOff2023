@@ -24,13 +24,44 @@ namespace DefaultNamespace
     {
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
+        public Character player;
+        public List<Character> enemies;
+
+        public static BattleManager current;
+
+        private void Awake()
+        {
+            current = this;
+        }
+
+        public List<Character> GetValidTargets(RuntimeCard _runtimeCard)
+        {
+            var _results = new List<Character>();
+            var _targetTags = _runtimeCard.cardData.cardDragTarget;
+            foreach (var _tag in Enum.GetValues(_targetTags.GetType()))
+            {
+                if (_tag.ToString() == "NONE") continue;
+                
+                var _targets = GameObject.FindGameObjectsWithTag(_tag.ToString());
+                
+                foreach (var _target in _targets)
+                {
+                    if (_target.TryGetComponent<Character>(out var _character))
+                    {
+                        _results.Add(_character);
+                    }
+                }
+            }
+
+            return _results;
+        }
         
         private IEnumerator Start()
         {
             // TODO: Initialize battle scene and start the battle!
             yield break;
         }
-
+        
         // TODO: This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player)
         {
@@ -46,6 +77,8 @@ namespace DefaultNamespace
             // TODO: Execute PLAYER_TURN_START skills/effects
             
             // TODO: Draw cards based on player action point value?
+
+            yield return cardController.Draw(player.properties.Get<int>(PropertyKey.HAND_SIZE).Value);
             
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;

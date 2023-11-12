@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class CardController : MonoBehaviour
     public Hand Hand;
     public Shrine Shrine;
 
+    public Character Character;
+    
     [SerializeField] private float drawInterval = 0.1f;
     
 
@@ -70,15 +73,51 @@ public class CardController : MonoBehaviour
             
             _card.transform.position = Deck.transform.position;
             
-            Hand.Cards.Add(_card);
-            
             yield return drawDelay;
             
             //Set parent to hand transform
             //Draw animation will auto play by Layout group when SetParent
             _card.transform.SetParent(Hand.Container);
-            _card.transform.SetAsFirstSibling();
+            _card.transform.SetAsFirstSibling(); //Put newly draw card to left side
+            _card.SetValidTarget(BattleManager.current.GetValidTargets(_card.runtimeCard));
         }
         
+        foreach (var _card in Hand.Cards)
+        {
+            _card.OnDrag.AddListener(_arg0 =>
+            {
+                //TODO: Highlight valid target
+                
+            });
+            
+            _card.OnDropped.AddListener(_target =>
+            {
+                if (_card.ValidateTarget(_target))
+                {
+                    Debug.Log($"target = true");
+                    // StartCoroutine(BattleManager.current.PlayCard(_card.runtimeCard, Character.runtimeCharacter,
+                    //     _target.runtimeCharacter, BattleManager.current.enemies.Select(_e => _e.runtimeCharacter).ToList()));
+                }
+                else
+                {
+                    Debug.Log($"target = false");
+                }
+            });
+        }
+        
+    }
+
+    public IEnumerator ClearHand()
+    {
+        foreach (var _card in Hand.GetCards(-1))
+        {
+            if (_card)
+            {
+                Shrine.AddCard(_card);
+                _card.ClearCallBack();
+
+                yield return drawDelay;
+            }
+        }
     }
 }
