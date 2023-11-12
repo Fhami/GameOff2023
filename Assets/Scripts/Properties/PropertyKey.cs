@@ -10,7 +10,7 @@
         HAND_SIZE,
         ATTACK,
         SHIELD,
-        POWER_UP,
+        STRENGTH,
         EVADE,
         STUN,
         CARDS_DISCARDED_ON_CURRENT_TURN_COUNT,

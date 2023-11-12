@@ -44,17 +44,45 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
 
-            // Apply the effect to each target.
+            // Apply the change size effect to each target
             foreach (RuntimeCharacter target in targets)
             {
                 // Get the target's form before we change it's size
                 FormData previousForm = target.GetCurrentForm();
             
-                // Change target's size
-                Property<int> targetSize = target.properties.Get<int>(PropertyKey.SIZE);
-                int sizeWithModifiers = GetCardSizeWithModifiers(card);
-                targetSize.Value += sizeWithModifiers;
+                // Change target size
+                Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+                int cardSizeWithModifiers = GetCardSizeWithModifiers(card);
+                size.Value += cardSizeWithModifiers;
             
+                int maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE).GetValueWithModifiers(target);
+
+                // If after size change the size is smaller or equal to 0
+                if (size.Value <= 0)
+                {
+                    // Target takes 1 damage
+                    Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
+                    health.Value -= 1;
+
+                    // If target health dropped to <= 0 two things can happen
+                    if (health.Value <= 0)
+                    {
+                        // TODO: DEATH/DUST! (both player and enemy can die here)
+                    }
+                    else
+                    {
+                        // Target still has 
+                    }
+                }
+                else if (size.Value >= maxSize)
+                {
+                    // If 
+                    if (target == playerCharacter)
+                    {
+                        
+                    }
+                }
+                
                 // Get the target's form after we changed it's size
                 FormData nextForm = target.GetCurrentForm();
 

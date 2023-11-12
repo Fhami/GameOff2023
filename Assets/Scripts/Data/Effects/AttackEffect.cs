@@ -59,8 +59,8 @@ namespace DefaultNamespace
                 throw new NotImplementedException("For now attack effect only supports TARGET and ALL_ENEMIES.");
             }
             
-            // Clear the power-up stack after the attack
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.POWER_UP).Value = 0;
+            // Clear the strength stack after the attack
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
             
             yield break;
         }
@@ -91,9 +91,9 @@ namespace DefaultNamespace
 
         private int GetDamageWithModifiers(RuntimeCard card, RuntimeCharacter player)
         {
-            // Card damage formula: damage + player attack + player power-up + card attack
+            // Card damage formula: damage + player attack + player strength + card attack
             int playerAttack = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
-            int playerPowerUp = player.properties.Get<int>(PropertyKey.POWER_UP).GetValueWithModifiers(player);
+            int playerPowerUp = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
             int cardAttack = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
             return damage + playerAttack + playerPowerUp + cardAttack;
         }

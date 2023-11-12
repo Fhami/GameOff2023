@@ -25,7 +25,7 @@
             runtimeCharacter.properties.Add(PropertyKey.HAND_SIZE, new Property<int>(characterData.handSize));
             runtimeCharacter.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
-            runtimeCharacter.properties.Add(PropertyKey.POWER_UP, new Property<int>(0));
+            runtimeCharacter.properties.Add(PropertyKey.STRENGTH, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.EVADE, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.STUN, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT, new Property<int>(0));
