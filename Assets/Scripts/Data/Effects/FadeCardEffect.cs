@@ -22,7 +22,7 @@ namespace DefaultNamespace
              * If you Exhaust a card that was in your deck, it will be returned to your deck at the end of combat.
              */
             
-            card.cardState = CardState.FADED;
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.FADED;
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value++;
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value++;

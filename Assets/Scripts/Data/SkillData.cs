@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -6,7 +7,8 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Skill", fileName = "New Skill")]
     public class SkillData : ScriptableObject
     {
-        public int size;
-        public List<ConditionData> conditions;
+        [Expandable] public List<ConditionData> rechargeConditions;
+        [Expandable] public List<ConditionData> triggerConditions;
+        [Expandable] public CardData card;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DefaultNamespace
 {
@@ -12,6 +13,8 @@ namespace DefaultNamespace
         /// </summary>
         public CharacterData characterData;
 
+        public List<RuntimeSkill> skills;
+        
         /// <summary>
         /// Get character's current form based on their character power.
         /// </summary>

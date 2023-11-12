@@ -39,6 +39,17 @@
             runtimeCharacter.properties.Add(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.HAS_BEEN_STAGGERED_ONCE, new Property<bool>(false));
 
+            // Create runtime versions of character's skills
+            runtimeCharacter.skills = new();
+            foreach (FormData formData in characterData.forms)
+            {
+                foreach (SkillData skillData in formData.skills)
+                {
+                    RuntimeSkill runtimeSkill = SkillFactory.Create(skillData.name);
+                    runtimeCharacter.skills.Add(runtimeSkill);
+                }
+            }
+            
             return runtimeCharacter;
         }
     }

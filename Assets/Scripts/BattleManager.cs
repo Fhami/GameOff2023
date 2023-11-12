@@ -31,6 +31,17 @@ namespace DefaultNamespace
             yield break;
         }
 
+        public IEnumerator BattleStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // Set each skill to ready state.
+            foreach (RuntimeSkill skill in player.skills)
+            {
+                skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value = SkillState.READY;
+            }
+            
+            yield break;
+        }
+
         // TODO: This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player)
         {
@@ -110,7 +121,7 @@ namespace DefaultNamespace
         /// <param name="enemies">The list of all enemies in the current battle.</param>
         public IEnumerator PlayCard(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
         {
-            card.cardState = CardState.PLAYING;
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.PLAYING;
             
             // TODO: Execute passive abilities that trigger on CardEvent.CARD_PLAYED (I guess we do this here before executing this card's effects?)
 
@@ -120,14 +131,15 @@ namespace DefaultNamespace
                 yield return effectData.Execute(card, player, player, target, enemies);
 
                 // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
-                if (card.cardState is CardState.FADED or CardState.DESTROYED)
+                if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value is CardState.FADED or CardState.DESTROYED)
                 {
                     break;
                 }
             }
 
             // If the card is not FADED or DESTROYED then we can move it to discard pile
-            if (card.cardState != CardState.FADED && card.cardState != CardState.DESTROYED)
+            if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.FADED &&
+                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED)
             {
                 yield return DiscardCard(card, player);
             }
@@ -137,7 +149,7 @@ namespace DefaultNamespace
         {
             // TODO: Discard the card (visual + data)
             
-            card.cardState = CardState.DISCARD_PILE;
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DISCARD_PILE;
             
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;

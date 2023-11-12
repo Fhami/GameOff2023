@@ -16,7 +16,7 @@ namespace DefaultNamespace
         {
             // TODO: Destroy the card (visuals + effect)
 
-            card.cardState = CardState.DESTROYED;
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DESTROYED;
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value++;
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value++;
