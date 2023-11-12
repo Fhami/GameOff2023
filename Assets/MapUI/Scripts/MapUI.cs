@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Radishmouse;
 using System;
 using DG.Tweening;
+using AYellowpaper.SerializedCollections;
 
 public class MapUI : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class MapUI : MonoBehaviour
         {      
             MapNodeUI nodeUI = Instantiate(_node_ui_prefab);
             nodeUI.row = rowIndex;
-            nodeUI.NodeInfo = rowSetting.possibleNode[UnityEngine.Random.Range(0, rowSetting.possibleNode.Count - 1)];
+            nodeUI.NodeInfo = RandomPossibleNode(rowSetting.possibleNodes);
             nodeUI.transform.SetParent(rowUI.transform,false);
             nodeUI.transform.localScale = new Vector3(1, 1, 1);
             nodeUI.onClick = OnClickMapNode;
@@ -78,6 +79,34 @@ public class MapUI : MonoBehaviour
             rowUI._nodes.Add(nodeUI);
         }
         return rowUI;
+    }
+
+    //Weight random node
+    NodeInfo RandomPossibleNode(SerializedDictionary<NodeInfo, int> possibleNodes)
+    {
+        int amount = possibleNodes.Count;
+        NodeInfo[] tempNodes = new NodeInfo[amount];
+        int[] sum = new int[amount];
+
+        int x = 0;
+        int i = 0;
+        foreach (var node in possibleNodes)
+        {
+            tempNodes[i] = node.Key;
+            sum[i] = x += node.Value;
+            Debug.Log(sum[i]);
+            i++;
+        }
+        int choose = UnityEngine.Random.Range(0, x);
+
+        for(int j = 0; j <sum.Length; j++)
+        {
+
+            Debug.Log(choose +": =>"+ sum[j]);
+            if (choose <= sum[j]) return tempNodes[j];
+        }
+
+        return null;
     }
 
     void ClearMap()

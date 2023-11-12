@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2026131b1b438c743a4a22d59448e839, type: 3}
+  m_Name: MapInfo01
+  m_EditorClassIdentifier: 
+  mapName: Dungeon 01
+  note: Dungeon 01 (Ver.1
+  rows:
+  - minNode: 1
+    maxNode: 1
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 2d64190def603084aaeb763479a90746, type: 2}
+        Value: 1
+  - minNode: 1
+    maxNode: 1
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
+        Value: 1
+  - minNode: 2
+    maxNode: 2
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
+        Value: 5
+      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
+        Value: 3
+      - Key: {fileID: 11400000, guid: 7455740b4829ec543814dfedafdc3775, type: 2}
+        Value: 1
+  - minNode: 4
+    maxNode: 4
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
+        Value: 3
+      - Key: {fileID: 11400000, guid: f5e2be0f3d86b5a4c8be0f9a322880d6, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: d057c2275469f6041b88a178ececd26e, type: 2}
+        Value: 2
+      - Key: {fileID: 11400000, guid: 7455740b4829ec543814dfedafdc3775, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: 6b59994d3df5c084f8e84e87492dc6d9, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
+        Value: 3
+  - minNode: 4
+    maxNode: 4
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 7455740b4829ec543814dfedafdc3775, type: 2}
+        Value: 4
+      - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
+        Value: 2
+      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
+        Value: 2
+  - minNode: 3
+    maxNode: 3
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: f5e2be0f3d86b5a4c8be0f9a322880d6, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: d057c2275469f6041b88a178ececd26e, type: 2}
+        Value: 1
+      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
+        Value: 1
+  - minNode: 1
+    maxNode: 1
+    possibleNodes:
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 019c5d0797b5f20489e0803be22332a7, type: 2}
+        Value: 1
