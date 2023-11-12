@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(menuName = "Gamejam/Effect/Change Power Effect", fileName = "New Change Power Effect")]
-    public class ChangePowerEffect : EffectData
+    [CreateAssetMenu(menuName = "Gamejam/Effect/Change Size Effect", fileName = "New Change Size Effect")]
+    public class ChangeSizeEffect : EffectData
     {
         public Operation operation;
         public EffectTarget effectTarget;
@@ -47,15 +47,15 @@ namespace DefaultNamespace
             // Apply the effect to each target.
             foreach (RuntimeCharacter target in targets)
             {
-                // Get the target's form before we change it's power
+                // Get the target's form before we change it's size
                 FormData previousForm = target.GetCurrentForm();
             
-                // Change target's power
-                Property<int> targetPower = target.properties.Get<int>(PropertyKey.POWER);
-                int powerWithModifiers = GetCardPowerWithModifiers(card);
-                targetPower.Value += powerWithModifiers;
+                // Change target's size
+                Property<int> targetSize = target.properties.Get<int>(PropertyKey.SIZE);
+                int sizeWithModifiers = GetCardSizeWithModifiers(card);
+                targetSize.Value += sizeWithModifiers;
             
-                // Get the target's form after we changed it's power
+                // Get the target's form after we changed it's size
                 FormData nextForm = target.GetCurrentForm();
 
                 // If the form changed execute skills that trigger on ON_EXIT_FORM and ON_ENTER_FORM
@@ -77,7 +77,7 @@ namespace DefaultNamespace
 
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
-            int cardPowerWithModifiers = GetCardPowerWithModifiers(card);
+            int cardSizeWithModifiers = GetCardSizeWithModifiers(card);
             
             switch (effectTarget)
             {
@@ -88,11 +88,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase own power by {cardPowerWithModifiers.ToString()}.";
+                            return $"Increase own size by {cardSizeWithModifiers.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease own power by {cardPowerWithModifiers.ToString()}.";
+                            return $"Decrease own size by {cardSizeWithModifiers.ToString()}.";
                         case Operation.SET:
-                            return $"Set own power to {cardPowerWithModifiers.ToString()}.";
+                            return $"Set own size to {cardSizeWithModifiers.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -102,11 +102,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase target power by {cardPowerWithModifiers.ToString()}.";
+                            return $"Increase target size by {cardSizeWithModifiers.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease target power by {cardPowerWithModifiers.ToString()}.";
+                            return $"Decrease target size by {cardSizeWithModifiers.ToString()}.";
                         case Operation.SET:
-                            return $"Set target power to {cardPowerWithModifiers.ToString()}.";
+                            return $"Set target size to {cardSizeWithModifiers.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -116,11 +116,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase power of all enemies by {cardPowerWithModifiers.ToString()}.";
+                            return $"Increase size of all enemies by {cardSizeWithModifiers.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease power of all enemies by {cardPowerWithModifiers.ToString()}.";
+                            return $"Decrease size of all enemies by {cardSizeWithModifiers.ToString()}.";
                         case Operation.SET:
-                            return $"Set power of all enemies to {cardPowerWithModifiers.ToString()}.";
+                            return $"Set size of all enemies to {cardSizeWithModifiers.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -130,10 +130,10 @@ namespace DefaultNamespace
             }
         }
         
-        private int GetCardPowerWithModifiers(RuntimeCard card)
+        private int GetCardSizeWithModifiers(RuntimeCard card)
         {
-            int cardPowerWithModifiers = card.properties.Get<int>(PropertyKey.POWER).GetValueWithModifiers(card);
-            return (int)value + cardPowerWithModifiers;
+            int sizeWithModifiers = card.properties.Get<int>(PropertyKey.SIZE).GetValueWithModifiers(card);
+            return (int)value + sizeWithModifiers;
         }
     }
 }

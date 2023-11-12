@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -12,10 +13,9 @@ namespace DefaultNamespace
     public class CharacterData : ScriptableObject
     {
         public int health;
-        public int startPower;
-        public int maxPower;
+        public int startSize;
+        public int maxSize;
         public int handSize;
-        public int turnCountDown;
         [Expandable] public List<FormData> forms;
     }
 }

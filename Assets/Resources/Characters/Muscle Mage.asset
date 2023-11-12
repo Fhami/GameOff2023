@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Muscle Mage
   m_EditorClassIdentifier: 
   health: 3
-  startPower: 0
-  maxPower: 0
+  startSize: 5
+  maxSize: 10
   handSize: 5
-  turnCountDown: 0
   forms:
   - {fileID: 11400000, guid: 5875dcd2b397567408a27b4fdd8f1bfd, type: 2}
   - {fileID: 11400000, guid: 313def8d18755ad47ab6593d91ec846e, type: 2}

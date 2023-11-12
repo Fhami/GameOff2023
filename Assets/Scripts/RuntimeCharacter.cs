@@ -17,11 +17,11 @@ namespace DefaultNamespace
         /// </summary>
         public FormData GetCurrentForm()
         {
-            int size = properties.Get<int>(PropertyKey.POWER).Value;
+            int size = properties.Get<int>(PropertyKey.SIZE).Value;
 
             foreach (FormData formData in characterData.forms)
             {
-                if (size >= formData.powerMin && size <= formData.powerMax)
+                if (size >= formData.sizeMin && size <= formData.sizeMax)
                 {
                     return formData;
                 }
