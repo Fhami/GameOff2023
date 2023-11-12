@@ -23,6 +23,7 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     [SerializeField] Color _enableDimColor;
     [SerializeField] Color _disableDimColor;
+    [SerializeField] Color _disableEnemyColor;//464646
 
     public Action<MapNodeUI> onClick;
     public bool isLock = false;
@@ -59,7 +60,7 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         SetLock(true);
         _ground_img.color = _disableDimColor;
-        _icon_img.color = _disableDimColor;
+        _icon_img.color = _disableEnemyColor;
         //_animator.SetTrigger("disable");
     }
 

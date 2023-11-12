@@ -23,6 +23,7 @@ public class MapUI : MonoBehaviour
     Tween _player_tween;
 
     [SerializeField] List<MapRowUI> _mapRows = new List<MapRowUI>();
+    [SerializeField] List<MapLineUI> _mapLines = new List<MapLineUI>();
 
     public List<MapRowUI> MapRows { get => _mapRows; set => _mapRows = value; }
 
@@ -39,16 +40,11 @@ public class MapUI : MonoBehaviour
 
     IEnumerator ieGenerateMap(MapInfo mapInfo,Action onComplete = null)
     {
-
         //Clear Data
-        foreach (var row in _mapRows)
-        {
-            Destroy(row.gameObject);
-        }
-        _mapRows = new List<MapRowUI>();
+        ClearMap();
         ///////////////////////////////
-
-        for(int i =0;i< mapInfo.rows.Count; i++)
+      
+        for (int i =0;i< mapInfo.rows.Count; i++)
         {
             var r = GenerateRow(mapInfo.rows[i], i);
             _mapRows.Add(r);
@@ -84,6 +80,20 @@ public class MapUI : MonoBehaviour
         return rowUI;
     }
 
+    void ClearMap()
+    {
+        //Clear Data
+        foreach (var row in _mapRows)
+        {
+            Destroy(row.gameObject);
+        }
+        foreach (var line in _mapLines)
+        {
+            Destroy(line.gameObject);
+        }
+        _mapRows.Clear();
+        _mapLines.Clear();
+    }
 
     void GenerateLine()
     {
@@ -230,19 +240,20 @@ public class MapUI : MonoBehaviour
 
     MapLineUI CreateLine()
     {
-        var lineUI = Instantiate(_map_line_ui);
-        lineUI.transform.SetParent(_content_parent.transform, false);
-        lineUI.transform.localScale = new(1, 1, 1);
-        lineUI._rect.anchoredPosition = new Vector2(0, 0);
-        lineUI.transform.SetAsFirstSibling();
-        return lineUI;
+        var line = Instantiate(_map_line_ui);
+        line.transform.SetParent(_content_parent.transform, false);
+        line.transform.localScale = new(1, 1, 1);
+        line._rect.anchoredPosition = new Vector2(0, 0);
+        line.transform.SetAsFirstSibling();
+        _mapLines.Add(line);
+        return line;
     }
 
     MapLineUI CreateLine(Vector2 start, Vector2 end)
     {
-        var lineUI = CreateLine();
-        lineUI.SetLine(start, end);
-        return lineUI;
+        var line = CreateLine();
+        line.SetLine(start, end);
+        return line;
     }
 
     void Show()
@@ -262,7 +273,6 @@ public class MapUI : MonoBehaviour
         if (isShow) Hide();
         else Show();
     }
-
 
     public void Btn_GenerateMap()
     {

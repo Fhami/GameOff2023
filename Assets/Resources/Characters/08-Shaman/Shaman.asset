@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
+  m_Name: Shaman
+  m_EditorClassIdentifier: 
+  health: 30
+  startPower: 0
+  maxPower: 0
+  handSize: 5
+  turnCountDown: 0
+  forms:
+  - {fileID: 11400000, guid: e3391944cb253c14390b11c3282ed554, type: 2}
+  - {fileID: 11400000, guid: f33518cce83f4a143b85b20c11fe3210, type: 2}

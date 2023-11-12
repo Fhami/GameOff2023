@@ -246,6 +246,7 @@ MonoBehaviour:
   _unlockParticle: {fileID: 0}
   _enableDimColor: {r: 1, g: 1, b: 1, a: 1}
   _disableDimColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 0.9137255}
+  _disableEnemyColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 0.95686275}
   isLock: 0
   row: 0
 --- !u!1 &5651358023211377725

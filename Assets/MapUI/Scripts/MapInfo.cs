@@ -5,7 +5,8 @@ using System;
 [CreateAssetMenu(fileName = "MapInfo", menuName = "ScriptableObjects/MapInfo", order = 1)]
 public class MapInfo : ScriptableObject
 {
-    public int rowAmount = 3;
+    public string mapName;
+    public string note;
     public List<RowSetting> rows;
     
 }
