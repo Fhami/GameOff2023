@@ -82,28 +82,13 @@ namespace DefaultNamespace
         }
 
         // TODO: This should be called when player turn ends before we start the enemy turn
-        public IEnumerator PlayerTurnEnd(RuntimeCharacter player)
+        public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            FormData form = player.GetCurrentForm();
-            
-            // TODO: Execute PLAYER_TURN_END skills/effects
             // TODO: Discard all remaining cards in your hand to the discard pile
-
-            // // If player's size exceed max size
-            // Property<int> size = player.properties.Get<int>(PropertyKey.SIZE);
-            // Property<int> maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE);
-            //
-            // if (size.Value >= maxSize.Value)
-            // {
-            //     throw new NotImplementedException();
-            // }
-            // if (size.Value <= 0)
-            // {
-            //     // TODO: Handle player death when they turn into dust
-            //     throw new NotImplementedException();
-            // }
             
-            // Clear stun (it's not stackable right?)
+            yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
+            
+            // Clear buff stacks
             player.properties.Get<int>(PropertyKey.STUN).Value = 0;
             
             // Clear properties that are only tracked per turn
