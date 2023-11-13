@@ -13,8 +13,8 @@ namespace DefaultNamespace
         CARD_DESTROYED,
         CARD_FADED,
         CARD_PLAYED,
-        PLAYER_TURN_START,
-        PLAYER_TURN_END,
+        ON_PLAYER_TURN_START,
+        ON_PLAYER_TURN_END,
         ON_SIZE_CHANGED,
         ON_HEALTH_CHANGED,
         ON_FORM_CHANGED,
@@ -47,7 +47,7 @@ namespace DefaultNamespace
         }
 
         // TODO: This should be called when player turn starts before player can play cards
-        public IEnumerator PlayerTurnStart(RuntimeCharacter player)
+        public IEnumerator PlayerTurnStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             FormData form = player.GetCurrentForm();
 
@@ -57,8 +57,6 @@ namespace DefaultNamespace
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
             player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
-            
-            // TODO: Execute PLAYER_TURN_START skills/effects
             
             // TODO: Draw cards based on player action point value?
             
@@ -79,8 +77,8 @@ namespace DefaultNamespace
                 // TODO: Draw cards
                 int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
             }
-            
-            yield break;
+
+            yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
         }
 
         // TODO: This should be called when player turn ends before we start the enemy turn
