@@ -129,11 +129,11 @@ namespace DefaultNamespace
             if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.FADED &&
                 card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED)
             {
-                yield return DiscardCard(card, player);
+                yield return DiscardCard(card, player, enemies);
             }
         }
         
-        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player)
+        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: Discard the card (visual + data)
             
@@ -142,9 +142,7 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
-            // TODO: Execute passive abilities that trigger on CardEvent.CARD_DISCARDED
-            
-            throw new System.NotImplementedException();
+            yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, player, player, enemies);
         }
         
         /// <summary>
