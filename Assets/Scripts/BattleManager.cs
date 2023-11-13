@@ -159,8 +159,6 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn it is now.</param>
         public IEnumerator EnemyTurnStart(RuntimeCharacter enemy)
         {
-            FormData form = enemy.GetCurrentForm();
-
             // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
             enemy.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
           
@@ -178,18 +176,6 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn just ended.</param>
         public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
         {
-            // Property<int> size = enemy.properties.Get<int>(PropertyKey.SIZE);
-            // Property<int> maxSize = enemy.properties.Get<int>(PropertyKey.MAX_SIZE);
-            
-            // if (size.Value >= maxSize.Value)
-            // {
-            //     throw new NotImplementedException();
-            // }
-            // if (size.Value <= 0)
-            // {
-            //     throw new NotImplementedException();
-            // }
-            
             // Clear stun (it's not stackable right?)
             enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
             
@@ -249,10 +235,25 @@ namespace DefaultNamespace
 
         #region Shared events that can be triggered from inside effects
 
+        public static IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
+            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+
+            // TODO: VFX, animation etc
+            yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
+        }
+        
+        public static IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+            yield return OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
+        }
+        
         public static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            yield return OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
             // TODO: VFX, animation etc.
+            yield return OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
             // TODO: Remove the character from battle (if it's enemy)
         }
 
