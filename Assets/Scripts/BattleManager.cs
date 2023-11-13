@@ -8,17 +8,18 @@ namespace DefaultNamespace
     public enum GameEvent
     {
         NONE,
-        CARD_DRAWN,
-        CARD_DISCARDED,
-        CARD_DESTROYED,
-        CARD_FADED,
-        CARD_PLAYED,
+        ON_CARD_DRAWN,
+        ON_CARD_DISCARDED,
+        ON_CARD_DESTROYED,
+        ON_CARD_FADED,
+        ON_CARD_PLAYED,
         ON_PLAYER_TURN_START,
         ON_PLAYER_TURN_END,
         ON_SIZE_CHANGED,
         ON_HEALTH_CHANGED,
         ON_FORM_CHANGED,
         ON_DEATH,
+        ON_BATTLE_START
     }
     
     /// <summary>
