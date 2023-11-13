@@ -149,13 +149,28 @@ namespace DefaultNamespace
 
             if (previousForm != currentForm)
             {
-                yield return BattleManager.ChangeForm(previousForm, currentForm, target, player, enemies);
+                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
             }
             
             if (previousSize != size.Value)
             {
-                yield return BattleManager.ChangeSize(previousSize, size.Value, target, player, enemies);
+                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
             }
+        }
+        
+        private static IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
+            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+
+            // TODO: VFX, animation etc
+            yield return BattleManager.OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
+        }
+        
+        private static IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+            yield return BattleManager.OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
         }
         
         private int GetCardSizeChangeValueWithModifiers(RuntimeCard card)

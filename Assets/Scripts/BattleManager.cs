@@ -233,43 +233,11 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value = 0;
         }
 
-        #region Shared events that can be triggered from inside effects
-
-        public static IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
-            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
-
-            // TODO: VFX, animation etc
-            yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
-        }
-        
-        public static IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            // TODO: VFX, animation etc
-            yield return OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
-        }
-        
-        public static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            // TODO: VFX, animation etc.
-            yield return OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
-            // TODO: Remove the character from battle (if it's enemy)
-        }
-
-        #endregion Shared events that can be triggered from inside effects
-        
-        #region Triggering game events
-
         public static IEnumerator OnGameEvent(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
             yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
         }
-
-        #endregion Triggering game events
-
-        #region Active skill triggering and recharging
 
         public static IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
@@ -373,8 +341,6 @@ namespace DefaultNamespace
             // There's no recharge conditions assigned, therefore the skill can't recharge. :(
             return false;
         }
-
-        #endregion Active skill triggering and recharging
     }
 }
 
