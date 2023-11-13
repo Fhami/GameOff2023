@@ -70,13 +70,17 @@ namespace DefaultNamespace
             // If player is stunned don't allow them to play any cards
             if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                // TODO: Don't allow playing cards
+                // TODO: Don't allow playing cards / do we need STUN feedback for player?
                 throw new NotImplementedException();
             }
             else
             {
-                // TODO: Draw cards
                 int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
+
+                for (int i = 0; i < handSize; i++)
+                {
+                    yield return DrawCard(player, enemies);
+                }
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
@@ -143,6 +147,12 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
             yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, player, player, enemies);
+        }
+        
+        public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: Draw the card (visual + data)
+            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, player, player, enemies);
         }
         
         /// <summary>
