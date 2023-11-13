@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ab0e7ff67144fc9d6dfdfd47ef6ed4, type: 3}
-  m_Name: On GameEvent CARD_DISCARDED
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: Self Destruct
   m_EditorClassIdentifier: 
-  gameEvent: 2
+  cardType: 0
+  cardDragTarget: 0
+  effects:
+  - {fileID: 11400000, guid: c914a6d0ed2f906409cbeab78f6d6e68, type: 2}
+  - {fileID: 11400000, guid: 8238855f50416e8469b615c8b2b3d656, type: 2}

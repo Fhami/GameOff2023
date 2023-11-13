@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
-  m_Name: Scaling Charm
+  m_Script: {fileID: 11500000, guid: dccf416c38e94dc6ab02f9f5de91ffe9, type: 3}
+  m_Name: Player size is greater than or equal to 16
   m_EditorClassIdentifier: 
-  size: 5
+  propertySource: 2
+  propertyComparer:
+    propertyKey: 3
+    comparison: 4
+    value: 16

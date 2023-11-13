@@ -15,36 +15,33 @@ namespace DefaultNamespace
         public override IEnumerator Execute(
             RuntimeCard card,
             RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter playerCharacter,
-            RuntimeCharacter targetCharacter,
-            List<RuntimeCharacter> enemyCharacters)
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            // TODO: VFX
-
-            // Get affected targets based on the effect target
             List<RuntimeCharacter> targets = new();
 
             switch (effectTarget)
             {
                 case EffectTarget.NONE:
-                    throw new NotSupportedException();
+                    break;
                 case EffectTarget.PLAYER:
-                    targets.Add(playerCharacter);
+                    targets.Add(player);
                     break;
                 case EffectTarget.CARD_PLAYER:
                     targets.Add(characterPlayingTheCard);
                     break;
                 case EffectTarget.TARGET:
-                    targets.Add(targetCharacter);
+                    targets.Add(cardTarget);
                     break;
                 case EffectTarget.ALL_ENEMIES:
-                    targets.AddRange(enemyCharacters);
+                    targets.AddRange(enemies);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            // Apply the change size effect to each target
+            // Process the size change to each target
             foreach (RuntimeCharacter target in targets)
             {
                 // Get the target's form before we change it's size
@@ -52,9 +49,14 @@ namespace DefaultNamespace
             
                 // Change target size
                 Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+
+                int previousSize = size.Value;
+                
                 int cardSizeWithModifiers = GetCardSizeWithModifiers(card);
                 size.Value += cardSizeWithModifiers;
-            
+
+                int nextSize = size.Value;
+                
                 int maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE).GetValueWithModifiers(target);
 
                 // If after size change the size is smaller or equal to 0
@@ -77,7 +79,7 @@ namespace DefaultNamespace
                 else if (size.Value >= maxSize)
                 {
                     // If 
-                    if (target == playerCharacter)
+                    if (target == player)
                     {
                         
                     }
