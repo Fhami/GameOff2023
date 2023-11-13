@@ -44,7 +44,7 @@ namespace DefaultNamespace
                 skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value = SkillState.READY;
             }
             
-            yield break;
+            yield return OnGameEvent(GameEvent.ON_BATTLE_START, player, player, enemies);
         }
 
         // TODO: This should be called when player turn starts before player can play cards
