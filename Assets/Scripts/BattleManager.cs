@@ -111,7 +111,7 @@ namespace DefaultNamespace
         {
             card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.PLAYING;
             
-            // TODO: Execute passive abilities that trigger on CardEvent.CARD_PLAYED (I guess we do this here before executing this card's effects?)
+            yield return OnGameEvent(GameEvent.ON_CARD_PLAYED, player, player, enemies); // NOTE: Not sure if this should happen here or below after executing the card effects?
 
             // Execute card effects one by one
             foreach (EffectData effectData in card.cardData.effects)
@@ -124,7 +124,7 @@ namespace DefaultNamespace
                     break;
                 }
             }
-
+            
             // If the card is not FADED or DESTROYED then we can move it to discard pile
             if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.FADED &&
                 card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED)
