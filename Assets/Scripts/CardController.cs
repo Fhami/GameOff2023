@@ -79,7 +79,7 @@ public class CardController : MonoBehaviour
             //Draw animation will auto play by Layout group when SetParent
             _card.transform.SetParent(Hand.Container);
             _card.transform.SetAsFirstSibling(); //Put newly draw card to left side
-            _card.SetValidTarget(BattleManager.current.GetValidTargets(_card.runtimeCard));
+            _card.SetValidTarget(GetValidTargets(_card.runtimeCard));
         }
         
         foreach (var _card in Hand.Cards)
@@ -107,6 +107,28 @@ public class CardController : MonoBehaviour
         
     }
 
+    public List<Character> GetValidTargets(RuntimeCard _runtimeCard)
+    {
+        var _results = new List<Character>();
+        var _targetTags = _runtimeCard.cardData.cardDragTarget;
+        foreach (var _tag in Enum.GetValues(_targetTags.GetType()))
+        {
+            if (_tag.ToString() == "NONE") continue;
+                
+            var _targets = GameObject.FindGameObjectsWithTag(_tag.ToString());
+                
+            foreach (var _target in _targets)
+            {
+                if (_target.TryGetComponent<Character>(out var _character))
+                {
+                    _results.Add(_character);
+                }
+            }
+        }
+
+        return _results;
+    }
+    
     public IEnumerator ClearHand()
     {
         foreach (var _card in Hand.GetCards(-1))

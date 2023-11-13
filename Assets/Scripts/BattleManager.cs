@@ -24,36 +24,14 @@ namespace DefaultNamespace
     {
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
-        public Character player;
         public List<Character> enemies;
 
+        //Static instance for easy access
         public static BattleManager current;
 
         private void Awake()
         {
             current = this;
-        }
-
-        public List<Character> GetValidTargets(RuntimeCard _runtimeCard)
-        {
-            var _results = new List<Character>();
-            var _targetTags = _runtimeCard.cardData.cardDragTarget;
-            foreach (var _tag in Enum.GetValues(_targetTags.GetType()))
-            {
-                if (_tag.ToString() == "NONE") continue;
-                
-                var _targets = GameObject.FindGameObjectsWithTag(_tag.ToString());
-                
-                foreach (var _target in _targets)
-                {
-                    if (_target.TryGetComponent<Character>(out var _character))
-                    {
-                        _results.Add(_character);
-                    }
-                }
-            }
-
-            return _results;
         }
         
         private IEnumerator Start()
