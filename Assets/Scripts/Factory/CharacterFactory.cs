@@ -37,7 +37,6 @@
             runtimeCharacter.properties.Add(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN, new Property<bool>(false));
             runtimeCharacter.properties.Add(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX, new Property<int>(0));
-            runtimeCharacter.properties.Add(PropertyKey.HAS_BEEN_STAGGERED_ONCE, new Property<bool>(false));
 
             // Create runtime versions of character's skills
             runtimeCharacter.skills = new();

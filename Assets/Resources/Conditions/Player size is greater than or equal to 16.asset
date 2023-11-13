@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ab0e7ff67144fc9d6dfdfd47ef6ed4, type: 3}
-  m_Name: On GameEvent CARD_DRAWN
+  m_Script: {fileID: 11500000, guid: dccf416c38e94dc6ab02f9f5de91ffe9, type: 3}
+  m_Name: Player size is greater than or equal to 16
   m_EditorClassIdentifier: 
-  gameEvent: 1
+  propertySource: 2
+  propertyComparer:
+    propertyKey: 3
+    comparison: 4
+    value: 16

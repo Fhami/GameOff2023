@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
-  m_Name: Wisdom
+  m_Name: Emergency Shield
   m_EditorClassIdentifier: 
-  size: 1
-  conditions: []
+  triggerGameEvent: 9
+  triggerConditions:
+  - {fileID: 11400000, guid: 2c91abd54dedde4419fe22e76ff7a108, type: 2}
+  rechargeGameEvent: 10
+  rechargeConditions: []
+  card: {fileID: 11400000, guid: 92b6681bb58d5a4418cbb3b0c5200273, type: 2}

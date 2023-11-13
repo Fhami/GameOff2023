@@ -14,9 +14,9 @@ namespace DefaultNamespace
         public override IEnumerator Execute(
             RuntimeCard card,
             RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter playerCharacter,
-            RuntimeCharacter targetCharacter,
-            List<RuntimeCharacter> enemyCharacters)
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
             // TODO: What if player stuns themselves on their own turn? Then we need to disable the ability to play cards.
             switch (effectTarget)
@@ -30,12 +30,12 @@ namespace DefaultNamespace
                 }
                 case EffectTarget.TARGET:
                 {
-                    ApplyStun(targetCharacter);
+                    ApplyStun(cardTarget);
                     break;
                 }
                 case EffectTarget.ALL_ENEMIES:
                 {
-                    foreach (RuntimeCharacter enemyCharacter in enemyCharacters)
+                    foreach (RuntimeCharacter enemyCharacter in enemies)
                     {
                         ApplyStun(enemyCharacter);
                     }

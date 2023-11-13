@@ -4,7 +4,6 @@ namespace DefaultNamespace
     {
         NONE,
         SELF,
-        PLAYER,
-        TARGET
+        PLAYER
     }
 }

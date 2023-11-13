@@ -14,7 +14,11 @@ namespace DefaultNamespace
         CARD_FADED,
         CARD_PLAYED,
         PLAYER_TURN_START,
-        PLAYER_TURN_END
+        PLAYER_TURN_END,
+        ON_SIZE_CHANGED,
+        ON_HEALTH_CHANGED,
+        ON_FORM_CHANGED,
+        ON_DEATH,
     }
     
     /// <summary>
@@ -252,6 +256,134 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value = 0;
         }
+
+        #region Shared events that can be triggered from inside effects
+
+        public static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            yield return OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
+            // TODO: VFX, animation etc.
+            // TODO: Remove the character from battle (if it's enemy)
+        }
+
+        #endregion Shared events that can be triggered from inside effects
+        
+        #region Triggering game events
+
+        public static IEnumerator OnGameEvent(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
+            yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
+        }
+
+        #endregion Triggering game events
+
+        #region Active skill triggering and recharging
+
+        public static IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // Loop through character's active skills and see if any of them trigger.
+            foreach (RuntimeSkill skill in character.skills)
+            {
+                if (TriggerActiveSkill(gameEvent, skill, character, player))
+                {
+                    // Set the active skill as USED. It won't trigger again unless it gets recharged.
+                    skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value = SkillState.USED;
+
+                    // Create an instance of a card and execute it's effects
+                    RuntimeCard card = CardFactory.Create(skill.skillData.card.name);
+                    
+                    foreach (EffectData effectData in skill.skillData.card.effects)
+                    {
+                        yield return effectData.Execute(card, character, player, player, enemies);
+                    }
+                }
+            }
+        }
+
+        public static bool TriggerActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
+        {
+            // The current game event must match the skill's trigger game event.
+            if (skill.skillData.triggerGameEvent != gameEvent)
+            {
+                return false;
+            }
+            
+            // Only skills that are READY can trigger.
+            if (skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value != SkillState.READY)
+            {
+                return false;
+            }
+
+            if (skill.skillData.triggerConditions != null)
+            {
+                foreach (ConditionData condition in skill.skillData.triggerConditions)
+                {
+                    // If any condition fails the skill won't trigger.
+                    if (!condition.Evaluate(gameEvent, character, player))
+                    {
+                        return false;
+                    }
+                }
+                
+                // All conditions passed and the skill will trigger!
+                return true;
+            }
+
+            // There's no trigger conditions assigned, therefore the skill can't trigger. :(
+            return false;
+        }
+        
+        public static IEnumerator TryRechargeActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // Loop through character's active skills and see if any of them trigger.
+            foreach (RuntimeSkill skill in character.skills)
+            {
+                if (RechargeActiveSkill(gameEvent, skill, character, player))
+                {
+                    // TODO: VFX, animation etc.
+                    // Set the active skill as USED. It won't trigger again unless it gets recharged.
+                    skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value = SkillState.READY;
+                }
+            }
+            
+            yield break;
+        }
+        
+        public static bool RechargeActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
+        {
+            // The current game event must match the skill's recharge game event.
+            if (skill.skillData.rechargeGameEvent != gameEvent)
+            {
+                return false;
+            }
+            
+            // Only skills that are USED can recharge.
+            if (skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value != SkillState.USED)
+            {
+                return false;
+            }
+
+            if (skill.skillData.rechargeConditions != null)
+            {
+                foreach (ConditionData condition in skill.skillData.triggerConditions)
+                {
+                    // If any condition fails the skill won't recharge.
+                    if (!condition.Evaluate(gameEvent, character, player))
+                    {
+                        return false;
+                    }
+                }
+                
+                // All conditions passed and the skill will recharge!
+                return true;
+            }
+
+            // There's no recharge conditions assigned, therefore the skill can't recharge. :(
+            return false;
+        }
+
+        #endregion Active skill triggering and recharging
     }
 }
 

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
-  m_Name: Self Destruct
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: Emergency Shield
   m_EditorClassIdentifier: 
-  conditions:
-  - {fileID: 11400000, guid: 62489066de431c34f9ffe1522e2a5198, type: 2}
-  card: {fileID: 11400000, guid: 927d397e1e82de74c89bf7db7b3689e2, type: 2}
+  cardType: 0
+  cardDragTarget: 0
+  effects:
+  - {fileID: 11400000, guid: b7e9e29c70f67cd479e036ede2762372, type: 2}

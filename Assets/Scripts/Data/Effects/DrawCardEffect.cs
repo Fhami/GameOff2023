@@ -13,9 +13,9 @@ namespace DefaultNamespace
         public override IEnumerator Execute(
             RuntimeCard card,
             RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter playerCharacter,
-            RuntimeCharacter targetCharacter,
-            List<RuntimeCharacter> enemyCharacters)
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
             if (characterPlayingTheCard.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value)
             {

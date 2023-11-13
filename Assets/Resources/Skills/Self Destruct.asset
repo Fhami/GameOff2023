@@ -10,6 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
-  m_Name: Clench
+  m_Name: Self Destruct
   m_EditorClassIdentifier: 
-  size: 9
+  triggerGameEvent: 8
+  triggerConditions:
+  - {fileID: 11400000, guid: 62489066de431c34f9ffe1522e2a5198, type: 2}
+  rechargeGameEvent: 0
+  rechargeConditions: []
+  card: {fileID: 11400000, guid: 927d397e1e82de74c89bf7db7b3689e2, type: 2}
