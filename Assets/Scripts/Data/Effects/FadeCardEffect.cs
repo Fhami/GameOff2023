@@ -27,9 +27,7 @@ namespace DefaultNamespace
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value++;
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value++;
 
-            // TODO: Execute passive/active skills that trigger on CardEvent.CARD_FADED
-            
-            yield break;
+            yield return BattleManager.OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
         }
 
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
