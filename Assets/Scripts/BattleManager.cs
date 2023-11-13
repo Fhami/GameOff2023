@@ -73,14 +73,12 @@ namespace DefaultNamespace
                 // TODO: Don't allow playing cards / do we need STUN feedback for player?
                 throw new NotImplementedException();
             }
-            else
+          
+            // Draw cards based on the hand size
+            int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
+            for (int i = 0; i < handSize; i++)
             {
-                int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
-
-                for (int i = 0; i < handSize; i++)
-                {
-                    yield return DrawCard(player, enemies);
-                }
+                yield return DrawCard(player, enemies);
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
