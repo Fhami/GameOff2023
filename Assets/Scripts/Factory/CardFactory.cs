@@ -33,16 +33,21 @@ namespace DefaultNamespace
         /// <summary>
         /// Instantiate card prefab and update card visual from cardData
         /// </summary>
-        public static Card CreateCardObject(RuntimeCard card)
+        public static Card CreateCardObject(RuntimeCard runtimeCard)
         {
             //Load and cache card prefab
             if (!cardPrefab)
                 cardPrefab = Resources.Load<Card>(CardPrefabPath);
 
             var newCard = Object.Instantiate(cardPrefab);
-            newCard.InitCard(card);
+            newCard.InitCard(runtimeCard);
 
             return newCard;
+        }
+
+        public static Card CreateCardObject(string name)
+        {
+            return CreateCardObject(Create(name));
         }
     }
 }

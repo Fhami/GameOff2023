@@ -22,5 +22,7 @@
         public CardData cardData;
 
         public CardState cardState;
+
+        public Card Card;
     }
 }

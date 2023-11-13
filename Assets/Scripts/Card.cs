@@ -29,11 +29,12 @@ namespace DefaultNamespace
         /// <summary>
         /// Init card data, need to call UpdateCard afterward to update effects text
         /// </summary>
-        /// <param name="_card"></param>
-        public void InitCard(RuntimeCard _card)
+        /// <param name="_runtimeCard"></param>
+        public void InitCard(RuntimeCard _runtimeCard)
         {
-            runtimeCard = _card;
-            nameTxt.SetText(_card.cardData.name);
+            runtimeCard = _runtimeCard;
+            runtimeCard.Card = this;
+            nameTxt.SetText(_runtimeCard.cardData.name);
         }
 
         /// <summary>

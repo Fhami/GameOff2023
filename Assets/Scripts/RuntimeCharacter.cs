@@ -12,6 +12,8 @@ namespace DefaultNamespace
         /// </summary>
         public CharacterData characterData;
 
+        public Character Character;
+        
         /// <summary>
         /// Get character's current form based on their character power.
         /// </summary>
