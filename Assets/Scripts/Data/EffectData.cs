@@ -28,7 +28,7 @@ namespace DefaultNamespace
         /// <param name="card">The card.</param>
         /// <param name="playerCharacter">The player character (human)</param>
         /// <returns></returns>
-        public abstract string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter);
+        public abstract string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter);
         
         /// <summary>
         /// Get the effect text for the card front.
@@ -36,6 +36,11 @@ namespace DefaultNamespace
         /// <returns></returns>
         public abstract string GetDescriptionText();
         
+        /// <summary>
+        /// This is where we write description
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         protected abstract string GetDescriptionText(string value);
         
     }

@@ -59,7 +59,7 @@ namespace DefaultNamespace
             characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
         }
         
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
             // TODO: You can use rich text here to change the ATK value color in the card like in
             // TODO: slay the spire if the ATK is modified (you can just compare calculatedDamage with the base card damage)

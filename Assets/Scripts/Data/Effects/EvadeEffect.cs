@@ -20,7 +20,7 @@ namespace DefaultNamespace
             yield break;
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
             return GetDescriptionText(value.ToString());
         }
