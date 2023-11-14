@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Deal 20 damage to player.
   m_EditorClassIdentifier: 
   effectTarget: 1
-  value: 20
+  damageValueSource: 1
+  damageValue: 20
+  customDamageValue: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}

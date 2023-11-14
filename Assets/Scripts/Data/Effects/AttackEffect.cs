@@ -1,15 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
+    public enum ValueSource
+    {
+        NONE,
+        CARD,
+        CUSTOM
+    }
+    
     [CreateAssetMenu(menuName = "Gamejam/Effect/Attack Effect", fileName = "New Attack Effect")]
     public class AttackEffect : EffectData
     {
+        [Header("The target(s) the damage get applied to")]
         public EffectTarget effectTarget;
-        public int value;
+        
+        [Header("The source of the X value in 'deal X damage'")]
+        public ValueSource damageValueSource;
+        
+        [ShowIf("damageValueSource", ValueSource.CARD)]
+        public int damageValue;
+        
+        [ShowIf("damageValueSource", ValueSource.CUSTOM)]
+        public DamageValueSource customDamageValue;
+        
+        [Header("The source of the X value in 'deal 3 damage X times'")]
+        public ValueSource timesValueSource;
+        
+        [ShowIf("timesValueSource", ValueSource.CARD)]
+        public int timesValue;
+
+        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
+        public TimesValueSource customTimesValue;
         
         public override IEnumerator Execute(
             RuntimeCard card,
@@ -18,10 +44,8 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            int attackValueWithModifiers = GetCardAttackValueWithModifiers(card, characterPlayingTheCard);
-
             List<RuntimeCharacter> targets = new();
-
+            
             switch (effectTarget)
             {
                 case EffectTarget.NONE:
@@ -42,16 +66,24 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
 
-            // Process the attack to every target
-            foreach (RuntimeCharacter target in targets)
+            int attackValueWithModifiers = GetCardAttackValueWithModifiers(card, characterPlayingTheCard);
+            int times = GetTimesValue();
+            for (int i = 0; i < times; i++)
             {
-                if (target.properties.Get<int>(PropertyKey.EVADE).Value > 0)
+                // Process the attack to every target
+                foreach (RuntimeCharacter target in targets)
                 {
-                    yield return Evade(target);
-                }
-                else
-                {
-                    yield return Attack(target, attackValueWithModifiers, player, enemies);
+                    if (target.properties.Get<int>(PropertyKey.EVADE).Value > 0)
+                    {
+                        // NOTE: Based on the current logic each damage in multi-damage (e.g 3x5 dmg) effect will reduce one evade. So 3x5 dmg would reduce 3 evade.
+                        // NOTE: If we want 1 evade to evade the whole attack, we need to remove the target with evade from the list of targets or something..
+                        yield return Evade(target);
+                    }
+                    // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
+                    else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
+                    {
+                        yield return Attack(target, attackValueWithModifiers, player, enemies);
+                    }
                 }
             }
             
@@ -127,6 +159,7 @@ namespace DefaultNamespace
         private static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc.
+            character.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.DEAD;
             yield return BattleManager.OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
             // TODO: Remove the character from battle (if it's enemy)
         }
@@ -137,7 +170,29 @@ namespace DefaultNamespace
             int playerAttackWithModifiers = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
             int playerStrength = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
             int cardAttackWithModifiers = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
-            return value + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
+            return GetDamageValue() + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
+        }
+
+        private int GetDamageValue()
+        {
+            return damageValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => damageValue,
+                ValueSource.CUSTOM => throw new NotImplementedException("TODO"), // TODO: This will be customDamageValue.GetValue();
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+        
+        private int GetTimesValue()
+        {
+            return timesValueSource switch
+            {
+                ValueSource.NONE => 1,
+                ValueSource.CARD => timesValue,
+                ValueSource.CUSTOM => throw new NotImplementedException("TODO"), // TODO: This will be customTimesValue.GetValue();
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

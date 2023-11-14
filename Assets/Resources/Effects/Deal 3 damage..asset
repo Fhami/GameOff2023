@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Deal 3 damage.
   m_EditorClassIdentifier: 
   effectTarget: 3
-  value: 3
+  damageValueSource: 1
+  damageValue: 3
+  customDamageValue: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}

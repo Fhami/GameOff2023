@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Deal 1 damage to all enemies.
   m_EditorClassIdentifier: 
   effectTarget: 4
-  value: 1
+  damageValueSource: 1
+  damageValue: 1
+  customDamageValue: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}

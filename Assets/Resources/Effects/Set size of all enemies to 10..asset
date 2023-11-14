@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   operation: 2
   effectTarget: 4
-  value: 1
+  value: 10

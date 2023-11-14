@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a87e7941f4443c5b3344390d736e681, type: 3}
-  m_Name: Deal 2 damage to all enemies.
+  m_Name: Deal damage equal to your size number of times you've discarded cards this
+    turn.
   m_EditorClassIdentifier: 
-  effectTarget: 4
-  damageValueSource: 1
-  damageValue: 2
-  customDamageValue: {fileID: 0}
-  timesValueSource: 0
+  effectTarget: 3
+  damageValueSource: 2
+  damageValue: 0
+  customDamageValue: {fileID: 11400000, guid: 4abda466ae12d8f408355f8e432950c0, type: 2}
+  timesValueSource: 2
   timesValue: 0
-  customTimesValue: {fileID: 0}
+  customTimesValue: {fileID: 11400000, guid: 3a7075a85f433674a8e8cc539cce7d7e, type: 2}

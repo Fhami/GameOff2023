@@ -18,6 +18,7 @@
             };
 
             // Create character's properties.
+            runtimeCharacter.properties.Add(PropertyKey.CHARACTER_STATE, new Property<CharacterState>(CharacterState.ALIVE));
             runtimeCharacter.properties.Add(PropertyKey.HEALTH, new Property<int>(characterData.health));
             runtimeCharacter.properties.Add(PropertyKey.MAX_HEALTH, new Property<int>(characterData.health));
             runtimeCharacter.properties.Add(PropertyKey.SIZE, new Property<int>(characterData.startSize));
