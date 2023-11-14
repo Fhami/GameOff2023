@@ -14,7 +14,7 @@ namespace DefaultNamespace
         public CharacterData characterData;
         
         public Character Character;
-        public List<RuntimeSkill> skills;
+        public List<RuntimeSkill> skills = new List<RuntimeSkill>();
         
         /// <summary>
         /// Get character's current form based on their character power.

@@ -27,31 +27,6 @@ public class CardController : MonoBehaviour
     {
         drawDelay = new WaitForSeconds(drawInterval);
     }
-
-    private void Start()
-    {
-        if (isDebug)
-        {
-            Database.Initialize();
-            
-            //Add cards to player deck
-            foreach (var _cardData in Database.cardData)
-            {
-                GameManager.Instance.PlayerDeck.AddCard(CardFactory.Create(_cardData.Key));
-            }
-
-            foreach (var _card in GameManager.Instance.PlayerDeck.Cards)
-            {
-                //Create card object
-                var _newCardObj = CardFactory.CreateCardObject(_card);
-                
-                Deck.AddCard(_newCardObj);
-            }
-            
-            StartCoroutine(Draw(4));
-        }
-    }
-
     
     public IEnumerator Draw(int _number)
     {
@@ -70,6 +45,7 @@ public class CardController : MonoBehaviour
         foreach (var _card in Deck.GetCards(_number))
         {
             Hand.AddCard(_card);
+            _card.UpdateCard(Character.runtimeCharacter);
             
             _card.transform.position = Deck.transform.position;
             
@@ -77,8 +53,7 @@ public class CardController : MonoBehaviour
             
             //Set parent to hand transform
             //Draw animation will auto play by Layout group when SetParent
-            _card.transform.SetParent(Hand.Container);
-            _card.transform.SetAsFirstSibling(); //Put newly draw card to left side
+            
             _card.SetValidTarget(GetValidTargets(_card.runtimeCard));
         }
         
@@ -95,8 +70,11 @@ public class CardController : MonoBehaviour
                 if (_card.ValidateTarget(_target))
                 {
                     Debug.Log($"target = true");
-                    // StartCoroutine(BattleManager.current.PlayCard(_card.runtimeCard, Character.runtimeCharacter,
-                    //     _target.runtimeCharacter, BattleManager.current.enemies.Select(_e => _e.runtimeCharacter).ToList()));
+                    
+                    _card.transform.SetParent(null);
+                    
+                    StartCoroutine(BattleManager.current.PlayCard(_card.runtimeCard, Character.runtimeCharacter,
+                        _target.runtimeCharacter, BattleManager.current.enemies.Select(_e => _e.runtimeCharacter).ToList()));
                 }
                 else
                 {
@@ -105,6 +83,15 @@ public class CardController : MonoBehaviour
             });
         }
         
+    }
+
+    public IEnumerator Discard(Card _card)
+    {
+        Hand.RemoveCard(_card);
+        Shrine.AddCard(_card);
+        _card.ClearCallBack();
+
+        yield return drawDelay;
     }
 
     public List<Character> GetValidTargets(RuntimeCard _runtimeCard)

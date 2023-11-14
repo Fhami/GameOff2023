@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace
+﻿using UnityEngine;
+
+namespace DefaultNamespace
 {
     /// <summary>
     /// For creating character instances from character data.
@@ -44,12 +46,36 @@
             {
                 foreach (SkillData skillData in formData.skills)
                 {
+                    if (!skillData) continue;
+                    
                     RuntimeSkill runtimeSkill = SkillFactory.Create(skillData.name);
                     runtimeCharacter.skills.Add(runtimeSkill);
                 }
             }
             
             return runtimeCharacter;
+        }
+
+        private const string CharacterPrefabPath = "CharacterPrefab";
+        private static Character characterPrefab;
+        
+        public static Character CreateCharacterObject(RuntimeCharacter runtimeCharacter)
+        {
+            //Load and cache Character prefab 
+            if (!characterPrefab)
+            {
+                characterPrefab = Resources.Load<Character>(CharacterPrefabPath);
+            }
+
+            var newChar = Object.Instantiate(characterPrefab);
+            newChar.Init(runtimeCharacter);
+
+            return newChar;
+        }
+
+        public static Character CreateCharacterObject(string name)
+        {
+            return CreateCharacterObject(Create(name));
         }
     }
 }

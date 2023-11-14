@@ -66,14 +66,9 @@ public class DragableObject : MonoBehaviour
         }
         
         isDragging = false;
-        
-        if (!dropped)
-        {
-            MoveToOrigin();
-        }
     }
 
-    private void MoveToOrigin()
+    public void MoveToOrigin()
     {
         transform.DOLocalMove(origin, 0.3f);
     }

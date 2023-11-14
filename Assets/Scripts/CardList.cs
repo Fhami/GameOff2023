@@ -76,6 +76,14 @@ public abstract class CardList : MonoBehaviour
     public virtual void AddCard(Card _card)
     {
         Cards.Add(_card);
+
+        if (Container)
+        {
+            //Set position to pile
+            _card.transform.SetParent(Container);
+            _card.transform.localPosition = Vector3.zero;
+            _card.transform.SetAsFirstSibling(); //Put newly draw card to left side
+        }
         
         UpdateCount(Cards.Count);
         OnValueChanged?.Invoke();

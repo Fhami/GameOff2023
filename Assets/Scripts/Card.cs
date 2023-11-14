@@ -71,22 +71,27 @@ namespace DefaultNamespace
         {
             OnDrag?.Invoke(this);
         }
-
-        //TODO: call OnDropped with correct target
+        
         private void OnMouseUp()
         {
-            //OnDropped?.Invoke();
+            if (ValidateTarget(currentTarget))
+            {
+                OnDropped?.Invoke(currentTarget);
+            }
+            else
+            {
+                dragableObject.MoveToOrigin();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            //TODO: Get current target
-            //other.gameObject.GetComponent<>()
+            currentTarget = other.gameObject.GetComponent<Character>();
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            //TODO: clear current target
+            currentTarget = null;
         }
     }
 }

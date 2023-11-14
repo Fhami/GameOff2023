@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -29,20 +30,79 @@ namespace DefaultNamespace
     {
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
-        public List<Character> enemies;
+        public Character player;
+        public RuntimeCharacter runtimePlayer;
+        public List<Character> enemies = new List<Character>();
+        public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
 
-        //Static instance for easy access
+        //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
 
+        private bool isDebug = true;
         private void Awake()
         {
             current = this;
         }
+
+        public void EndTurn()
+        {
+            StartCoroutine(IEEndTurn());
+        }
+        
+        public IEnumerator IEEndTurn()
+        {
+            yield return PlayerTurnEnd(runtimePlayer, runtimeEnemies);
+            
+            //Play Enemies turn
+            foreach (var _enemy in runtimeEnemies)
+            {
+                yield return EnemyTurnStart(_enemy);
+                
+                yield return PlayEnemyTurn(_enemy, runtimePlayer, runtimeEnemies);
+
+                yield return EnemyTurnEnd(_enemy);
+            }
+
+            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
         
         private IEnumerator Start()
         {
+            if (isDebug)
+            {
+                Database.Initialize();
+                //Add cards to player deck
+                foreach (var _cardData in Database.cardData)
+                {
+                    GameManager.Instance.PlayerDeck.AddCard(CardFactory.Create(_cardData.Key));
+                }
+                
+                foreach (var _card in GameManager.Instance.PlayerDeck.Cards)
+                {
+                    //Create card object
+                    var _newCardObj = CardFactory.CreateCardObject(_card);
+                
+                    cardController.Deck.AddCard(_newCardObj);
+                }
+                
+                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
+                player.gameObject.tag = "PLAYER";
+
+                cardController.Character = player;
+
+                runtimePlayer = player.runtimeCharacter;
+
+                var _enemy = CharacterFactory.CreateCharacterObject("Fishy");
+                _enemy.gameObject.tag = "ENEMY";
+                
+                enemies.Add(_enemy);
+                runtimeEnemies.Add(_enemy.runtimeCharacter);
+            }
+            
             // TODO: Initialize battle scene and start the battle!
-            yield break;
+            yield return BattleStart(runtimePlayer, runtimeEnemies);
+
+            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
         }
         
         public IEnumerator BattleStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
@@ -69,8 +129,6 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
             
             // TODO: Draw cards based on player action point value?
-
-            yield return cardController.Draw(player.properties.Get<int>(PropertyKey.HAND_SIZE).Value);
             
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
@@ -99,6 +157,8 @@ namespace DefaultNamespace
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: Discard all remaining cards in your hand to the discard pile
+
+            yield return cardController.ClearHand();
             
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
@@ -155,12 +215,16 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
+            yield return cardController.Discard(card.Card);
+
             yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, player, player, enemies);
         }
         
         public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: Draw the card (visual + data)
+            yield return cardController.Draw(1);
+            
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, player, player, enemies);
         }
         
