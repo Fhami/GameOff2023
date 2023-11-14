@@ -30,10 +30,14 @@ namespace DefaultNamespace
     {
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
+        
         public Character player;
         public RuntimeCharacter runtimePlayer;
         public List<Character> enemies = new List<Character>();
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
+
+        [Header("Mockup")] 
+        public MockupDeckData mockupDeckData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
@@ -72,12 +76,12 @@ namespace DefaultNamespace
             {
                 Database.Initialize();
                 //Add cards to player deck
-                foreach (var _cardData in Database.cardData)
+                foreach (var _cardData in mockupDeckData.Cards)
                 {
-                    GameManager.Instance.PlayerDeck.AddCard(CardFactory.Create(_cardData.Key));
+                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
                 }
                 
-                foreach (var _card in GameManager.Instance.PlayerDeck.Cards)
+                foreach (var _card in GameManager.Instance.PlayerRuntimeDeck.Cards)
                 {
                     //Create card object
                     var _newCardObj = CardFactory.CreateCardObject(_card);

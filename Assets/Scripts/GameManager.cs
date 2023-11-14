@@ -10,7 +10,7 @@ namespace DefaultNamespace
     {
         public static GameManager Instance;
 
-        public DeckData PlayerDeck;
+        public RuntimeDeckData PlayerRuntimeDeck;
         
         private void Awake()
         {
@@ -27,7 +27,7 @@ namespace DefaultNamespace
 
         private void Init()
         {
-            PlayerDeck = new DeckData();
+            PlayerRuntimeDeck = new RuntimeDeckData();
         }
     }
 }

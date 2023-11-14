@@ -1326,6 +1326,7 @@ MonoBehaviour:
   cardController: {fileID: 689958391}
   player: {fileID: 0}
   enemies: []
+  mockupDeckData: {fileID: 11400000, guid: dba53657e4e30a14e91c32be4ff51749, type: 2}
 --- !u!114 &689958394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2086,6 +2087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1730153372}
   - component: {fileID: 1730153373}
+  - component: {fileID: 1730153374}
   m_Layer: 0
   m_Name: Shrine
   m_TagString: Untagged
@@ -2125,6 +2127,20 @@ MonoBehaviour:
   Cards: []
   Container: {fileID: 1245676582}
   count: {fileID: 816771190}
+--- !u!114 &1730153374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730153371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114c81f7927cbe84b94c3ec3f90cc405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: []
+  CardDatas: []
 --- !u!1 &1756948710
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ namespace DefaultNamespace
     /// <summary>
     /// Contain list of cards in deck
     /// </summary>
-    public class DeckData
+    public class RuntimeDeckData
     {
         public int MaxSize = 10;
         public List<RuntimeCard> Cards = new List<RuntimeCard>();

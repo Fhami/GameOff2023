@@ -33,15 +33,15 @@ public class CardController : MonoBehaviour
         //Don't have enough card in deck, try reset shrine
         if (Deck.Cards.Count < _number)
         {
-            foreach (var _card in Shrine.GetCards(-1))
+            foreach (var _recycledCard in Shrine.GetCards(-1))
             {
-                Deck.AddCard(_card);
+                Deck.AddCard(_recycledCard);
                 
                 yield return drawDelay;
             }
             Deck.Shuffle();
         }
-
+        
         foreach (var _card in Deck.GetCards(_number))
         {
             Hand.AddCard(_card);
