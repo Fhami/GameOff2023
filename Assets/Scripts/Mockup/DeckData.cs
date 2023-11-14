@@ -4,7 +4,7 @@ using DefaultNamespace;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Mockup/Deck", fileName = "MockupDeckData")]
-public class MockupDeckData : ScriptableObject
+public class DeckData : ScriptableObject
 {
     public List<CardData> Cards = new List<CardData>();
 }

@@ -37,7 +37,7 @@ namespace DefaultNamespace
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
 
         [Header("Mockup")] 
-        public MockupDeckData mockupDeckData;
+        public DeckData deckData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
@@ -76,7 +76,7 @@ namespace DefaultNamespace
             {
                 Database.Initialize();
                 //Add cards to player deck
-                foreach (var _cardData in mockupDeckData.Cards)
+                foreach (var _cardData in deckData.Cards)
                 {
                     GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
                 }
