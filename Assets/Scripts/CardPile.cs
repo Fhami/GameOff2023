@@ -5,7 +5,7 @@ using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 
-public abstract class CardList : MonoBehaviour
+public class CardPile : MonoBehaviour
 {
     public List<Card> Cards = new List<Card>();
 

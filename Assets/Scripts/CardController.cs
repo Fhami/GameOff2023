@@ -10,9 +10,9 @@ using UnityEngine;
 /// </summary>
 public class CardController : MonoBehaviour
 {
-    public Deck Deck;
-    public Hand Hand;
-    public Shrine Shrine;
+    public CardPile Deck;
+    public CardPile Hand;
+    public CardPile Shrine;
 
     public Character Character;
     

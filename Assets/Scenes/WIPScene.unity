@@ -1290,9 +1290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d49af47d05eda54ba3b4bff6456d69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Deck: {fileID: 1759532931}
-  Hand: {fileID: 2061301389}
-  Shrine: {fileID: 1730153373}
+  Deck: {fileID: 0}
+  Hand: {fileID: 0}
+  Shrine: {fileID: 0}
   Character: {fileID: 0}
   drawInterval: 0.1
   isDebug: 1
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   cardController: {fileID: 689958391}
   player: {fileID: 0}
   enemies: []
-  mockupDeckData: {fileID: 11400000, guid: dba53657e4e30a14e91c32be4ff51749, type: 2}
+  deckData: {fileID: 0}
 --- !u!114 &689958394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2087,7 +2087,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1730153372}
   - component: {fileID: 1730153373}
-  - component: {fileID: 1730153374}
   m_Layer: 0
   m_Name: Shrine
   m_TagString: Untagged
@@ -2121,26 +2120,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730153371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49cc98a3d976c543bef6bc417f1f159, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f9de5e9b09409a4abe75780e94c2494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Cards: []
   Container: {fileID: 1245676582}
   count: {fileID: 816771190}
---- !u!114 &1730153374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730153371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 114c81f7927cbe84b94c3ec3f90cc405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardData: []
-  CardDatas: []
 --- !u!1 &1756948710
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,7 +2306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1759532930}
-  - component: {fileID: 1759532931}
+  - component: {fileID: 1759532932}
   m_Layer: 0
   m_Name: Deck
   m_TagString: Untagged
@@ -2346,7 +2331,7 @@ Transform:
   - {fileID: 484506103}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1759532931
+--- !u!114 &1759532932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2355,7 +2340,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1759532929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24447f9a4996e334fb385c2def235607, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f9de5e9b09409a4abe75780e94c2494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Cards: []
@@ -2909,7 +2894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2061301390}
-  - component: {fileID: 2061301389}
+  - component: {fileID: 2061301391}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -2917,21 +2902,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2061301389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061301388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ad0c3a5c552ed64886325b4d7860955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cards: []
-  Container: {fileID: 130271167}
-  count: {fileID: 0}
 --- !u!4 &2061301390
 Transform:
   m_ObjectHideFlags: 0
@@ -2948,6 +2918,21 @@ Transform:
   - {fileID: 130271167}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061301391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061301388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9de5e9b09409a4abe75780e94c2494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cards: []
+  Container: {fileID: 130271167}
+  count: {fileID: 0}
 --- !u!1001 &315918034696278531
 PrefabInstance:
   m_ObjectHideFlags: 0
