@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 
 [CreateAssetMenu(fileName = "MapInfo", menuName = "ScriptableObjects/MapInfo", order = 1)]
 public class MapInfo : ScriptableObject
@@ -16,8 +17,8 @@ public class MapInfo : ScriptableObject
 
 [Serializable] public class RowSetting
 {
-    public int minNode;
-    public int maxNode;
+    [MinMaxSlider(1, 5)]
+    public Vector2Int minMaxNode;
     //public List<NodeInfo> possibleNode;
     [SerializedDictionary("NodeType", "Chance")]
     public List<NodeInfo> fixedNodes;

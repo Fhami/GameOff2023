@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class EncounterData : ScriptableObject
 [System.Serializable] public class EnemyDataModifier
 {
     public CharacterData baseData;
-    public int minHpMod = 0;
-    public int maxHpMod = 0;
+    [MinMaxSlider(-100, 100)]
+    public Vector2Int minMaxHpMod;
 
 }

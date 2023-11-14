@@ -16,8 +16,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   enemies:
   - baseData: {fileID: 11400000, guid: eef1b209a5237af4381c96c437e20c04, type: 2}
-    minHpMod: -1
-    maxHpMod: 1
+    minMaxHpMod: {x: -5, y: 5}
   - baseData: {fileID: 11400000, guid: eef1b209a5237af4381c96c437e20c04, type: 2}
-    minHpMod: -1
-    maxHpMod: 1
+    minMaxHpMod: {x: -5, y: 5}
