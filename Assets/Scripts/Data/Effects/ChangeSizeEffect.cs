@@ -19,6 +19,8 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
+            int sizeChangeValueWithModifiers = GetCardSizeChangeValueWithModifiers(card);
+            
             List<RuntimeCharacter> targets = new();
 
             switch (effectTarget)
@@ -44,67 +46,13 @@ namespace DefaultNamespace
             // Process the size change to each target
             foreach (RuntimeCharacter target in targets)
             {
-                // Get the target's form before we change it's size
-                FormData previousForm = target.GetCurrentForm();
-            
-                // Change target size
-                Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
-
-                int previousSize = size.Value;
-                
-                int cardSizeWithModifiers = GetCardSizeWithModifiers(card);
-                size.Value += cardSizeWithModifiers;
-
-                int nextSize = size.Value;
-                
-                int maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE).GetValueWithModifiers(target);
-
-                // If after size change the size is smaller or equal to 0
-                if (size.Value <= 0)
-                {
-                    // Target takes 1 damage
-                    Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
-                    health.Value -= 1;
-
-                    // If target health dropped to <= 0 two things can happen
-                    if (health.Value <= 0)
-                    {
-                        // TODO: DEATH/DUST! (both player and enemy can die here)
-                    }
-                    else
-                    {
-                        // Target still has 
-                    }
-                }
-                else if (size.Value >= maxSize)
-                {
-                    // If 
-                    if (target == player)
-                    {
-                        
-                    }
-                }
-                
-                // Get the target's form after we changed it's size
-                FormData nextForm = target.GetCurrentForm();
-
-                // If the form changed execute skills that trigger on ON_EXIT_FORM and ON_ENTER_FORM
-                if (previousForm != nextForm)
-                {
-                    target.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
-                    target.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
-                    // TODO: Execute skills that trigger on ON_ENTER_FORM, ON_EXIT_FORM
-                }
-            
-                // TODO: Execute active skill that triggers when we get certain size - to do this we need to check the skills of the character
+                yield return ChangeSize(target, sizeChangeValueWithModifiers, player, enemies);
             }
-            
-            yield break;
         }
 
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
-            int cardSizeWithModifiers = GetCardSizeWithModifiers(card);
+            int cardSizeWithModifiers = GetCardSizeChangeValueWithModifiers(card);
             
             switch (effectTarget)
             {
@@ -169,11 +117,66 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
-        private int GetCardSizeWithModifiers(RuntimeCard card)
+
+        private IEnumerator ChangeSize(RuntimeCharacter target, int incomingSizeChange, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            int sizeWithModifiers = card.properties.Get<int>(PropertyKey.SIZE).GetValueWithModifiers(card);
-            return (int)value + sizeWithModifiers;
+            // Get the target's form before we change it's size
+            FormData previousForm = target.GetCurrentForm();
+            
+            Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+            Property<int> maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE);
+
+            // Keep track of the previous size
+            int previousSize = size.Value;
+
+            // Change the size based on the operation
+            switch (operation)
+            {
+                case Operation.INCREASE:
+                    size.Value = Mathf.Clamp(size.Value - incomingSizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    break;
+                case Operation.DECREASE:
+                    size.Value = Mathf.Clamp(size.Value + incomingSizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    break;
+                case Operation.SET:
+                    size.Value = Mathf.Clamp(incomingSizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            FormData currentForm = target.GetCurrentForm();
+
+            if (previousForm != currentForm)
+            {
+                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
+            }
+            
+            if (previousSize != size.Value)
+            {
+                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
+            }
+        }
+        
+        private static IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
+            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+
+            // TODO: VFX, animation etc
+            yield return BattleManager.OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
+        }
+        
+        private static IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+            yield return BattleManager.OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
+        }
+        
+        private int GetCardSizeChangeValueWithModifiers(RuntimeCard card)
+        {
+            int cardSizeChangeValueWithModifiers = card.properties.Get<int>(PropertyKey.SIZE).GetValueWithModifiers(card);
+            return (int)value + cardSizeChangeValueWithModifiers;
         }
     }
 }

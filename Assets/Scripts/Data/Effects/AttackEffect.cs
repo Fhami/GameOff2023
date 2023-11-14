@@ -120,10 +120,17 @@ namespace DefaultNamespace
             }
             else
             {
-                yield return BattleManager.Kill(target, player, enemies);
+                yield return Kill(target, player, enemies);
             }
         }
 
+        private static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc.
+            yield return BattleManager.OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
+            // TODO: Remove the character from battle (if it's enemy)
+        }
+        
         private int GetCardAttackValueWithModifiers(RuntimeCard card, RuntimeCharacter player)
         {
             // Card attack value formula: card base attack value + player attack with modifiers + player strength + card attack value modifiers
