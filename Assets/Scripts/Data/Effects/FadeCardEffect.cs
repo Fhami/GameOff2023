@@ -34,5 +34,15 @@ namespace DefaultNamespace
         {
             return "Fade.";
         }
+
+        public override string GetDescriptionText()
+        {
+            return "Fade.";
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
+            return "Fade.";
+        }
     }
 }

@@ -65,6 +65,16 @@ namespace DefaultNamespace
             // TODO: slay the spire if the ATK is modified (you can just compare calculatedDamage with the base card damage)
             int attackValueWithModifiers = GetCardAttackValueWithModifiers(card, playerCharacter);
 
+            return GetDescriptionText(attackValueWithModifiers.ToString());
+        }
+
+        public override string GetDescriptionText()
+        {
+            return GetDescriptionText(value.ToString());
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
             switch (effectTarget)
             {
                 case EffectTarget.NONE: throw new NotSupportedException();
@@ -72,11 +82,11 @@ namespace DefaultNamespace
                 case EffectTarget.CARD_PLAYER: throw new NotSupportedException();
                 case EffectTarget.TARGET:
                 {
-                    return $"Deal {attackValueWithModifiers.ToString()} damage.";
+                    return $"Deal {value} damage.";
                 }
                 case EffectTarget.ALL_ENEMIES:
                 {
-                    return $"Deal {attackValueWithModifiers.ToString()} damage to all enemies.";
+                    return $"Deal {value} damage to all enemies.";
                 }
                 default:
                     throw new ArgumentOutOfRangeException();

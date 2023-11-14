@@ -28,5 +28,15 @@ namespace DefaultNamespace
         {
             return "Destroy.";
         }
+
+        public override string GetDescriptionText()
+        {
+            return "Destroy.";
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
+            return "Destroy.";
+        }
     }
 }

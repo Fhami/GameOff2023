@@ -20,7 +20,17 @@ namespace DefaultNamespace
 
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
-            return $"You cannot draw any additional cards this turn.";
+            return GetDescriptionText("");
+        }
+
+        public override string GetDescriptionText()
+        {
+            return GetDescriptionText(""); 
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
+            return $"You cannot draw any additional cards this turn."; 
         }
     }
 }

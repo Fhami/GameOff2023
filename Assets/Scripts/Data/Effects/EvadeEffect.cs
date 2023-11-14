@@ -22,6 +22,16 @@ namespace DefaultNamespace
 
         public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
+            return GetDescriptionText(value.ToString());
+        }
+
+        public override string GetDescriptionText()
+        {
+            return GetDescriptionText(value.ToString());
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
             return $"Gain {value} evade.";
         }
     }
