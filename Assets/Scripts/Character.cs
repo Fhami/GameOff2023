@@ -6,5 +6,13 @@ namespace DefaultNamespace
     public class Character : MonoBehaviour
     {
         public RuntimeCharacter runtimeCharacter;
+
+        public void Init(RuntimeCharacter _runtimeCharacter)
+        {
+            runtimeCharacter = _runtimeCharacter;
+            runtimeCharacter.Character = this;
+            
+            //Update visual
+        }
     }
 }

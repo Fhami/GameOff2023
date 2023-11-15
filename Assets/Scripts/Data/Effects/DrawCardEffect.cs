@@ -30,9 +30,19 @@ namespace DefaultNamespace
             // TODO: Execute passive/active skills that trigger on GameEvent.CARD_DRAWN
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
-            return $"Draw {count} cards.";
+            return GetDescriptionText(count.ToString());
+        }
+
+        public override string GetDescriptionText()
+        {
+            return GetDescriptionText(count.ToString());
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
+            return $"Draw {value} cards.";
         }
     }
 }

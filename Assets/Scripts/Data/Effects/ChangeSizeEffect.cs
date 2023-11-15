@@ -50,10 +50,20 @@ namespace DefaultNamespace
             }
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
         {
             int cardSizeWithModifiers = GetCardSizeChangeValueWithModifiers(card);
-            
+
+            return GetDescriptionText(cardSizeWithModifiers.ToString());
+        }
+
+        public override string GetDescriptionText()
+        {
+            return GetDescriptionText(value.ToString());
+        }
+
+        protected override string GetDescriptionText(string value)
+        {
             switch (effectTarget)
             {
                 case EffectTarget.NONE: throw new NotSupportedException();
@@ -62,11 +72,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase player size by {cardSizeWithModifiers.ToString()}.";
+                            return $"Increase player size by {value.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease player size by {cardSizeWithModifiers.ToString()}.";
+                            return $"Decrease player size by {value.ToString()}.";
                         case Operation.SET:
-                            return $"Set player size to {cardSizeWithModifiers.ToString()}.";
+                            return $"Set player size to {value.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -76,11 +86,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase own size by {cardSizeWithModifiers.ToString()}.";
+                            return $"Increase own size by {value.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease own size by {cardSizeWithModifiers.ToString()}.";
+                            return $"Decrease own size by {value.ToString()}.";
                         case Operation.SET:
-                            return $"Set own size to {cardSizeWithModifiers.ToString()}.";
+                            return $"Set own size to {value.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -90,11 +100,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase target size by {cardSizeWithModifiers.ToString()}.";
+                            return $"Increase target size by {value.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease target size by {cardSizeWithModifiers.ToString()}.";
+                            return $"Decrease target size by {value.ToString()}.";
                         case Operation.SET:
-                            return $"Set target size to {cardSizeWithModifiers.ToString()}.";
+                            return $"Set target size to {value.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -104,11 +114,11 @@ namespace DefaultNamespace
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase size of all enemies by {cardSizeWithModifiers.ToString()}.";
+                            return $"Increase size of all enemies by {value.ToString()}.";
                         case Operation.DECREASE:
-                            return $"Decrease size of all enemies by {cardSizeWithModifiers.ToString()}.";
+                            return $"Decrease size of all enemies by {value.ToString()}.";
                         case Operation.SET:
-                            return $"Set size of all enemies to {cardSizeWithModifiers.ToString()}.";
+                            return $"Set size of all enemies to {value.ToString()}.";
                         default:
                             throw new ArgumentOutOfRangeException();
                     }

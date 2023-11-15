@@ -54,7 +54,17 @@ namespace DefaultNamespace
             target.properties.Get<int>(PropertyKey.STUN).Value += value;
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        {
+            return GetDescriptionText(value.ToString());
+        }
+
+        public override string GetDescriptionText()
+        {
+            return GetDescriptionText(value.ToString());
+        }
+
+        protected override string GetDescriptionText(string value)
         {
             switch (effectTarget)
             {

@@ -10,24 +10,24 @@ namespace DefaultNamespace
     {
         public static GameManager Instance;
 
-        public DeckData PlayerDeck;
+        public RuntimeDeckData PlayerRuntimeDeck;
         
         private void Awake()
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            
+            Init();
             Debug.Log("Hello from GameManager!");
         }
 
         private void Start()
         {
-            Init();
+            
         }
 
         private void Init()
         {
-            PlayerDeck = new DeckData();
+            PlayerRuntimeDeck = new RuntimeDeckData();
         }
     }
 }

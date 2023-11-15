@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -30,12 +31,84 @@ namespace DefaultNamespace
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
         
-        private IEnumerator Start()
+        public Character player;
+        public RuntimeCharacter runtimePlayer;
+        public List<Character> enemies = new List<Character>();
+        public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
+
+        [Header("Mockup")] 
+        public DeckData deckData;
+
+        //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
+        public static BattleManager current;
+
+        private bool isDebug = true;
+        private void Awake()
         {
-            // TODO: Initialize battle scene and start the battle!
-            yield break;
+            current = this;
         }
 
+        public void EndTurn()
+        {
+            StartCoroutine(IEEndTurn());
+        }
+        
+        public IEnumerator IEEndTurn()
+        {
+            yield return PlayerTurnEnd(runtimePlayer, runtimeEnemies);
+            
+            //Play Enemies turn
+            foreach (var _enemy in runtimeEnemies)
+            {
+                yield return EnemyTurnStart(_enemy);
+                
+                yield return PlayEnemyTurn(_enemy, runtimePlayer, runtimeEnemies);
+
+                yield return EnemyTurnEnd(_enemy);
+            }
+
+            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+        
+        private IEnumerator Start()
+        {
+            if (isDebug)
+            {
+                Database.Initialize();
+                //Add cards to player deck
+                foreach (var _cardData in deckData.Cards)
+                {
+                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
+                }
+                
+                foreach (var _card in GameManager.Instance.PlayerRuntimeDeck.Cards)
+                {
+                    //Create card object
+                    var _newCardObj = CardFactory.CreateCardObject(_card);
+                
+                    cardController.DeckPile.AddCard(_newCardObj);
+                }
+                
+                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
+                player.gameObject.tag = "PLAYER";
+
+                cardController.Character = player;
+
+                runtimePlayer = player.runtimeCharacter;
+
+                var _enemy = CharacterFactory.CreateCharacterObject("Fishy");
+                _enemy.gameObject.tag = "ENEMY";
+                
+                enemies.Add(_enemy);
+                runtimeEnemies.Add(_enemy.runtimeCharacter);
+            }
+            
+            // TODO: Initialize battle scene and start the battle!
+            yield return BattleStart(runtimePlayer, runtimeEnemies);
+
+            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+        
         public IEnumerator BattleStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Set each skill to ready state.
@@ -46,7 +119,7 @@ namespace DefaultNamespace
             
             yield return OnGameEvent(GameEvent.ON_BATTLE_START, player, player, enemies);
         }
-
+        
         // TODO: This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
@@ -88,6 +161,8 @@ namespace DefaultNamespace
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: Discard all remaining cards in your hand to the discard pile
+
+            yield return cardController.ClearHand();
             
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
@@ -123,6 +198,7 @@ namespace DefaultNamespace
                 // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
                 if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value is CardState.FADED or CardState.DESTROYED)
                 {
+                    yield return cardController.ExhaustCard(card.Card);
                     break;
                 }
             }
@@ -144,12 +220,16 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
+            yield return cardController.Discard(card.Card);
+
             yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, player, player, enemies);
         }
         
         public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: Draw the card (visual + data)
+            yield return cardController.Draw(1);
+            
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, player, player, enemies);
         }
         
@@ -254,6 +334,7 @@ namespace DefaultNamespace
                     
                     foreach (EffectData effectData in skill.skillData.card.effects)
                     {
+                        //OnGameEvent already called 
                         yield return effectData.Execute(card, character, player, player, enemies);
                     }
                 }

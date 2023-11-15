@@ -20,5 +20,9 @@
         /// The base data of the card.
         /// </summary>
         public CardData cardData;
+
+        public CardState cardState;
+
+        public Card Card;
     }
 }

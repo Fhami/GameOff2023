@@ -17,7 +17,7 @@ namespace DefaultNamespace
         {
             cardData = Resources.LoadAll<CardData>("Cards").ToDictionary(card => card.name);
             characterData = Resources.LoadAll<CharacterData>("Characters").ToDictionary(character => character.name);
-            skillData = Resources.LoadAll<SkillData>("Skills").ToDictionary(skill => skill.name);
+            skillData = Resources.LoadAll<SkillData>("").ToDictionary(skill => skill.name);
         }
     }
 }
