@@ -86,7 +86,7 @@ namespace DefaultNamespace
                     //Create card object
                     var _newCardObj = CardFactory.CreateCardObject(_card);
                 
-                    cardController.Deck.AddCard(_newCardObj);
+                    cardController.DeckPile.AddCard(_newCardObj);
                 }
                 
                 player = CharacterFactory.CreateCharacterObject("Muscle Mage");
@@ -198,6 +198,7 @@ namespace DefaultNamespace
                 // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
                 if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value is CardState.FADED or CardState.DESTROYED)
                 {
+                    yield return cardController.ExhaustCard(card.Card);
                     break;
                 }
             }
@@ -333,6 +334,7 @@ namespace DefaultNamespace
                     
                     foreach (EffectData effectData in skill.skillData.card.effects)
                     {
+                        //OnGameEvent already called 
                         yield return effectData.Execute(card, character, player, player, enemies);
                     }
                 }

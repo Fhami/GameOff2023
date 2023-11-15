@@ -28,7 +28,7 @@ public class CardPile : MonoBehaviour
     /// </summary>
     /// <param name="_number">Number of card, -1 = all</param>
     /// <returns></returns>
-    public virtual IEnumerable<Card> GetCards(int _number = -1)
+    public IEnumerable<Card> GetCards(int _number = -1)
     {
         //number is -1, get all cards
         if (_number == -1)
@@ -60,12 +60,31 @@ public class CardPile : MonoBehaviour
         }
     }
 
-    public virtual void Shuffle()
+    /// <summary>
+    /// This may seems a bit weired, but thinking of picking up card from pile,
+    /// we get card and card was removed from pile
+    /// </summary>
+    /// <param name="_card"></param>
+    /// <returns></returns>
+    public Card GetCard(Card _card)
+    {
+        if (Cards.Contains(_card))
+        {
+            RemoveCard(_card);
+            return _card;
+        }
+
+        Debug.Log($"Card {_card.name} doesn't exist in this pile!");
+        
+        return null;
+    } 
+
+    public void Shuffle()
     {
         Cards.Shuffle();
     }
     
-    public virtual void AddCards(IEnumerable<Card> _cards)
+    public void AddCards(IEnumerable<Card> _cards)
     {
         foreach (var _card in _cards)
         {
@@ -73,7 +92,7 @@ public class CardPile : MonoBehaviour
         }
     }
     
-    public virtual void AddCard(Card _card)
+    public void AddCard(Card _card)
     {
         Cards.Add(_card);
 
@@ -89,7 +108,7 @@ public class CardPile : MonoBehaviour
         OnValueChanged?.Invoke();
     }
 
-    public virtual void RemoveCards(IEnumerable<Card> _cards)
+    public void RemoveCards(IEnumerable<Card> _cards)
     {
         foreach (var _card in _cards)
         {
@@ -97,7 +116,7 @@ public class CardPile : MonoBehaviour
         }
     }
     
-    public virtual void RemoveCard(Card _card)
+    public void RemoveCard(Card _card)
     {
         Cards.Remove(_card);
         
@@ -105,7 +124,7 @@ public class CardPile : MonoBehaviour
         OnValueChanged?.Invoke();
     }
 
-    public virtual void Clear()
+    public void Clear()
     {
         Cards.Clear();
         

@@ -46,7 +46,7 @@ namespace DefaultNamespace
             StringBuilder _builder = new StringBuilder();
             foreach (var _effect in runtimeCard.cardData.effects)
             {
-                _builder.AppendLine(_effect.GetDescriptionText(runtimeCard, _character));
+                _builder.AppendLine(_effect.GetDescriptionTextWithModifier(runtimeCard, _character));
             }
             
             effectTxt.SetText(_builder.ToString());

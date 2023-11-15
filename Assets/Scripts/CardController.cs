@@ -10,9 +10,10 @@ using UnityEngine;
 /// </summary>
 public class CardController : MonoBehaviour
 {
-    public CardPile Deck;
-    public CardPile Hand;
-    public CardPile Shrine;
+    public CardPile DeckPile;
+    public CardPile HandPile;
+    public CardPile DiscardPile;
+    public CardPile ExhaustPile;
 
     public Character Character;
     
@@ -31,23 +32,23 @@ public class CardController : MonoBehaviour
     public IEnumerator Draw(int _number)
     {
         //Don't have enough card in deck, try reset shrine
-        if (Deck.Cards.Count < _number)
+        if (DeckPile.Cards.Count < _number)
         {
-            foreach (var _recycledCard in Shrine.GetCards(-1))
+            foreach (var _recycledCard in DiscardPile.GetCards(-1))
             {
-                Deck.AddCard(_recycledCard);
+                DeckPile.AddCard(_recycledCard);
                 
                 yield return drawDelay;
             }
-            Deck.Shuffle();
+            DeckPile.Shuffle();
         }
         
-        foreach (var _card in Deck.GetCards(_number))
+        foreach (var _card in DeckPile.GetCards(_number))
         {
-            Hand.AddCard(_card);
+            HandPile.AddCard(_card);
             _card.UpdateCard(Character.runtimeCharacter);
             
-            _card.transform.position = Deck.transform.position;
+            _card.transform.position = DeckPile.transform.position;
             
             yield return drawDelay;
             
@@ -57,7 +58,7 @@ public class CardController : MonoBehaviour
             _card.SetValidTarget(GetValidTargets(_card.runtimeCard));
         }
         
-        foreach (var _card in Hand.Cards)
+        foreach (var _card in HandPile.Cards)
         {
             _card.OnDrag.AddListener(_arg0 =>
             {
@@ -74,7 +75,7 @@ public class CardController : MonoBehaviour
                     _card.transform.SetParent(null);
                     
                     StartCoroutine(BattleManager.current.PlayCard(_card.runtimeCard, Character.runtimeCharacter,
-                        _target.runtimeCharacter, BattleManager.current.enemies.Select(_e => _e.runtimeCharacter).ToList()));
+                        _target.runtimeCharacter, BattleManager.current.runtimeEnemies));
                 }
                 else
                 {
@@ -87,13 +88,34 @@ public class CardController : MonoBehaviour
 
     public IEnumerator Discard(Card _card)
     {
-        Hand.RemoveCard(_card);
-        Shrine.AddCard(_card);
+        DiscardPile.AddCard(HandPile.GetCard(_card));
         _card.ClearCallBack();
 
         yield return drawDelay;
     }
 
+    public IEnumerator ExhaustCard(Card _card)
+    {
+        ExhaustPile.AddCard(HandPile.GetCard(_card));
+        _card.ClearCallBack();
+
+        yield return drawDelay;
+    }
+    
+    public IEnumerator ClearHand()
+    {
+        foreach (var _card in HandPile.GetCards(-1))
+        {
+            if (_card)
+            {
+                DiscardPile.AddCard(_card);
+                _card.ClearCallBack();
+
+                yield return drawDelay;
+            }
+        }
+    }
+    
     public List<Character> GetValidTargets(RuntimeCard _runtimeCard)
     {
         var _results = new List<Character>();
@@ -114,19 +136,5 @@ public class CardController : MonoBehaviour
         }
 
         return _results;
-    }
-    
-    public IEnumerator ClearHand()
-    {
-        foreach (var _card in Hand.GetCards(-1))
-        {
-            if (_card)
-            {
-                Shrine.AddCard(_card);
-                _card.ClearCallBack();
-
-                yield return drawDelay;
-            }
-        }
     }
 }
