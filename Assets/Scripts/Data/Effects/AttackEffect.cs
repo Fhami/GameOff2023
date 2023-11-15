@@ -13,7 +13,7 @@ namespace DefaultNamespace
         [Header("The target(s) the damage get applied to")]
         public EffectTarget effectTarget;
         
-        [Header("The source of the X value in 'deal X damage'")]
+        [Header("The source of the 'damage' value")]
         public ValueSource damageValueSource;
         
         [ShowIf("damageValueSource", ValueSource.CARD)]
@@ -22,7 +22,7 @@ namespace DefaultNamespace
         [ShowIf("damageValueSource", ValueSource.CUSTOM)]
         public DamageValueSource customDamageValue;
         
-        [Header("The source of the X value in 'deal 3 damage X times'")]
+        [Header("The source of the 'times' value")]
         public ValueSource timesValueSource;
         
         [ShowIf("timesValueSource", ValueSource.CARD)]
@@ -141,10 +141,9 @@ namespace DefaultNamespace
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
-                    sb.Append(".");
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Deal {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times.");
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times.");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(customTimesValue.GetDescription());
@@ -152,6 +151,8 @@ namespace DefaultNamespace
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            sb.Append(".");
 
             return sb.ToString();
         }
@@ -207,10 +208,9 @@ namespace DefaultNamespace
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
-                    sb.Append(".");
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Deal {GetTimesValue()} times.");
+                    sb.Append($" {GetTimesValue()} times.");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(customTimesValue.GetDescription());
@@ -218,6 +218,8 @@ namespace DefaultNamespace
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            sb.Append(".");
 
             return sb.ToString();
         }
@@ -300,7 +302,7 @@ namespace DefaultNamespace
         {
             int value = timesValueSource switch
             {
-                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.NONE => 1,
                 ValueSource.CARD => timesValue,
                 ValueSource.CUSTOM => customTimesValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
                 _ => throw new ArgumentOutOfRangeException()
@@ -334,13 +336,16 @@ namespace DefaultNamespace
             };
         }
         
+        /// <summary>
+        /// Get times value outside the battle. If card is null we don't have card upgrades calculated in the value.
+        /// </summary>
         private string GetTimesValue(RuntimeCard card = null)
         {
             if (card == null)
             {
                 return timesValueSource switch
                 {
-                    ValueSource.NONE => throw new NotSupportedException(),
+                    ValueSource.NONE => 1.ToString(),
                     ValueSource.CARD => timesValue.ToString(),
                     ValueSource.CUSTOM => "X",
                     _ => throw new ArgumentOutOfRangeException()
@@ -349,7 +354,7 @@ namespace DefaultNamespace
           
             return timesValueSource switch
             {
-                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.NONE => 1.ToString(),
                 ValueSource.CARD => (timesValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()

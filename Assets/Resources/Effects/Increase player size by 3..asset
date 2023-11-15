@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   operation: 0
   effectTarget: 1
-  value: 3
+  sizeValueSource: 1
+  sizeValue: 3
+  customSizeValue: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}

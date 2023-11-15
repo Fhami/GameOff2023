@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -8,10 +10,30 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Effect/Change Size Effect", fileName = "New Change Size Effect")]
     public class ChangeSizeEffect : EffectData
     {
+        [Header("The size change operation")]
         public Operation operation;
+        
+        [Header("The target(s) the effect gets applied to")]
         public EffectTarget effectTarget;
-        public uint value;
+        
+        [Header("The source of the 'size' value")]
+        public ValueSource sizeValueSource;
+        
+        [ShowIf("sizeValueSource", ValueSource.CARD)]
+        public int sizeValue;
+        
+        [ShowIf("sizeValueSource", ValueSource.CUSTOM)]
+        public DamageValueSource customSizeValue;
 
+        [Header("The source of the 'times' value")]
+        public ValueSource timesValueSource;
+        
+        [ShowIf("timesValueSource", ValueSource.CARD)]
+        public int timesValue;
+        
+        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
+        public DamageValueSource customTimesValue;
+        
         public override IEnumerator Execute(
             RuntimeCard card,
             RuntimeCharacter characterPlayingTheCard,
@@ -19,8 +41,6 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            int sizeChangeValueWithModifiers = GetCardSizeChangeValueWithModifiers(card);
-            
             List<RuntimeCharacter> targets = new();
 
             switch (effectTarget)
@@ -43,10 +63,15 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
 
-            // Process the size change to each target
-            foreach (RuntimeCharacter target in targets)
+            int size = GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            for (int i = 0; i < times; i++)
             {
-                yield return ChangeSize(target, sizeChangeValueWithModifiers, player, enemies);
+                // Process the effect to every target
+                foreach (RuntimeCharacter target in targets)
+                {
+                    yield return ChangeSize(target, size, player, enemies);
+                }
             }
         }
 
@@ -56,79 +81,196 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            int cardSizeWithModifiers = GetCardSizeChangeValueWithModifiers(card);
-            return GetDescriptionText(cardSizeWithModifiers.ToString());
+            StringBuilder sb = new();
+            
+            // Step 1) Build "Size -X" / "Size +X to all enemies" string
+            switch (effectTarget)
+            {
+                case EffectTarget.NONE:
+                    throw new NotSupportedException();
+                case EffectTarget.PLAYER:
+                    switch (operation)
+                    {
+                        case Operation.INCREASE:
+                            sb.Append($"+{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size to player");
+                            break;
+                        case Operation.DECREASE:
+                            sb.Append($"-{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size to player");
+                            break;
+                        case Operation.SET:
+                            sb.Append($"Set player size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                case EffectTarget.CARD_PLAYER:
+                    switch (operation)
+                    {
+                        case Operation.INCREASE:
+                            sb.Append($"+{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size");
+                            break;
+                        case Operation.DECREASE:
+                            sb.Append($"-{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size");
+                            break;
+                        case Operation.SET:
+                            sb.Append($"Set size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                case EffectTarget.TARGET:
+                    switch (operation)
+                    {
+                        case Operation.INCREASE:
+                            sb.Append($"+{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size to target");
+                            break;
+                        case Operation.DECREASE:
+                            sb.Append($"-{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size to target");
+                            break;
+                        case Operation.SET:
+                            sb.Append($"Set target size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                case EffectTarget.ALL_ENEMIES:
+                    switch (operation)
+                    {
+                        case Operation.INCREASE:
+                            sb.Append($"+{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size to all enemies");
+                            break;
+                        case Operation.DECREASE:
+                            sb.Append($"-{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} size to all enemies");
+                            break;
+                        case Operation.SET:
+                            sb.Append($"Set size of all enemies to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            // Step 2) Build " X times." / " number of times you've discarded cards this turn" string
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times.");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(customTimesValue.GetDescription());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            sb.Append(".");
+            
+            return sb.ToString();
         }
 
         public override string GetDescriptionText()
         {
-            return GetDescriptionText(value.ToString());
-        }
-
-        protected override string GetDescriptionText(string value)
-        {
+                        StringBuilder sb = new();
+            
+            // Step 1) Build "Size -X" / "Size +X to all enemies" string
             switch (effectTarget)
             {
-                case EffectTarget.NONE: throw new NotSupportedException();
+                case EffectTarget.NONE:
+                    throw new NotSupportedException();
                 case EffectTarget.PLAYER:
-                {
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase player size by {value.ToString()}.";
+                            sb.Append($"+{GetSizeValue()} size to player");
+                            break;
                         case Operation.DECREASE:
-                            return $"Decrease player size by {value.ToString()}.";
+                            sb.Append($"-{GetSizeValue()} size to player");
+                            break;
                         case Operation.SET:
-                            return $"Set player size to {value.ToString()}.";
+                            sb.Append($"Set player size to {GetSizeValue()}");
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }
+                    break;
                 case EffectTarget.CARD_PLAYER:
-                {
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase own size by {value.ToString()}.";
+                            sb.Append($"+{GetSizeValue()} size");
+                            break;
                         case Operation.DECREASE:
-                            return $"Decrease own size by {value.ToString()}.";
+                            sb.Append($"-{GetSizeValue()} size");
+                            break;
                         case Operation.SET:
-                            return $"Set own size to {value.ToString()}.";
+                            sb.Append($"Set size to {GetSizeValue()}");
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }
+                    break;
                 case EffectTarget.TARGET:
-                {
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase target size by {value.ToString()}.";
+                            sb.Append($"+{GetSizeValue()} size to target");
+                            break;
                         case Operation.DECREASE:
-                            return $"Decrease target size by {value.ToString()}.";
+                            sb.Append($"-{GetSizeValue()} size to target");
+                            break;
                         case Operation.SET:
-                            return $"Set target size to {value.ToString()}.";
+                            sb.Append($"Set target size to {GetSizeValue()}");
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }
+                    break;
                 case EffectTarget.ALL_ENEMIES:
-                {
                     switch (operation)
                     {
                         case Operation.INCREASE:
-                            return $"Increase size of all enemies by {value.ToString()}.";
+                            sb.Append($"+{GetSizeValue()} size to all enemies");
+                            break;
                         case Operation.DECREASE:
-                            return $"Decrease size of all enemies by {value.ToString()}.";
+                            sb.Append($"-{GetSizeValue()} size to all enemies");
+                            break;
                         case Operation.SET:
-                            return $"Set size of all enemies to {value.ToString()}.";
+                            sb.Append($"Set size of all enemies to {GetSizeValue()}");
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            // Step 2) Build " X times." / " number of times you've discarded cards this turn" string
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue()} times.");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(customTimesValue.GetDescription());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            sb.Append(".");
+            
+            return sb.ToString();
         }
 
         private IEnumerator ChangeSize(RuntimeCharacter target, int incomingSizeChange, RuntimeCharacter player, List<RuntimeCharacter> enemies)
@@ -186,10 +328,90 @@ namespace DefaultNamespace
             yield return BattleManager.OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
         }
         
-        private int GetCardSizeChangeValueWithModifiers(RuntimeCard card)
+        private int GetSizeValue(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            int cardSizeChangeValueWithModifiers = card.properties.Get<int>(PropertyKey.SIZE).GetValueWithModifiers(card);
-            return (int)value + cardSizeChangeValueWithModifiers;
+            int value = sizeValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => sizeValue,
+                ValueSource.CUSTOM => customSizeValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            int cardSizeWithModifiers = card.properties.Get<int>(PropertyKey.SIZE).GetValueWithModifiers(card);
+            
+            return value + cardSizeWithModifiers;
+        }
+        
+        private int GetTimesValue(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
+        {
+            int value = timesValueSource switch
+            {
+                ValueSource.NONE => 1,
+                ValueSource.CARD => timesValue,
+                ValueSource.CUSTOM => customTimesValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return value;
+        }
+        
+        /// <summary>
+        /// Get size value outside the battle. If card is null we don't have card upgrades calculated in the value.
+        /// </summary>
+        private string GetSizeValue(RuntimeCard card = null)
+        {
+            if (card == null)
+            {
+                return sizeValueSource switch
+                {
+                    ValueSource.NONE => throw new NotSupportedException(),
+                    ValueSource.CARD => sizeValue.ToString(),
+                    ValueSource.CUSTOM => "X",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+          
+            return sizeValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => (sizeValue + card.properties.Get<int>(PropertyKey.SIZE).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CUSTOM => "X",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+        
+        /// <summary>
+        /// Get times value outside the battle. If card is null we don't have card upgrades calculated in the value.
+        /// </summary>
+        private string GetTimesValue(RuntimeCard card = null)
+        {
+            if (card == null)
+            {
+                return timesValueSource switch
+                {
+                    ValueSource.NONE => 1.ToString(),
+                    ValueSource.CARD => timesValue.ToString(),
+                    ValueSource.CUSTOM => "X",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+          
+            return timesValueSource switch
+            {
+                ValueSource.NONE => 1.ToString(),
+                ValueSource.CARD => (timesValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CUSTOM => "X",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }
