@@ -35,12 +35,5 @@ namespace DefaultNamespace
         /// </summary>
         /// <returns></returns>
         public abstract string GetDescriptionText();
-        
-        // /// <summary>
-        // /// This is where we write description
-        // /// </summary>
-        // /// <param name="value"></param>
-        // /// <returns></returns>
-        // protected abstract string GetDescriptionText(string value);
     }
 }
