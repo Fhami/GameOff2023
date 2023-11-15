@@ -17,7 +17,7 @@ namespace DefaultNamespace
 
         public override string GetDescription()
         {
-            return "Deal damage equal to your size";
+            return "Deal damage equal to your size.";
         }
     }
 }

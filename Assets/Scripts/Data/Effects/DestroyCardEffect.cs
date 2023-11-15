@@ -24,17 +24,16 @@ namespace DefaultNamespace
             yield return BattleManager.OnGameEvent(GameEvent.ON_CARD_DESTROYED, characterPlayingTheCard, player, enemies);
         }
 
-        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            return "Destroy.";
+            return GetDescriptionText();
         }
 
         public override string GetDescriptionText()
-        {
-            return "Destroy.";
-        }
-
-        protected override string GetDescriptionText(string value)
         {
             return "Destroy.";
         }

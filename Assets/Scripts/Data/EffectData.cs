@@ -14,7 +14,6 @@ namespace DefaultNamespace
         /// <param name="player">The player character (human).</param>
         /// <param name="cardTarget">The target character. Can be either player or enemy.</param>
         /// <param name="enemies">List of all enemies in the current battle. Can be used for AOE etc.</param>
-        /// <returns></returns>
         public abstract IEnumerator Execute(
             RuntimeCard card, 
             RuntimeCharacter characterPlayingTheCard,
@@ -23,25 +22,25 @@ namespace DefaultNamespace
             List<RuntimeCharacter> enemies);
         
         /// <summary>
-        /// Get the effect text with modifier for the card front.
+        /// Get the effect text with modifiers for the card front. This should be used in battle.
         /// </summary>
-        /// <param name="card">The card.</param>
-        /// <param name="playerCharacter">The player character (human)</param>
-        /// <returns></returns>
-        public abstract string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter);
+        public abstract string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies);
         
         /// <summary>
-        /// Get the effect text for the card front.
+        /// Get the effect text for the card front. This should be used outside the battle.
         /// </summary>
         /// <returns></returns>
         public abstract string GetDescriptionText();
         
-        /// <summary>
-        /// This is where we write description
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected abstract string GetDescriptionText(string value);
-        
+        // /// <summary>
+        // /// This is where we write description
+        // /// </summary>
+        // /// <param name="value"></param>
+        // /// <returns></returns>
+        // protected abstract string GetDescriptionText(string value);
     }
 }

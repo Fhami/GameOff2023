@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Deal 3 damage number of times you've discarded cards this turn.
   m_EditorClassIdentifier: 
   effectTarget: 3
-  damageValueSource: 2
-  damageValue: 0
+  damageValueSource: 1
+  damageValue: 3
   customDamageValue: {fileID: 11400000, guid: 4abda466ae12d8f408355f8e432950c0, type: 2}
   timesValueSource: 2
   timesValue: 0

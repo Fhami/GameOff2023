@@ -24,6 +24,7 @@
         ENEMY_ATTACK_PATTERN_CARD_INDEX,
         CARD_STATE,
         SKILL_STATE,
-        CHARACTER_STATE
+        CHARACTER_STATE,
+        TIMES
     }
 }

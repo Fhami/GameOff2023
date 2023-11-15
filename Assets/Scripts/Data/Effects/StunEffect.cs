@@ -54,25 +54,24 @@ namespace DefaultNamespace
             target.properties.Get<int>(PropertyKey.STUN).Value += value;
         }
 
-        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            return GetDescriptionText(value.ToString());
+            return GetDescriptionText();
         }
 
         public override string GetDescriptionText()
-        {
-            return GetDescriptionText(value.ToString());
-        }
-
-        protected override string GetDescriptionText(string value)
         {
             switch (effectTarget)
             {
                 case EffectTarget.NONE: throw new NotSupportedException();
                 case EffectTarget.PLAYER: throw new NotSupportedException();
-                case EffectTarget.CARD_PLAYER: return $"Apply {value} stun to self.";
-                case EffectTarget.TARGET: return $"Apply {value} stun to target.";
-                case EffectTarget.ALL_ENEMIES: return $"Apply {value} stun to all enemies.";
+                case EffectTarget.CARD_PLAYER: return $"Apply {value.ToString()} stun to self.";
+                case EffectTarget.TARGET: return $"Apply {value.ToString()} stun to target.";
+                case EffectTarget.ALL_ENEMIES: return $"Apply {value.ToString()} stun to all enemies.";
                 default:
                     throw new ArgumentOutOfRangeException();
             }

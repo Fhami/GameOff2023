@@ -1,18 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public enum ValueSource
-    {
-        NONE,
-        CARD,
-        CUSTOM
-    }
-    
     [CreateAssetMenu(menuName = "Gamejam/Effect/Attack Effect", fileName = "New Attack Effect")]
     public class AttackEffect : EffectData
     {
@@ -66,8 +60,8 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
 
-            int attackValueWithModifiers = GetCardAttackValueWithModifiers(card, characterPlayingTheCard);
-            int times = GetTimesValue();
+            int damageValueWithModifiers = GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             for (int i = 0; i < times; i++)
             {
                 // Process the attack to every target
@@ -82,7 +76,7 @@ namespace DefaultNamespace
                     // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
                     else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
                     {
-                        yield return Attack(target, attackValueWithModifiers, player, enemies);
+                        yield return Attack(target, damageValueWithModifiers, player, enemies);
                     }
                 }
             }
@@ -91,38 +85,141 @@ namespace DefaultNamespace
             characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
         }
         
-        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            // TODO: You can use rich text here to change the ATK value color in the card like in
-            // TODO: slay the spire if the ATK is modified (you can just compare calculatedDamage with the base card damage)
-            int attackValueWithModifiers = GetCardAttackValueWithModifiers(card, playerCharacter);
+            StringBuilder sb = new();
 
-            return GetDescriptionText(attackValueWithModifiers.ToString());
+            // Step 1) Build "Deal X damage" / "Deal X damage to all enemies" / "Deal damage equal to your.." string
+            switch (effectTarget)
+            {
+                case EffectTarget.NONE:
+                    throw new NotSupportedException();
+                case EffectTarget.PLAYER:
+                    throw new NotSupportedException();
+                case EffectTarget.CARD_PLAYER:
+                    throw new NotSupportedException();
+                case EffectTarget.TARGET:
+                    switch (damageValueSource)
+                    {
+                        case ValueSource.NONE:
+                            throw new NotSupportedException();
+                        case ValueSource.CARD:
+                            sb.Append($"Deal {GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
+                            break;
+                        case ValueSource.CUSTOM:
+                            sb.Append(customDamageValue.GetDescription());
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                case EffectTarget.ALL_ENEMIES:
+                    switch (damageValueSource)
+                    {
+                        case ValueSource.NONE:
+                            throw new NotSupportedException();
+                        case ValueSource.CARD:
+                            sb.Append($"Deal {GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
+                            break;
+                        case ValueSource.CUSTOM:
+                            sb.Append(customDamageValue.GetDescription());
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            // Step 2) Build " X times." / " number of times you've discarded cards this turn" string
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    sb.Append(".");
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($"Deal {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times.");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(customTimesValue.GetDescription());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return sb.ToString();
         }
 
         public override string GetDescriptionText()
         {
-            return GetDescriptionText(value.ToString());
-        }
+            StringBuilder sb = new();
 
-        protected override string GetDescriptionText(string value)
-        {
+            // Step 1) Build "Deal X damage" / "Deal X damage to all enemies" / "Deal damage equal to your.." string
             switch (effectTarget)
             {
-                case EffectTarget.NONE: throw new NotSupportedException();
-                case EffectTarget.PLAYER: throw new NotSupportedException();
-                case EffectTarget.CARD_PLAYER: throw new NotSupportedException();
+                case EffectTarget.NONE:
+                    throw new NotSupportedException();
+                case EffectTarget.PLAYER:
+                    throw new NotSupportedException();
+                case EffectTarget.CARD_PLAYER:
+                    throw new NotSupportedException();
                 case EffectTarget.TARGET:
-                {
-                    return $"Deal {value} damage.";
-                }
+                    switch (damageValueSource)
+                    {
+                        case ValueSource.NONE:
+                            throw new NotSupportedException();
+                        case ValueSource.CARD:
+                            sb.Append($"Deal {GetDamageValue()} damage");
+                            break;
+                        case ValueSource.CUSTOM:
+                            sb.Append(customDamageValue.GetDescription());
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
                 case EffectTarget.ALL_ENEMIES:
-                {
-                    return $"Deal {value} damage to all enemies.";
-                }
+                    switch (damageValueSource)
+                    {
+                        case ValueSource.NONE:
+                            throw new NotSupportedException();
+                        case ValueSource.CARD:
+                            sb.Append($"Deal {GetDamageValue()} damage to all enemies");
+                            break;
+                        case ValueSource.CUSTOM:
+                            sb.Append(customDamageValue.GetDescription());
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            // Step 2) Build " X times." / " number of times you've discarded cards this turn" string
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    sb.Append(".");
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($"Deal {GetTimesValue()} times.");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(customTimesValue.GetDescription());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return sb.ToString();
         }
 
         private IEnumerator Evade(RuntimeCharacter target)
@@ -132,7 +229,7 @@ namespace DefaultNamespace
             yield break;
         }
         
-        private IEnumerator Attack(RuntimeCharacter target, int incomingAttack, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc.
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
@@ -143,14 +240,14 @@ namespace DefaultNamespace
             int healthBefore = health.Value;
             
             // Calculate the attack value after shield absorption (i.e. reduce shield value from attack value)
-            int attackAbsorbedByShield = Mathf.Min(incomingAttack, shield.Value);
-            int attack = incomingAttack - attackAbsorbedByShield;
+            int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
+            int damage = incomingDamage - damageAbsorbedByShield;
                     
             // Reduce the absorbed attack value from the shield
-            shield.Value = Mathf.Max(shield.Value - attackAbsorbedByShield, 0);
+            shield.Value = Mathf.Max(shield.Value - damageAbsorbedByShield, 0);
 
             // Reduce the final attack value from the target's health
-            health.Value = Mathf.Clamp(health.Value - attack, 0, maxHealth.GetValueWithModifiers(target));
+            health.Value = Mathf.Clamp(health.Value - damage, 0, maxHealth.GetValueWithModifiers(target));
 
             if (health.Value > 0)
             {
@@ -174,33 +271,87 @@ namespace DefaultNamespace
             // TODO: Remove the character from battle (if it's enemy)
         }
         
-        private int GetCardAttackValueWithModifiers(RuntimeCard card, RuntimeCharacter player)
+        private int GetDamageValue(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            // Card attack value formula: card base attack value + player attack with modifiers + player strength + card attack value modifiers
-            int playerAttackWithModifiers = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
-            int playerStrength = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
-            int cardAttackWithModifiers = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
-            return GetDamageValue() + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
-        }
-
-        private int GetDamageValue()
-        {
-            return damageValueSource switch
+            int value = damageValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => damageValue,
-                ValueSource.CUSTOM => throw new NotImplementedException("TODO"), // TODO: This will be customDamageValue.GetValue();
+                ValueSource.CUSTOM => customDamageValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            int playerAttackWithModifiers = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
+            int playerStrength = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
+            int cardAttackWithModifiers = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
+            
+            return value + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
+        }
+        
+        private int GetTimesValue(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
+        {
+            int value = timesValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => timesValue,
+                ValueSource.CUSTOM => customTimesValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return value;
+        }
+        
+        /// <summary>
+        /// Get damage value outside the battle. If card is null we don't have card upgrades calculated in the value.
+        /// </summary>
+        private string GetDamageValue(RuntimeCard card = null)
+        {
+            if (card == null)
+            {
+                return damageValueSource switch
+                {
+                    ValueSource.NONE => throw new NotSupportedException(),
+                    ValueSource.CARD => damageValue.ToString(),
+                    ValueSource.CUSTOM => "X",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+          
+            return damageValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => (damageValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
         
-        private int GetTimesValue()
+        private string GetTimesValue(RuntimeCard card = null)
         {
+            if (card == null)
+            {
+                return timesValueSource switch
+                {
+                    ValueSource.NONE => throw new NotSupportedException(),
+                    ValueSource.CARD => timesValue.ToString(),
+                    ValueSource.CUSTOM => "X",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+          
             return timesValueSource switch
             {
-                ValueSource.NONE => 1,
-                ValueSource.CARD => timesValue,
-                ValueSource.CUSTOM => throw new NotImplementedException("TODO"), // TODO: This will be customTimesValue.GetValue();
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => (timesValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

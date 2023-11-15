@@ -50,10 +50,13 @@ namespace DefaultNamespace
             }
         }
 
-        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
             int cardSizeWithModifiers = GetCardSizeChangeValueWithModifiers(card);
-
             return GetDescriptionText(cardSizeWithModifiers.ToString());
         }
 

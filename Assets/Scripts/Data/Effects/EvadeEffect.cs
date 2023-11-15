@@ -20,19 +20,18 @@ namespace DefaultNamespace
             yield break;
         }
 
-        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            return GetDescriptionText(value.ToString());
+            return GetDescriptionText();
         }
 
         public override string GetDescriptionText()
         {
-            return GetDescriptionText(value.ToString());
-        }
-
-        protected override string GetDescriptionText(string value)
-        {
-            return $"Gain {value} evade.";
+            return $"Gain {value.ToString()} evade.";
         }
     }
 }

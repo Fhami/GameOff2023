@@ -17,7 +17,7 @@ namespace DefaultNamespace
 
         public override string GetDescription()
         {
-            return " number of times you've discarded cards this turn";
+            return " number of times you've discarded cards this turn.";
         }
     }
 }

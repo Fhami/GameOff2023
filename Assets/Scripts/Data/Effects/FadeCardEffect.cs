@@ -30,17 +30,16 @@ namespace DefaultNamespace
             yield return BattleManager.OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
         }
 
-        public override string GetDescriptionTextWithModifier(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
-            return "Fade.";
+            return GetDescriptionText();
         }
 
         public override string GetDescriptionText()
-        {
-            return "Fade.";
-        }
-
-        protected override string GetDescriptionText(string value)
         {
             return "Fade.";
         }
