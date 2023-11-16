@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Basic Stagger
+  m_Script: {fileID: 11500000, guid: 0ebbf897c3cd454c896873fb18ee2cf3, type: 3}
+  m_Name: Size
   m_EditorClassIdentifier: 
-  cardType: 0
-  cardDragTarget: 0
-  effects:
-  - {fileID: 11400000, guid: 57aa1397bf9c97f42b1402dddc8814b6, type: 2}
-  - {fileID: 11400000, guid: 8a8962211c36e0f46a9f3172c8cac20f, type: 2}
+  description: Deal damage equal to your size

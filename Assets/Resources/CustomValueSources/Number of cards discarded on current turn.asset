@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Slash
+  m_Script: {fileID: 11500000, guid: bf8a945bf38e456198693fb49d1c1971, type: 3}
+  m_Name: Number of cards discarded on current turn
   m_EditorClassIdentifier: 
-  cardType: 1
-  cardDragTarget: 0
-  effects:
-  - {fileID: 11400000, guid: 0f4ba61768058044f891282eeb2c104c, type: 2}
+  description: number of times you've discarded cards this turn

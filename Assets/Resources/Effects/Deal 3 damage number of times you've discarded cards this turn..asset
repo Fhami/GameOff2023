@@ -16,6 +16,8 @@ MonoBehaviour:
   damageValueSource: 1
   damageValue: 3
   customDamageValue: {fileID: 11400000, guid: 4abda466ae12d8f408355f8e432950c0, type: 2}
+  customDamageDescription: 
   timesValueSource: 2
   timesValue: 0
-  customTimesValue: {fileID: 11400000, guid: 3a7075a85f433674a8e8cc539cce7d7e, type: 2}
+  customTimesValue: {fileID: 11400000, guid: 4abda466ae12d8f408355f8e432950c0, type: 2}
+  customTimesDescription: times your size.

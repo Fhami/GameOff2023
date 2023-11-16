@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ebbf897c3cd454c896873fb18ee2cf3, type: 3}
-  m_Name: DamageValueSource_Size
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: '[Example] Defend'
   m_EditorClassIdentifier: 
+  cardType: 2
+  cardDragTarget: 6
+  effects:
+  - {fileID: 11400000, guid: 083fd00ebf0985647902f217bc1fc252, type: 2}
