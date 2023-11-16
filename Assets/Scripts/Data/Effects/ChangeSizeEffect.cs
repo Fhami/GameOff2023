@@ -104,7 +104,7 @@ namespace DefaultNamespace
                                     sb.Append($"Player size -{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change player size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set player size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -120,7 +120,7 @@ namespace DefaultNamespace
                                     sb.Append($"Size -{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -136,7 +136,7 @@ namespace DefaultNamespace
                                     sb.Append($"Target size -{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change target size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set target size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -146,13 +146,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Size +{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} to all enemies");
+                                    sb.Append($"All enemies size +{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Size -{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} to all enemies");
+                                    sb.Append($"All enemies size -{GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change size of all enemies to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set all enemies size to {GetSizeValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -214,7 +214,7 @@ namespace DefaultNamespace
                                     sb.Append($"Player size -{GetSizeValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change player size to {GetSizeValue()}");
+                                    sb.Append($"Set player size to {GetSizeValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -230,7 +230,7 @@ namespace DefaultNamespace
                                     sb.Append($"Size -{GetSizeValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change size to {GetSizeValue()}");
+                                    sb.Append($"Set size to {GetSizeValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -246,7 +246,7 @@ namespace DefaultNamespace
                                     sb.Append($"Target size -{GetSizeValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change target size to {GetSizeValue()}");
+                                    sb.Append($"Set target size to {GetSizeValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -256,13 +256,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Size +{GetSizeValue()} to all enemies");
+                                    sb.Append($"All enemies size +{GetSizeValue()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Size -{GetSizeValue()} to all enemies");
+                                    sb.Append($"All enemies size -{GetSizeValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Change size of all enemies to {GetSizeValue()}");
+                                    sb.Append($"Set all enemies size to {GetSizeValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();

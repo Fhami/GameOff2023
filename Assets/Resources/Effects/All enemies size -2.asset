@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39a50e1c37d4ccf99f952b522b9232b, type: 3}
+  m_Name: All enemies size -2
+  m_EditorClassIdentifier: 
+  operation: 1
+  effectTarget: 4
+  sizeValueSource: 1
+  sizeValue: 2
+  customSizeValue: {fileID: 0}
+  sizeValueDescription: 
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}
+  timesValueDescription: 
