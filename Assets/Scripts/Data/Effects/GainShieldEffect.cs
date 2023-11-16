@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -7,34 +10,118 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Effect/Gain Shield Effect", fileName = "New Gain Shield Effect")]
     public class GainShieldEffect : EffectData
     {
-        public int value;
+        [Header("Shield")]
+        public ValueSource shieldValueSource;
         
-        public override IEnumerator Execute(
-            RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        [ShowIf("shieldValueSource", ValueSource.CARD)]
+        public int shieldValue;
+        
+        [ShowIf("shieldValueSource", ValueSource.CUSTOM)]
+        public CustomValueSource customShieldValue;
+        
+        [ResizableTextArea]
+        [ShowIf("shieldValueSource", ValueSource.CUSTOM)]
+        public string customShieldDescription;
+        
+        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
-
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += value;
+            
+            int shield = GetShieldValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += shield;
             
             yield break;
         }
 
-        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            return GetDescriptionText();
+            StringBuilder sb = new();
+            
+            switch (shieldValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($"Gain {GetShieldValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} shield");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customShieldDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            sb.Append(".");
+
+            return sb.ToString();
         }
 
         public override string GetDescriptionText()
         {
-            return $"Gain {value.ToString()} shield.";
+            StringBuilder sb = new();
+            
+            switch (shieldValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($"Gain {GetShieldValue()} shield");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customShieldDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            sb.Append(".");
+
+            return sb.ToString();
+        }
+        
+        /// <summary>
+        /// Get the shield value inside a battle. Calculates the final value with all the modifiers.
+        /// </summary>
+        public int GetShieldValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            int damage = shieldValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => shieldValue,
+                ValueSource.CUSTOM => customShieldValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            int cardShieldModifier = card.properties.Get<int>(PropertyKey.SHIELD).GetValueWithModifiers(card);
+            
+            return damage + cardShieldModifier;
+        }
+        
+        /// <summary>
+        /// Get shield value outside the battle. If you have a reference to the card instance
+        /// the method will also calculate the card upgrades into the final value.
+        /// </summary>
+        public string GetShieldValue(RuntimeCard card = null)
+        {
+            if (card == null)
+            {
+                return shieldValueSource switch
+                {
+                    ValueSource.NONE => throw new NotSupportedException(),
+                    ValueSource.CARD => shieldValue.ToString(),
+                    ValueSource.CUSTOM => "X",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+          
+            return shieldValueSource switch
+            {
+                ValueSource.NONE => throw new NotSupportedException(),
+                ValueSource.CARD => (shieldValue + card.properties.Get<int>(PropertyKey.SHIELD).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CUSTOM => "X",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }
