@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(menuName = "Gamejam/Custom Value Source/Cards Discarded On Current Turn Count", fileName = "Cards Discarded On Current Turn Count")]
-    public class CustomValueSource_CardsDiscardedOnCurrentTurnCount : CustomValueSource
+    [CreateAssetMenu(menuName = "Gamejam/Custom Value Source/Number Of Cards Discarded On Current Turn", fileName = "Number Of Cards Discarded On Current Turn")]
+    public class CustomValueSource_NumberOfCardsDiscardedOnCurrentTurn : CustomValueSource
     {
         public override int GetValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {

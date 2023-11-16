@@ -173,13 +173,12 @@ namespace DefaultNamespace
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
-                    sb.Append(".");
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times.");
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
                     break;
                 case ValueSource.CUSTOM:
-                    sb.Append(timesValueDescription);
+                    sb.Append(" " + timesValueDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -283,13 +282,12 @@ namespace DefaultNamespace
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
-                    sb.Append(".");
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue()} times.");
+                    sb.Append($" {GetTimesValue()} times");
                     break;
                 case ValueSource.CUSTOM:
-                    sb.Append(timesValueDescription);
+                    sb.Append(" " + timesValueDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

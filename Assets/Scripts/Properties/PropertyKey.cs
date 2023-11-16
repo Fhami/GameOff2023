@@ -25,6 +25,7 @@
         CARD_STATE,
         SKILL_STATE,
         CHARACTER_STATE,
-        TIMES
+        TIMES,
+        NUMBER_OF_CARDS_IN_DRAW_PILE
     }
 }
