@@ -15,7 +15,14 @@ public class EncounterData : ScriptableObject
 [System.Serializable] public class EnemyDataModifier
 {
     public CharacterData baseData;
+
     [MinMaxSlider(-100, 100)]
     public Vector2Int minMaxHpMod;
+    [Min(0)] public int startHp = 0;
+    [Min(0)] public int startShield = 0;
+    [Min(0)]public int startSize = 5;
+    public int startAttackPattern = 0;
+    //Start buff or debuff.
+    //
 
 }

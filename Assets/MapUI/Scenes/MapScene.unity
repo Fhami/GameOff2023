@@ -505,6 +505,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.00006747246
       objectReference: {fileID: 0}
+    - target: {fileID: 975277358525301394, guid: 4d4bbb60d6be511489e4130f81cadc19,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.10205078
+      objectReference: {fileID: 0}
     - target: {fileID: 1264823075525651817, guid: 4d4bbb60d6be511489e4130f81cadc19,
         type: 3}
       propertyPath: m_Pivot.x
@@ -645,6 +650,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5566852966731422603, guid: 4d4bbb60d6be511489e4130f81cadc19,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.958252
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -666,12 +676,12 @@ PrefabInstance:
     - target: {fileID: 672811814323657974, guid: 2f1db0c9a6689164193029b478ce8e15,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6845529
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672811814323657974, guid: 2f1db0c9a6689164193029b478ce8e15,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.281113
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 672811814323657974, guid: 2f1db0c9a6689164193029b478ce8e15,
         type: 3}
@@ -712,6 +722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MockUp Scene Scale
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835510698349406328, guid: 2f1db0c9a6689164193029b478ce8e15,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

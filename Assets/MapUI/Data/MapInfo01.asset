@@ -68,7 +68,8 @@ MonoBehaviour:
         - {fileID: 11400000, guid: c1863791c235bbf45bb779dba726a982, type: 2}
         - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
   - minMaxNode: {x: 4, y: 4}
-    fixedNodes: []
+    fixedNodes:
+    - {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
     possibleNodes:
       _serializedList:
       - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
@@ -122,19 +123,18 @@ MonoBehaviour:
         - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
   - minMaxNode: {x: 3, y: 3}
     fixedNodes:
-    - {fileID: 11400000, guid: d057c2275469f6041b88a178ececd26e, type: 2}
-    - {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
     - {fileID: 11400000, guid: f5e2be0f3d86b5a4c8be0f9a322880d6, type: 2}
+    - {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
+    - {fileID: 11400000, guid: d057c2275469f6041b88a178ececd26e, type: 2}
     possibleNodes:
       _serializedList: []
     possibleEncounters:
       _serializedList: []
   - minMaxNode: {x: 1, y: 1}
-    fixedNodes: []
+    fixedNodes:
+    - {fileID: 11400000, guid: 019c5d0797b5f20489e0803be22332a7, type: 2}
     possibleNodes:
-      _serializedList:
-      - Key: {fileID: 11400000, guid: 019c5d0797b5f20489e0803be22332a7, type: 2}
-        Value: 1
+      _serializedList: []
     possibleEncounters:
       _serializedList:
       - Key: 2
