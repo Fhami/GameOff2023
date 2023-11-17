@@ -238,12 +238,11 @@ namespace DefaultNamespace
             yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, characterPlayingTheCard, player, enemies);
         }
         
-        public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator DrawCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: Draw the card (visual + data)
             yield return cardController.Draw(1);
             
-            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, player, player, enemies);
+            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
         }
         
         /// <summary>
