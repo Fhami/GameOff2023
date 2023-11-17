@@ -202,7 +202,7 @@ namespace DefaultNamespace
             if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.FADED &&
                 card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED)
             {
-                yield return DiscardCard(card, player, enemies);
+                yield return DiscardCard(card, player, player, target, enemies);
             }
         }
 
@@ -215,25 +215,27 @@ namespace DefaultNamespace
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value++;
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value++;
             
-            // Handle VFX
+            // Handle visuals
             yield return cardController.ExhaustCard(card.Card);
             
             // Handle game event (skills etc. can trigger here)
-            yield return OnGameEvent(GameEvent.ON_CARD_FADED, player, player, enemies);
+            yield return OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
         }
         
-        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: Discard the card (visual + data)
-            
+            // Update card state
             card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DISCARD_PILE;
             
-            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
-            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
+            // Update discard stats
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
+            // Handle visuals
             yield return cardController.Discard(card.Card);
 
-            yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, player, player, enemies);
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, characterPlayingTheCard, player, enemies);
         }
         
         public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
