@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: MockupDeckData
   m_EditorClassIdentifier: 
   Cards:
-  - {fileID: 11400000, guid: e517cafda79ac0d4793584725a4fda5d, type: 2}
-  - {fileID: 11400000, guid: e380e274bd6330e4aae82e415e1c345f, type: 2}
-  - {fileID: 11400000, guid: c39fd3eda298ff147b31fb46e69df5f7, type: 2}
-  - {fileID: 11400000, guid: f724c0471bc7c2642a005ae71f1e95b6, type: 2}
-  - {fileID: 11400000, guid: f724c0471bc7c2642a005ae71f1e95b6, type: 2}
-  - {fileID: 11400000, guid: e517cafda79ac0d4793584725a4fda5d, type: 2}
+  - {fileID: 11400000, guid: f0db281bed5350f4295ae7d0cf76b2f6, type: 2}
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  - {fileID: 11400000, guid: ea48b5826b6ebfc46bcee43946192ac2, type: 2}
+  - {fileID: 11400000, guid: 0d26cd4aeae22984bbdedecaba3520dc, type: 2}
+  - {fileID: 11400000, guid: e7caeaa018b689842a1280188736b82d, type: 2}
+  - {fileID: 11400000, guid: efe92eeab7e7bf842996afb4a7931abe, type: 2}
+  - {fileID: 11400000, guid: a6407320b1650dd49801dc8b8a598b8c, type: 2}
+  - {fileID: 11400000, guid: d7de6e0872e81c84bb59b07804fd032f, type: 2}
+  - {fileID: 11400000, guid: 988e60d19aea24c4497c3455fd1f834f, type: 2}
+  - {fileID: 11400000, guid: 471c4fafb1329504794ec49bae9ff223, type: 2}
