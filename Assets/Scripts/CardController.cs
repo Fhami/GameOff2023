@@ -37,6 +37,25 @@ public class CardController : MonoBehaviour
             //Create card object
             var _newCardObj = CardFactory.CreateCardObject(_card);
                 
+            _newCardObj.OnDropped.AddListener(_target =>
+            {
+                if (_newCardObj.ValidateTarget(_target))
+                {
+                    if (ShowLog)
+                        Debug.Log($"target {_target.name} = true");
+                    
+                    _newCardObj.transform.SetParent(null);
+                    
+                    StartCoroutine(BattleManager.current.PlayCard(_newCardObj.runtimeCard, Character.runtimeCharacter,
+                        _target.runtimeCharacter, BattleManager.current.runtimeEnemies));
+                }
+                else
+                {
+                    if (ShowLog)
+                        Debug.Log($"target {_target.name} = false");
+                }
+            });
+            
             DeckPile.AddCard(_newCardObj);
         }
         
@@ -53,27 +72,7 @@ public class CardController : MonoBehaviour
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
             _card.UpdateValidTarget();
-            _card.ClearCallBack();
 
-            _card.OnDropped.AddListener(_target =>
-            {
-                if (_card.ValidateTarget(_target))
-                {
-                    if (ShowLog)
-                        Debug.Log($"target {_target.name} = true");
-                    
-                    _card.transform.SetParent(null);
-                    
-                    StartCoroutine(BattleManager.current.PlayCard(_card.runtimeCard, Character.runtimeCharacter,
-                        _target.runtimeCharacter, BattleManager.current.runtimeEnemies));
-                }
-                else
-                {
-                    if (ShowLog)
-                        Debug.Log($"target {_target.name} = false");
-                }
-            });
-            
             yield return drawDelay;
         }
     }

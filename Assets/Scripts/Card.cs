@@ -72,18 +72,15 @@ namespace DefaultNamespace
 
         private void OnMouseDrag()
         {
-            foreach (var _validTarget in validTargets)
-            {
-                if (_validTarget)
-                {
-                    //Highlight target
-                }
-            }
+            HighlightTargets(true);
+            
             OnDrag?.Invoke(this);
         }
         
         private void OnMouseUp()
         {
+            HighlightTargets(false);
+            
             if (ValidateTarget(currentTarget))
             {
                 OnDropped?.Invoke(currentTarget);
@@ -97,14 +94,31 @@ namespace DefaultNamespace
         private void OnTriggerEnter2D(Collider2D other)
         {
             currentTarget = other.gameObject.GetComponent<Character>();
+            
+            if (currentTarget)
+                currentTarget.HighlightSelected(true);
+            
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (currentTarget)
+                currentTarget.HighlightSelected(false);
+
             currentTarget = null;
         }
-        
-        
+
+        private void HighlightTargets(bool _value)
+        {
+            foreach (var _validTarget in validTargets)
+            {
+                if (_validTarget)
+                {
+                    //Highlight target
+                    _validTarget.Highlight(_value);
+                }
+            }
+        }
         
         public static List<Character> GetValidTargets(RuntimeCard _runtimeCard)
         {

@@ -34,6 +34,15 @@ namespace DefaultNamespace
         {
             outlinable.enabled = _value;
         }
+
+        public void HighlightSelected(bool _value)
+        {
+            outlinable.OutlineParameters.FillPass.Shader =
+                _value
+                    ? Shader.Find("Easy performant outline/Shaders/Fills/ColorFill")
+                    : Shader.Find("Easy performant outline/Shaders/Fills/EmptyFill");
+
+        }
         
         public void UpdateStat()
         {
