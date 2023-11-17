@@ -196,13 +196,6 @@ namespace DefaultNamespace
             foreach (EffectData effectData in card.cardData.effects)
             {
                 yield return effectData.Execute(card, player, player, target, enemies);
-
-                // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
-                if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value is CardState.FADED or CardState.DESTROYED)
-                {
-                    yield return cardController.ExhaustCard(card.Card);
-                    break;
-                }
             }
             
             // If the card is not FADED or DESTROYED then we can move it to discard pile
@@ -211,6 +204,22 @@ namespace DefaultNamespace
             {
                 yield return DiscardCard(card, player, enemies);
             }
+        }
+
+        public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            // Update card state
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.FADED;
+            
+            // Update fade stats
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value++;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value++;
+            
+            // Handle VFX
+            yield return cardController.ExhaustCard(card.Card);
+            
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_FADED, player, player, enemies);
         }
         
         public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
@@ -296,8 +305,6 @@ namespace DefaultNamespace
             // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
             RuntimeCard card = CardFactory.Create(cardData.name);
 
-            // NOTE: I think for enemy we don't care about FADED, DESTROYED etc. since their cards probably don't use any of those
-            // so just execute the effects
             foreach (EffectData effectData in card.cardData.effects)
             {
                 yield return effectData.Execute(card, enemy, player, player, enemies);
