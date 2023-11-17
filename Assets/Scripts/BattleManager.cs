@@ -30,7 +30,8 @@ namespace DefaultNamespace
     {
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
-        
+        [SerializeField] private CharacterSpawner characterSpawner;
+
         public Character player;
         public RuntimeCharacter runtimePlayer;
         public List<Character> enemies = new List<Character>();
@@ -48,28 +49,6 @@ namespace DefaultNamespace
             current = this;
         }
 
-        public void EndTurn()
-        {
-            StartCoroutine(IEEndTurn());
-        }
-        
-        public IEnumerator IEEndTurn()
-        {
-            yield return PlayerTurnEnd(runtimePlayer, runtimeEnemies);
-            
-            //Play Enemies turn
-            foreach (var _enemy in runtimeEnemies)
-            {
-                yield return EnemyTurnStart(_enemy);
-                
-                yield return PlayEnemyTurn(_enemy, runtimePlayer, runtimeEnemies);
-
-                yield return EnemyTurnEnd(_enemy);
-            }
-
-            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
-        }
-        
         private IEnumerator Start()
         {
             if (isDebug)
@@ -89,6 +68,8 @@ namespace DefaultNamespace
                     cardController.DeckPile.AddCard(_newCardObj);
                 }
                 
+                cardController.DeckPile.Shuffle();
+                
                 player = CharacterFactory.CreateCharacterObject("Muscle Mage");
                 player.gameObject.tag = "PLAYER";
 
@@ -96,15 +77,43 @@ namespace DefaultNamespace
 
                 runtimePlayer = player.runtimeCharacter;
 
-                var _enemy = CharacterFactory.CreateCharacterObject("Fishy");
-                _enemy.gameObject.tag = "ENEMY";
-                
-                enemies.Add(_enemy);
-                runtimeEnemies.Add(_enemy.runtimeCharacter);
+                var _enemies = characterSpawner.SpawnEnemies(new List<string>()
+                {
+                    "Fishy", "Fishy", "Fishy"
+                });
+
+                foreach (var _enemy in _enemies)
+                {
+                    enemies.Add(_enemy);
+                    runtimeEnemies.Add(_enemy.runtimeCharacter);
+                }
+
             }
             
             // TODO: Initialize battle scene and start the battle!
             yield return BattleStart(runtimePlayer, runtimeEnemies);
+
+            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+        
+        public void EndTurn()
+        {
+            StartCoroutine(IEEndTurn());
+        }
+        
+        public IEnumerator IEEndTurn()
+        {
+            yield return PlayerTurnEnd(runtimePlayer, runtimeEnemies);
+            
+            //Play Enemies turn
+            foreach (var _enemy in runtimeEnemies)
+            {
+                yield return EnemyTurnStart(_enemy);
+                
+                yield return PlayEnemyTurn(_enemy, runtimePlayer, runtimeEnemies);
+
+                yield return EnemyTurnEnd(_enemy);
+            }
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
         }

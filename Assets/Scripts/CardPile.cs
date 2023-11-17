@@ -74,7 +74,8 @@ public class CardPile : MonoBehaviour
             return _card;
         }
 
-        Debug.Log($"Card {_card.name} doesn't exist in this pile!");
+        if (CardController.ShowLog)
+            Debug.Log($"Card {_card.name} doesn't exist in {name} pile!");
         
         return null;
     } 
@@ -82,6 +83,8 @@ public class CardPile : MonoBehaviour
     public void Shuffle()
     {
         Cards.Shuffle();
+        if (CardController.ShowLog)
+            Debug.Log($"Shuffled {name}");
     }
     
     public void AddCards(IEnumerable<Card> _cards)
@@ -106,6 +109,9 @@ public class CardPile : MonoBehaviour
         
         UpdateCount(Cards.Count);
         OnValueChanged?.Invoke();
+        
+        if (CardController.ShowLog)
+            Debug.Log($"Added {_card.name} to {name}");
     }
 
     public void RemoveCards(IEnumerable<Card> _cards)
@@ -122,6 +128,9 @@ public class CardPile : MonoBehaviour
         
         UpdateCount(Cards.Count);
         OnValueChanged?.Invoke();
+        
+        if (CardController.ShowLog)
+            Debug.Log($"Removed {_card.name} from {name}");
     }
 
     public void Clear()

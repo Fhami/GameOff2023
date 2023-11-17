@@ -10,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class CardController : MonoBehaviour
 {
+    public static bool ShowLog = true;
+    
     public CardPile DeckPile;
     public CardPile HandPile;
     public CardPile DiscardPile;
@@ -18,9 +20,6 @@ public class CardController : MonoBehaviour
     public Character Character;
     
     [SerializeField] private float drawInterval = 0.1f;
-    
-
-    [SerializeField] private bool isDebug;
 
     private WaitForSeconds drawDelay;
 
@@ -46,31 +45,25 @@ public class CardController : MonoBehaviour
         foreach (var _card in DeckPile.GetCards(_number))
         {
             HandPile.AddCard(_card);
+            
             _card.UpdateCard(Character.runtimeCharacter);
-            
             _card.transform.position = DeckPile.transform.position;
+            _card.UpdateValidTarget();
             
-            yield return drawDelay;
-            
-            //Set parent to hand transform
-            //Draw animation will auto play by Layout group when SetParent
-            
-            _card.SetValidTarget(GetValidTargets(_card.runtimeCard));
-        }
-        
-        foreach (var _card in HandPile.Cards)
-        {
+            _card.OnDrag.RemoveAllListeners();
             _card.OnDrag.AddListener(_arg0 =>
             {
                 //TODO: Highlight valid target
                 
             });
             
+            _card.OnDropped.RemoveAllListeners();
             _card.OnDropped.AddListener(_target =>
             {
                 if (_card.ValidateTarget(_target))
                 {
-                    Debug.Log($"target = true");
+                    if (ShowLog)
+                        Debug.Log($"target {_target.name} = true");
                     
                     _card.transform.SetParent(null);
                     
@@ -79,11 +72,13 @@ public class CardController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"target = false");
+                    if (ShowLog)
+                        Debug.Log($"target {_target.name} = false");
                 }
             });
+            
+            yield return drawDelay;
         }
-        
     }
 
     public IEnumerator Discard(Card _card)
@@ -114,27 +109,5 @@ public class CardController : MonoBehaviour
                 yield return drawDelay;
             }
         }
-    }
-    
-    public List<Character> GetValidTargets(RuntimeCard _runtimeCard)
-    {
-        var _results = new List<Character>();
-        var _targetTags = _runtimeCard.cardData.cardDragTarget;
-        foreach (var _tag in Enum.GetValues(_targetTags.GetType()))
-        {
-            if (_tag.ToString() == "NONE") continue;
-                
-            var _targets = GameObject.FindGameObjectsWithTag(_tag.ToString());
-                
-            foreach (var _target in _targets)
-            {
-                if (_target.TryGetComponent<Character>(out var _character))
-                {
-                    _results.Add(_character);
-                }
-            }
-        }
-
-        return _results;
     }
 }

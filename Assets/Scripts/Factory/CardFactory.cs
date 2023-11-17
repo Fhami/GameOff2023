@@ -42,6 +42,7 @@ namespace DefaultNamespace
                 cardPrefab = Resources.Load<Card>(CardPrefabPath);
 
             var newCard = Object.Instantiate(cardPrefab);
+            newCard.name = runtimeCard.cardData.name;
             newCard.InitCard(runtimeCard);
 
             return newCard;
