@@ -23,6 +23,8 @@ namespace DefaultNamespace
             runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0));
+            runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0));
+            runtimeCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE));
 
             return runtimeCard;
         }
@@ -33,16 +35,21 @@ namespace DefaultNamespace
         /// <summary>
         /// Instantiate card prefab and update card visual from cardData
         /// </summary>
-        public static Card CreateCardObject(RuntimeCard card)
+        public static Card CreateCardObject(RuntimeCard runtimeCard)
         {
             //Load and cache card prefab
             if (!cardPrefab)
                 cardPrefab = Resources.Load<Card>(CardPrefabPath);
 
             var newCard = Object.Instantiate(cardPrefab);
-            newCard.InitCard(card);
+            newCard.InitCard(runtimeCard);
 
             return newCard;
+        }
+
+        public static Card CreateCardObject(string name)
+        {
+            return CreateCardObject(Create(name));
         }
     }
 }

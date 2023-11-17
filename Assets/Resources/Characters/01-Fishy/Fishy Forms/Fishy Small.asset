@@ -15,5 +15,7 @@ MonoBehaviour:
   sizeMin: 0
   sizeMax: 0
   handSize: 0
-  skills: []
-  attackPattern: []
+  skills:
+  - {fileID: 11400000, guid: 1d2e89b3385fb7548829544e26dba607, type: 2}
+  attackPattern:
+  - {fileID: 11400000, guid: e517cafda79ac0d4793584725a4fda5d, type: 2}

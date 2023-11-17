@@ -9,7 +9,7 @@ namespace DefaultNamespace
         public PropertySource propertySource;
         public PropertyComparer propertyComparer;
         
-        public override bool Evaluate(GameEvent gameEvent, RuntimeCharacter player, RuntimeCharacter target)
+        public override bool Evaluate(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player)
         {
             switch (propertySource)
             {
@@ -17,14 +17,14 @@ namespace DefaultNamespace
                 {
                     throw new NotSupportedException();
                 }
+                case PropertySource.SELF:
+                {
+                    propertyComparer.Evaluate(character);
+                    break;
+                }
                 case PropertySource.PLAYER:
                 {
                     propertyComparer.Evaluate(player);
-                    break;
-                }
-                case PropertySource.TARGET:
-                {
-                    propertyComparer.Evaluate(target);
                     break;
                 }
                 default:

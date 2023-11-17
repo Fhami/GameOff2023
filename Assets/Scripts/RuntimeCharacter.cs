@@ -1,7 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DefaultNamespace
 {
+    public enum CharacterState
+    {
+        NONE,
+        ALIVE,
+        DEAD,
+        ESCAPED
+    }
+    
     /// <summary>
     /// The runtime instance of a character. This can be modified during runtime.
     /// </summary>
@@ -11,7 +20,10 @@ namespace DefaultNamespace
         /// The base data of the character.
         /// </summary>
         public CharacterData characterData;
-
+        
+        public Character Character;
+        public List<RuntimeSkill> skills = new List<RuntimeSkill>();
+        
         /// <summary>
         /// Get character's current form based on their character power.
         /// </summary>

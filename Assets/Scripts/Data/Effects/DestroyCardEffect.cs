@@ -10,23 +10,30 @@ namespace DefaultNamespace
         public override IEnumerator Execute(
             RuntimeCard card,
             RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter playerCharacter,
-            RuntimeCharacter targetCharacter,
-            List<RuntimeCharacter> enemyCharacters)
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
             // TODO: Destroy the card (visuals + effect)
 
-            card.cardState = CardState.DESTROYED;
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DESTROYED;
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value++;
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value++;
             
-            // TODO: Execute passive/active skills that trigger on CardEvent.CARD_DESTROYED
-            
-            yield break;
+            yield return BattleManager.OnGameEvent(GameEvent.ON_CARD_DESTROYED, characterPlayingTheCard, player, enemies);
         }
 
-        public override string GetDescriptionText(RuntimeCard card, RuntimeCharacter playerCharacter)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
+        {
+            return GetDescriptionText();
+        }
+
+        public override string GetDescriptionText()
         {
             return "Destroy.";
         }

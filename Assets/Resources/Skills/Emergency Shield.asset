@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
+  m_Name: Emergency Shield
+  m_EditorClassIdentifier: 
+  triggerGameEvent: 9
+  triggerConditions:
+  - {fileID: 11400000, guid: 2c91abd54dedde4419fe22e76ff7a108, type: 2}
+  rechargeGameEvent: 10
+  rechargeConditions: []
+  card: {fileID: 11400000, guid: 92b6681bb58d5a4418cbb3b0c5200273, type: 2}
