@@ -66,10 +66,19 @@ namespace DefaultNamespace
         public void ClearCallBack()
         {
             OnDrag.RemoveAllListeners();
+            OnDropped.RemoveAllListeners();
+            OnEnterTarget.RemoveAllListeners();
         }
 
         private void OnMouseDrag()
         {
+            foreach (var _validTarget in validTargets)
+            {
+                if (_validTarget)
+                {
+                    //Highlight target
+                }
+            }
             OnDrag?.Invoke(this);
         }
         
@@ -94,6 +103,8 @@ namespace DefaultNamespace
         {
             currentTarget = null;
         }
+        
+        
         
         public static List<Character> GetValidTargets(RuntimeCard _runtimeCard)
         {

@@ -66,7 +66,7 @@ public class CardPile : MonoBehaviour
     /// </summary>
     /// <param name="_card"></param>
     /// <returns></returns>
-    public Card GetCard(Card _card)
+    public Card PickCard(Card _card)
     {
         if (Cards.Contains(_card))
         {

@@ -14,6 +14,7 @@ namespace DefaultNamespace
         ON_CARD_DESTROYED,
         ON_CARD_FADED,
         ON_CARD_PLAYED,
+        ON_CARD_SHUFFLED,
         ON_PLAYER_TURN_START,
         ON_PLAYER_TURN_END,
         ON_SIZE_CHANGED,
@@ -62,18 +63,11 @@ namespace DefaultNamespace
                     GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
                 }
                 
-                foreach (var _card in GameManager.Instance.PlayerRuntimeDeck.Cards)
-                {
-                    //Create card object
-                    var _newCardObj = CardFactory.CreateCardObject(_card);
-                
-                    cardController.DeckPile.AddCard(_newCardObj);
-                }
-                
-                cardController.DeckPile.Shuffle();
+                cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
                 
                 player = CharacterFactory.CreateCharacterObject("Muscle Mage");
                 player.gameObject.tag = "PLAYER";
+                player.cardController = cardController;
 
                 cardController.Character = player;
 
@@ -209,7 +203,7 @@ namespace DefaultNamespace
                 // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
                 if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value is CardState.FADED or CardState.DESTROYED)
                 {
-                    yield return cardController.ExhaustCard(card.Card);
+                    yield return ExhaustCard(card, player, enemies);
                     break;
                 }
             }
@@ -238,10 +232,32 @@ namespace DefaultNamespace
         
         public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            
+            //Don't have enough card in deck, try get from discard pile
+            if (cardController.DeckPile.Cards.Count < 1)
+            {
+                yield return ShuffleDiscardPileIntoDeck(player, enemies);
+            }
+            
             // TODO: Draw the card (visual + data)
             yield return cardController.Draw(1);
             
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, player, player, enemies);
+        }
+
+        public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            yield return cardController.ShuffleDiscardPileIntoDeck();
+
+            yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
+        }
+        
+        /// <summary>
+        /// Card destroyed or faded
+        /// </summary>
+        public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            yield return cardController.ExhaustCard(card.Card);
         }
         
         /// <summary>

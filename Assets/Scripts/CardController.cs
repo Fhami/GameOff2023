@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class CardController : MonoBehaviour
 {
-    public static bool ShowLog = true;
+    public static bool ShowLog = false;
     
     public CardPile DeckPile;
     public CardPile HandPile;
@@ -27,21 +27,25 @@ public class CardController : MonoBehaviour
     {
         drawDelay = new WaitForSeconds(drawInterval);
     }
+
+    public void InitializeDeck(RuntimeDeckData _deck)
+    {
+        DeckPile.Clear();
+        
+        foreach (var _card in _deck.Cards)
+        {
+            //Create card object
+            var _newCardObj = CardFactory.CreateCardObject(_card);
+                
+            DeckPile.AddCard(_newCardObj);
+        }
+        
+        DeckPile.Shuffle();
+    }
     
     public IEnumerator Draw(int _number)
     {
-        //Don't have enough card in deck, try reset shrine
-        if (DeckPile.Cards.Count < _number)
-        {
-            foreach (var _recycledCard in DiscardPile.GetCards(-1))
-            {
-                DeckPile.AddCard(_recycledCard);
-                
-                yield return drawDelay;
-            }
-            DeckPile.Shuffle();
-        }
-        
+
         foreach (var _card in DeckPile.GetCards(_number))
         {
             HandPile.AddCard(_card);
@@ -49,15 +53,8 @@ public class CardController : MonoBehaviour
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
             _card.UpdateValidTarget();
-            
-            _card.OnDrag.RemoveAllListeners();
-            _card.OnDrag.AddListener(_arg0 =>
-            {
-                //TODO: Highlight valid target
-                
-            });
-            
-            _card.OnDropped.RemoveAllListeners();
+            _card.ClearCallBack();
+
             _card.OnDropped.AddListener(_target =>
             {
                 if (_card.ValidateTarget(_target))
@@ -81,18 +78,27 @@ public class CardController : MonoBehaviour
         }
     }
 
+    public IEnumerator ShuffleDiscardPileIntoDeck()
+    {
+        foreach (var _recycledCard in DiscardPile.GetCards(-1))
+        {
+            DeckPile.AddCard(_recycledCard);
+                
+            yield return drawDelay;
+        }
+        DeckPile.Shuffle();
+    }
+
     public IEnumerator Discard(Card _card)
     {
-        DiscardPile.AddCard(HandPile.GetCard(_card));
-        _card.ClearCallBack();
+        DiscardPile.AddCard(HandPile.PickCard(_card));
 
         yield return drawDelay;
     }
 
     public IEnumerator ExhaustCard(Card _card)
     {
-        ExhaustPile.AddCard(HandPile.GetCard(_card));
-        _card.ClearCallBack();
+        ExhaustPile.AddCard(HandPile.PickCard(_card));
 
         yield return drawDelay;
     }

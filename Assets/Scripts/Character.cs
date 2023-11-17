@@ -1,3 +1,4 @@
+using EPOOutline;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace DefaultNamespace
     public class Character : MonoBehaviour
     {
         public RuntimeCharacter runtimeCharacter;
+        public CardController cardController;
+
+        [SerializeField] private Outlinable outlinable;
         [SerializeField] private TextMeshPro hpTxt;
         [SerializeField] private TextMeshPro statText;
 
@@ -23,9 +27,14 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged +=
                 _property => UpdateHpVisual(_property.Value);
             
-            
+            outlinable.AddAllChildRenderersToRenderingList();
         }
 
+        public void Highlight(bool _value)
+        {
+            outlinable.enabled = _value;
+        }
+        
         public void UpdateStat()
         {
             

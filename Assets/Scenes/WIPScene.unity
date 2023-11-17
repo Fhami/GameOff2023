@@ -1690,6 +1690,142 @@ Transform:
   m_Children: []
   m_Father: {fileID: 308554838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &763564940
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1204950516362683512, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: renderStyle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: backParameters.fillPass.shader
+      value: 
+      objectReference: {fileID: 4800000, guid: 213090e563021044c92d1c27258b93f0, type: 3}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: outlineParameters.fillPass.shader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: backParameters.fillPass.serializedProperties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: outlineParameters.fillPass.serializedProperties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: backParameters.fillPass.serializedProperties.Array.data[0].PropertyName
+      value: _PublicColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: outlineParameters.fillPass.serializedProperties.Array.data[0].PropertyName
+      value: _PublicColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: backParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.a
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: backParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: outlineParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.a
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: outlineParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3900406877054796089, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7350628693523178698, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: efa602ec91d90704181176a0d14d2b8b, type: 3}
 --- !u!1 &816771188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3587,3 +3723,4 @@ SceneRoots:
   - {fileID: 1730153372}
   - {fileID: 308554838}
   - {fileID: 867049554}
+  - {fileID: 763564940}
