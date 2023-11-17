@@ -14,6 +14,7 @@ namespace DefaultNamespace
         ON_CARD_DESTROYED,
         ON_CARD_FADED,
         ON_CARD_PLAYED,
+        ON_CARD_SHUFFLED,
         ON_PLAYER_TURN_START,
         ON_PLAYER_TURN_END,
         ON_SIZE_CHANGED,
@@ -32,7 +33,8 @@ namespace DefaultNamespace
         
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
-        
+        [SerializeField] private CharacterSpawner characterSpawner;
+
         public Character player;
         public RuntimeCharacter runtimePlayer;
         public List<Character> enemies = new List<Character>();
@@ -50,6 +52,46 @@ namespace DefaultNamespace
             current = this;
         }
 
+        private IEnumerator Start()
+        {
+            if (isDebug)
+            {
+                Database.Initialize();
+                //Add cards to player deck
+                foreach (var _cardData in deckData.Cards)
+                {
+                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
+                }
+                
+                cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
+                
+                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
+                player.gameObject.tag = "PLAYER";
+                player.cardController = cardController;
+
+                cardController.Character = player;
+
+                runtimePlayer = player.runtimeCharacter;
+
+                var _enemies = characterSpawner.SpawnEnemies(new List<string>()
+                {
+                    "Fishy", "Fishy", "Fishy"
+                });
+
+                foreach (var _enemy in _enemies)
+                {
+                    enemies.Add(_enemy);
+                    runtimeEnemies.Add(_enemy.runtimeCharacter);
+                }
+
+            }
+            
+            // TODO: Initialize battle scene and start the battle!
+            yield return BattleStart(runtimePlayer, runtimeEnemies);
+
+            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+        
         public void EndTurn()
         {
             StartCoroutine(IEEndTurn());
@@ -68,45 +110,6 @@ namespace DefaultNamespace
 
                 yield return EnemyTurnEnd(_enemy);
             }
-
-            yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
-        }
-        
-        private IEnumerator Start()
-        {
-            if (isDebug)
-            {
-                Database.Initialize();
-                //Add cards to player deck
-                foreach (var _cardData in deckData.Cards)
-                {
-                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
-                }
-                
-                foreach (var _card in GameManager.Instance.PlayerRuntimeDeck.Cards)
-                {
-                    //Create card object
-                    var _newCardObj = CardFactory.CreateCardObject(_card);
-                
-                    cardController.DeckPile.AddCard(_newCardObj);
-                }
-                
-                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
-                player.gameObject.tag = "PLAYER";
-
-                cardController.Character = player;
-
-                runtimePlayer = player.runtimeCharacter;
-
-                var _enemy = CharacterFactory.CreateCharacterObject("Fishy");
-                _enemy.gameObject.tag = "ENEMY";
-                
-                enemies.Add(_enemy);
-                runtimeEnemies.Add(_enemy.runtimeCharacter);
-            }
-            
-            // TODO: Initialize battle scene and start the battle!
-            yield return BattleStart(runtimePlayer, runtimeEnemies);
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
         }
@@ -241,10 +244,32 @@ namespace DefaultNamespace
         public IEnumerator DrawCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             // Handle visuals
+            //Don't have enough card in deck, try get from discard pile
+            if (cardController.DeckPile.Cards.Count < 1)
+            {
+                yield return ShuffleDiscardPileIntoDeck(player, enemies);
+            }
+            
+            // TODO: Draw the card (visual + data)
             yield return cardController.Draw(1);
             
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
+        }
+
+        public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            yield return cardController.ShuffleDiscardPileIntoDeck();
+
+            yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
+        }
+        
+        /// <summary>
+        /// Card destroyed or faded
+        /// </summary>
+        public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            yield return cardController.ExhaustCard(card.Card);
         }
         
         /// <summary>
