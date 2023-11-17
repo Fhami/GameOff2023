@@ -293,9 +293,9 @@ MonoBehaviour:
   priority: 0
   outlineParameters:
     enabled: 1
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    color: {r: 0.015686274, g: 0.25874203, b: 1, a: 1}
     dilateShift: 1
-    blurShift: 1
+    blurShift: 0
     fillPass:
       shader: {fileID: 0}
       serializedProperties: []

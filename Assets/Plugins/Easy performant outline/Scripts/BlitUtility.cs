@@ -406,7 +406,7 @@ namespace EPOOutline
 
             if (SupportsInstancing)
             {
-                var batchesCount = itemsToDraw / matrixBatch.Length;
+                var batchesCount = Mathf.CeilToInt((float)itemsToDraw / matrixBatch.Length);
                 var countLeft = itemsToDraw;
                 for (var index = 0; index < batchesCount; index++)
                 {

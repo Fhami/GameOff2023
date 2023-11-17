@@ -1705,63 +1705,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
-      propertyPath: renderStyle
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: backParameters.fillPass.shader
-      value: 
-      objectReference: {fileID: 4800000, guid: 213090e563021044c92d1c27258b93f0, type: 3}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: outlineParameters.fillPass.shader
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
       propertyPath: outlineTargets.Array.data[0].IsVisible
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: backParameters.fillPass.serializedProperties.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: outlineParameters.fillPass.serializedProperties.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: backParameters.fillPass.serializedProperties.Array.data[0].PropertyName
-      value: _PublicColor
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: outlineParameters.fillPass.serializedProperties.Array.data[0].PropertyName
-      value: _PublicColor
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: backParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.a
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: backParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: outlineParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.a
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
-        type: 3}
-      propertyPath: outlineParameters.fillPass.serializedProperties.Array.data[0].Property.ColorValue.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
@@ -3156,8 +3101,8 @@ MonoBehaviour:
   primaryBufferSizeMode: 0
   primaryRendererScale: 0.75
   primarySizeReference: 800
-  blurShift: 1
-  dilateShift: 1
+  blurShift: 0
+  dilateShift: 2
   dilateIterations: 1
   dilateQuality: 0
   blurIterations: 1
