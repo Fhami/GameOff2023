@@ -69,6 +69,7 @@ namespace DefaultNamespace
             }
 
             var newChar = Object.Instantiate(characterPrefab);
+            newChar.name = runtimeCharacter.characterData.name;
             newChar.Init(runtimeCharacter);
 
             return newChar;

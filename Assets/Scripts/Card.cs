@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MoreMountains.Tools;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -24,7 +25,7 @@ namespace DefaultNamespace
 
         [SerializeField] private List<Character> validTargets = new List<Character>();
 
-        private Character currentTarget;
+        [SerializeField, ReadOnly] private Character currentTarget;
         
         /// <summary>
         /// Init card data, need to call UpdateCard afterward to update effects text
@@ -52,9 +53,9 @@ namespace DefaultNamespace
             effectTxt.SetText(_builder.ToString());
         }
 
-        public void SetValidTarget(List<Character> _targets)
+        public void UpdateValidTarget()
         {
-            validTargets = _targets.ToList();
+            validTargets = GetValidTargets(runtimeCard);
         }
 
         public bool ValidateTarget(Character _character)
@@ -65,15 +66,21 @@ namespace DefaultNamespace
         public void ClearCallBack()
         {
             OnDrag.RemoveAllListeners();
+            OnDropped.RemoveAllListeners();
+            OnEnterTarget.RemoveAllListeners();
         }
 
         private void OnMouseDrag()
         {
+            HighlightTargets(true);
+            
             OnDrag?.Invoke(this);
         }
         
         private void OnMouseUp()
         {
+            HighlightTargets(false);
+            
             if (ValidateTarget(currentTarget))
             {
                 OnDropped?.Invoke(currentTarget);
@@ -87,11 +94,52 @@ namespace DefaultNamespace
         private void OnTriggerEnter2D(Collider2D other)
         {
             currentTarget = other.gameObject.GetComponent<Character>();
+            
+            if (currentTarget)
+                currentTarget.HighlightSelected(true);
+            
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (currentTarget)
+                currentTarget.HighlightSelected(false);
+
             currentTarget = null;
+        }
+
+        private void HighlightTargets(bool _value)
+        {
+            foreach (var _validTarget in validTargets)
+            {
+                if (_validTarget)
+                {
+                    //Highlight target
+                    _validTarget.Highlight(_value);
+                }
+            }
+        }
+        
+        public static List<Character> GetValidTargets(RuntimeCard _runtimeCard)
+        {
+            var _results = new List<Character>();
+            var _targetTags = _runtimeCard.cardData.cardDragTarget;
+            foreach (var _tag in Enum.GetValues(_targetTags.GetType()))
+            {
+                if (_tag.ToString() == "NONE") continue;
+                
+                var _targets = GameObject.FindGameObjectsWithTag(_tag.ToString());
+                
+                foreach (var _target in _targets)
+                {
+                    if (_target.TryGetComponent<Character>(out var _character))
+                    {
+                        _results.Add(_character);
+                    }
+                }
+            }
+
+            return _results;
         }
     }
 }
