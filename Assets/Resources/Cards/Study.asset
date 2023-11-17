@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Study
   m_EditorClassIdentifier: 
   cardType: 0
-  cardDragTarget: 6
+  cardDragTarget: 4
   effects:
   - {fileID: 11400000, guid: 53b5a4ac7fcc152458aaff4e52479692, type: 2}
-  - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}

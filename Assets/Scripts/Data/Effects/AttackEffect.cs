@@ -10,36 +10,40 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Effect/Attack Effect", fileName = "New Attack Effect")]
     public class AttackEffect : EffectData
     {
-        [Header("The target(s) the damage get applied to")]
+        [Header("Target")]
         public EffectTarget effectTarget;
         
-        [Header("The source of the 'damage' value")]
+        [Header("Damage")]
         public ValueSource damageValueSource;
         
         [ShowIf("damageValueSource", ValueSource.CARD)]
         public int damageValue;
         
         [ShowIf("damageValueSource", ValueSource.CUSTOM)]
-        public DamageValueSource customDamageValue;
+        public CustomValueSource customDamageValue;
         
-        [Header("The source of the 'times' value")]
+        [ResizableTextArea]
+        [ShowIf("damageValueSource", ValueSource.CUSTOM)]
+        public string customDamageDescription;
+        
+        [Header("Times")]
         public ValueSource timesValueSource;
         
         [ShowIf("timesValueSource", ValueSource.CARD)]
         public int timesValue;
 
         [ShowIf("timesValueSource", ValueSource.CUSTOM)]
-        public TimesValueSource customTimesValue;
+        public CustomValueSource customTimesValue;
         
-        public override IEnumerator Execute(
-            RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        [ResizableTextArea]
+        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
+        public string customTimesDescription;
+        
+        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             List<RuntimeCharacter> targets = new();
             
+            // Get the affected targets for the size change effect
             switch (effectTarget)
             {
                 case EffectTarget.NONE:
@@ -60,8 +64,10 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
 
-            int damageValueWithModifiers = GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            // Process the attack effect to every target
+            int damage = GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            
             for (int i = 0; i < times; i++)
             {
                 // Process the attack to every target
@@ -76,7 +82,7 @@ namespace DefaultNamespace
                     // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
                     else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
                     {
-                        yield return Attack(target, damageValueWithModifiers, player, enemies);
+                        yield return Attack(target, damage, player, enemies);
                     }
                 }
             }
@@ -85,16 +91,10 @@ namespace DefaultNamespace
             characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
         }
         
-        public override string GetDescriptionTextWithModifiers(
-            RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             StringBuilder sb = new();
 
-            // Step 1) Build "Deal X damage" / "Deal X damage to all enemies" / "Deal damage equal to your.." string
             switch (effectTarget)
             {
                 case EffectTarget.NONE:
@@ -112,7 +112,7 @@ namespace DefaultNamespace
                             sb.Append($"Deal {GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
                             break;
                         case ValueSource.CUSTOM:
-                            sb.Append(customDamageValue.GetDescription());
+                            sb.Append(customDamageDescription);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -127,7 +127,7 @@ namespace DefaultNamespace
                             sb.Append($"Deal {GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
                             break;
                         case ValueSource.CUSTOM:
-                            sb.Append(customDamageValue.GetDescription());
+                            sb.Append(customDamageDescription);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -137,23 +137,22 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
             
-            // Step 2) Build " X times." / " number of times you've discarded cards this turn" string
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times.");
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
                     break;
                 case ValueSource.CUSTOM:
-                    sb.Append(customTimesValue.GetDescription());
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            sb.Append(".");
 
+            sb.Append(".");
+            
             return sb.ToString();
         }
 
@@ -161,7 +160,6 @@ namespace DefaultNamespace
         {
             StringBuilder sb = new();
 
-            // Step 1) Build "Deal X damage" / "Deal X damage to all enemies" / "Deal damage equal to your.." string
             switch (effectTarget)
             {
                 case EffectTarget.NONE:
@@ -179,7 +177,7 @@ namespace DefaultNamespace
                             sb.Append($"Deal {GetDamageValue()} damage");
                             break;
                         case ValueSource.CUSTOM:
-                            sb.Append(customDamageValue.GetDescription());
+                            sb.Append(customDamageDescription);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -194,7 +192,7 @@ namespace DefaultNamespace
                             sb.Append($"Deal {GetDamageValue()} damage to all enemies");
                             break;
                         case ValueSource.CUSTOM:
-                            sb.Append(customDamageValue.GetDescription());
+                            sb.Append(customDamageDescription);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -204,16 +202,15 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
             
-            // Step 2) Build " X times." / " number of times you've discarded cards this turn" string
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue()} times.");
+                    sb.Append($" {GetTimesValue()} times");
                     break;
                 case ValueSource.CUSTOM:
-                    sb.Append(customTimesValue.GetDescription());
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -227,6 +224,7 @@ namespace DefaultNamespace
         private IEnumerator Evade(RuntimeCharacter target)
         {
             // TODO: VFX, animation etc.
+            
             target.properties.Get<int>(PropertyKey.EVADE).Value -= 1;
             yield break;
         }
@@ -234,6 +232,7 @@ namespace DefaultNamespace
         private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc.
+            
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
             Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
@@ -267,19 +266,18 @@ namespace DefaultNamespace
 
         private static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            // TODO: VFX, animation etc.
+            // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
+            
             character.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.DEAD;
             yield return BattleManager.OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
-            // TODO: Remove the character from battle (if it's enemy)
         }
         
-        private int GetDamageValue(RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        /// <summary>
+        /// Get the damage value inside a battle. Calculates the final value with all the modifiers.
+        /// </summary>
+        public int GetDamageValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            int value = damageValueSource switch
+            int damage = damageValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => damageValue,
@@ -287,20 +285,19 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
             
-            int playerAttackWithModifiers = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
-            int playerStrength = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
-            int cardAttackWithModifiers = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
+            int playerAttackModifier = player.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(player);
+            int playerStrengthModifier = player.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(player);
+            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
             
-            return value + playerAttackWithModifiers + playerStrength + cardAttackWithModifiers;
+            return damage + playerAttackModifier + playerStrengthModifier + cardAttackModifier;
         }
         
-        private int GetTimesValue(RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        /// <summary>
+        /// Get the times value inside a battle. Calculates the final value with all the modifiers.
+        /// </summary>
+        public int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            int value = timesValueSource switch
+            int times = timesValueSource switch
             {
                 ValueSource.NONE => 1,
                 ValueSource.CARD => timesValue,
@@ -308,13 +305,16 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            return value;
+            int cardTimesModifier = card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(card);
+            
+            return times + cardTimesModifier;
         }
         
         /// <summary>
-        /// Get damage value outside the battle. If card is null we don't have card upgrades calculated in the value.
+        /// Get damage value outside the battle. If you have a reference to the card instance
+        /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        private string GetDamageValue(RuntimeCard card = null)
+        public string GetDamageValue(RuntimeCard card = null)
         {
             if (card == null)
             {
@@ -337,9 +337,10 @@ namespace DefaultNamespace
         }
         
         /// <summary>
-        /// Get times value outside the battle. If card is null we don't have card upgrades calculated in the value.
+        /// Get times value outside the battle. If you have a reference to the card instance
+        /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        private string GetTimesValue(RuntimeCard card = null)
+        public string GetTimesValue(RuntimeCard card = null)
         {
             if (card == null)
             {

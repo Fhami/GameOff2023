@@ -28,6 +28,8 @@ namespace DefaultNamespace
     /// </summary>
     public class BattleManager : MonoBehaviour
     {
+        public CardController CardController => cardController;
+        
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;

@@ -13,6 +13,7 @@
         STRENGTH,
         EVADE,
         STUN,
+        HEAL,
         CARDS_DISCARDED_ON_CURRENT_TURN_COUNT,
         CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT,
         CARDS_DESTROYED_ON_CURRENT_TURN_COUNT,
@@ -25,6 +26,7 @@
         CARD_STATE,
         SKILL_STATE,
         CHARACTER_STATE,
-        TIMES
+        TIMES,
+        NUMBER_OF_CARDS_IN_DRAW_PILE
     }
 }
