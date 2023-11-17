@@ -153,7 +153,7 @@ namespace DefaultNamespace
             int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
             for (int i = 0; i < handSize; i++)
             {
-                yield return DrawCard(player, enemies);
+                yield return DrawCard(null, player, player, null, enemies);
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
@@ -240,8 +240,10 @@ namespace DefaultNamespace
         
         public IEnumerator DrawCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
+            // Handle visuals
             yield return cardController.Draw(1);
             
+            // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
         }
         
