@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Unstable
   m_EditorClassIdentifier: 
   buffPropertyKey: 0
-  type: 0
+  type: 2
   icon: {fileID: 0}

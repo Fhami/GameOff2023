@@ -14,6 +14,7 @@ namespace DefaultNamespace
         public static Dictionary<string, PassiveData> passiveData;
         public static Dictionary<string, SkillData> skillData;
         public static Dictionary<PropertyKey, BuffData> buffData;
+        public static Dictionary<IntentType, IntentData> intentData;
 
         public static void Initialize()
         {
@@ -22,6 +23,7 @@ namespace DefaultNamespace
             passiveData = Resources.LoadAll<PassiveData>("Passives").ToDictionary(passive => passive.name);
             skillData = Resources.LoadAll<SkillData>("Skills").ToDictionary(skill => skill.name);
             buffData = Resources.LoadAll<BuffData>("Buffs").ToDictionary(buff => buff.buffPropertyKey);
+            intentData = Resources.LoadAll<IntentData>("Intents").ToDictionary(intent => intent.intentType);
         }
     }
 }

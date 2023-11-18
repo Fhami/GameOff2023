@@ -10,11 +10,6 @@ namespace DefaultNamespace
         DEAD,
         ESCAPED
     }
-
-    public class PassiveSlots
-    {
-        public RuntimePassive[] slots = new RuntimePassive[3];
-    }
     
     /// <summary>
     /// The runtime instance of a character. This can be modified during runtime.

@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8a945bf38e456198693fb49d1c1971, type: 3}
   m_Name: Number Of Cards Discarded On Current Turn
   m_EditorClassIdentifier: 
-  description: number of times you've discarded cards this turn

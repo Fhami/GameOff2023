@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965fabd94240488eaf3bc4714681fc8e, type: 3}
-  m_Name: Strength
+  m_Script: {fileID: 11500000, guid: ad0205b89dc049dab2036d14ed5e6347, type: 3}
+  m_Name: Set Target Size
   m_EditorClassIdentifier: 
-  buffPropertyKey: 8
-  type: 1
+  intentType: 10
   icon: {fileID: 0}

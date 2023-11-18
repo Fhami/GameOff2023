@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471dd4ab546f41d39624dcb46d574827, type: 3}
   m_Name: Decay
   m_EditorClassIdentifier: 
-  buffPropertyKey: 0
-  type: 0
+  buffPropertyKey: 27
+  type: 2
   icon: {fileID: 0}
