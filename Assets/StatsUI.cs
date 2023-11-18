@@ -78,7 +78,6 @@ public class StatsUI : MonoBehaviour
             _buffs.Add(buffData, icon);
         }
 
-
         if (value > 0)
         {
             icon.SetValue(value);

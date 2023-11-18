@@ -327,10 +327,10 @@ namespace DefaultNamespace
             switch (operation)
             {
                 case Operation.INCREASE:
-                    size.Value = Mathf.Clamp(size.Value - sizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(size.Value + sizeChange, 0, maxSize.GetValueWithModifiers(target));
                     break;
                 case Operation.DECREASE:
-                    size.Value = Mathf.Clamp(size.Value + sizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(size.Value - sizeChange, 0, maxSize.GetValueWithModifiers(target));
                     break;
                 case Operation.SET:
                     size.Value = Mathf.Clamp(sizeChange, 0, maxSize.GetValueWithModifiers(target));
@@ -343,32 +343,13 @@ namespace DefaultNamespace
 
             if (previousForm != currentForm)
             {
-                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
+                yield return BattleManager.current.ChangeForm(previousForm, currentForm, target, player, enemies);
             }
             
             if (previousSize != size.Value)
             {
-                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
+                yield return BattleManager.current.ChangeSize(previousSize, size.Value, target, player, enemies);
             }
-        }
-        
-        private static IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            // TODO: VFX, animation etc
-            character.DisablePassives(previousForm);
-            character.EnablePassives(currentForm);
-            
-            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
-            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
-
-            yield return BattleManager.OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
-        }
-        
-        private static IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            // TODO: VFX, animation etc
-            
-            yield return BattleManager.OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
         }
         
         /// <summary>

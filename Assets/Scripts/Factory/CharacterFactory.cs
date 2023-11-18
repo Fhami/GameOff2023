@@ -33,6 +33,9 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.STUN, new Property<int>(0, PropertyKey.STUN));
             runtimeCharacter.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
             runtimeCharacter.properties.Add(PropertyKey.THORNS, new Property<int>(0, PropertyKey.THORNS));
+            runtimeCharacter.properties.Add(PropertyKey.DECAY, new Property<int>(0, PropertyKey.DECAY));
+            runtimeCharacter.properties.Add(PropertyKey.GROW, new Property<int>(0, PropertyKey.GROW));
+            runtimeCharacter.properties.Add(PropertyKey.UNSTABLE, new Property<int>(0, PropertyKey.UNSTABLE));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT, new Property<int>(0, PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT, new Property<int>(0, PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT, new Property<int>(0, PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT));
