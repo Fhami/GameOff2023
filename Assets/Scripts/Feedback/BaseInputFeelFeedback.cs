@@ -12,6 +12,7 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
     [SerializeField] private MMF_Player hoverOutPlayer;
     [SerializeField] private MMF_Player pointerDownPlayer;
     [SerializeField] private MMF_Player pointerUpPlayer;
+    [SerializeField] private MMF_Player draggingPlayer;
     [SerializeField] private MMF_Player lockClickPlayer;
     
     protected RectTransform RectTransform => (RectTransform)transform;
@@ -21,6 +22,8 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
     protected MMScaleShaker[] ScaleShakers;
 
     [SerializeField] protected bool isDebug;
+
+    private bool isDragging = false;
     
     /// <summary>
     /// Use this to iterate every MMF_Player instead of calling it one by one 
@@ -43,6 +46,9 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
 
             if (lockClickPlayer)
                 yield return lockClickPlayer;
+
+            if (draggingPlayer)
+                yield return draggingPlayer;
         }
     }
     
@@ -58,8 +64,8 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
         {
             foreach (var feedback in mmfPlayer.FeedbacksList)
             {
-                feedback.AutomatedTargetAcquisition.Mode = MMFeedbackTargetAcquisition.Modes.Parent;
-                feedback.ForceAutomateTargetAcquisition();
+                // feedback.AutomatedTargetAcquisition.Mode = MMFeedbackTargetAcquisition.Modes.Parent;
+                // feedback.ForceAutomateTargetAcquisition();
             }
         }
     }
@@ -74,7 +80,7 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
         if (isDebug)
             Debug.Log("HoverIn");
         
-        if (!hoverInPlayer) return;
+        if (!hoverInPlayer || isDragging) return;
 
         StopAllFeedbacks();
 
@@ -86,7 +92,7 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
         if (isDebug)
             Debug.Log("HoverOut");
         
-        if (!hoverOutPlayer) return;
+        if (!hoverOutPlayer || isDragging) return;
 
         StopAllFeedbacks();
 
@@ -129,10 +135,26 @@ public abstract class BaseInputFeelFeedback : MonoBehaviour
 
     protected IEnumerator IEPointerUp()
     {
+        isDragging = false;
+        
         if (pointerDownPlayer)
             yield return new WaitUntil(() => !pointerDownPlayer.IsPlaying);
 
+        if (draggingPlayer)
+            draggingPlayer.StopFeedbacks();
+        
         pointerUpPlayer.PlayFeedbacks();
+    }
+
+    protected void Dragging()
+    {
+        if (!draggingPlayer || isDragging) return;
+        
+        if (isDebug)
+            Debug.Log("Dragging");
+
+        isDragging = true;
+        draggingPlayer.PlayFeedbacks();
     }
 
     protected void StopAllFeedbacks()

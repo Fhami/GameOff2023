@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4411242716682068493}
   - component: {fileID: 6735472189734689342}
+  - component: {fileID: 5487534188396860056}
+  - component: {fileID: 3027497806088810340}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -44,3 +46,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8b2f5ef3e042e4da7685bad20a704e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardController: {fileID: 3027497806088810340}
+  characterSpawner: {fileID: 5487534188396860056}
+  player: {fileID: 0}
+  enemies: []
+  deckData: {fileID: 0}
+--- !u!114 &5487534188396860056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3948609675528046274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdcc954e28e7c0044a344135054a59e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesPos: []
+--- !u!114 &3027497806088810340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3948609675528046274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d49af47d05eda54ba3b4bff6456d69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeckPile: {fileID: 0}
+  HandPile: {fileID: 0}
+  DiscardPile: {fileID: 0}
+  ExhaustPile: {fileID: 0}
+  Character: {fileID: 0}
+  drawInterval: 0.1

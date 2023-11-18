@@ -30,7 +30,7 @@ namespace DefaultNamespace
             return runtimeCard;
         }
 
-        private const string CardPrefabPath = "CardPrefab";
+        private const string CardPrefabPath = "Prefabs/Cards/BaseCardPrefab";
         private static Card cardPrefab;
         
         /// <summary>

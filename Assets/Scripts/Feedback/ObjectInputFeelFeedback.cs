@@ -1,4 +1,5 @@
 
+using System;
 using MoreMountains.Feedbacks;
 
 public class ObjectInputFeelFeedback : BaseInputFeelFeedback
@@ -29,6 +30,11 @@ public class ObjectInputFeelFeedback : BaseInputFeelFeedback
     private void OnMouseEnter()
     {
         HoverIn();
+    }
+
+    private void OnMouseDrag()
+    {
+        Dragging();
     }
 
     private void OnMouseExit()

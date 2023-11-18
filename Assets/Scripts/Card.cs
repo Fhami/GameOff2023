@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using NaughtyAttributes;
 using TMPro;
@@ -21,9 +22,11 @@ namespace DefaultNamespace
 
         [SerializeField] private TextMeshPro nameTxt;
         [SerializeField] private TextMeshPro effectTxt;
-        //[SerializeField] private DragableObject dragableObject;
+        
+        [SerializeField] private MMF_Player enterTargetPlayer;
+        [SerializeField] private MMF_Player existTargetPlayer;
 
-        [SerializeField] private List<Character> validTargets = new List<Character>();
+        [SerializeField, ReadOnly] private List<Character> validTargets = new List<Character>();
 
         [SerializeField, ReadOnly] private Character currentTarget;
         
@@ -101,6 +104,12 @@ namespace DefaultNamespace
             if (currentTarget)
             {
                 currentTarget.HighlightSelected(true);
+                
+                enterTargetPlayer.PlayFeedbacks();
+            }
+            else
+            {
+                existTargetPlayer.PlayFeedbacks();
             }
         }
         
@@ -108,13 +117,11 @@ namespace DefaultNamespace
         {
             HighlightTargets(false);
             
+            existTargetPlayer.PlayFeedbacks();
+            
             if (ValidateTarget(currentTarget))
             {
                 OnDropped?.Invoke(currentTarget);
-            }
-            else
-            {
-                //dragableObject.MoveToOrigin();
             }
         }
 
