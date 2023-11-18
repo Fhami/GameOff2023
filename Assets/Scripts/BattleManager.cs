@@ -265,14 +265,6 @@ namespace DefaultNamespace
         }
         
         /// <summary>
-        /// Card destroyed or faded
-        /// </summary>
-        public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            yield return cardController.ExhaustCard(card.Card);
-        }
-        
-        /// <summary>
         /// Called when a character is killed (either player or enemy).
         /// </summary>
         public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
