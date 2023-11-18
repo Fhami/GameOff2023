@@ -6,6 +6,8 @@ namespace DefaultNamespace
 {
     public abstract class EffectData : ScriptableObject
     {
+        public IntentData intent;
+        
         /// <summary>
         /// A coroutine for playing a single card. Executes card's effects and can also trigger different skills.
         /// </summary>
