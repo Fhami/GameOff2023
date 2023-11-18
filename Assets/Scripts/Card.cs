@@ -21,7 +21,7 @@ namespace DefaultNamespace
 
         [SerializeField] private TextMeshPro nameTxt;
         [SerializeField] private TextMeshPro effectTxt;
-        [SerializeField] private DragableObject dragableObject;
+        //[SerializeField] private DragableObject dragableObject;
 
         [SerializeField] private List<Character> validTargets = new List<Character>();
 
@@ -53,11 +53,6 @@ namespace DefaultNamespace
             effectTxt.SetText(_builder.ToString());
         }
 
-        public void UpdateValidTarget()
-        {
-            validTargets = GetValidTargets(runtimeCard);
-        }
-
         public bool ValidateTarget(Character _character)
         {
             return validTargets.Contains(_character);
@@ -70,9 +65,31 @@ namespace DefaultNamespace
             OnEnterTarget.RemoveAllListeners();
         }
 
+        private void OnMouseDown()
+        {
+            validTargets = GetValidTargets(runtimeCard);
+        }
+
         private void OnMouseDrag()
         {
             HighlightTargets(true);
+
+            var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (_hit)
+            {
+                currentTarget = _hit.transform.gameObject.GetComponent<Character>();
+            }
+            else
+            {
+                if (currentTarget)
+                    currentTarget.HighlightSelected(false);
+                
+                currentTarget = null;
+            }
+
+            if (currentTarget)
+                currentTarget.HighlightSelected(true);
             
             OnDrag?.Invoke(this);
         }
@@ -87,25 +104,8 @@ namespace DefaultNamespace
             }
             else
             {
-                dragableObject.MoveToOrigin();
+                //dragableObject.MoveToOrigin();
             }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            currentTarget = other.gameObject.GetComponent<Character>();
-            
-            if (currentTarget)
-                currentTarget.HighlightSelected(true);
-            
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (currentTarget)
-                currentTarget.HighlightSelected(false);
-
-            currentTarget = null;
         }
 
         private void HighlightTargets(bool _value)

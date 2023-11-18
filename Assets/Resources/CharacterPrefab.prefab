@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8182812893953835477}
   - component: {fileID: 4334729966149564361}
   - component: {fileID: 3426283045656471505}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CharacterPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &2339609170667796061
 GameObject:
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 5869177596125398717}
   - component: {fileID: 8315144445634320254}
   - component: {fileID: 1668875279905205455}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605278699214041558}
   - component: {fileID: 4825042608493409092}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ MonoBehaviour:
     dilateShift: 1
     blurShift: 0
     fillPass:
-      shader: {fileID: 4800000, guid: 213090e563021044c92d1c27258b93f0, type: 3}
+      shader: {fileID: 0}
       serializedProperties:
       - PropertyName: _PublicColor
         Property:
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 8205445468932509798}
   - component: {fileID: 5913867507509718579}
   - component: {fileID: 5126253441795754155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 2253613346837634608}
   - component: {fileID: 8435068430001594886}
   - component: {fileID: 1094790592262061327}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}

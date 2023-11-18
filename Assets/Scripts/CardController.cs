@@ -71,7 +71,6 @@ public class CardController : MonoBehaviour
             
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
-            _card.UpdateValidTarget();
 
             yield return drawDelay;
         }
