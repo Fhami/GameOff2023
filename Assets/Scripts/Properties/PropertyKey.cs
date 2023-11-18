@@ -28,6 +28,8 @@
         CHARACTER_STATE,
         TIMES,
         STABLE,
-        THORNS
+        THORNS,
+        DECAY,
+        GROW
     }
 }
