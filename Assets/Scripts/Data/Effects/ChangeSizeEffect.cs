@@ -310,14 +310,18 @@ namespace DefaultNamespace
             // Keep track of the previous size
             int previousSize = size.Value;
 
-            // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
-            int amountAbsorbedByStable = Mathf.Min(incomingSizeChange, stable.Value);
-            int sizeChange = incomingSizeChange - amountAbsorbedByStable;
+            int sizeChange = incomingSizeChange;
             
-            // Reduce the absorbed size change value from the stable stack
-            stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
-            
-            // TODO: What happens when we use SET operation but the target has X amount of STABLE?
+            // If the operation is INCREASE or DECREASE and not SET, then stable will reduce the size change
+            if (operation != Operation.SET)
+            {
+                // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
+                int amountAbsorbedByStable = Mathf.Min(incomingSizeChange, stable.Value);
+                sizeChange = incomingSizeChange - amountAbsorbedByStable;
+                
+                // Reduce the absorbed size change value from the stable stack
+                stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
+            }
             
             // Change the size based on the operation
             switch (operation)
