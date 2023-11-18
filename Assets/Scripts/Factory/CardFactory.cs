@@ -20,12 +20,12 @@ namespace DefaultNamespace
             };
 
             // Create cards's properties.
-            runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
-            runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
-            runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0));
-            runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0));
-            runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0));
-            runtimeCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE));
+            runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0, PropertyKey.ATTACK));
+            runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0, PropertyKey.SHIELD));
+            runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0, PropertyKey.SIZE));
+            runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
+            runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0, PropertyKey.TIMES));
+            runtimeCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE, PropertyKey.CARD_STATE));
 
             return runtimeCard;
         }

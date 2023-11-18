@@ -15,7 +15,7 @@ namespace DefaultNamespace
             };
             
             // Create cards's properties.
-            runtimeSkill.properties.Add(PropertyKey.SKILL_STATE, new Property<SkillState>(SkillState.READY));
+            runtimeSkill.properties.Add(PropertyKey.SKILL_STATE, new Property<SkillState>(SkillState.READY, PropertyKey.SKILL_STATE));
 
             return runtimeSkill;
         }
@@ -33,7 +33,7 @@ namespace DefaultNamespace
             };
             
             // Create cards's properties.
-            runtimeSkill.properties.Add(PropertyKey.SKILL_STATE, new Property<SkillState>(SkillState.READY));
+            runtimeSkill.properties.Add(PropertyKey.SKILL_STATE, new Property<SkillState>(SkillState.READY, PropertyKey.SKILL_STATE));
 
             return runtimeSkill;
         }

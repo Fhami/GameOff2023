@@ -21,6 +21,7 @@ namespace DefaultNamespace
         ON_HEALTH_CHANGED,
         ON_FORM_CHANGED,
         ON_DEATH,
+        ON_CHARACTER_SPAWNED,
         ON_BATTLE_START
     }
     
@@ -34,6 +35,7 @@ namespace DefaultNamespace
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;
+        [SerializeField] private float characterSpawnDelay = 0.2f;
 
         public Character player;
         public RuntimeCharacter runtimePlayer;
@@ -42,6 +44,8 @@ namespace DefaultNamespace
 
         [Header("Mockup")] 
         public DeckData deckData;
+        public CharacterData playerData;
+        public EncounterData encounterData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
@@ -51,45 +55,66 @@ namespace DefaultNamespace
         {
             current = this;
         }
-
+        
+        /// <summary>
+        /// This is for testing! Actual start is StartBattle
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Start()
         {
-            if (isDebug)
-            {
-                Database.Initialize();
-                //Add cards to player deck
-                foreach (var _cardData in deckData.Cards)
-                {
-                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
-                }
-                
-                cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
-                
-                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
-                player.gameObject.tag = "PLAYER";
-                player.cardController = cardController;
-
-                cardController.Character = player;
-
-                runtimePlayer = player.runtimeCharacter;
-
-                var _enemies = characterSpawner.SpawnEnemies(new List<string>()
-                {
-                    "Fishy", "Fishy", "Fishy"
-                });
-
-                foreach (var _enemy in _enemies)
-                {
-                    enemies.Add(_enemy);
-                    runtimeEnemies.Add(_enemy.runtimeCharacter);
-                }
-
-            }
+            if (!isDebug) yield break;
             
-            // TODO: Initialize battle scene and start the battle!
+            Database.Initialize();
+            //Add cards to player deck
+            foreach (var _cardData in deckData.Cards)
+            {
+                GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
+            }
+
+            yield return StartBattle(playerData, encounterData);
+        }
+
+        public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
+        {
+            cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
+
+            yield return InitializeCharacters(_playerData, _encounterData);
+            
             yield return BattleStart(runtimePlayer, runtimeEnemies);
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+
+        public IEnumerator InitializeCharacters(CharacterData _player, EncounterData _encounterData)
+        {
+            player = characterSpawner.SpawnPlayer(_player.name);
+            player.cardController = cardController;
+            
+            cardController.Character = player;
+            runtimePlayer = player.runtimeCharacter;
+
+            foreach (var _enemyData in _encounterData.enemies)
+            {
+                var _newEnemy = characterSpawner.SpawnEnemy(_enemyData);
+                
+                enemies.Add(_newEnemy);
+                runtimeEnemies.Add(_newEnemy.runtimeCharacter);
+                
+                yield return new WaitForSeconds(characterSpawnDelay);
+                
+                //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
+                //I don't think we're gonna trigger effect while initializing
+            }
+        }
+
+        
+        public IEnumerator SpawnEnemy(string _name)
+        {
+            var _newEnemy = characterSpawner.SpawnEnemy(_name);
+
+            yield return new WaitForSeconds(characterSpawnDelay);
+
+            yield return OnGameEvent(GameEvent.ON_CHARACTER_SPAWNED, _newEnemy.runtimeCharacter, runtimePlayer, runtimeEnemies);
         }
         
         public void EndTurn()
@@ -175,6 +200,18 @@ namespace DefaultNamespace
             // TODO: Discard all remaining cards in your hand to the discard pile
 
             yield return cardController.ClearHand();
+
+            // If player has decay debuff
+            if (player.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(player) > 0)
+            {
+                yield return Decay(player, player, enemies);
+            }
+            
+            // If player has grow buff
+            if (player.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(player) > 0)
+            {
+                yield return Grow(player, player, enemies);
+            }
             
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
@@ -186,8 +223,6 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-
-            yield break;
         }
 
         /// <summary>
@@ -292,6 +327,109 @@ namespace DefaultNamespace
             
             yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
         }
+
+        public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX
+            
+            Property<int> decay = target.properties.Get<int>(PropertyKey.DECAY);
+            int decayAmount = decay.GetValueWithModifiers(target);
+            
+            FormData previousForm = target.GetCurrentForm();
+            
+            Property<int> stable = target.properties.Get<int>(PropertyKey.STABLE);
+            Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+            Property<int> maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE);
+            
+            // Keep track of the previous size
+            int previousSize = size.Value;
+            
+            // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
+            int amountAbsorbedByStable = Mathf.Min(decayAmount, stable.Value);
+            decayAmount -= amountAbsorbedByStable;
+                
+            // Reduce the absorbed size change value from the stable stack
+            stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
+
+            // Reduce the target size by decay amount
+            size.Value = Mathf.Clamp(size.Value - decayAmount, 0, maxSize.GetValueWithModifiers(target));
+
+            // Reduce decay stack by 1
+            decay.Value = Mathf.Clamp(decay.Value - 1, 0, int.MaxValue);
+            
+            FormData currentForm = target.GetCurrentForm();
+
+            if (previousForm != currentForm)
+            {
+                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
+            }
+            
+            if (previousSize != size.Value)
+            {
+                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
+            }
+        }
+        
+        public IEnumerator Grow(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX
+            
+            Property<int> grow = target.properties.Get<int>(PropertyKey.GROW);
+            int growAmount = grow.GetValueWithModifiers(target);
+            
+            FormData previousForm = target.GetCurrentForm();
+            
+            Property<int> stable = target.properties.Get<int>(PropertyKey.STABLE);
+            Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+            Property<int> maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE);
+            
+            // Keep track of the previous size
+            int previousSize = size.Value;
+            
+            // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
+            int amountAbsorbedByStable = Mathf.Min(growAmount, stable.Value);
+            growAmount -= amountAbsorbedByStable;
+                
+            // Reduce the absorbed size change value from the stable stack
+            stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
+
+            // Reduce the target size by grow amount
+            size.Value = Mathf.Clamp(size.Value - growAmount, 0, maxSize.GetValueWithModifiers(target));
+
+            // Reduce grow stack by 1
+            grow.Value = Mathf.Clamp(grow.Value - 1, 0, int.MaxValue);
+            
+            FormData currentForm = target.GetCurrentForm();
+
+            if (previousForm != currentForm)
+            {
+                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
+            }
+            
+            if (previousSize != size.Value)
+            {
+                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
+            }
+        }
+        
+        public IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+            character.DisablePassives(previousForm);
+            character.EnablePassives(currentForm);
+            
+            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
+            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+
+            yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
+        }
+        
+        public IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+            
+            yield return OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
+        }
         
         /// <summary>
         /// Coroutine that should be called before enemy acts their intent.
@@ -316,6 +454,18 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn just ended.</param>
         public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
         {
+            // If enemy has decay debuff
+            if (enemy.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(enemy) > 0)
+            {
+                yield return Decay(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
+            // If enemy has grow buff
+            if (enemy.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(enemy) > 0)
+            {
+                yield return Grow(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
             enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
             enemy.properties.Get<int>(PropertyKey.THORNS).Value = 0;
 
