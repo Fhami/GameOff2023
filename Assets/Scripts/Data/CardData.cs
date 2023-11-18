@@ -23,8 +23,11 @@ namespace DefaultNamespace
     public enum CardType
     {
         NONE,
-        ATTACK,
-        DEFEND,
+        Attack,
+        Skill,
+        Power,
+        Status,
+        Curse
     }
     
     /// <summary>
