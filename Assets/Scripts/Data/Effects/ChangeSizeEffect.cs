@@ -303,23 +303,33 @@ namespace DefaultNamespace
             // Get the target's form before we change it's size
             FormData previousForm = target.GetCurrentForm();
             
+            Property<int> stable = target.properties.Get<int>(PropertyKey.STABLE);
             Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
             Property<int> maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE);
 
             // Keep track of the previous size
             int previousSize = size.Value;
 
+            // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
+            int amountAbsorbedByStable = Mathf.Min(incomingSizeChange, stable.Value);
+            int sizeChange = incomingSizeChange - amountAbsorbedByStable;
+            
+            // Reduce the absorbed size change value from the stable stack
+            stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
+            
+            // TODO: What happens when we use SET operation but the target has X amount of STABLE?
+            
             // Change the size based on the operation
             switch (operation)
             {
                 case Operation.INCREASE:
-                    size.Value = Mathf.Clamp(size.Value - incomingSizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(size.Value - sizeChange, 0, maxSize.GetValueWithModifiers(target));
                     break;
                 case Operation.DECREASE:
-                    size.Value = Mathf.Clamp(size.Value + incomingSizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(size.Value + sizeChange, 0, maxSize.GetValueWithModifiers(target));
                     break;
                 case Operation.SET:
-                    size.Value = Mathf.Clamp(incomingSizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(sizeChange, 0, maxSize.GetValueWithModifiers(target));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
