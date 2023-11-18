@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Muscle
   m_EditorClassIdentifier: 
   sizeMin: 8
-  sizeMax: 9
+  sizeMax: 10
   handSize: 5
   skills:
-  - {fileID: 11400000, guid: 0ca014d85873aa1428cb144eedcd9f6e, type: 2}
+  - {fileID: 0}
   attackPattern: []
