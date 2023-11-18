@@ -31,6 +31,7 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.STRENGTH, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.EVADE, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.STUN, new Property<int>(0));
+            runtimeCharacter.properties.Add(PropertyKey.STABLE, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT, new Property<int>(0));
