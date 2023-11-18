@@ -27,6 +27,7 @@
         SKILL_STATE,
         CHARACTER_STATE,
         TIMES,
-        STABLE
+        STABLE,
+        THORNS
     }
 }

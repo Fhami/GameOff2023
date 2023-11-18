@@ -173,7 +173,8 @@ namespace DefaultNamespace
             
             // Clear buff stacks
             player.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            
+            player.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
@@ -308,14 +309,14 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn just ended.</param>
         public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
         {
-            // Clear stun (it's not stackable right?)
             enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            
+            enemy.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-            
+
             yield break;
         }
 

@@ -229,7 +229,6 @@ namespace DefaultNamespace
             yield break;
         }
         
-        // RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies
         private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc.
@@ -251,6 +250,13 @@ namespace DefaultNamespace
             // Reduce the final attack value from the target's health
             health.Value = Mathf.Clamp(health.Value - damage, 0, maxHealth.GetValueWithModifiers(target));
 
+            // If target has thorns, deal damage from thorns to the attacker
+            int thornsDamage = target.properties.Get<int>(PropertyKey.THORNS).GetValueWithModifiers(target);
+            if (thornsDamage > 0)
+            {
+                yield return Attack(characterPlayingTheCard, thornsDamage, target, player, characterPlayingTheCard, enemies);
+            }
+            
             if (health.Value > 0)
             {
                 if (healthBefore != health.Value)
@@ -265,8 +271,6 @@ namespace DefaultNamespace
             }
         }
 
-
-        
         /// <summary>
         /// Get the damage value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
