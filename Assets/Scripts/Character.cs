@@ -1,3 +1,4 @@
+using System;
 using EPOOutline;
 using TMPro;
 using UnityEngine;
@@ -37,11 +38,11 @@ namespace DefaultNamespace
 
         public void HighlightSelected(bool _value)
         {
-            outlinable.OutlineParameters.FillPass.Shader =
-                _value
-                    ? Shader.Find("Easy performant outline/Shaders/Fills/ColorFill")
-                    : Shader.Find("Easy performant outline/Shaders/Fills/EmptyFill");
-
+            if (_value)
+                outlinable.OutlineParameters.FillPass.Shader =
+                    Resources.Load<Shader>("Easy performant outline/Shaders/Fills/ColorFill");
+            else
+                outlinable.OutlineParameters.FillPass.Shader = null;
         }
         
         public void UpdateStat()
