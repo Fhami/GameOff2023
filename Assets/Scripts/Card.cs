@@ -78,20 +78,30 @@ namespace DefaultNamespace
 
             if (_hit)
             {
-                currentTarget = _hit.transform.gameObject.GetComponent<Character>();
+                var _target = _hit.transform.gameObject.GetComponent<Character>();
+                SetCurrentTarget(_target);
             }
             else
             {
-                if (currentTarget)
-                    currentTarget.HighlightSelected(false);
-                
-                currentTarget = null;
+                SetCurrentTarget(null);
             }
 
-            if (currentTarget)
-                currentTarget.HighlightSelected(true);
-            
             OnDrag?.Invoke(this);
+        }
+
+        private void SetCurrentTarget(Character _newTarget)
+        {
+            if (currentTarget)
+            {
+                currentTarget.HighlightSelected(false);
+            }
+
+            currentTarget = _newTarget;
+
+            if (currentTarget)
+            {
+                currentTarget.HighlightSelected(true);
+            }
         }
         
         private void OnMouseUp()
