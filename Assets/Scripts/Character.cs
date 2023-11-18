@@ -21,12 +21,12 @@ namespace DefaultNamespace
             runtimeCharacter.Character = this;
             
             //Update visual
-            UpdateHpVisual(runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).Value);
-            UpdateSizeVisual(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
+            UpdateHpVisual(runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
+            UpdateSizeVisual(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE));
             UpdateFormVisual(runtimeCharacter.GetCurrentForm());
             
-            runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged +=
-                _property => UpdateHpVisual(_property.Value);
+            runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
+            runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).OnChanged += UpdateSizeVisual;
             
             outlinable.AddAllChildRenderersToRenderingList();
         }
@@ -50,12 +50,12 @@ namespace DefaultNamespace
             
         }
 
-        public void UpdateHpVisual(int _value)
+        public void UpdateHpVisual(Property<int> _value)
         {
-            hpTxt.SetText($"HP: {_value}");
+            hpTxt.SetText($"HP: {_value.Value.ToString()}");
         }
 
-        public void UpdateSizeVisual(int _size)
+        public void UpdateSizeVisual(Property<int> _size)
         {
             
         }
