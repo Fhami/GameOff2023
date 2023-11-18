@@ -119,5 +119,25 @@ namespace DefaultNamespace
                 }
             }
         }
+
+        /// <summary>
+        /// Get active buffs and debuffs. 
+        /// </summary>
+        public List<Property<int>> GetActiveBuffsAndDebuffs()
+        {
+            List<Property<int>> buffsAndDebuffs = new();
+            
+            foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
+            {
+                Property<int> buffProperty = properties.Get<int>(buffPropertyKey);
+                int value = buffProperty.GetValueWithModifiers(this);
+                if (value > 0)
+                {
+                    buffsAndDebuffs.Add(buffProperty);
+                }
+            }
+
+            return buffsAndDebuffs;
+        }
     }
 }

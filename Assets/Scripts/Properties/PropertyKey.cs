@@ -30,6 +30,7 @@
         STABLE,
         THORNS,
         DECAY,
-        GROW
+        GROW,
+        UNSTABLE
     }
 }
