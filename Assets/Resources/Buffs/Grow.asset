@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Grow
   m_EditorClassIdentifier: 
   buffPropertyKey: 0
-  type: 0
-  icon: {fileID: 0}
+  type: 1
+  icon: {fileID: 21300000, guid: 4db279853f5e0dc40b1dad4b9356429e, type: 3}

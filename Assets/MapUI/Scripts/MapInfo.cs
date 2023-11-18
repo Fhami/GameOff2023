@@ -19,13 +19,10 @@ public class MapInfo : ScriptableObject
 {
     [MinMaxSlider(1, 5)]
     public Vector2Int minMaxNode;
-    //public List<NodeInfo> possibleNode;
-    [SerializedDictionary("NodeType", "Chance")]
     public List<NodeInfo> fixedNodes;
+    [SerializedDictionary("NodeType", "Chance")]
     public SerializedDictionary<NodeInfo, int> possibleNodes;
-    //public List<EncounterData> possibleEncounters;
     public SerializedDictionary<NodeType, List<EncounterData>> possibleEncounters;
-    //public List<NodeType>
 }
 
 
