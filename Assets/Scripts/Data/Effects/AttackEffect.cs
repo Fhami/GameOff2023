@@ -82,7 +82,7 @@ namespace DefaultNamespace
                     // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
                     else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
                     {
-                        yield return Attack(target, damage, player, enemies);
+                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies);
                     }
                 }
             }
@@ -229,7 +229,8 @@ namespace DefaultNamespace
             yield break;
         }
         
-        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        // RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies
+        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc.
             
@@ -260,17 +261,11 @@ namespace DefaultNamespace
             }
             else
             {
-                yield return Kill(target, player, enemies);
+                yield return BattleManager.current.Kill(target, characterPlayingTheCard, player, cardTarget, enemies);
             }
         }
 
-        private static IEnumerator Kill(RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
-            
-            character.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.DEAD;
-            yield return BattleManager.OnGameEvent(GameEvent.ON_DEATH, character, player, enemies);
-        }
+
         
         /// <summary>
         /// Get the damage value inside a battle. Calculates the final value with all the modifiers.

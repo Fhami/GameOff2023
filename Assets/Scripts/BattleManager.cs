@@ -273,6 +273,27 @@ namespace DefaultNamespace
         }
         
         /// <summary>
+        /// Called when a character is killed (either player or enemy).
+        /// </summary>
+        public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
+            
+            characterToKill.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.DEAD;
+            
+            if (characterToKill == player)
+            {
+                throw new NotImplementedException("TODO: Implement PLAYER death logic and visuals.");
+            }
+            else
+            {
+                throw new NotImplementedException("TODO: Implement ENEMY death logic and visuals.");
+            }
+            
+            yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
+        }
+        
+        /// <summary>
         /// Coroutine that should be called before enemy acts their intent.
         /// </summary>
         /// <param name="enemy">The enemy whose turn it is now.</param>
