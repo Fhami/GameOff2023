@@ -14,7 +14,7 @@ public class BuffIcon : MonoBehaviour
 
     public void SetValue(int value)
     {
-        _buff_number_img.text = _buff_number_img.ToString();
+        _buff_number_img.text = value.ToString();
     }
 
     public void SetImage(Sprite sprite)

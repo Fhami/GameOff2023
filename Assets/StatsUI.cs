@@ -102,6 +102,26 @@ public class StatsUI : MonoBehaviour
         SetHp(100, 70, 100, 0.2f);
     }
 
+    public void Btn_AddBuffA(BuffData buffData)
+    {
+        SetBuff(buffData, 1);
+    }
+
+    public void Btn_RemoveBuffA(BuffData buffData)
+    {
+        SetBuff(buffData, 0);
+    }
+
+    public void Btn_AddBuffB(BuffData buffData)
+    {
+        SetBuff(buffData, 2);
+    }
+
+    public void Btn_RemoveBuffB(BuffData buffData)
+    {
+        SetBuff(buffData, 0);
+    }
+
     #endregion
 
 }
