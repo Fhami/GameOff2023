@@ -876,6 +876,8 @@ MonoBehaviour:
       m_Calls: []
   nameTxt: {fileID: 159605908}
   effectTxt: {fileID: 1340564674}
+  enterTargetPlayer: {fileID: 0}
+  existTargetPlayer: {fileID: 0}
   validTargets: []
   currentTarget: {fileID: 0}
 --- !u!114 &246939816
@@ -895,6 +897,7 @@ MonoBehaviour:
   hoverOutPlayer: {fileID: 0}
   pointerDownPlayer: {fileID: 0}
   pointerUpPlayer: {fileID: 0}
+  draggingPlayer: {fileID: 0}
   lockClickPlayer: {fileID: 0}
   isDebug: 0
 --- !u!1 &257218869
@@ -1435,6 +1438,8 @@ MonoBehaviour:
       m_Calls: []
   nameTxt: {fileID: 1756948712}
   effectTxt: {fileID: 2056107219}
+  enterTargetPlayer: {fileID: 0}
+  existTargetPlayer: {fileID: 0}
   validTargets: []
   currentTarget: {fileID: 0}
 --- !u!114 &621685728
@@ -1454,6 +1459,7 @@ MonoBehaviour:
   hoverOutPlayer: {fileID: 0}
   pointerDownPlayer: {fileID: 0}
   pointerUpPlayer: {fileID: 0}
+  draggingPlayer: {fileID: 0}
   lockClickPlayer: {fileID: 0}
   isDebug: 0
 --- !u!1 &689958390
@@ -1523,9 +1529,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardController: {fileID: 689958391}
   characterSpawner: {fileID: 689958395}
+  characterSpawnDelay: 0.2
   player: {fileID: 0}
   enemies: []
   deckData: {fileID: 11400000, guid: dba53657e4e30a14e91c32be4ff51749, type: 2}
+  playerData: {fileID: 11400000, guid: 4dafc39e278583541ac298096871670e, type: 2}
+  encounterData: {fileID: 11400000, guid: 836084ddc96cd9e4aafd695abe567b36, type: 2}
 --- !u!114 &689958394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1538,6 +1547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be1e5c0e049c324e8004c196f19c02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
 --- !u!114 &689958395
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ namespace DefaultNamespace
         ON_HEALTH_CHANGED,
         ON_FORM_CHANGED,
         ON_DEATH,
+        ON_CHARACTER_SPAWNED,
         ON_BATTLE_START
     }
     
@@ -34,6 +35,7 @@ namespace DefaultNamespace
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;
+        [SerializeField] private float characterSpawnDelay = 0.2f;
 
         public Character player;
         public RuntimeCharacter runtimePlayer;
@@ -42,6 +44,8 @@ namespace DefaultNamespace
 
         [Header("Mockup")] 
         public DeckData deckData;
+        public CharacterData playerData;
+        public EncounterData encounterData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
@@ -51,45 +55,66 @@ namespace DefaultNamespace
         {
             current = this;
         }
-
+        
+        /// <summary>
+        /// This is for testing! Actual start is StartBattle
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Start()
         {
-            if (isDebug)
-            {
-                Database.Initialize();
-                //Add cards to player deck
-                foreach (var _cardData in deckData.Cards)
-                {
-                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
-                }
-                
-                cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
-                
-                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
-                player.gameObject.tag = "PLAYER";
-                player.cardController = cardController;
-
-                cardController.Character = player;
-
-                runtimePlayer = player.runtimeCharacter;
-
-                var _enemies = characterSpawner.SpawnEnemies(new List<string>()
-                {
-                    "Fishy", "Fishy", "Fishy"
-                });
-
-                foreach (var _enemy in _enemies)
-                {
-                    enemies.Add(_enemy);
-                    runtimeEnemies.Add(_enemy.runtimeCharacter);
-                }
-
-            }
+            if (!isDebug) yield break;
             
-            // TODO: Initialize battle scene and start the battle!
+            Database.Initialize();
+            //Add cards to player deck
+            foreach (var _cardData in deckData.Cards)
+            {
+                GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
+            }
+
+            yield return StartBattle(playerData, encounterData);
+        }
+
+        public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
+        {
+            cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
+
+            yield return InitializeCharacters(_playerData, _encounterData);
+            
             yield return BattleStart(runtimePlayer, runtimeEnemies);
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+
+        public IEnumerator InitializeCharacters(CharacterData _player, EncounterData _encounterData)
+        {
+            player = characterSpawner.SpawnPlayer(_player.name);
+            player.cardController = cardController;
+            
+            cardController.Character = player;
+            runtimePlayer = player.runtimeCharacter;
+
+            foreach (var _enemyData in _encounterData.enemies)
+            {
+                var _newEnemy = characterSpawner.SpawnEnemy(_enemyData);
+                
+                enemies.Add(_newEnemy);
+                runtimeEnemies.Add(_newEnemy.runtimeCharacter);
+                
+                yield return new WaitForSeconds(characterSpawnDelay);
+                
+                //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
+                //I don't think we're gonna trigger effect while initializing
+            }
+        }
+
+        
+        public IEnumerator SpawnEnemy(string _name)
+        {
+            var _newEnemy = characterSpawner.SpawnEnemy(_name);
+
+            yield return new WaitForSeconds(characterSpawnDelay);
+
+            yield return OnGameEvent(GameEvent.ON_CHARACTER_SPAWNED, _newEnemy.runtimeCharacter, runtimePlayer, runtimeEnemies);
         }
         
         public void EndTurn()

@@ -16,8 +16,14 @@ MonoBehaviour:
   icon: {fileID: 0}
   enemies:
   - baseData: {fileID: 11400000, guid: cee65ca58654f7f40b6dd3ec118655b5, type: 2}
-    minHpMod: 0
-    maxHpMod: 0
+    minMaxHpMod: {x: 0, y: 4}
+    startHp: 5
+    startShield: 0
+    startSize: 5
+    startAttackPattern: 0
   - baseData: {fileID: 11400000, guid: 2914c00971c7cf34b84b11973d27a28c, type: 2}
-    minHpMod: 0
-    maxHpMod: 0
+    minMaxHpMod: {x: 0, y: 9}
+    startHp: 5
+    startShield: 0
+    startSize: 5
+    startAttackPattern: 0
