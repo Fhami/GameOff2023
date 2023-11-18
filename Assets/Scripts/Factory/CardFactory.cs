@@ -23,6 +23,7 @@ namespace DefaultNamespace
             runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0));
+            runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0));
             runtimeCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE));
 
