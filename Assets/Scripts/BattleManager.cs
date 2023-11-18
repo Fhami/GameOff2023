@@ -122,6 +122,13 @@ namespace DefaultNamespace
                 skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value = SkillState.READY;
             }
             
+            // Enable passives for each character based on their current form
+            player.EnablePassives(player.GetCurrentForm());
+            foreach (RuntimeCharacter enemy in enemies)
+            {
+                enemy.EnablePassives(enemy.GetCurrentForm());
+            }
+            
             yield return OnGameEvent(GameEvent.ON_BATTLE_START, player, player, enemies);
         }
         

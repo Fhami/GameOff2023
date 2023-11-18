@@ -43,15 +43,30 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN, new Property<int>(0));
             runtimeCharacter.properties.Add(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX, new Property<int>(0));
 
-            // Create runtime versions of character's skills
+            runtimeCharacter.SetupPassiveSlots();
+            
             runtimeCharacter.skills = new();
+            
             foreach (FormData formData in characterData.forms)
             {
+                int passiveSlotIndex = 0;
+                
+                // Create runtime versions of character's skills. This is used for enemies only! player doesn't have passives assigned in this list.
+                foreach (PassiveData passiveData in formData.passives)
+                {
+                    if (!passiveData) continue;
+                    
+                    RuntimePassive runtimePassive = PassiveFactory.Create(passiveData);
+                    runtimeCharacter.AddPassiveToSlot(formData, passiveSlotIndex, runtimePassive);
+                    passiveSlotIndex++;
+                }
+                
+                // Create runtime versions of character's skills. This list is used by both player AND enemies.
                 foreach (SkillData skillData in formData.skills)
                 {
                     if (!skillData) continue;
                     
-                    RuntimeSkill runtimeSkill = SkillFactory.Create(skillData.name);
+                    RuntimeSkill runtimeSkill = SkillFactory.Create(skillData);
                     runtimeCharacter.skills.Add(runtimeSkill);
                 }
             }

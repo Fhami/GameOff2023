@@ -11,13 +11,15 @@ namespace DefaultNamespace
     {
         public static Dictionary<string, CardData> cardData;
         public static Dictionary<string, CharacterData> characterData;
+        public static Dictionary<string, PassiveData> passiveData;
         public static Dictionary<string, SkillData> skillData;
 
         public static void Initialize()
         {
             cardData = Resources.LoadAll<CardData>("Cards").ToDictionary(card => card.name);
             characterData = Resources.LoadAll<CharacterData>("Characters").ToDictionary(character => character.name);
-            skillData = Resources.LoadAll<SkillData>("").ToDictionary(skill => skill.name);
+            passiveData = Resources.LoadAll<PassiveData>("Passives").ToDictionary(passive => passive.name);
+            skillData = Resources.LoadAll<SkillData>("Skills").ToDictionary(skill => skill.name);
         }
     }
 }

@@ -14,6 +14,11 @@ namespace DefaultNamespace
         public Property<T> Get<T>(PropertyKey key) => Properties[key] as Property<T>;
 
         public IProperty Get(PropertyKey key) => Properties[key];
+
+        public bool TryGet(PropertyKey key, out IProperty property)
+        {
+            return Properties.TryGetValue(key, out property);
+        }
         
         public bool Has(PropertyKey key)
         {
