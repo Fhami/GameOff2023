@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39a50e1c37d4ccf99f952b522b9232b, type: 3}
   m_Name: Size +1
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 356a7de571711e243bd0775e83673436, type: 2}
   operation: 0
   effectTarget: 2
   sizeValueSource: 1
   sizeValue: 1
   customSizeValue: {fileID: 0}
+  sizeValueDescription: 
   timesValueSource: 0
   timesValue: 0
   customTimesValue: {fileID: 0}
+  timesValueDescription: 

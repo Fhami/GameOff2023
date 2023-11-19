@@ -45,6 +45,7 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN, new Property<bool>(false, PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN));
             runtimeCharacter.properties.Add(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN, new Property<int>(0, PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN));
             runtimeCharacter.properties.Add(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX, new Property<int>(0, PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX));
+            runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD, new Property<int>(0, PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD));
 
             runtimeCharacter.SetupPassiveSlots();
             
@@ -77,7 +78,7 @@ namespace DefaultNamespace
             return runtimeCharacter;
         }
 
-        private const string CharacterPrefabPath = "CharacterPrefab";
+        private const string CharacterPrefabPath = "Prefabs/Characters/BaseCharacterPrefab";
         private static Character characterPrefab;
         
         public static Character CreateCharacterObject(RuntimeCharacter runtimeCharacter)

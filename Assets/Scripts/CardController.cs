@@ -42,29 +42,32 @@ public class CardController : MonoBehaviour
                 if (_newCardObj.ValidateTarget(_target))
                 {
                     if (ShowLog)
-                        Debug.Log($"target {_target.name} = true");
+                        Debug.Log($"target {_target.GameObject.name} = true");
                     
                     _newCardObj.transform.SetParent(null);
-                    
+
+                    var _targetChar = _target.GameObject.GetComponent<Character>();
+
+                    var _runtimeCharacter = _targetChar ? _targetChar.runtimeCharacter : null;
+
                     StartCoroutine(BattleManager.current.PlayCard(_newCardObj.runtimeCard, Character.runtimeCharacter,
-                        _target.runtimeCharacter, BattleManager.current.runtimeEnemies));
+                        _runtimeCharacter, BattleManager.current.runtimeEnemies));
                 }
                 else
                 {
                     if (ShowLog)
-                        Debug.Log($"target {_target.name} = false");
+                        Debug.Log($"target {_target.GameObject.name} = false");
                 }
             });
             
             DeckPile.AddCard(_newCardObj);
         }
-        
+
         DeckPile.Shuffle();
     }
     
     public IEnumerator Draw(int _number)
     {
-
         foreach (var _card in DeckPile.GetCards(_number))
         {
             HandPile.AddCard(_card);
@@ -91,6 +94,8 @@ public class CardController : MonoBehaviour
     {
         DiscardPile.AddCard(HandPile.PickCard(_card));
 
+        _card.ClearCallBack();
+        
         yield return drawDelay;
     }
 
@@ -101,17 +106,18 @@ public class CardController : MonoBehaviour
         yield return drawDelay;
     }
     
-    public IEnumerator ClearHand()
+    public IEnumerator DiscardRemainingCards()
     {
-        foreach (var _card in HandPile.GetCards(-1))
+        while (HandPile.Cards.Count > 0)
         {
-            if (_card)
-            {
-                DiscardPile.AddCard(_card);
-                _card.ClearCallBack();
-
-                yield return drawDelay;
-            }
+            Card card = HandPile.Cards[0];
+            
+            yield return BattleManager.current.DiscardCard(
+                card.runtimeCard, 
+                BattleManager.current.runtimePlayer,
+                BattleManager.current.runtimePlayer, 
+                null,
+                BattleManager.current.runtimeEnemies);
         }
     }
 }

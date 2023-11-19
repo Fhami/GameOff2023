@@ -10,18 +10,45 @@ using DefaultNamespace;
 
 public class StatsUI : MonoBehaviour
 {
+    [Header("Icon")]
+    [SerializeField] GameObject _icon_content;
+    [SerializeField] Image _hearth_img;
+    [SerializeField] Image _sheild_img;
+    [SerializeField] GameObject _preview_content;
+    [SerializeField] Image _preview_sheild_img;
+
     [Header("HP")]
     [SerializeField] Image _hp_img;
     [SerializeField] TextMeshProUGUI _hp_txt;
 
-
     [Header("HP FEEDBACK")]
     [SerializeField] MMF_Player _hp_decrease_feedback;
     [SerializeField] MMF_Player _hp_increase_feedback;
+    [SerializeField] MMF_Player _hp_preview_feedback;
     [SerializeField] ParticleSystem _hp_increase_efx;
     [SerializeField] ParticleSystem _hp_decrease_efx;
+    [SerializeField] ParticleSystem _hp_focus_efx;
     Tween _hpNumberTween;
     Tween _hpBarTween;
+
+    [SerializeField] GameObject _hp_front_preview;
+    [SerializeField] Slider _hp_preview_front_slider;
+    [SerializeField] Image _hp_preview_front_slider_area;
+
+
+    [SerializeField] GameObject _hp_back_preview;
+    [SerializeField] Image _hp_preview_increase_img;
+
+    [Header("SHIELD")]
+    [SerializeField] TextMeshProUGUI _shield_txt;
+    [SerializeField] TextMeshProUGUI _preview_shield_txt;
+
+
+    [Header("SHIELD FEEDBACK")]
+    [SerializeField] ParticleSystem _shield_increase_efx;
+    [SerializeField] ParticleSystem _shield_decrease_efx;
+    [SerializeField] ParticleSystem _shield_focus_efx;
+    [SerializeField] MMF_Player _shield_preview_feedback;
 
 
     [Header("BUFF")]
@@ -30,7 +57,14 @@ public class StatsUI : MonoBehaviour
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
 
 
-    public void SetHp(int from, int to,int max, float duration, System.Action onComplete = null)
+    private void Start()
+    {
+        _hp_front_preview.SetActive(false);
+        _hp_back_preview.SetActive(false);
+    }
+
+    public void SetHp(int from, int to, int max, float duration = 0.33f,
+        System.Action onStart= null,  System.Action onComplete = null)
     {
         float targetPercentile = (float)to / (float)max;
 
@@ -45,6 +79,9 @@ public class StatsUI : MonoBehaviour
         }
 
         _hpNumberTween = DOTween.To(() => from, x => from = x, to, duration)
+            .OnStart(()=> {
+                onStart?.Invoke();
+            })
             .OnComplete(() => {
                 onComplete?.Invoke();
             })
@@ -58,6 +95,45 @@ public class StatsUI : MonoBehaviour
 
     }
 
+    public void PlayHpUpFeedback()
+    {
+
+    }
+
+    public void PlayHpDownFeedback()
+    {
+
+    }
+    
+    public void PreviewHp(int current, int to, int max)
+    {
+        var deltaHp = current - to;
+        float currentPercentile = (float)current / (float)max;
+        float deltaPercentile = (float)deltaHp / (float)max;
+
+        if (deltaHp > 0)
+        {
+            //Decrease
+            //Set front preview = to;
+            //Set Back preview = current;
+            _hp_preview_front_slider.value = currentPercentile - deltaPercentile;
+            _hp_preview_front_slider_area.fillAmount = currentPercentile;
+
+            _hp_front_preview.SetActive(true);
+            _hp_back_preview.SetActive(false);
+
+
+        }
+        else
+        {
+            //Increse
+            _hp_front_preview.SetActive(false);
+            _hp_back_preview.SetActive(true);
+            _hp_preview_increase_img.fillAmount = currentPercentile - deltaPercentile;
+        }
+
+    }
+
     //void AnimateHpBar(int to,float duration)
     //{
     //    _hpBarTween = _hp_img.DOFillAmount(to, duration);
@@ -65,6 +141,7 @@ public class StatsUI : MonoBehaviour
 
 
     //May need to change buff ID to something elsee????? ?
+    
     public void SetBuff(BuffData buffData, int value)
     {
         BuffIcon icon;
@@ -88,6 +165,50 @@ public class StatsUI : MonoBehaviour
             _buffs.Remove(buffData);
         }
     }
+
+    public void SetShield(int to, System.Action onStart = null, System.Action onComplete = null)
+    {
+        onStart?.Invoke();
+
+        if (to > 0)
+        {
+            _hearth_img?.gameObject.SetActive(false);
+            _sheild_img?.gameObject.SetActive(true);
+        }
+        else
+        {
+            _hearth_img?.gameObject.SetActive(true);
+            _sheild_img?.gameObject.SetActive(false);
+        }
+
+        _shield_txt.text = to.ToString();
+        onComplete?.Invoke();
+    }
+
+    public void PreviewShield(int value)
+    {
+        _preview_content.SetActive(true);
+        _icon_content.SetActive(false);
+        _preview_shield_txt.text = value.ToString();
+    }
+
+    public void CancelPreviewShield()
+    {
+        _preview_content.SetActive(true);
+        _icon_content.SetActive(false);
+        _preview_shield_txt.text = "";
+    }
+
+    public void PlayShieldUpFeedback()
+    {
+       // _shield_increase_efx.Play();
+    }
+
+    public void PlayShieldDownFeedback()
+    {
+        // _shield_decrease_efx.Play();
+    }
+
 
     #region Test Function
 
@@ -119,6 +240,26 @@ public class StatsUI : MonoBehaviour
     public void Btn_RemoveBuffB(BuffData buffData)
     {
         SetBuff(buffData, 0);
+    }
+
+    public void Btn_GetShield(int value)
+    {
+        SetShield(value, PlayShieldUpFeedback);
+    }
+
+    public void Btn_LostShield(int value)
+    {
+        SetShield(value, PlayShieldDownFeedback);
+    }
+
+    public void Btn_Preview01()
+    {
+        PreviewHp(15, 3, 30);
+    }
+
+    public void Btn_Preview02()
+    {
+        PreviewHp(15, 27, 30);
     }
 
     #endregion

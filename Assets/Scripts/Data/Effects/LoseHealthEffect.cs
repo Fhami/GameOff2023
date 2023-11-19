@@ -110,7 +110,7 @@ namespace DefaultNamespace
         /// </summary>
         public int GetHealthValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            int damage = healthValueSource switch
+            int health = healthValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => healthValue,
@@ -118,9 +118,7 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
             
-            int cardHealthModifier = card.properties.Get<int>(PropertyKey.HEALTH).GetValueWithModifiers(card);
-            
-            return damage + cardHealthModifier;
+            return health;
         }
         
         /// <summary>

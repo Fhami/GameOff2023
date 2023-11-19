@@ -93,20 +93,22 @@ namespace DefaultNamespace
             cardController.Character = player;
             runtimePlayer = player.runtimeCharacter;
 
-            foreach (var _enemyData in _encounterData.enemies)
+            if (_encounterData != null) // I added this null check so I can test cards without having any
             {
-                var _newEnemy = characterSpawner.SpawnEnemy(_enemyData);
+                foreach (var _enemyData in _encounterData.enemies)
+                {
+                    var _newEnemy = characterSpawner.SpawnEnemy(_enemyData);
                 
-                enemies.Add(_newEnemy);
-                runtimeEnemies.Add(_newEnemy.runtimeCharacter);
+                    enemies.Add(_newEnemy);
+                    runtimeEnemies.Add(_newEnemy.runtimeCharacter);
                 
-                yield return new WaitForSeconds(characterSpawnDelay);
+                    yield return new WaitForSeconds(characterSpawnDelay);
                 
-                //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
-                //I don't think we're gonna trigger effect while initializing
+                    //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
+                    //I don't think we're gonna trigger effect while initializing
+                }
             }
         }
-
         
         public IEnumerator SpawnEnemy(string _name)
         {
@@ -197,9 +199,8 @@ namespace DefaultNamespace
         // TODO: This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            // TODO: Discard all remaining cards in your hand to the discard pile
-
-            yield return cardController.ClearHand();
+            // Discard hand but since this discard is not initiated by a card we leave it null.
+            yield return DiscardHand(null);
 
             // If player has decay debuff
             if (player.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(player) > 0)
@@ -244,12 +245,18 @@ namespace DefaultNamespace
                 yield return effectData.Execute(card, player, player, target, enemies);
             }
             
-            // If the card is not FADED or DESTROYED then we can move it to discard pile
+            // If the card is not FADED, DESTROYED or DISCARDED then we can move it to discard pile
+            // NOTE: Some card effect might discard the card before we get here! 
             if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.FADED &&
-                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED)
+                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED &&
+                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DISCARD_PILE)
             {
                 yield return DiscardCard(card, player, player, target, enemies);
             }
+            
+            // This is where we finished playing the card, so all effects are executed. Now we can
+            // safely (I think) reset some properties used by subsequent effects. Like this one.
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD).Value = 0;
         }
 
         public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
@@ -266,6 +273,24 @@ namespace DefaultNamespace
             
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
+        }
+
+        /// <summary>
+        /// Discard all cards in hand.
+        /// </summary>
+        /// <param name="card">The card which initiated the discard hand logic (as an effect).</param>
+        /// <returns></returns>
+        public IEnumerator DiscardHand(RuntimeCard card)
+        {
+            if (card != null)
+            {
+                // Update this we can use it for effects like (discard your hand, then deal damage equal to how many cards discarded).
+                // This will reset to 0 after the card "finishes playing".
+                Property<int> cardsDiscardedByCurrentlyBeingPlayedCard = runtimePlayer.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD);
+                cardsDiscardedByCurrentlyBeingPlayedCard.Value = cardController.HandPile.Cards.Count;
+            }
+       
+            yield return cardController.DiscardRemainingCards();
         }
         
         public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
@@ -293,11 +318,16 @@ namespace DefaultNamespace
                 yield return ShuffleDiscardPileIntoDeck(player, enemies);
             }
             
-            // TODO: Draw the card (visual + data)
             yield return cardController.Draw(1);
             
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
+
+            // NOTE: Since cardController.Draw() doesn't return the drawn cards, I have to put this "hack" here.
+            foreach (Card cardInHand in cardController.HandPile.Cards)
+            {
+                cardInHand.runtimeCard.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.HAND;
+            }
         }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
