@@ -19,7 +19,8 @@ namespace DefaultNamespace
         Buff,
         Stun,
         Debuff,
-        Unknown
+        Unknown,
+        LoseHealth
     }
     
     /// <summary>
