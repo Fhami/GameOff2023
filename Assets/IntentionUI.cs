@@ -13,12 +13,6 @@ public class IntentionUI : MonoBehaviour
     [SerializeField] IntentData intent01;
     [SerializeField] IntentData intent02;
 
-
-    private void Start()
-    {
-        
-    }
-
     public void SetIntention(List<IntentionDetail> intentDetails)
     {
         ClearIntention();
@@ -69,8 +63,8 @@ public class IntentionUI : MonoBehaviour
     public void Btn_Add01()
     {
         List<IntentionDetail> intentDetails = new List<IntentionDetail>() {
-            new IntentionDetail(intent01,2,""),
-            new IntentionDetail(intent02, -1, "")
+            new IntentionDetail(intent01,2,1,""),
+            new IntentionDetail(intent02, -1,1, "")
         };
         SetIntention(intentDetails);
     }
@@ -78,10 +72,10 @@ public class IntentionUI : MonoBehaviour
     public void Btn_Add02()
     {
         List<IntentionDetail> intentDetails = new List<IntentionDetail>();
-        intentDetails.Add(new IntentionDetail(intent01, 2, ""));
-        intentDetails.Add(new IntentionDetail(intent02, -1, ""));
-        intentDetails.Add(new IntentionDetail(intent02, 4, ""));
-        intentDetails.Add(new IntentionDetail(intent02, 4, ""));
+        intentDetails.Add(new IntentionDetail(intent01, 2, 1, ""));
+        intentDetails.Add(new IntentionDetail(intent02, -1, 1, ""));
+        intentDetails.Add(new IntentionDetail(intent02, 4, 1, ""));
+        intentDetails.Add(new IntentionDetail(intent02, 4, 1, ""));
         SetIntention(intentDetails);
 
     }
@@ -93,8 +87,22 @@ public class IntentionDetail
     public IntentData _intentData;
     public int _value;
     public string _description;
+    public int _multiplier;
 
-    public IntentionDetail(IntentData intentData, int value, string description)
+    public IntentionDetail(IntentData intentData, int value)
+    {
+        this._intentData = intentData;
+        this._value = value;
+    }
+
+    public IntentionDetail(IntentData intentData, int value,int multiplier)
+    {
+        this._intentData = intentData;
+        this._value = value;
+        this._multiplier = multiplier;
+    }
+
+    public IntentionDetail(IntentData intentData, int value, int multiplier, string description)
     {
         this._intentData = intentData;
         this._value = value;
