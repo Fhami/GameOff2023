@@ -21,7 +21,8 @@ namespace DefaultNamespace
         Debuff,
         Unknown,
         LoseHealth,
-        Draw
+        Draw,
+        Discard
     }
     
     /// <summary>

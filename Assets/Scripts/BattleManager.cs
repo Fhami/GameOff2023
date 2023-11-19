@@ -199,8 +199,7 @@ namespace DefaultNamespace
         // TODO: This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            // TODO: Discard all remaining cards in your hand to the discard pile
-
+            // Discard hand but since this discard is not initiated by a card we leave it null.
             yield return DiscardHand(null);
 
             // If player has decay debuff
@@ -256,8 +255,8 @@ namespace DefaultNamespace
             }
             
             // This is where we finished playing the card, so all effects are executed. Now we can
-            // safely (I think) reset some properties used by subsequent effects.
-            card.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_THIS_CARD_COUNT).Value = 0;
+            // safely (I think) reset some properties used by subsequent effects. Like this one.
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD).Value = 0;
         }
 
         public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
@@ -276,13 +275,19 @@ namespace DefaultNamespace
             yield return OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
         }
 
+        /// <summary>
+        /// Discard all cards in hand.
+        /// </summary>
+        /// <param name="card">The card which initiated the discard hand logic (as an effect).</param>
+        /// <returns></returns>
         public IEnumerator DiscardHand(RuntimeCard card)
         {
             if (card != null)
             {
-                // Update this card data so we can use it for effects like (discard your hand, then deal damage equal to how many cards discarded).
-                Property<int> cardsDiscardedByThisCardCount = card.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_THIS_CARD_COUNT);
-                cardsDiscardedByThisCardCount.Value = cardController.HandPile.Cards.Count;
+                // Update this we can use it for effects like (discard your hand, then deal damage equal to how many cards discarded).
+                // This will reset to 0 after the card "finishes playing".
+                Property<int> cardsDiscardedByCurrentlyBeingPlayedCard = runtimePlayer.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD);
+                cardsDiscardedByCurrentlyBeingPlayedCard.Value = cardController.HandPile.Cards.Count;
             }
        
             yield return cardController.DiscardRemainingCards();
@@ -317,6 +322,12 @@ namespace DefaultNamespace
             
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
+
+            // NOTE: Since cardController.Draw() doesn't return the drawn cards, I have to put this "hack" here.
+            foreach (Card cardInHand in cardController.HandPile.Cards)
+            {
+                cardInHand.runtimeCard.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.HAND;
+            }
         }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
