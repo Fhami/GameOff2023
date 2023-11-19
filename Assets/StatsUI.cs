@@ -23,12 +23,10 @@ public class StatsUI : MonoBehaviour
     Tween _hpNumberTween;
     Tween _hpBarTween;
 
-
     [Header("BUFF")]
     [SerializeField] BuffIcon _buff_prefab;
     [SerializeField] GameObject _buff_content;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
-
 
     public void SetHp(int from, int to,int max, float duration, System.Action onComplete = null)
     {
@@ -65,6 +63,7 @@ public class StatsUI : MonoBehaviour
 
 
     //May need to change buff ID to something elsee????? ?
+    
     public void SetBuff(BuffData buffData, int value)
     {
         BuffIcon icon;
