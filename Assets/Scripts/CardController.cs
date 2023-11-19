@@ -23,6 +23,17 @@ public class CardController : MonoBehaviour
 
     private WaitForSeconds drawDelay;
 
+    private IEnumerable<CardPile> AllPiles
+    {
+        get
+        {
+            yield return DeckPile;
+            yield return HandPile;
+            yield return DiscardPile;
+            yield return ExhaustPile;
+        }
+    }
+
     private void Awake()
     {
         drawDelay = new WaitForSeconds(drawInterval);
@@ -94,8 +105,6 @@ public class CardController : MonoBehaviour
     {
         DiscardPile.AddCard(HandPile.PickCard(_card));
 
-        _card.ClearCallBack();
-        
         yield return drawDelay;
     }
 
@@ -113,6 +122,16 @@ public class CardController : MonoBehaviour
             "// TODO: Add card destroy VFX\n" + 
             "// TODO: Also remove runtime card data from player, and destroy the card gameobject\n" +
             "// TODO: IDK what to do here haha. Kamee halp?");
+
+        foreach (var _pile in AllPiles)
+        {
+            _pile.RemoveCard(_card);
+        }
+        
+        //TODO:Play card vfx
+        GameManager.Instance.PlayerRuntimeDeck.RemoveCard(_card.runtimeCard);
+        
+        Destroy(_card.gameObject);
         
         // E.g. SLIME card destroys itself when player changes size, you can debug using that.
     }

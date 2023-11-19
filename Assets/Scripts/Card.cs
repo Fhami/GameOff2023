@@ -59,7 +59,12 @@ namespace DefaultNamespace
             StringBuilder _builder = new StringBuilder();
             foreach (var _effect in runtimeCard.cardData.effects)
             {
-                _builder.AppendLine(_effect.GetDescriptionTextWithModifiers(runtimeCard, _character, _character, null, null));
+                var _description = _effect.GetDescriptionTextWithModifiers(runtimeCard, _character, _character, null,
+                    BattleManager.current.runtimeEnemies);
+                
+                _builder.AppendLine(_description);
+                
+                Debug.Log($"{_effect.name} {_description}");
             }
             
             effectTxt.SetText(_builder.ToString());

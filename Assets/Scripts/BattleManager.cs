@@ -102,9 +102,11 @@ namespace DefaultNamespace
                 
                     enemies.Add(_newEnemy);
                     runtimeEnemies.Add(_newEnemy.runtimeCharacter);
+                    
+                    yield return _newEnemy.runtimeCharacter.Character.UpdateIntention(_newEnemy.GetIntention());
                 
                     yield return new WaitForSeconds(characterSpawnDelay);
-                
+
                     //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
                     //I don't think we're gonna trigger effect while initializing
                 }
@@ -498,7 +500,7 @@ namespace DefaultNamespace
             enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             enemy.properties.Get<int>(PropertyKey.EVADE).Value = 0;
             
-            yield break;
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
         }
         
         /// <summary>
@@ -526,7 +528,7 @@ namespace DefaultNamespace
 
             // Create card instance from the card data
             // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
-            RuntimeCard card = CardFactory.Create(cardData.name);
+            RuntimeCard card = CardFactory.Create(cardData);
 
             foreach (EffectData effectData in card.cardData.effects)
             {
@@ -563,12 +565,7 @@ namespace DefaultNamespace
             enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
             
-            FormData form = enemy.GetCurrentForm();
-            // Get enemy's next intent (the next card they plan to use)
-            Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
-            CardData cardData = form.attackPattern[cardIndex.Value];
-            
-            yield return enemy.Character.UpdateIntention(cardData);
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
             
             yield break;
         }

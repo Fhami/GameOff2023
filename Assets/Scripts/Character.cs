@@ -27,10 +27,12 @@ namespace DefaultNamespace
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
             UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE));
+            UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
             UpdateFormVisual(runtimeCharacter.GetCurrentForm());
             
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).OnChanged += UpdateSizeVisual;
+            runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
             
             outlinable.AddAllChildRenderersToRenderingList();
         }
@@ -50,15 +52,15 @@ namespace DefaultNamespace
             else
                 outlinable.OutlineParameters.FillPass.Shader = null;
         }
-        
-        public void UpdateStat()
-        {
-            
-        }
 
         public void UpdateHpVisual(int _oldValue, Property<int> _value)
         {
             statUI.SetHp(_oldValue, _value.Value, runtimeCharacter.properties.Get<int>(PropertyKey.MAX_HEALTH).Value);
+        }
+
+        public void UpdateShield(int _oldValue, Property<int> _value)
+        {
+            statUI.SetShield(_value.Value);
         }
 
         public void UpdateSizeVisual(int _oldValue, Property<int> _size)
@@ -67,28 +69,45 @@ namespace DefaultNamespace
             sizeUI.SetSize(_size.Value, _sizeEffect);
         }
 
-        public IEnumerator UpdateIntention(CardData _actionData)
+        public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
         {
-            // var _intentDetails = new List<IntentionDetail>();
-            //
-            // foreach (var _effectData in _actionData.effects)
-            // {
-            //     var _value = 1;
-            //     if (_effectData is IEffectValue<int> _effectValue)
-            //     {
-            //         _value = _effectValue.GetValue();
-            //     }
-            //     
-            //     _intentDetails.Add(new IntentionDetail(_effectData.intent, _value));
-            // }
-            //
-            // intentionUI.SetIntention(_intentDetails);
-            yield break;
+            var _intentDetails = new List<IntentionDetail>();
+
+            var _battleManager = BattleManager.current;
+            
+            foreach (var _effectData in _runtimeCard.cardData.effects)
+            {
+                var _value = _effectData.GetEffectValue(_runtimeCard, runtimeCharacter, _battleManager.runtimePlayer,
+                    _battleManager.runtimePlayer, _battleManager.runtimeEnemies);
+
+                var _times = _effectData.GetTimesValue(_runtimeCard, runtimeCharacter, _battleManager.runtimePlayer,
+                    _battleManager.runtimePlayer, _battleManager.runtimeEnemies);
+
+                var _description = _effectData.GetDescriptionTextWithModifiers(_runtimeCard, runtimeCharacter,
+                    _battleManager.runtimePlayer, _battleManager.runtimePlayer, _battleManager.runtimeEnemies);
+
+                _intentDetails.Add(new IntentionDetail(_effectData.intent, _value, _times, _description));
+            }
+            
+            yield return intentionUI.SetIntention(_intentDetails);
         }
 
         public void UpdateFormVisual(FormData _form)
         {
             
+        }
+
+        /// <summary>
+        /// Get current enemy's intention
+        /// </summary>
+        public RuntimeCard GetIntention()
+        {
+            FormData _form = runtimeCharacter.GetCurrentForm();
+            Property<int> _cardIndex = runtimeCharacter.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
+            CardData _cardData = _form.attackPattern[_cardIndex.Value];
+            RuntimeCard _card = CardFactory.Create(_cardData);
+
+            return _card;
         }
     }
 }
