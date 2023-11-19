@@ -31,6 +31,14 @@ namespace DefaultNamespace
         private List<ICardTarget> validTargets = new List<ICardTarget>();
         private ICardTarget currentTarget;
 
+        public bool Unplayable
+        {
+            get
+            {
+                return runtimeCard.cardData.effects.Exists(x => x is UnplayableEffect);
+            }
+        }
+        
         /// <summary>
         /// Init card data, need to call UpdateCard afterward to update effects text
         /// </summary>

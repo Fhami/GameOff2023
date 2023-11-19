@@ -65,7 +65,7 @@ namespace DefaultNamespace
 
                 if (healthBefore != health.Value)
                 {
-                    yield return BattleManager.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
+                    yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
                 }
             }
         }
