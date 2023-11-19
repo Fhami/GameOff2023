@@ -30,5 +30,27 @@ namespace DefaultNamespace
         {
             return "Destroy.";
         }
+
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return 1;
+        }
+
+        public override string GetEffectValue(RuntimeCard card = null)
+        {
+            return "1";
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return 1;
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            return "1";
+        }
     }
 }

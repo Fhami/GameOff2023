@@ -65,7 +65,7 @@ namespace DefaultNamespace
             }
 
             // Process the attack effect to every target
-            int damage = GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             
             for (int i = 0; i < times; i++)
@@ -109,7 +109,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append($"Deal {GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
+                            sb.Append($"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -124,7 +124,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append($"Deal {GetDamageValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
+                            sb.Append($"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -174,7 +174,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append($"Deal {GetDamageValue()} damage");
+                            sb.Append($"Deal {GetEffectValue()} damage");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -189,7 +189,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append($"Deal {GetDamageValue()} damage to all enemies");
+                            sb.Append($"Deal {GetEffectValue()} damage to all enemies");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -274,7 +274,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the damage value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetDamageValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int damage = damageValueSource switch
             {
@@ -294,7 +294,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the times value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int times = timesValueSource switch
             {
@@ -313,7 +313,7 @@ namespace DefaultNamespace
         /// Get damage value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public string GetDamageValue(RuntimeCard card = null)
+        public override string GetEffectValue(RuntimeCard card = null)
         {
             if (card == null)
             {
@@ -339,7 +339,7 @@ namespace DefaultNamespace
         /// Get times value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public string GetTimesValue(RuntimeCard card = null)
+        public override string GetTimesValue(RuntimeCard card = null)
         {
             if (card == null)
             {

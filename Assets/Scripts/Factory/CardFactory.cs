@@ -12,6 +12,11 @@ namespace DefaultNamespace
             // Use the card name to get the card data/template from the database.
             CardData cardData = Database.cardData[name];
             
+            return Create(cardData);
+        }
+        
+        public static RuntimeCard Create(CardData cardData)
+        {
             // Create new instance of a card.
             RuntimeCard runtimeCard = new RuntimeCard
             {

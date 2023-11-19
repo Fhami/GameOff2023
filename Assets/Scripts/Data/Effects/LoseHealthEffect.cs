@@ -26,7 +26,7 @@ namespace DefaultNamespace
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             // The amount of health to lose
-            int health = GetHealthValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int health = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             // TODO: VFX
             
@@ -68,7 +68,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Lose {GetHealthValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} health");
+                    sb.Append($"Lose {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} health");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customHealthDescription);
@@ -91,7 +91,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Lose {GetHealthValue()} health");
+                    sb.Append($"Lose {GetEffectValue()} health");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customHealthDescription);
@@ -108,7 +108,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the health value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetHealthValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int health = healthValueSource switch
             {
@@ -125,7 +125,7 @@ namespace DefaultNamespace
         /// Get health value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public string GetHealthValue(RuntimeCard card = null)
+        public override string GetEffectValue(RuntimeCard card = null)
         {
             if (card == null)
             {
@@ -145,6 +145,17 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

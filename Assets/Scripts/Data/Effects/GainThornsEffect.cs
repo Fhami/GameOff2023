@@ -27,7 +27,7 @@ namespace DefaultNamespace
         {
             // TODO: VFX
             
-            int thorns = GetThornsValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int thorns = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.THORNS).Value += thorns;
             
@@ -43,7 +43,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetThornsValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} thorns");
+                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} thorns");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customThornsDescription);
@@ -66,7 +66,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetThornsValue()} thorns");
+                    sb.Append($"Gain {GetEffectValue()} thorns");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customThornsDescription);
@@ -83,7 +83,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the thorns value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetThornsValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int damage = thornsValueSource switch
             {
@@ -102,7 +102,7 @@ namespace DefaultNamespace
         /// Get thorns value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public string GetThornsValue(RuntimeCard card = null)
+        public override string GetEffectValue(RuntimeCard card = null)
         {
             if (card == null)
             {
@@ -122,6 +122,17 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return 1;
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            return "1";
         }
     }
 }
