@@ -20,7 +20,8 @@ namespace DefaultNamespace
         Stun,
         Debuff,
         Unknown,
-        LoseHealth
+        LoseHealth,
+        Draw
     }
     
     /// <summary>

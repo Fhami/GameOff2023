@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849c9918ec144a1297899a8014df08fe, type: 3}
   m_Name: Lose Health
   m_EditorClassIdentifier: 
-  intentType: 0
+  intentType: 16
   icon: {fileID: 0}

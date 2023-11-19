@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Intense Study
+  m_Script: {fileID: 11500000, guid: 3dc88220472642f8b6828ed7c6f20cda, type: 3}
+  m_Name: Draw
   m_EditorClassIdentifier: 
-  cardType: 0
-  cardDragTarget: 2
-  effects:
-  - {fileID: 11400000, guid: 4f34396402ae23440b0d1ca239250a4c, type: 2}
-  - {fileID: 11400000, guid: ddead6539431b814fb1f5cb71dfb8ad7, type: 2}
+  intentType: 17
+  icon: {fileID: 0}
