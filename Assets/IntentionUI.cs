@@ -77,7 +77,6 @@ public class IntentionUI : MonoBehaviour
         intentDetails.Add(new IntentionDetail(intent02, 4, 1, ""));
         intentDetails.Add(new IntentionDetail(intent02, 4, 1, ""));
         SetIntention(intentDetails);
-
     }
     #endregion
 }

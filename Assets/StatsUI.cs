@@ -11,6 +11,7 @@ using DefaultNamespace;
 public class StatsUI : MonoBehaviour
 {
     [Header("HP")]
+    [SerializeField] Image _hearth_img;
     [SerializeField] Image _hp_img;
     [SerializeField] TextMeshProUGUI _hp_txt;
 
@@ -23,12 +24,17 @@ public class StatsUI : MonoBehaviour
     Tween _hpNumberTween;
     Tween _hpBarTween;
 
+    [Header("SHIELD FEEDBACK")]
+    [SerializeField] Image _sheild_img;
+    [SerializeField] TextMeshProUGUI _shield_txt;
+
     [Header("BUFF")]
     [SerializeField] BuffIcon _buff_prefab;
     [SerializeField] GameObject _buff_content;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
 
-    public void SetHp(int from, int to,int max, float duration, System.Action onComplete = null)
+    public void SetHp(int from, int to,int max, float duration,
+        System.Action onStart= null,  System.Action onComplete = null)
     {
         float targetPercentile = (float)to / (float)max;
 
@@ -43,6 +49,9 @@ public class StatsUI : MonoBehaviour
         }
 
         _hpNumberTween = DOTween.To(() => from, x => from = x, to, duration)
+            .OnStart(()=> {
+                onStart?.Invoke();
+            })
             .OnComplete(() => {
                 onComplete?.Invoke();
             })
@@ -56,6 +65,15 @@ public class StatsUI : MonoBehaviour
 
     }
 
+    public void PlayHpUpFeedback()
+    {
+
+    }
+
+    public void PlayHpDownFeedback()
+    {
+
+    }
     //void AnimateHpBar(int to,float duration)
     //{
     //    _hpBarTween = _hp_img.DOFillAmount(to, duration);
@@ -86,6 +104,12 @@ public class StatsUI : MonoBehaviour
             Destroy(icon.gameObject);
             _buffs.Remove(buffData);
         }
+    }
+
+
+    public void SetArmor()
+    {
+
     }
 
     #region Test Function
