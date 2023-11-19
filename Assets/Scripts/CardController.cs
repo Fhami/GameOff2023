@@ -106,6 +106,17 @@ public class CardController : MonoBehaviour
         yield return drawDelay;
     }
     
+    public IEnumerator DestroyCard(Card _card)
+    {
+        throw new NotImplementedException(
+            " // TODO: Can we destroy cards from any card pile? Can we handle that?\n" + 
+            "// TODO: Add card destroy VFX\n" + 
+            "// TODO: Also remove runtime card data from player, and destroy the card gameobject\n" +
+            "// TODO: IDK what to do here haha. Kamee halp?");
+        
+        // E.g. SLIME card destroys itself when player changes size, you can debug using that.
+    }
+    
     public IEnumerator DiscardRemainingCards()
     {
         while (HandPile.Cards.Count > 0)

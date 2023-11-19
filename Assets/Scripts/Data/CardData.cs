@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -53,5 +54,8 @@ namespace DefaultNamespace
                  "You can always create a new Effect from Assets/Create/Gamejam/Effect/ or " +
                  "you can duplicate an existing effect and edit it.", EInfoBoxType.Warning)]
         [Expandable] public List<EffectData> effects;
+        
+        [InfoBox("Card active skills are active when the card is in player's hand.")]
+        public List<CardSkill> cardActiveSkills;
     }
 }

@@ -262,7 +262,7 @@ namespace DefaultNamespace
                 if (healthBefore != health.Value)
                 {
                     // If the target didn't die but their health changed -> trigger ON_HEALTH_CHANGED game event
-                    yield return BattleManager.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
+                    yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
                 }
             }
             else
