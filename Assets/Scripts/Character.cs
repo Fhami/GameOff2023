@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using EPOOutline;
 using TMPro;
 using UnityEngine;
@@ -62,6 +65,25 @@ namespace DefaultNamespace
         {
             var _sizeEffect = _oldValue > _size.Value ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.SetSize(_size.Value, _sizeEffect);
+        }
+
+        public IEnumerator UpdateIntention(CardData _actionData)
+        {
+            // var _intentDetails = new List<IntentionDetail>();
+            //
+            // foreach (var _effectData in _actionData.effects)
+            // {
+            //     var _value = 1;
+            //     if (_effectData is IEffectValue<int> _effectValue)
+            //     {
+            //         _value = _effectValue.GetValue();
+            //     }
+            //     
+            //     _intentDetails.Add(new IntentionDetail(_effectData.intent, _value));
+            // }
+            //
+            // intentionUI.SetIntention(_intentDetails);
+            yield break;
         }
 
         public void UpdateFormVisual(FormData _form)

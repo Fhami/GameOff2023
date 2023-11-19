@@ -479,35 +479,6 @@ namespace DefaultNamespace
         }
         
         /// <summary>
-        /// Coroutine that should be called after enemy finished acting.
-        /// </summary>
-        /// <param name="enemy">The enemy whose turn just ended.</param>
-        public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
-        {
-            // If enemy has decay debuff
-            if (enemy.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(enemy) > 0)
-            {
-                yield return Decay(enemy, runtimePlayer, runtimeEnemies);
-            }
-            
-            // If enemy has grow buff
-            if (enemy.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(enemy) > 0)
-            {
-                yield return Grow(enemy, runtimePlayer, runtimeEnemies);
-            }
-            
-            enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            enemy.properties.Get<int>(PropertyKey.THORNS).Value = 0;
-
-            // Clear properties that are only tracked per turn
-            enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
-            enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
-            enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-
-            yield break;
-        }
-
-        /// <summary>
         /// Coroutine that executes a single enemy turn.
         /// </summary>
         /// <param name="enemy">The enemy whose turn we execute.</param>
@@ -543,6 +514,42 @@ namespace DefaultNamespace
             cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }
         
+        /// <summary>
+        /// Coroutine that should be called after enemy finished acting.
+        /// </summary>
+        /// <param name="enemy">The enemy whose turn just ended.</param>
+        public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
+        {
+            // If enemy has decay debuff
+            if (enemy.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(enemy) > 0)
+            {
+                yield return Decay(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
+            // If enemy has grow buff
+            if (enemy.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(enemy) > 0)
+            {
+                yield return Grow(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
+            enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+
+            // Clear properties that are only tracked per turn
+            enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+            
+            FormData form = enemy.GetCurrentForm();
+            // Get enemy's next intent (the next card they plan to use)
+            Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
+            CardData cardData = form.attackPattern[cardIndex.Value];
+            
+            yield return enemy.Character.UpdateIntention(cardData);
+            
+            yield break;
+        }
+
         // TODO: Call this after current battle ended
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
         {
