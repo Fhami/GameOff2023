@@ -19,21 +19,30 @@ public class StatsUI : MonoBehaviour
     [Header("HP FEEDBACK")]
     [SerializeField] MMF_Player _hp_decrease_feedback;
     [SerializeField] MMF_Player _hp_increase_feedback;
+    [SerializeField] MMF_Player _hp_preview_feedback;
     [SerializeField] ParticleSystem _hp_increase_efx;
     [SerializeField] ParticleSystem _hp_decrease_efx;
+    [SerializeField] ParticleSystem _hp_focus_efx;
     Tween _hpNumberTween;
     Tween _hpBarTween;
 
-    [Header("SHIELD FEEDBACK")]
+    [Header("SHIELD")]
     [SerializeField] Image _sheild_img;
     [SerializeField] TextMeshProUGUI _shield_txt;
+
+    [Header("SHIELD FEEDBACK")]
+    [SerializeField] ParticleSystem _shield_increase_efx;
+    [SerializeField] ParticleSystem _shield_decrease_efx;
+    [SerializeField] ParticleSystem _shield_focus_efx;
+    [SerializeField] MMF_Player _shield_preview_feedback;
+
 
     [Header("BUFF")]
     [SerializeField] BuffIcon _buff_prefab;
     [SerializeField] GameObject _buff_content;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
 
-    public void SetHp(int from, int to,int max, float duration,
+    public void SetHp(int from, int to, int max, float duration = 0.33f,
         System.Action onStart= null,  System.Action onComplete = null)
     {
         float targetPercentile = (float)to / (float)max;
@@ -106,11 +115,47 @@ public class StatsUI : MonoBehaviour
         }
     }
 
+    public void SetShield(int to, System.Action onStart = null, System.Action onComplete = null)
+    {
+        onStart?.Invoke();
 
-    public void SetArmor()
+        if (to > 0)
+        {
+            _hearth_img?.gameObject.SetActive(false);
+            _sheild_img?.gameObject.SetActive(true);
+        }
+        else
+        {
+            _hearth_img?.gameObject.SetActive(true);
+            _sheild_img?.gameObject.SetActive(false);
+        }
+
+        _shield_txt.text = to.ToString();
+        onComplete?.Invoke();
+    }
+
+    public void PreviewShield(int to)
+    {
+        //_shield_focus_efx.gameObject.SetActive(true);
+        //_shield_preview_feedback.PlayFeedbacks();
+    }
+
+    public void CancelPreviewShield()
+    {
+        //_shield_focus_efx.gameObject.SetActive(false);
+        //_shield_preview_feedback.PlayFeedbacksInReverse();
+    }
+
+    public void PlayShieldUpFeedback()
     {
 
     }
+
+    public void PlayShieldDownFeedback()
+    {
+
+    }
+
 
     #region Test Function
 
@@ -142,6 +187,16 @@ public class StatsUI : MonoBehaviour
     public void Btn_RemoveBuffB(BuffData buffData)
     {
         SetBuff(buffData, 0);
+    }
+
+    public void Btn_GetShield(int value)
+    {
+        SetShield(value, PlayShieldUpFeedback);
+    }
+
+    public void Btn_LostShield(int value)
+    {
+        SetShield(value, PlayShieldDownFeedback);
     }
 
     #endregion
