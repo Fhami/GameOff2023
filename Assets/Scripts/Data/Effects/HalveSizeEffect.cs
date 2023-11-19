@@ -78,8 +78,8 @@ namespace DefaultNamespace
             // Keep track of the previous size
             int previousSize = size.Value;
 
-            // Divide the target size by 2 (round up)
-            int targetHalfSize = (int)Math.Ceiling(size.Value / 2.0);;
+            // Divide the target size by 2 (round down)
+            int targetHalfSize = (int)Math.Floor(size.Value / 2.0);;
             int amountToReduce = Mathf.Max(0, previousSize - targetHalfSize);
             
             // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
