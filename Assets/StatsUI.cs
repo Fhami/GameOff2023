@@ -33,7 +33,7 @@ public class StatsUI : MonoBehaviour
     [SerializeField] GameObject _buff_content;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
 
-    public void SetHp(int from, int to,int max, float duration,
+    public void SetHp(int from, int to,int max, float duration = 0.2f,
         System.Action onStart= null,  System.Action onComplete = null)
     {
         float targetPercentile = (float)to / (float)max;

@@ -14,6 +14,7 @@ namespace DefaultNamespace
         [SerializeField] private Outlinable outlinable;
         [SerializeField] private StatsUI statUI;
         [SerializeField] private SizeUI sizeUI;
+        [SerializeField] private IntentionUI intentionUI;
 
         public void Init(RuntimeCharacter _runtimeCharacter)
         {
@@ -54,12 +55,13 @@ namespace DefaultNamespace
 
         public void UpdateHpVisual(int _oldValue, Property<int> _value)
         {
-            
+            statUI.SetHp(_oldValue, _value.Value, runtimeCharacter.properties.Get<int>(PropertyKey.MAX_HEALTH).Value);
         }
 
         public void UpdateSizeVisual(int _oldValue, Property<int> _size)
         {
-            
+            var _sizeEffect = _oldValue > _size.Value ? SizeEffectType.Increase : SizeEffectType.Decrease;
+            sizeUI.SetSize(_size.Value, _sizeEffect);
         }
 
         public void UpdateFormVisual(FormData _form)

@@ -76,7 +76,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7778445699771231421
@@ -247,7 +247,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &9011715568692076516
@@ -416,7 +416,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
@@ -844,6 +844,9 @@ MonoBehaviour:
   OnEnterTarget:
     m_PersistentCalls:
       m_Calls: []
+  OnExistTarget:
+    m_PersistentCalls:
+      m_Calls: []
   OnDropped:
     m_PersistentCalls:
       m_Calls: []
@@ -851,8 +854,9 @@ MonoBehaviour:
   effectTxt: {fileID: 9011715568692076516}
   enterTargetPlayer: {fileID: 3608418129399391143}
   existTargetPlayer: {fileID: 561015503707376079}
-  validTargets: []
-  currentTarget: {fileID: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!61 &9203440080791108620
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -966,7 +970,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1543251165
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

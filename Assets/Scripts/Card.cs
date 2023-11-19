@@ -27,6 +27,7 @@ namespace DefaultNamespace
         [SerializeField] private MMF_Player enterTargetPlayer;
         [SerializeField] private MMF_Player existTargetPlayer;
 
+        [SerializeField] private LayerMask targetMask;
         private List<ICardTarget> validTargets = new List<ICardTarget>();
         private ICardTarget currentTarget;
 
@@ -83,10 +84,11 @@ namespace DefaultNamespace
         {
             HighlightTargets(true);
 
-            var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, targetMask);
 
             if (_hit)
             {
+                //Debug.Log($"hit {_hit.transform.gameObject.name} {Camera.main.ScreenToWorldPoint(Input.mousePosition)}");
                 var _target = _hit.transform.gameObject.GetComponent<ICardTarget>();
                 SetCurrentTarget(_target);
                 
