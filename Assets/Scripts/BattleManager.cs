@@ -22,7 +22,8 @@ namespace DefaultNamespace
         ON_FORM_CHANGED,
         ON_DEATH,
         ON_CHARACTER_SPAWNED,
-        ON_BATTLE_START
+        ON_BATTLE_START,
+        ON_PLAYER_SIZE_CHANGED
     }
     
     /// <summary>
@@ -274,6 +275,22 @@ namespace DefaultNamespace
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
         }
+        
+        public IEnumerator DestroyCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            // Update card state
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DESTROYED;
+            
+            // Update destroyed stats
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value++;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value++;
+            
+            // Handle visuals
+            yield return cardController.DestroyCard(card.Card);
+            
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_DESTROYED, characterPlayingTheCard, player, enemies);
+        }
 
         /// <summary>
         /// Discard all cards in hand.
@@ -457,6 +474,12 @@ namespace DefaultNamespace
         public IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc
+
+            // Unique event for when explicitly player's size changes
+            if (character == player)
+            {
+                yield return OnGameEvent(GameEvent.ON_PLAYER_SIZE_CHANGED, character, player, enemies);
+            }
             
             yield return OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
         }
@@ -558,13 +581,13 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value = 0;
         }
 
-        public static IEnumerator OnGameEvent(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator OnGameEvent(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
             yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
         }
 
-        public static IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Loop through character's active skills and see if any of them trigger.
             foreach (RuntimeSkill skill in character.skills)
@@ -584,9 +607,51 @@ namespace DefaultNamespace
                     }
                 }
             }
+
+            // Try triggering card active skills for the cards that are in player's hand
+            for (int i = cardController.HandPile.Cards.Count - 1; i >= 0; i--)
+            {
+                Card card = cardController.HandPile.Cards[i];
+
+                foreach (CardSkill cardActiveSkill in card.runtimeCard.cardData.cardActiveSkills)
+                {
+                    if (TryTriggerCardActive(gameEvent, cardActiveSkill, player))
+                    {
+                        foreach (EffectData effectData in cardActiveSkill.onTriggerEffects)
+                        {
+                            yield return effectData.Execute(card.runtimeCard, character, player, player, enemies);
+                        }
+                    }
+                }
+            }
         }
 
-        public static bool TriggerActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
+        public bool TryTriggerCardActive(GameEvent gameEvent, CardSkill cardActiveSkill, RuntimeCharacter player)
+        {
+            // The current game event must match the skill's trigger game event.
+            if (cardActiveSkill.triggerGameEvent != gameEvent)
+            {
+                return false;
+            }
+            
+            // If there are trigger conditions -> all must pass for the active skill to trigger!
+            if (cardActiveSkill.triggerConditions != null)
+            {
+                foreach (ConditionData condition in cardActiveSkill.triggerConditions)
+                {
+                    // If any condition fails the active won't trigger.
+                    if (!condition.Evaluate(gameEvent, player, player))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            // Either there are no conditions OR all conditions passed -> active skill triggers!
+            return true;
+        }
+
+        public bool TriggerActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
         {
             // The current game event must match the skill's trigger game event.
             if (skill.skillData.triggerGameEvent != gameEvent)
@@ -619,7 +684,7 @@ namespace DefaultNamespace
             return false;
         }
         
-        public static IEnumerator TryRechargeActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator TryRechargeActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Loop through character's active skills and see if any of them trigger.
             foreach (RuntimeSkill skill in character.skills)
@@ -635,7 +700,7 @@ namespace DefaultNamespace
             yield break;
         }
         
-        public static bool RechargeActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
+        public bool RechargeActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
         {
             // The current game event must match the skill's recharge game event.
             if (skill.skillData.rechargeGameEvent != gameEvent)
