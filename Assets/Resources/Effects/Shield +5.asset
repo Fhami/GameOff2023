@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc823d7f25645f18a45c620444fe795, type: 3}
   m_Name: Shield +5
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: b4f2cb50b58fb9744b65ad32aa10ceda, type: 2}
   shieldValueSource: 1
   shieldValue: 5
   customShieldValue: {fileID: 0}
