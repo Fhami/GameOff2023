@@ -12,6 +12,7 @@ public class IntentionIcon : MonoBehaviour
     [Header("Multiplier")]
     [SerializeField] Image _multiplier_img;
     [SerializeField] TextMeshProUGUI _multiplier_txt;
+    [SerializeField] ParticleSystem _focus_efx;
 
     public void SetIcon(Sprite sprite)
     {
