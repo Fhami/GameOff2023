@@ -3223,9 +3223,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardController: {fileID: 689958391}
   characterSpawner: {fileID: 689958395}
+  characterSpawnDelay: 0.2
   player: {fileID: 0}
   enemies: []
   deckData: {fileID: 11400000, guid: dba53657e4e30a14e91c32be4ff51749, type: 2}
+  playerData: {fileID: 0}
+  encounterData: {fileID: 0}
 --- !u!114 &689958394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3252,10 +3255,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesPos:
-  - {fileID: 54769322}
-  - {fileID: 1101900390}
-  - {fileID: 1636402971}
-  - {fileID: 103501426}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  playerPos:
+    Transform: {fileID: 0}
+    Owner: {fileID: 0}
 --- !u!1 &720458750
 GameObject:
   m_ObjectHideFlags: 0
@@ -7667,12 +7677,12 @@ PrefabInstance:
     - target: {fileID: 8527283262108777555, guid: bbadbde826fc3e646af7b94e1b647b4c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.25
+      value: 0.231
       objectReference: {fileID: 0}
     - target: {fileID: 8527283262108777555, guid: bbadbde826fc3e646af7b94e1b647b4c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.26
+      value: 3.166
       objectReference: {fileID: 0}
     - target: {fileID: 8527283262108777555, guid: bbadbde826fc3e646af7b94e1b647b4c,
         type: 3}

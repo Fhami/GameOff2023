@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffPropertyKey: 8
   type: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b8aae6ceee4523240a6095d8a9e2851e, type: 3}
