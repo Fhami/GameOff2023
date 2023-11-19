@@ -589,6 +589,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8876602751720517473, guid: 01d19cb23e720534c9944ef82159d1b3,
         type: 3}
       propertyPath: m_IsActive
@@ -1544,6 +1549,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1801,9 +1811,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardController: {fileID: 689958391}
   characterSpawner: {fileID: 689958395}
+  characterSpawnDelay: 0.2
   player: {fileID: 0}
   enemies: []
   deckData: {fileID: 11400000, guid: dba53657e4e30a14e91c32be4ff51749, type: 2}
+  playerData: {fileID: 0}
+  encounterData: {fileID: 0}
 --- !u!114 &689958394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1830,10 +1843,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesPos:
-  - {fileID: 54769322}
-  - {fileID: 1101900390}
-  - {fileID: 1636402971}
-  - {fileID: 103501426}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  playerPos:
+    Transform: {fileID: 0}
+    Owner: {fileID: 0}
 --- !u!1 &720458750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,6 +2188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2474,6 +2499,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2898,6 +2928,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8876602751720517473, guid: 01d19cb23e720534c9944ef82159d1b3,
         type: 3}
       propertyPath: m_IsActive
@@ -3038,6 +3073,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3414,6 +3454,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3720,6 +3765,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4152,6 +4202,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8876602751720517473, guid: 01d19cb23e720534c9944ef82159d1b3,
         type: 3}
       propertyPath: m_IsActive
@@ -4451,6 +4506,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8876602751720517473, guid: 01d19cb23e720534c9944ef82159d1b3,
         type: 3}
       propertyPath: m_IsActive
@@ -4673,6 +4733,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8876602751720517473, guid: 01d19cb23e720534c9944ef82159d1b3,
         type: 3}
@@ -5141,6 +5206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BaseCardPrefab_ArtTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476161985411657445, guid: 01d19cb23e720534c9944ef82159d1b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8876602751720517473, guid: 01d19cb23e720534c9944ef82159d1b3,
         type: 3}
