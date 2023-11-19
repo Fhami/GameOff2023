@@ -78,7 +78,7 @@ namespace DefaultNamespace
             return runtimeCharacter;
         }
 
-        private const string CharacterPrefabPath = "CharacterPrefab";
+        private const string CharacterPrefabPath = "Prefabs/Characters/BaseCharacterPrefab";
         private static Character characterPrefab;
         
         public static Character CreateCharacterObject(RuntimeCharacter runtimeCharacter)

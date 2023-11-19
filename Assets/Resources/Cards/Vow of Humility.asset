@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Vow of Humility
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 2
+  cardDragTarget: 4
   effects:
   - {fileID: 11400000, guid: cd70e96b066df3e4c97ea1c7877273db, type: 2}
