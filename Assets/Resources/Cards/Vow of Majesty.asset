@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Vow of Majesty
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 4
+  cardDragTarget: 6
   effects:
   - {fileID: 11400000, guid: b920d44777c20124484f915fb0e7f320, type: 2}

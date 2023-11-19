@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sleeping Beauty
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 4
+  cardDragTarget: 6
   effects:
   - {fileID: 11400000, guid: 117b016389cf58c459bd52da1c59eeb7, type: 2}
   - {fileID: 11400000, guid: 41184f327a5bb47408264d45f038e7e4, type: 2}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Defend
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 4
+  cardDragTarget: 6
   effects:
   - {fileID: 11400000, guid: 083fd00ebf0985647902f217bc1fc252, type: 2}

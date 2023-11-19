@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chrysalis
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 4
+  cardDragTarget: 6
   effects:
   - {fileID: 11400000, guid: 644a2eba56f8786448e9b577763dbe30, type: 2}
   - {fileID: 11400000, guid: e9c9f12c4d40de544a59b6dfa6c11177, type: 2}
