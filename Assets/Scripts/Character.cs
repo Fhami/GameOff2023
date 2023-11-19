@@ -6,7 +6,7 @@ using UnityEngine;
 namespace DefaultNamespace
 {
     // TODO: This can be attached to character prefab
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, ICardTarget
     {
         public RuntimeCharacter runtimeCharacter;
         public CardController cardController;
@@ -30,6 +30,8 @@ namespace DefaultNamespace
             
             outlinable.AddAllChildRenderersToRenderingList();
         }
+
+        public GameObject GameObject => gameObject;
 
         public void Highlight(bool _value)
         {

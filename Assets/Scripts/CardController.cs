@@ -42,23 +42,27 @@ public class CardController : MonoBehaviour
                 if (_newCardObj.ValidateTarget(_target))
                 {
                     if (ShowLog)
-                        Debug.Log($"target {_target.name} = true");
+                        Debug.Log($"target {_target.GameObject.name} = true");
                     
                     _newCardObj.transform.SetParent(null);
-                    
+
+                    var _targetChar = _target.GameObject.GetComponent<Character>();
+
+                    var _runtimeCharacter = _targetChar ? _targetChar.runtimeCharacter : null;
+
                     StartCoroutine(BattleManager.current.PlayCard(_newCardObj.runtimeCard, Character.runtimeCharacter,
-                        _target.runtimeCharacter, BattleManager.current.runtimeEnemies));
+                        _runtimeCharacter, BattleManager.current.runtimeEnemies));
                 }
                 else
                 {
                     if (ShowLog)
-                        Debug.Log($"target {_target.name} = false");
+                        Debug.Log($"target {_target.GameObject.name} = false");
                 }
             });
             
             DeckPile.AddCard(_newCardObj);
         }
-        
+
         DeckPile.Shuffle();
     }
     
