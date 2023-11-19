@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Energy Release
+  m_Name: Emergency Release
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 1
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 214f5dcb2426be5428c9b2ceade23c55, type: 2}
