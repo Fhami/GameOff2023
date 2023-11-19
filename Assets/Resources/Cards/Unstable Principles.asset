@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Emergency Release
+  m_Name: Unstable Principles
   m_EditorClassIdentifier: 
   cardType: 1
   cardDragTarget: 1
