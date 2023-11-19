@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Queenly Retreat
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 2
+  cardDragTarget: 4
   effects:
   - {fileID: 11400000, guid: b7e9e29c70f67cd479e036ede2762372, type: 2}
   - {fileID: 11400000, guid: a940f59e7ead95745b6d0f698190c508, type: 2}

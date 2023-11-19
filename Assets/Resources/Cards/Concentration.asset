@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Concentration
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 2
+  cardDragTarget: 4
   effects:
   - {fileID: 11400000, guid: 4f34396402ae23440b0d1ca239250a4c, type: 2}
   - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
