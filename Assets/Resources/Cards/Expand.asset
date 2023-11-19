@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Expand
   m_EditorClassIdentifier: 
   cardType: 2
-  cardDragTarget: 2
+  cardDragTarget: 4
   effects:
   - {fileID: 11400000, guid: 4d925802e29110541ab203c41986d34b, type: 2}
