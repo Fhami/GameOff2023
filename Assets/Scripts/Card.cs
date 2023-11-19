@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Coffee.UIExtensions;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using NaughtyAttributes;
@@ -24,8 +26,13 @@ namespace DefaultNamespace
         [SerializeField] private TextMeshPro nameTxt;
         [SerializeField] private TextMeshPro effectTxt;
         
+        [Header("Feedback")]
         [SerializeField] private MMF_Player enterTargetPlayer;
         [SerializeField] private MMF_Player existTargetPlayer;
+
+        [Header("VFX")] 
+        [SerializeField] private UIParticle exhaustCardParticle;
+        [SerializeField] private UIParticle destroyCardParticle;
 
         [SerializeField] private LayerMask targetMask;
         private List<ICardTarget> validTargets = new List<ICardTarget>();
@@ -70,13 +77,20 @@ namespace DefaultNamespace
             effectTxt.SetText(_builder.ToString());
         }
 
+        public IEnumerator DestroyCard()
+        {
+            yield return null;//TODO: Play vfx here
+
+            Destroy(gameObject);
+        }
+
+        public IEnumerator ExhaustCard()
+        {
+            yield return null;//TODO: Play vfx here
+        }
+
         public bool ValidateTarget(ICardTarget _target)
         {
-            // if ((runtimeCard.cardData.cardDragTarget & CardDragTarget.BACKGROUND) != 0)
-            // {
-            //     //play on background
-            // }
-            
             return validTargets.Contains(_target);
         }
         
@@ -87,6 +101,8 @@ namespace DefaultNamespace
             OnEnterTarget.RemoveAllListeners();
             OnExistTarget.RemoveAllListeners();
         }
+
+        #region Dragging
 
         private void OnMouseDown()
         {
@@ -156,6 +172,8 @@ namespace DefaultNamespace
                 }
             }
         }
+
+        #endregion
         
         public static List<ICardTarget> GetValidTargets(RuntimeCard _runtimeCard)
         {
