@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DefaultNamespace;
+using DG.Tweening;
 
 public class IntentionUI : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class IntentionUI : MonoBehaviour
     [SerializeField] IntentData intent01;
     [SerializeField] IntentData intent02;
 
-    public void SetIntention(List<IntentionDetail> intentDetails)
+    [SerializeField] private float showDuration = 0.1f;
+    
+    public IEnumerator SetIntention(List<IntentionDetail> intentDetails)
     {
         ClearIntention();
         for (int i = 0; i < intentDetails.Count; i++)
@@ -33,6 +36,9 @@ public class IntentionUI : MonoBehaviour
             icon.SetIcon(intentDetails[i]._intentData.icon);
             if(intentDetails[i]._value >= 0) icon.SetValue(intentDetails[i]._value);
             icon.gameObject.SetActive(true);
+            icon.transform.localScale = Vector3.zero;
+            
+            yield return icon.transform.DOScale(1, showDuration);
         }
     }
 

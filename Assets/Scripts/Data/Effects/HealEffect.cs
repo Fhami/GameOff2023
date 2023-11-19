@@ -50,7 +50,7 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
             
-            int heal = GetHealValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int heal = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             foreach (RuntimeCharacter target in targets)
             {
@@ -87,7 +87,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             break;
                         case ValueSource.CARD:
-                            sb.Append($"Heal {GetHealValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            sb.Append($"Heal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(" " + customHealDescription);
@@ -106,7 +106,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             break;
                         case ValueSource.CARD:
-                            sb.Append($"Heal all enemies by {GetHealValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            sb.Append($"Heal all enemies by {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(" " + customHealDescription);
@@ -142,7 +142,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             break;
                         case ValueSource.CARD:
-                            sb.Append($"Heal {GetHealValue()}");
+                            sb.Append($"Heal {GetEffectValue()}");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(" " + customHealDescription);
@@ -161,7 +161,7 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             break;
                         case ValueSource.CARD:
-                            sb.Append($"Heal all enemies by {GetHealValue()}");
+                            sb.Append($"Heal all enemies by {GetEffectValue()}");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(" " + customHealDescription);
@@ -183,7 +183,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the heal value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetHealValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int damage = healValueSource switch
             {
@@ -202,7 +202,7 @@ namespace DefaultNamespace
         /// Get heal value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public string GetHealValue(RuntimeCard card = null)
+        public override string GetEffectValue(RuntimeCard card = null)
         {
             if (card == null)
             {
@@ -222,6 +222,17 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

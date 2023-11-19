@@ -102,9 +102,11 @@ namespace DefaultNamespace
                 
                     enemies.Add(_newEnemy);
                     runtimeEnemies.Add(_newEnemy.runtimeCharacter);
+                    
+                    yield return _newEnemy.runtimeCharacter.Character.UpdateIntention(_newEnemy.GetIntention());
                 
                     yield return new WaitForSeconds(characterSpawnDelay);
-                
+
                     //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
                     //I don't think we're gonna trigger effect while initializing
                 }
@@ -498,7 +500,43 @@ namespace DefaultNamespace
             enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             enemy.properties.Get<int>(PropertyKey.EVADE).Value = 0;
             
-            yield break;
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
+        }
+        
+        /// <summary>
+        /// Coroutine that executes a single enemy turn.
+        /// </summary>
+        /// <param name="enemy">The enemy whose turn we execute.</param>
+        /// <param name="player">The (human) player.</param>
+        /// <param name="enemies">The list of all enemies in the current battle.</param>
+        /// <returns></returns>
+        public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // If enemy is stunned don't allow them to play any cards
+            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
+            {
+                // TODO: Skip enemy turn logic / VFX? / animation?
+                throw new NotImplementedException();
+            }
+           
+            FormData form = enemy.GetCurrentForm();
+
+            // Get enemy's next intent (the next card they plan to use)
+            Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
+
+            CardData cardData = form.attackPattern[cardIndex.Value];
+
+            // Create card instance from the card data
+            // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
+            RuntimeCard card = CardFactory.Create(cardData);
+
+            foreach (EffectData effectData in card.cardData.effects)
+            {
+                yield return effectData.Execute(card, enemy, player, player, enemies);
+            }
+        
+            // Increment the index by 1 (wrap back to 0 if needed)
+            cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }
         
         /// <summary>
@@ -526,46 +564,12 @@ namespace DefaultNamespace
             enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-
+            
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
+            
             yield break;
         }
 
-        /// <summary>
-        /// Coroutine that executes a single enemy turn.
-        /// </summary>
-        /// <param name="enemy">The enemy whose turn we execute.</param>
-        /// <param name="player">The (human) player.</param>
-        /// <param name="enemies">The list of all enemies in the current battle.</param>
-        /// <returns></returns>
-        public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
-        {
-            // If enemy is stunned don't allow them to play any cards
-            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
-            {
-                // TODO: Skip enemy turn logic / VFX? / animation?
-                throw new NotImplementedException();
-            }
-           
-            FormData form = enemy.GetCurrentForm();
-
-            // Get enemy's next intent (the next card they plan to use)
-            Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
-
-            CardData cardData = form.attackPattern[cardIndex.Value];
-
-            // Create card instance from the card data
-            // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
-            RuntimeCard card = CardFactory.Create(cardData.name);
-
-            foreach (EffectData effectData in card.cardData.effects)
-            {
-                yield return effectData.Execute(card, enemy, player, player, enemies);
-            }
-        
-            // Increment the index by 1 (wrap back to 0 if needed)
-            cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
-        }
-        
         // TODO: Call this after current battle ended
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
         {

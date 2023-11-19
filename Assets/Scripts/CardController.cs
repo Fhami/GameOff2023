@@ -23,6 +23,17 @@ public class CardController : MonoBehaviour
 
     private WaitForSeconds drawDelay;
 
+    private IEnumerable<CardPile> AllPiles
+    {
+        get
+        {
+            yield return DeckPile;
+            yield return HandPile;
+            yield return DiscardPile;
+            yield return ExhaustPile;
+        }
+    }
+
     private void Awake()
     {
         drawDelay = new WaitForSeconds(drawInterval);
@@ -94,26 +105,32 @@ public class CardController : MonoBehaviour
     {
         DiscardPile.AddCard(HandPile.PickCard(_card));
 
-        _card.ClearCallBack();
-        
         yield return drawDelay;
     }
 
     public IEnumerator ExhaustCard(Card _card)
     {
+        yield return _card.ExhaustCard();
+        
         ExhaustPile.AddCard(HandPile.PickCard(_card));
-
-        yield return drawDelay;
     }
     
     public IEnumerator DestroyCard(Card _card)
     {
-        throw new NotImplementedException(
-            " // TODO: Can we destroy cards from any card pile? Can we handle that?\n" + 
-            "// TODO: Add card destroy VFX\n" + 
-            "// TODO: Also remove runtime card data from player, and destroy the card gameobject\n" +
-            "// TODO: IDK what to do here haha. Kamee halp?");
+        // throw new NotImplementedException(
+        //     " // TODO: Can we destroy cards from any card pile? Can we handle that?\n" + 
+        //     "// TODO: Add card destroy VFX\n" + 
+        //     "// TODO: Also remove runtime card data from player, and destroy the card gameobject\n" +
+        //     "// TODO: IDK what to do here haha. Kamee halp?");
+
+        foreach (var _pile in AllPiles)
+        {
+            _pile.RemoveCard(_card);
+        }
         
+        GameManager.Instance.PlayerRuntimeDeck.RemoveCard(_card.runtimeCard);
+        
+        yield return _card.DestroyCard();
         // E.g. SLIME card destroys itself when player changes size, you can debug using that.
     }
     

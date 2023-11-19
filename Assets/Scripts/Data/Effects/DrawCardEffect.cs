@@ -29,5 +29,27 @@ namespace DefaultNamespace
         {
             return $"Draw {count.ToString()} cards.";
         }
+
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return count;
+        }
+
+        public override string GetEffectValue(RuntimeCard card = null)
+        {
+            return count.ToString();
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return 1;
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            return "1";
+        }
     }
 }
