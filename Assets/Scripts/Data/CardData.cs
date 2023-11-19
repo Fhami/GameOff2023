@@ -39,6 +39,10 @@ namespace DefaultNamespace
     {
         [InfoBox("Card type can be used for the card graphic and other things (you can refer to Slay the Spire).")]
         public CardType cardType;
+
+        [InfoBox("Intent name can be used for enemies (e.g. Attack, Slam, Nom Nom, Poke, Stare etc." +
+                 "For player we use the scriptable object as the card name.")]
+        public string intentName;
         
         [InfoBox("Determines the valid drag target when player is dragging and dropping the card. " +
                  "For example: an AOE attack card can be dropped anywhere because it doesn't need a target.")]
