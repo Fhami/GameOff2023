@@ -25,6 +25,7 @@ namespace DefaultNamespace
             runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0, PropertyKey.SIZE));
             runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
             runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0, PropertyKey.TIMES));
+            runtimeCard.properties.Add(PropertyKey.CARDS_DISCARDED_BY_THIS_CARD_COUNT, new Property<int>(0, PropertyKey.CARDS_DISCARDED_BY_THIS_CARD_COUNT));
             runtimeCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE, PropertyKey.CARD_STATE));
 
             return runtimeCard;

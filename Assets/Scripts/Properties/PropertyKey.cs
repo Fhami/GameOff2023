@@ -31,6 +31,7 @@
         THORNS,
         DECAY,
         GROW,
-        UNSTABLE
+        UNSTABLE,
+        CARDS_DISCARDED_BY_THIS_CARD_COUNT
     }
 }
