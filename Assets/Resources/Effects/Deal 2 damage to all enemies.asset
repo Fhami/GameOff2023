@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Slimeshower
+  m_Script: {fileID: 11500000, guid: 0a87e7941f4443c5b3344390d736e681, type: 3}
+  m_Name: Deal 2 damage to all enemies
   m_EditorClassIdentifier: 
-  cardType: 1
-  cardDragTarget: 4
-  effects:
-  - {fileID: 11400000, guid: eaef4b35e986c044d8edd95ccde4014d, type: 2}
+  effectTarget: 4
+  damageValueSource: 1
+  damageValue: 2
+  customDamageValue: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}
