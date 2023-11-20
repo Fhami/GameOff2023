@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EPOOutline;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 
@@ -15,10 +16,15 @@ namespace DefaultNamespace
         public CardController cardController;
 
         [SerializeField] private Outlinable outlinable;
-        [SerializeField] private StatsUI statUI;
-        [SerializeField] private SizeUI sizeUI;
-        [SerializeField] private IntentionUI intentionUI;
+        [BoxGroup("UI"), SerializeField] private StatsUI statUI;
+        [BoxGroup("UI"), SerializeField] private SizeUI sizeUI;
+        [BoxGroup("UI"), SerializeField] private IntentionUI intentionUI;
 
+        [BoxGroup("Particle"), SerializeField] private ParticleSystem deathParticle;
+        [BoxGroup("Particle"), SerializeField] private ParticleSystem healParticle;
+        [BoxGroup("Particle"), SerializeField] private ParticleSystem damagedParticle;
+        [BoxGroup("Particle"), SerializeField] private ParticleSystem attackParticle;
+        
         public void Init(RuntimeCharacter _runtimeCharacter)
         {
             runtimeCharacter = _runtimeCharacter;
@@ -39,6 +45,8 @@ namespace DefaultNamespace
 
         public GameObject GameObject => gameObject;
 
+        #region Visual
+
         public void Highlight(bool _value)
         {
             outlinable.enabled = _value;
@@ -56,6 +64,25 @@ namespace DefaultNamespace
         public void UpdateHpVisual(int _oldValue, Property<int> _value)
         {
             statUI.SetHp(_oldValue, _value.Value, runtimeCharacter.properties.Get<int>(PropertyKey.MAX_HEALTH).Value);
+
+            if (_oldValue > _value.Value)
+            {
+                //Play animation
+                if (damagedParticle)
+                {
+                    var _particle = Instantiate(damagedParticle);
+                    _particle.transform.position = transform.position;
+                }
+            }
+            else
+            {
+                //Play animation
+                if (healParticle)
+                {
+                    var _particle = Instantiate(healParticle);
+                    _particle.transform.position = transform.position;
+                }
+            }
         }
 
         public void UpdateShield(int _oldValue, Property<int> _value)
@@ -97,6 +124,22 @@ namespace DefaultNamespace
             
         }
 
+        #endregion
+
+        public IEnumerator OnKilled()
+        {
+            if (deathParticle)
+            {
+                var _particle = Instantiate(deathParticle);
+                _particle.transform.position = transform.position;
+            }
+
+            //TODO: play animation
+            yield return new WaitForSeconds(1f);
+            
+            Destroy(gameObject);
+        }
+        
         /// <summary>
         /// Get current enemy's intention
         /// </summary>
