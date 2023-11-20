@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7834ae75984adaaba43ab1ee7dfba8, type: 3}
   m_Name: Thorns +2
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
   thornsValueSource: 1
   thornsValue: 2
   customThornsValue: {fileID: 0}
