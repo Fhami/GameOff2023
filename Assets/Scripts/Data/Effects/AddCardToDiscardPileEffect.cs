@@ -81,12 +81,12 @@ namespace DefaultNamespace
 
         public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            throw new System.NotImplementedException();
+            return 0;
         }
 
         public override string GetEffectValue(RuntimeCard card = null)
         {
-            throw new System.NotImplementedException();
+            return "0";
         }
 
         public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)

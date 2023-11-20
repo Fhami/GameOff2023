@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a8e6bdca60490783f3789206e25b9b, type: 3}
-  m_Name: Discard
+  m_Script: {fileID: 11500000, guid: cd872fde07b941a5a4e9a128cff814cc, type: 3}
+  m_Name: Summon Rat
   m_EditorClassIdentifier: 
-  intentType: 18
-  icon: {fileID: 0}
+  intent: {fileID: 11400000, guid: f6a5a80089b75054eae6d084f90d2ca0, type: 2}
+  characterToSummon: {fileID: 11400000, guid: 965b9f333d533e34a91c803dce1b4111, type: 2}
