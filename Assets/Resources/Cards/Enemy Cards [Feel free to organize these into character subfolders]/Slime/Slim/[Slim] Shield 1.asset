@@ -10,13 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Eat
+  m_Name: '[Slim] Shield 1'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: d07b846315b5f2448b41ca81c18bfbd8, type: 2}
-  - {fileID: 11400000, guid: f0e5f57e4d52952439c8d07aede821ca, type: 2}
-  - {fileID: 11400000, guid: 28c15b69e5cbc664893d59f460c6537d, type: 2}
-  cardActiveSkills: []
+  - {fileID: 11400000, guid: 5457a744d4d9f26438d2faba353dd9ce, type: 2}

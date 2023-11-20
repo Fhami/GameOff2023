@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Attack 1
+  m_Name: '[Slime] Slime Splash'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 68c4c5e38b975314191a4dad8939a5b2, type: 2}
+  - {fileID: 11400000, guid: 0f4ba61768058044f891282eeb2c104c, type: 2}
+  - {fileID: 11400000, guid: 5d04efb5e97dba449bb4a4db07bd98b6, type: 2}
+  cardActiveSkills: []

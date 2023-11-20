@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Fart
+  m_Name: '[Jerry] Eat'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 09ab5dbd7898a704b96fbca0eba1fe3b, type: 2}
-  - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
-  - {fileID: 11400000, guid: 8ac8ee6ae2b23f94c9fd3c81af2621b7, type: 2}
+  - {fileID: 11400000, guid: d07b846315b5f2448b41ca81c18bfbd8, type: 2}
+  - {fileID: 11400000, guid: f0e5f57e4d52952439c8d07aede821ca, type: 2}
+  - {fileID: 11400000, guid: 28c15b69e5cbc664893d59f460c6537d, type: 2}
   cardActiveSkills: []

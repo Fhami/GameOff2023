@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Eat Cheese 1
+  m_Name: '[Slime] Shield 3'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 8d78db1ec7ae87946b4d6eb36914675b, type: 2}
-  - {fileID: 11400000, guid: e6bb44a8fefac3647a9ca301fe903899, type: 2}
-  cardActiveSkills: []
+  - {fileID: 11400000, guid: 913eccbad89cd2f4abc63913940a7fd0, type: 2}

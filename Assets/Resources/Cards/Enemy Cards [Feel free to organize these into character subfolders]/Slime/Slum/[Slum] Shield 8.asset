@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Attack 6, Shield 2
+  m_Name: '[Slum] Shield 8'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 35caa44273c821a4e9f9044ea079934a, type: 2}
-  - {fileID: 11400000, guid: 083fd00ebf0985647902f217bc1fc252, type: 2}
+  - {fileID: 11400000, guid: 0d534d829b99be348927a441d5b38147, type: 2}

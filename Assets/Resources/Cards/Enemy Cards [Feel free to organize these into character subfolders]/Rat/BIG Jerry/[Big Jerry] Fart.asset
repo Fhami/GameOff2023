@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Shield 5
+  m_Name: '[Big Jerry] Fart'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: b7e9e29c70f67cd479e036ede2762372, type: 2}
+  - {fileID: 11400000, guid: 09ab5dbd7898a704b96fbca0eba1fe3b, type: 2}
+  - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
+  - {fileID: 11400000, guid: 8ac8ee6ae2b23f94c9fd3c81af2621b7, type: 2}
   cardActiveSkills: []
