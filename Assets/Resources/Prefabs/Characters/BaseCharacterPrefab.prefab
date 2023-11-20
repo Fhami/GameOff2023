@@ -54,6 +54,10 @@ MonoBehaviour:
   statUI: {fileID: 3741980050977522496}
   sizeUI: {fileID: 6964135813202548287}
   intentionUI: {fileID: 917997359274966614}
+  deathParticle: {fileID: 0}
+  healParticle: {fileID: 0}
+  damagedParticle: {fileID: 0}
+  attackParticle: {fileID: 0}
 --- !u!50 &3426283045656471505
 Rigidbody2D:
   serializedVersion: 4
