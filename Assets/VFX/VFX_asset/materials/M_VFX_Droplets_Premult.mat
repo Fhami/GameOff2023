@@ -121,7 +121,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _FlatAlpha: 0
-    - _FlatAlpha1: 0
+    - _FlatAlpha1: 0.042
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
