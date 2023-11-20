@@ -27,8 +27,12 @@ namespace DefaultNamespace
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             RuntimeCard runtimeCard = CardFactory.Create(cardToAdd);
-            
-            yield return BattleManager.current.CreateCardAndAddItToDrawPile(runtimeCard);
+
+            int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            for (int i = 0; i < times; i++)
+            {
+                yield return BattleManager.current.CreateCardAndAddItToDrawPile(runtimeCard);
+            }
         }
 
         public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
@@ -77,12 +81,12 @@ namespace DefaultNamespace
 
         public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            throw new System.NotImplementedException();
+            return 0;
         }
 
         public override string GetEffectValue(RuntimeCard card = null)
         {
-            throw new System.NotImplementedException();
+            return "0";
         }
 
         public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)

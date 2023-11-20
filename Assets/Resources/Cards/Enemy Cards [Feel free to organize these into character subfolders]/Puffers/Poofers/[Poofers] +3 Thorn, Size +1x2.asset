@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Slum] Attack 5. Shield 3.'
+  m_Name: '[Poofers] +3 Thorn, Size +1x2'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 0f4ba61768058044f891282eeb2c104c, type: 2}
-  - {fileID: 11400000, guid: 913eccbad89cd2f4abc63913940a7fd0, type: 2}
+  - {fileID: 11400000, guid: b982e59f472b2fa43a3d5f329bd9814e, type: 2}
+  - {fileID: 11400000, guid: 28c15b69e5cbc664893d59f460c6537d, type: 2}
+  cardActiveSkills: []

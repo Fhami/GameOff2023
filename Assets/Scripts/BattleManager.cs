@@ -121,6 +121,13 @@ namespace DefaultNamespace
 
             yield return OnGameEvent(GameEvent.ON_CHARACTER_SPAWNED, _newEnemy.runtimeCharacter, runtimePlayer, runtimeEnemies);
         }
+
+        public IEnumerator FleeFromBattle(RuntimeCharacter runtimeCharacter)
+        {
+            runtimeCharacter.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.ESCAPED;
+            
+            throw new NotImplementedException("TODO: Implement enemy flee logic");
+        }
         
         public void EndTurn()
         {
@@ -352,6 +359,11 @@ namespace DefaultNamespace
         public IEnumerator CreateCardAndAddItToDrawPile(RuntimeCard card)
         {
             yield return cardController.CreateCardAndAddItToDrawPile(card);
+        }
+        
+        public IEnumerator CreateCardAndAddItToDiscardPile(RuntimeCard card)
+        {
+            yield return cardController.CreateCardAndAddItToDiscardPile(card);
         }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
