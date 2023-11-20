@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -22,7 +23,13 @@ namespace DefaultNamespace
 
         private void Init()
         {
+            Database.Initialize();
             PlayerRuntimeDeck = new RuntimeDeckData();
+        }
+
+        public IEnumerator GameOver()
+        {
+            yield break;
         }
 
         private void Update()
