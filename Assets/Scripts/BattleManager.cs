@@ -353,6 +353,11 @@ namespace DefaultNamespace
         {
             yield return cardController.CreateCardAndAddItToDrawPile(card);
         }
+        
+        public IEnumerator CreateCardAndAddItToDiscardPile(RuntimeCard card)
+        {
+            yield return cardController.CreateCardAndAddItToDiscardPile(card);
+        }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {

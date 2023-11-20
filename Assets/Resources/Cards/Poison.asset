@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Slim] Shield 1'
+  m_Name: Poison
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 4
   intentName: 
-  cardDragTarget: 0
+  cardDragTarget: 4
   effects:
-  - {fileID: 11400000, guid: 5457a744d4d9f26438d2faba353dd9ce, type: 2}
+  - {fileID: 11400000, guid: 74eea5d8c93c7e04b9cabbb9cf99a55f, type: 2}
+  - {fileID: 11400000, guid: f23f9942bc83d8043a126b882d503182, type: 2}
+  - {fileID: 11400000, guid: 68b2abccf8d800049a8354c20f73e466, type: 2}
+  cardActiveSkills: []

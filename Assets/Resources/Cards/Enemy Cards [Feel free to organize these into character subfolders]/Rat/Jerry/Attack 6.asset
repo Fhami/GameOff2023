@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Slim] Attack 1x2'
+  m_Name: Attack 6
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: ffc70cd6336a2d94b98d87f940a58bde, type: 2}
+  - {fileID: 11400000, guid: 35caa44273c821a4e9f9044ea079934a, type: 2}
+  cardActiveSkills: []

@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Slum] Nom Nom'
+  m_Name: Attack 4
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 84073e8b0e78b6741bb1b05d93023021, type: 2}
-  - {fileID: 11400000, guid: 17d5fd394dc90ad49bb7d6425b350a60, type: 2}
-  cardActiveSkills: []
+  - {fileID: 11400000, guid: ecbf55509e5671c46bcc82ae3a1b0e3b, type: 2}

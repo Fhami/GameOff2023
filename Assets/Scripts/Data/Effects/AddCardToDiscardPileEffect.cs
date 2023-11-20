@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(menuName = "Gamejam/Effect/Add Card To Draw Pile Effect", fileName = "New Add Card To Draw Pile Effect")]
-    public class AddCardToDrawPileEffect : EffectData
+    [CreateAssetMenu(menuName = "Gamejam/Effect/Add Card To Discard Pile Effect", fileName = "New Add Card To Discard Pile Effect")]
+    public class AddCardToDiscardPileEffect : EffectData
     {
         public CardData cardToAdd;
         
@@ -31,7 +31,7 @@ namespace DefaultNamespace
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             for (int i = 0; i < times; i++)
             {
-                yield return BattleManager.current.CreateCardAndAddItToDrawPile(runtimeCard);
+                yield return BattleManager.current.CreateCardAndAddItToDiscardPile(runtimeCard);
             }
         }
 
@@ -42,16 +42,16 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                 {
                     int value = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
-                    return $"Add {value.ToString()} {cardToAdd.name} into your draw pile.";
+                    return $"Add {value.ToString()} {cardToAdd.name} into your discard pile.";
                 }
                 case ValueSource.CARD:
                 {
                     int value = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
-                    return $"Add {value.ToString()} {cardToAdd.name} into your draw pile.";break;
+                    return $"Add {value.ToString()} {cardToAdd.name} into your discard pile.";
                 }
                 case ValueSource.CUSTOM:
                 {
-                    return $"Add number of {cardToAdd.name} to player draw pile {customTimesValue.GetDescription()}";
+                    return $"Add number of {cardToAdd.name} to player discard pile {customTimesValue.GetDescription()}";
                 }
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -64,15 +64,15 @@ namespace DefaultNamespace
             {
                 case ValueSource.NONE:
                 {
-                    return $"Add {GetTimesValue(null)} {cardToAdd.name} into your draw pile.";
+                    return $"Add {GetTimesValue(null)} {cardToAdd.name} into your discard pile.";
                 }
                 case ValueSource.CARD:
                 {
-                    return $"Add {GetTimesValue(null)} {cardToAdd.name} into your draw pile.";break;
+                    return $"Add {GetTimesValue(null)} {cardToAdd.name} into your discard pile.";break;
                 }
                 case ValueSource.CUSTOM:
                 {
-                    return $"Add number of {cardToAdd.name} to player draw pile {customTimesValue.GetDescription()}";
+                    return $"Add number of {cardToAdd.name} to player discard pile {customTimesValue.GetDescription()}";
                 }
                 default:
                     throw new ArgumentOutOfRangeException();
