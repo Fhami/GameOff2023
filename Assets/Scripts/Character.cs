@@ -60,7 +60,7 @@ namespace DefaultNamespace
 
         public void UpdateShield(int _oldValue, Property<int> _value)
         {
-            statUI.SetShield(_value.Value);
+            statUI.SetShield(_oldValue,_value.Value);
         }
 
         public void UpdateSizeVisual(int _oldValue, Property<int> _size)

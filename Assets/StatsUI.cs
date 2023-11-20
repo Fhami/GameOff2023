@@ -95,16 +95,27 @@ public class StatsUI : MonoBehaviour
 
         _hpBarTween = _hp_img.DOFillAmount(targetPercentile, duration);
 
+        if (from > to)
+        {
+            PlayHpDownFeedback();
+        }
+        else
+        {
+            PlayHpUpFeedback();  
+        }
+
     }
 
     public void PlayHpUpFeedback()
     {
-
+        _hp_increase_efx.Stop();
+        _hp_increase_efx.Play(true);
     }
 
     public void PlayHpDownFeedback()
     {
-
+        _hp_decrease_efx.Stop();
+        _hp_decrease_efx.Play(true);
     }
     
     public void PreviewHp(int current, int to, int max)
@@ -171,7 +182,7 @@ public class StatsUI : MonoBehaviour
         }
     }
 
-    public void SetShield(int to, System.Action onStart = null, System.Action onComplete = null)
+    public void SetShield(int from, int to, System.Action onStart = null, System.Action onComplete = null)
     {
         onStart?.Invoke();
 
@@ -184,6 +195,15 @@ public class StatsUI : MonoBehaviour
         {
             _hearth_img?.gameObject.SetActive(true);
             _sheild_img?.gameObject.SetActive(false);
+        }
+
+        if (from > to)
+        {
+            PlayShieldDownFeedback();
+        }
+        else if (from > to)
+        {
+            PlayShieldUpFeedback();
         }
 
         _shield_txt.text = to.ToString();
@@ -206,12 +226,14 @@ public class StatsUI : MonoBehaviour
 
     public void PlayShieldUpFeedback()
     {
-       // _shield_increase_efx.Play();
+        _shield_increase_efx.Stop();
+        _shield_increase_efx.Play();
     }
 
     public void PlayShieldDownFeedback()
     {
-        // _shield_decrease_efx.Play();
+        _shield_decrease_efx.Stop();
+         _shield_decrease_efx.Play();
     }
 
 
@@ -219,7 +241,7 @@ public class StatsUI : MonoBehaviour
 
     public void Btn_SetHp(int hp)
     {
-        SetHp(100, hp, 100,0.2f,()=> { Debug.Log("Finish set hp"); });
+        SetHp(20, hp, 100,0.2f,()=> { Debug.Log("Finish set hp"); });
     }
 
     public void Btn_DecreaseHp()
@@ -249,12 +271,12 @@ public class StatsUI : MonoBehaviour
 
     public void Btn_GetShield(int value)
     {
-        SetShield(value, PlayShieldUpFeedback);
+        SetShield(0, value, PlayShieldUpFeedback);
     }
 
     public void Btn_LostShield(int value)
     {
-        SetShield(value, PlayShieldDownFeedback);
+        SetShield(20, value, PlayShieldDownFeedback);
     }
 
     public void Btn_Preview01()
