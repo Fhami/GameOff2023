@@ -53,9 +53,11 @@ namespace DefaultNamespace
                  "here because it affects other cards that are using the same effect. " +
                  "You can always create a new Effect from Assets/Create/Gamejam/Effect/ or " +
                  "you can duplicate an existing effect and edit it.", EInfoBoxType.Warning)]
-        [Expandable] public List<EffectData> effects;
+        [Expandable] 
+        public List<EffectData> effects;
         
         [InfoBox("Card active skills are active when the card is in player's hand.")]
+        [Expandable]
         public List<CardSkill> cardActiveSkills;
     }
 }

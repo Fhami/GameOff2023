@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6dee3c94c49459bb9b98954c2becda8, type: 3}
-  m_Name: Unplayable
+  m_Script: {fileID: 11500000, guid: 0801c490b64c4321ab967293854fdbcc, type: 3}
+  m_Name: Player Size
   m_EditorClassIdentifier: 
-  intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
