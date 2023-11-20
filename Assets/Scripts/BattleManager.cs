@@ -121,6 +121,13 @@ namespace DefaultNamespace
 
             yield return OnGameEvent(GameEvent.ON_CHARACTER_SPAWNED, _newEnemy.runtimeCharacter, runtimePlayer, runtimeEnemies);
         }
+
+        public IEnumerator FleeFromBattle(RuntimeCharacter runtimeCharacter)
+        {
+            runtimeCharacter.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.ESCAPED;
+            
+            throw new NotImplementedException("TODO: Implement enemy flee logic");
+        }
         
         public void EndTurn()
         {
