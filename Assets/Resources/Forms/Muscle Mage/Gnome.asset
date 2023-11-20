@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
   m_Name: Gnome
   m_EditorClassIdentifier: 
-  sizeMin: 1
+  sizeMin: 0
   sizeMax: 2
   handSize: 3
   skills:
-  - {fileID: 11400000, guid: d38bfe9997e77a246b684ef0b166e945, type: 2}
+  - {fileID: 0}
   attackPattern: []

@@ -27,6 +27,11 @@
         SKILL_STATE,
         CHARACTER_STATE,
         TIMES,
-        NUMBER_OF_CARDS_IN_DRAW_PILE
+        STABLE,
+        THORNS,
+        DECAY,
+        GROW,
+        UNSTABLE,
+        CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -12,6 +11,8 @@ namespace DefaultNamespace
         public int sizeMin;
         public int sizeMax;
         public int handSize;
+        [Header("The passives the enemy has active in this form. Note that player's passives are NOT defined here.")]
+        [Expandable] public List<PassiveData> passives;
         [Expandable] public List<SkillData> skills;
         [InfoBox("The cards the enemy character uses in this form.")]
         [Expandable] public List<CardData> attackPattern;

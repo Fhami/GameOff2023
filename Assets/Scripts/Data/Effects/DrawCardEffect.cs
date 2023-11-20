@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,31 +9,18 @@ namespace DefaultNamespace
     {
         public int count;
 
-        public override IEnumerator Execute(
-            RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             if (characterPlayingTheCard.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value)
             {
-                // TODO: If we want we can make VFX + animation for what happens when we can't draw any more cards but are trying to
-                // TODO: I don't remember what Slay the Spire does..
+                // TODO: VFX / visuals what happens when can't draw?
                 yield break;
             }
-            
-            throw new NotImplementedException("TODO: Draw card!");
-            // TODO: VFX
-            // TODO: Draw card from draw pile and put it to hand
-            // TODO: Execute passive/active skills that trigger on GameEvent.CARD_DRAWN
+
+            yield return BattleManager.current.DrawCard(card, characterPlayingTheCard, player, cardTarget, enemies);
         }
 
-        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
-            RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player,
-            RuntimeCharacter cardTarget,
-            List<RuntimeCharacter> enemies)
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             return GetDescriptionText();
         }
@@ -42,6 +28,28 @@ namespace DefaultNamespace
         public override string GetDescriptionText()
         {
             return $"Draw {count.ToString()} cards.";
+        }
+
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return count;
+        }
+
+        public override string GetEffectValue(RuntimeCard card = null)
+        {
+            return count.ToString();
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            return 1;
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            return "1";
         }
     }
 }

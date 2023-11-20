@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dream Big
   m_EditorClassIdentifier: 
   cardType: 0
-  cardDragTarget: 2
+  cardDragTarget: 6
   effects:
   - {fileID: 11400000, guid: 5457a744d4d9f26438d2faba353dd9ce, type: 2}
   - {fileID: 11400000, guid: 1e1251ecd00b5d143a891573daec5f2e, type: 2}

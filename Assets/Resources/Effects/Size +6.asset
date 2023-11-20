@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39a50e1c37d4ccf99f952b522b9232b, type: 3}
   m_Name: Size +6
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 356a7de571711e243bd0775e83673436, type: 2}
   operation: 0
   effectTarget: 2
   sizeValueSource: 1

@@ -10,6 +10,7 @@ using DG.Tweening;
 public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] NodeInfo nodeInfo;
+    [SerializeField] EncounterData encounterData;
     [SerializeField] RectTransform _rect; 
     [SerializeField] Image _parent_img;
     [SerializeField] Image _ground_img;
@@ -38,6 +39,7 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public List<MapNodeUI> NextNodes { get => _nextNodes; set => _nextNodes = value; }
     public List<MapLineUI> Lines { get => _lines; set => _lines = value; }
     public NodeInfo NodeInfo { get => nodeInfo; set => nodeInfo = value; }
+    public EncounterData EncounterData { get => encounterData; set => encounterData = value; }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -74,5 +76,10 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         if (isLock) return;
         _animator.SetTrigger("exit");
+    }
+
+    public void SetImage(Sprite sprite)
+    {
+        _icon_img.sprite = sprite;
     }
 }

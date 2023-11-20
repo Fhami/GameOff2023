@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f4d8c15af14bc0a34cf4a9d3e67c4e, type: 3}
   m_Name: Draw 2
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 2b24a9cf89540454682bed99e689dbc9, type: 2}
   count: 2

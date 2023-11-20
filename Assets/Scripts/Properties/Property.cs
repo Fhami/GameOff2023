@@ -10,8 +10,9 @@ namespace DefaultNamespace
             get => _value;
             set
             {
+                var oldValue = _value;
                 _value = value;
-                OnChanged?.Invoke(this);
+                OnChanged?.Invoke(oldValue, this);
             } 
         }
 
@@ -20,14 +21,18 @@ namespace DefaultNamespace
         /// <summary>
         /// Invoked when the base value (<see cref="Value"/>) changes or when
         /// modifiers are added or removed from <see cref="Modifiers"/> list.
+        /// OldValue, CurrentValue
         /// </summary>
-        public Action<Property<T>> OnChanged { get; set; }
+        public Action<T, Property<T>> OnChanged { get; set; }
 
         private T _value;
         
-        public Property(T value)
+        public PropertyKey Key { get; }
+        
+        public Property(T value, PropertyKey key)
         {
             Value = value;
+            Key = key;
         }
 
         public void AddModifier(Modifier modifier)
@@ -41,7 +46,7 @@ namespace DefaultNamespace
 
             Modifiers.Add(modifier);
             
-            OnChanged?.Invoke(this);
+            OnChanged?.Invoke(_value, this);//Not sure should we create separate callback for Modifier?
         }
 
         public void RemoveModifier(Modifier modifier)
@@ -53,7 +58,7 @@ namespace DefaultNamespace
 
             Modifiers.Remove(modifier);
 
-            OnChanged?.Invoke(this);
+            OnChanged?.Invoke(_value, this);//Not sure should we create separate callback for Modifier?
         }
     }
 }

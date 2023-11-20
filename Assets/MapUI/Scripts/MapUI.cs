@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Radishmouse;
 using System;
 using DG.Tweening;
+using AYellowpaper.SerializedCollections;
 
 public class MapUI : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class MapUI : MonoBehaviour
     [SerializeField] CanvasGroup _canvasGroup;
     bool isShow = true;
     Tween _mapTween;
-
     Tween _player_tween;
 
     [SerializeField] List<MapRowUI> _mapRows = new List<MapRowUI>();
@@ -63,14 +63,34 @@ public class MapUI : MonoBehaviour
         rowUI.transform.SetParent(_content_parent.transform,false);
         rowUI.transform.localScale = new(1, 1, 1);
 
-        int rand = UnityEngine.Random.Range(rowSetting.minNode, rowSetting.maxNode);
+        int rand = UnityEngine.Random.Range(rowSetting.minMaxNode.x, rowSetting.minMaxNode.y + 1);//Random how many nodes
         //Debug.Log(rowSetting.minNode + " " + rowSetting.maxNode + " " + rand);
-   
-        for(int i = 0; i < rand; i++)//Generate node
+        List<NodeInfo> tempChoosingNode = new List<NodeInfo>(rowSetting.fixedNodes);
+        
+        if (tempChoosingNode.Count > rand) 
+        {
+            tempChoosingNode.Shuffle();
+            tempChoosingNode.RemoveRange(0, tempChoosingNode.Count - rand); 
+        }
+        else if (tempChoosingNode.Count < rand)
+        {
+            var left = rand - tempChoosingNode.Count;
+            for (int i = 0; i < left; i++)
+            {
+                tempChoosingNode.Add( RandomPossibleNode(rowSetting.possibleNodes));
+            }
+            tempChoosingNode.Shuffle();
+        }
+
+        for (int i = 0; i < rand; i++)//Generate node
         {      
             MapNodeUI nodeUI = Instantiate(_node_ui_prefab);
             nodeUI.row = rowIndex;
-            nodeUI.NodeInfo = rowSetting.possibleNode[UnityEngine.Random.Range(0, rowSetting.possibleNode.Count - 1)];
+            //nodeUI.NodeInfo = RandomPossibleNode(rowSetting.possibleNodes);
+            nodeUI.NodeInfo = tempChoosingNode[i];
+            nodeUI.EncounterData =RandomPossibleEncounter(nodeUI.NodeInfo.nodeType , rowSetting);
+
+            nodeUI.SetImage(nodeUI.NodeInfo.icon);
             nodeUI.transform.SetParent(rowUI.transform,false);
             nodeUI.transform.localScale = new Vector3(1, 1, 1);
             nodeUI.onClick = OnClickMapNode;
@@ -78,6 +98,45 @@ public class MapUI : MonoBehaviour
             rowUI._nodes.Add(nodeUI);
         }
         return rowUI;
+    }
+
+    //Weight random node
+    NodeInfo RandomPossibleNode(SerializedDictionary<NodeInfo, int> possibleNodes)
+    {
+        int amount = possibleNodes.Count;
+        NodeInfo[] tempNodes = new NodeInfo[amount];
+        int[] sum = new int[amount];
+
+        int x = 0;
+        int i = 0;
+        foreach (var node in possibleNodes)
+        {
+            tempNodes[i] = node.Key;
+            sum[i] = x += node.Value;
+            Debug.Log(sum[i]);
+            i++;
+        }
+        int choose = UnityEngine.Random.Range(0, x+1);
+
+        for(int j = 0; j <sum.Length; j++)
+        {
+
+            Debug.Log(choose +": =>"+ sum[j]);
+            if (choose <= sum[j]) return tempNodes[j];
+        }
+
+        return null;
+    }
+
+    EncounterData RandomPossibleEncounter(NodeType nodeType, RowSetting rowSetting)
+    {
+        List<EncounterData> encounterData;
+        if (rowSetting.possibleEncounters.TryGetValue(nodeType, out encounterData))
+        {
+            int rand = UnityEngine.Random.Range(0,encounterData.Count);
+            return encounterData[rand];
+        }
+        else return null;
     }
 
     void ClearMap()
@@ -101,7 +160,7 @@ public class MapUI : MonoBehaviour
         for(int row = _mapRows.Count-1; row>0; row--)//start from the last row
         {
             for (int j = 0; j < _mapRows[row]._nodes.Count; j++) {
-                int n = UnityEngine.Random.Range(-1, 1);
+                int n = UnityEngine.Random.Range(-1, 2);
                 int pick = 0;
                 int prevRowCount = _mapRows[row-1]._nodes.Count;
 
@@ -130,7 +189,7 @@ public class MapUI : MonoBehaviour
             {
                 if (_mapRows[row]._nodes[j].NextNodes.Count == 0)
                 {
-                    int n = UnityEngine.Random.Range(-1, 1);
+                    int n = UnityEngine.Random.Range(-1, 2);
                     int pick = 0;
                     int nextRowCount = _mapRows[row + 1]._nodes.Count;
 
@@ -192,14 +251,17 @@ public class MapUI : MonoBehaviour
         else if (selectedNode.NodeInfo.nodeType == NodeType.Minor)
         {
             //Start Minor Encounter
+            // Do something with selectedNode.EncounterData
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Elite)
         {
             //Start Elite Encounter
+            // Do something with selectedNode.EncounterData
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Boss)
         {
             //Start Boss Encounter
+            // Do something with selectedNode.EncounterData
         }
 
         UnlockNextNode(selectedNode);

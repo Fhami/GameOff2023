@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -16,8 +15,6 @@ namespace DefaultNamespace
         public int startSize;
         public int maxSize;
         public int handSize;
-        public int staggerSize;
-        [FormerlySerializedAs("staggerEffect")] [Expandable] public CardData staggerCard;
         [Expandable] public List<FormData> forms;
     }
 }

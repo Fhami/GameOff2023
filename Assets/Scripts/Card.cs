@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Coffee.UIExtensions;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using NaughtyAttributes;
 using TMPro;
@@ -14,18 +17,34 @@ namespace DefaultNamespace
     public class Card : MonoBehaviour
     {
         public UnityEvent<Card> OnDrag;
-        public UnityEvent<Character> OnEnterTarget;
-        public UnityEvent<Character> OnDropped;
+        public UnityEvent<ICardTarget> OnEnterTarget;
+        public UnityEvent<ICardTarget> OnExistTarget;
+        public UnityEvent<ICardTarget> OnDropped;
         
         public RuntimeCard runtimeCard;
 
         [SerializeField] private TextMeshPro nameTxt;
         [SerializeField] private TextMeshPro effectTxt;
-        [SerializeField] private DragableObject dragableObject;
+        
+        [Header("Feedback")]
+        [SerializeField] private MMF_Player enterTargetPlayer;
+        [SerializeField] private MMF_Player existTargetPlayer;
 
-        [SerializeField] private List<Character> validTargets = new List<Character>();
+        [Header("VFX")] 
+        [SerializeField] private UIParticle exhaustCardParticle;
+        [SerializeField] private UIParticle destroyCardParticle;
 
-        [SerializeField, ReadOnly] private Character currentTarget;
+        [SerializeField] private LayerMask targetMask;
+        private List<ICardTarget> validTargets = new List<ICardTarget>();
+        private ICardTarget currentTarget;
+
+        public bool Unplayable
+        {
+            get
+            {
+                return runtimeCard.cardData.effects.Exists(x => x is UnplayableEffect);
+            }
+        }
         
         /// <summary>
         /// Init card data, need to call UpdateCard afterward to update effects text
@@ -47,20 +66,32 @@ namespace DefaultNamespace
             StringBuilder _builder = new StringBuilder();
             foreach (var _effect in runtimeCard.cardData.effects)
             {
-                _builder.AppendLine(_effect.GetDescriptionTextWithModifiers(runtimeCard, _character, _character, null, null));
+                var _description = _effect.GetDescriptionTextWithModifiers(runtimeCard, _character, _character, null,
+                    BattleManager.current.runtimeEnemies);
+                
+                _builder.AppendLine(_description);
+                
+                Debug.Log($"{_effect.name} {_description}");
             }
             
             effectTxt.SetText(_builder.ToString());
         }
 
-        public void UpdateValidTarget()
+        public IEnumerator DestroyCard()
         {
-            validTargets = GetValidTargets(runtimeCard);
+            yield return null;//TODO: Play vfx here
+
+            Destroy(gameObject);
         }
 
-        public bool ValidateTarget(Character _character)
+        public IEnumerator ExhaustCard()
         {
-            return validTargets.Contains(_character);
+            yield return null;//TODO: Play vfx here
+        }
+
+        public bool ValidateTarget(ICardTarget _target)
+        {
+            return validTargets.Contains(_target);
         }
         
         public void ClearCallBack()
@@ -68,59 +99,99 @@ namespace DefaultNamespace
             OnDrag.RemoveAllListeners();
             OnDropped.RemoveAllListeners();
             OnEnterTarget.RemoveAllListeners();
+            OnExistTarget.RemoveAllListeners();
+        }
+
+        #region Dragging
+
+        private void OnMouseDown()
+        {
+            validTargets = GetValidTargets(runtimeCard);
         }
 
         private void OnMouseDrag()
         {
-            foreach (var _validTarget in validTargets)
+            HighlightTargets(true);
+
+            var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, targetMask);
+
+            if (_hit)
             {
-                if (_validTarget)
-                {
-                    //Highlight target
-                }
+                //Debug.Log($"hit {_hit.transform.gameObject.name} {Camera.main.ScreenToWorldPoint(Input.mousePosition)}");
+                var _target = _hit.transform.gameObject.GetComponent<ICardTarget>();
+                SetCurrentTarget(_target);
+                
             }
+            else
+            {
+                SetCurrentTarget(null);
+                
+            }
+
             OnDrag?.Invoke(this);
+        }
+
+        private void SetCurrentTarget(ICardTarget _newTarget)
+        {
+            currentTarget?.HighlightSelected(false);
+
+            currentTarget = _newTarget;
+
+            if (currentTarget != null)
+            {
+                currentTarget.HighlightSelected(true);
+                
+                enterTargetPlayer.PlayFeedbacks();
+            }
+            else
+            {
+                existTargetPlayer.PlayFeedbacks();
+            }
         }
         
         private void OnMouseUp()
         {
+            HighlightTargets(false);
+            
+            existTargetPlayer.PlayFeedbacks();
+            
             if (ValidateTarget(currentTarget))
             {
                 OnDropped?.Invoke(currentTarget);
             }
-            else
+        }
+
+        private void HighlightTargets(bool _value)
+        {
+            foreach (var _validTarget in validTargets)
             {
-                dragableObject.MoveToOrigin();
+                if (_validTarget.GameObject)
+                {
+                    //Highlight target
+                    _validTarget.Highlight(_value);
+                }
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            currentTarget = other.gameObject.GetComponent<Character>();
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            currentTarget = null;
-        }
+        #endregion
         
-        
-        
-        public static List<Character> GetValidTargets(RuntimeCard _runtimeCard)
+        public static List<ICardTarget> GetValidTargets(RuntimeCard _runtimeCard)
         {
-            var _results = new List<Character>();
+            var _results = new List<ICardTarget>();
             var _targetTags = _runtimeCard.cardData.cardDragTarget;
-            foreach (var _tag in Enum.GetValues(_targetTags.GetType()))
+            foreach (CardDragTarget _tag in Enum.GetValues(typeof(CardDragTarget)))
             {
+                if ((_targetTags & _tag) == 0) continue;
                 if (_tag.ToString() == "NONE") continue;
-                
+
                 var _targets = GameObject.FindGameObjectsWithTag(_tag.ToString());
-                
+
                 foreach (var _target in _targets)
                 {
-                    if (_target.TryGetComponent<Character>(out var _character))
+                    if (_target.TryGetComponent<ICardTarget>(out var _validTarget))
                     {
-                        _results.Add(_character);
+                        Debug.Log($"{_tag} {_target.name}");
+                        _results.Add(_validTarget);
                     }
                 }
             }

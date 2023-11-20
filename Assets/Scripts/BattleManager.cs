@@ -21,7 +21,9 @@ namespace DefaultNamespace
         ON_HEALTH_CHANGED,
         ON_FORM_CHANGED,
         ON_DEATH,
-        ON_BATTLE_START
+        ON_CHARACTER_SPAWNED,
+        ON_BATTLE_START,
+        ON_PLAYER_SIZE_CHANGED
     }
     
     /// <summary>
@@ -34,6 +36,7 @@ namespace DefaultNamespace
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;
+        [SerializeField] private float characterSpawnDelay = 0.2f;
 
         public Character player;
         public RuntimeCharacter runtimePlayer;
@@ -42,6 +45,8 @@ namespace DefaultNamespace
 
         [Header("Mockup")] 
         public DeckData deckData;
+        public CharacterData playerData;
+        public EncounterData encounterData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
@@ -51,45 +56,70 @@ namespace DefaultNamespace
         {
             current = this;
         }
-
+        
+        /// <summary>
+        /// This is for testing! Actual start is StartBattle
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Start()
         {
-            if (isDebug)
-            {
-                Database.Initialize();
-                //Add cards to player deck
-                foreach (var _cardData in deckData.Cards)
-                {
-                    GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
-                }
-                
-                cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
-                
-                player = CharacterFactory.CreateCharacterObject("Muscle Mage");
-                player.gameObject.tag = "PLAYER";
-                player.cardController = cardController;
-
-                cardController.Character = player;
-
-                runtimePlayer = player.runtimeCharacter;
-
-                var _enemies = characterSpawner.SpawnEnemies(new List<string>()
-                {
-                    "Fishy", "Fishy", "Fishy"
-                });
-
-                foreach (var _enemy in _enemies)
-                {
-                    enemies.Add(_enemy);
-                    runtimeEnemies.Add(_enemy.runtimeCharacter);
-                }
-
-            }
+            if (!isDebug) yield break;
             
-            // TODO: Initialize battle scene and start the battle!
+            Database.Initialize();
+            //Add cards to player deck
+            foreach (var _cardData in deckData.Cards)
+            {
+                GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
+            }
+
+            yield return StartBattle(playerData, encounterData);
+        }
+
+        public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
+        {
+            cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
+
+            yield return InitializeCharacters(_playerData, _encounterData);
+            
             yield return BattleStart(runtimePlayer, runtimeEnemies);
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
+        }
+
+        public IEnumerator InitializeCharacters(CharacterData _player, EncounterData _encounterData)
+        {
+            player = characterSpawner.SpawnPlayer(_player.name);
+            player.cardController = cardController;
+            
+            cardController.Character = player;
+            runtimePlayer = player.runtimeCharacter;
+
+            if (_encounterData != null) // I added this null check so I can test cards without having any
+            {
+                foreach (var _enemyData in _encounterData.enemies)
+                {
+                    var _newEnemy = characterSpawner.SpawnEnemy(_enemyData);
+                
+                    enemies.Add(_newEnemy);
+                    runtimeEnemies.Add(_newEnemy.runtimeCharacter);
+                    
+                    yield return _newEnemy.runtimeCharacter.Character.UpdateIntention(_newEnemy.GetIntention());
+                
+                    yield return new WaitForSeconds(characterSpawnDelay);
+
+                    //Should we also call GameEvent.ON_CHARACTER_SPAWNED when Initialize?
+                    //I don't think we're gonna trigger effect while initializing
+                }
+            }
+        }
+        
+        public IEnumerator SpawnEnemy(string _name)
+        {
+            var _newEnemy = characterSpawner.SpawnEnemy(_name);
+
+            yield return new WaitForSeconds(characterSpawnDelay);
+
+            yield return OnGameEvent(GameEvent.ON_CHARACTER_SPAWNED, _newEnemy.runtimeCharacter, runtimePlayer, runtimeEnemies);
         }
         
         public void EndTurn()
@@ -120,6 +150,13 @@ namespace DefaultNamespace
             foreach (RuntimeSkill skill in player.skills)
             {
                 skill.properties.Get<SkillState>(PropertyKey.SKILL_STATE).Value = SkillState.READY;
+            }
+            
+            // Enable passives for each character based on their current form
+            player.EnablePassives(player.GetCurrentForm());
+            foreach (RuntimeCharacter enemy in enemies)
+            {
+                enemy.EnablePassives(enemy.GetCurrentForm());
             }
             
             yield return OnGameEvent(GameEvent.ON_BATTLE_START, player, player, enemies);
@@ -156,7 +193,7 @@ namespace DefaultNamespace
             int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
             for (int i = 0; i < handSize; i++)
             {
-                yield return DrawCard(player, enemies);
+                yield return DrawCard(null, player, player, null, enemies);
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
@@ -165,21 +202,31 @@ namespace DefaultNamespace
         // TODO: This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            // TODO: Discard all remaining cards in your hand to the discard pile
+            // Discard hand but since this discard is not initiated by a card we leave it null.
+            yield return DiscardHand(null);
 
-            yield return cardController.ClearHand();
+            // If player has decay debuff
+            if (player.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(player) > 0)
+            {
+                yield return Decay(player, player, enemies);
+            }
+            
+            // If player has grow buff
+            if (player.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(player) > 0)
+            {
+                yield return Grow(player, player, enemies);
+            }
             
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
             // Clear buff stacks
             player.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            
+            player.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-
-            yield break;
         }
 
         /// <summary>
@@ -199,50 +246,107 @@ namespace DefaultNamespace
             foreach (EffectData effectData in card.cardData.effects)
             {
                 yield return effectData.Execute(card, player, player, target, enemies);
-
-                // Exit early if the card was FADED or DESTROYED (so we don't try to execute effects on invalid card)
-                if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value is CardState.FADED or CardState.DESTROYED)
-                {
-                    yield return ExhaustCard(card, player, enemies);
-                    break;
-                }
             }
             
-            // If the card is not FADED or DESTROYED then we can move it to discard pile
+            // If the card is not FADED, DESTROYED or DISCARDED then we can move it to discard pile
+            // NOTE: Some card effect might discard the card before we get here! 
             if (card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.FADED &&
-                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED)
+                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DESTROYED &&
+                card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value != CardState.DISCARD_PILE)
             {
-                yield return DiscardCard(card, player, enemies);
+                yield return DiscardCard(card, player, player, target, enemies);
             }
+            
+            // This is where we finished playing the card, so all effects are executed. Now we can
+            // safely (I think) reset some properties used by subsequent effects. Like this one.
+            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD).Value = 0;
+        }
+
+        public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            // Update card state
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.FADED;
+            
+            // Update fade stats
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value++;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value++;
+            
+            // Handle visuals
+            yield return cardController.ExhaustCard(card.Card);
+            
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_FADED, characterPlayingTheCard, player, enemies);
         }
         
-        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator DestroyCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: Discard the card (visual + data)
+            // Update card state
+            card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DESTROYED;
             
+            // Update destroyed stats
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value++;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value++;
+            
+            // Handle visuals
+            yield return cardController.DestroyCard(card.Card);
+            
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_DESTROYED, characterPlayingTheCard, player, enemies);
+        }
+
+        /// <summary>
+        /// Discard all cards in hand.
+        /// </summary>
+        /// <param name="card">The card which initiated the discard hand logic (as an effect).</param>
+        /// <returns></returns>
+        public IEnumerator DiscardHand(RuntimeCard card)
+        {
+            if (card != null)
+            {
+                // Update this we can use it for effects like (discard your hand, then deal damage equal to how many cards discarded).
+                // This will reset to 0 after the card "finishes playing".
+                Property<int> cardsDiscardedByCurrentlyBeingPlayedCard = runtimePlayer.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD);
+                cardsDiscardedByCurrentlyBeingPlayedCard.Value = cardController.HandPile.Cards.Count;
+            }
+       
+            yield return cardController.DiscardRemainingCards();
+        }
+        
+        public IEnumerator DiscardCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            // Update card state
             card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.DISCARD_PILE;
             
-            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
-            player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
+            // Update discard stats
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value++;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value++;
 
+            // Handle visuals
             yield return cardController.Discard(card.Card);
 
-            yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, player, player, enemies);
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_DISCARDED, characterPlayingTheCard, player, enemies);
         }
         
-        public IEnumerator DrawCard(RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator DrawCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            
+            // Handle visuals
             //Don't have enough card in deck, try get from discard pile
             if (cardController.DeckPile.Cards.Count < 1)
             {
                 yield return ShuffleDiscardPileIntoDeck(player, enemies);
             }
             
-            // TODO: Draw the card (visual + data)
             yield return cardController.Draw(1);
             
-            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, player, player, enemies);
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
+
+            // NOTE: Since cardController.Draw() doesn't return the drawn cards, I have to put this "hack" here.
+            foreach (Card cardInHand in cardController.HandPile.Cards)
+            {
+                cardInHand.runtimeCard.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.HAND;
+            }
         }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
@@ -253,11 +357,133 @@ namespace DefaultNamespace
         }
         
         /// <summary>
-        /// Card destroyed or faded
+        /// Called when a character is killed (either player or enemy).
         /// </summary>
-        public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            yield return cardController.ExhaustCard(card.Card);
+            // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
+            
+            characterToKill.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.DEAD;
+            
+            if (characterToKill == player)
+            {
+                throw new NotImplementedException("TODO: Implement PLAYER death logic and visuals.");
+            }
+            else
+            {
+                throw new NotImplementedException("TODO: Implement ENEMY death logic and visuals.");
+            }
+            
+            yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
+        }
+
+        public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX
+            
+            Property<int> decay = target.properties.Get<int>(PropertyKey.DECAY);
+            int decayAmount = decay.GetValueWithModifiers(target);
+            
+            FormData previousForm = target.GetCurrentForm();
+            
+            Property<int> stable = target.properties.Get<int>(PropertyKey.STABLE);
+            Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+            Property<int> maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE);
+            
+            // Keep track of the previous size
+            int previousSize = size.Value;
+            
+            // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
+            int amountAbsorbedByStable = Mathf.Min(decayAmount, stable.Value);
+            decayAmount -= amountAbsorbedByStable;
+                
+            // Reduce the absorbed size change value from the stable stack
+            stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
+
+            // Reduce the target size by decay amount
+            size.Value = Mathf.Clamp(size.Value - decayAmount, 0, maxSize.GetValueWithModifiers(target));
+
+            // Reduce decay stack by 1
+            decay.Value = Mathf.Clamp(decay.Value - 1, 0, int.MaxValue);
+            
+            FormData currentForm = target.GetCurrentForm();
+
+            if (previousForm != currentForm)
+            {
+                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
+            }
+            
+            if (previousSize != size.Value)
+            {
+                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
+            }
+        }
+        
+        public IEnumerator Grow(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX
+            
+            Property<int> grow = target.properties.Get<int>(PropertyKey.GROW);
+            int growAmount = grow.GetValueWithModifiers(target);
+            
+            FormData previousForm = target.GetCurrentForm();
+            
+            Property<int> stable = target.properties.Get<int>(PropertyKey.STABLE);
+            Property<int> size = target.properties.Get<int>(PropertyKey.SIZE);
+            Property<int> maxSize = target.properties.Get<int>(PropertyKey.MAX_SIZE);
+            
+            // Keep track of the previous size
+            int previousSize = size.Value;
+            
+            // Calculate the the size change value after stable absorption (i.e. reduce stable value from size change value)
+            int amountAbsorbedByStable = Mathf.Min(growAmount, stable.Value);
+            growAmount -= amountAbsorbedByStable;
+                
+            // Reduce the absorbed size change value from the stable stack
+            stable.Value = Mathf.Max(stable.Value - amountAbsorbedByStable, 0);
+
+            // Reduce the target size by grow amount
+            size.Value = Mathf.Clamp(size.Value - growAmount, 0, maxSize.GetValueWithModifiers(target));
+
+            // Reduce grow stack by 1
+            grow.Value = Mathf.Clamp(grow.Value - 1, 0, int.MaxValue);
+            
+            FormData currentForm = target.GetCurrentForm();
+
+            if (previousForm != currentForm)
+            {
+                yield return ChangeForm(previousForm, currentForm, target, player, enemies);
+            }
+            
+            if (previousSize != size.Value)
+            {
+                yield return ChangeSize(previousSize, size.Value, target, player, enemies);
+            }
+        }
+        
+        public IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+            character.DisablePassives(previousForm);
+            character.EnablePassives(currentForm);
+            
+            character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
+            character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+
+            yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
+        }
+        
+        public IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            // TODO: VFX, animation etc
+
+            // Unique event for when explicitly player's size changes
+            if (character == player)
+            {
+                yield return OnGameEvent(GameEvent.ON_PLAYER_SIZE_CHANGED, character, player, enemies);
+            }
+            
+            yield return OnGameEvent(GameEvent.ON_SIZE_CHANGED, character, player, enemies);
         }
         
         /// <summary>
@@ -274,26 +500,9 @@ namespace DefaultNamespace
             enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             enemy.properties.Get<int>(PropertyKey.EVADE).Value = 0;
             
-            yield break;
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
         }
         
-        /// <summary>
-        /// Coroutine that should be called after enemy finished acting.
-        /// </summary>
-        /// <param name="enemy">The enemy whose turn just ended.</param>
-        public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
-        {
-            // Clear stun (it's not stackable right?)
-            enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            
-            // Clear properties that are only tracked per turn
-            enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
-            enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
-            enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
-            
-            yield break;
-        }
-
         /// <summary>
         /// Coroutine that executes a single enemy turn.
         /// </summary>
@@ -319,10 +528,8 @@ namespace DefaultNamespace
 
             // Create card instance from the card data
             // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
-            RuntimeCard card = CardFactory.Create(cardData.name);
+            RuntimeCard card = CardFactory.Create(cardData);
 
-            // NOTE: I think for enemy we don't care about FADED, DESTROYED etc. since their cards probably don't use any of those
-            // so just execute the effects
             foreach (EffectData effectData in card.cardData.effects)
             {
                 yield return effectData.Execute(card, enemy, player, player, enemies);
@@ -332,6 +539,37 @@ namespace DefaultNamespace
             cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }
         
+        /// <summary>
+        /// Coroutine that should be called after enemy finished acting.
+        /// </summary>
+        /// <param name="enemy">The enemy whose turn just ended.</param>
+        public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
+        {
+            // If enemy has decay debuff
+            if (enemy.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(enemy) > 0)
+            {
+                yield return Decay(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
+            // If enemy has grow buff
+            if (enemy.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(enemy) > 0)
+            {
+                yield return Grow(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
+            enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+
+            // Clear properties that are only tracked per turn
+            enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+            
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
+            
+            yield break;
+        }
+
         // TODO: Call this after current battle ended
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
         {
@@ -340,13 +578,13 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_BATTLE_COUNT).Value = 0;
         }
 
-        public static IEnumerator OnGameEvent(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator OnGameEvent(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
             yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
         }
 
-        public static IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Loop through character's active skills and see if any of them trigger.
             foreach (RuntimeSkill skill in character.skills)
@@ -366,9 +604,51 @@ namespace DefaultNamespace
                     }
                 }
             }
+
+            // Try triggering card active skills for the cards that are in player's hand
+            for (int i = cardController.HandPile.Cards.Count - 1; i >= 0; i--)
+            {
+                Card card = cardController.HandPile.Cards[i];
+
+                foreach (CardSkill cardActiveSkill in card.runtimeCard.cardData.cardActiveSkills)
+                {
+                    if (TryTriggerCardActive(gameEvent, cardActiveSkill, player))
+                    {
+                        foreach (EffectData effectData in cardActiveSkill.onTriggerEffects)
+                        {
+                            yield return effectData.Execute(card.runtimeCard, character, player, player, enemies);
+                        }
+                    }
+                }
+            }
         }
 
-        public static bool TriggerActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
+        public bool TryTriggerCardActive(GameEvent gameEvent, CardSkill cardActiveSkill, RuntimeCharacter player)
+        {
+            // The current game event must match the skill's trigger game event.
+            if (cardActiveSkill.triggerGameEvent != gameEvent)
+            {
+                return false;
+            }
+            
+            // If there are trigger conditions -> all must pass for the active skill to trigger!
+            if (cardActiveSkill.triggerConditions != null)
+            {
+                foreach (ConditionData condition in cardActiveSkill.triggerConditions)
+                {
+                    // If any condition fails the active won't trigger.
+                    if (!condition.Evaluate(gameEvent, player, player))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            // Either there are no conditions OR all conditions passed -> active skill triggers!
+            return true;
+        }
+
+        public bool TriggerActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
         {
             // The current game event must match the skill's trigger game event.
             if (skill.skillData.triggerGameEvent != gameEvent)
@@ -401,7 +681,7 @@ namespace DefaultNamespace
             return false;
         }
         
-        public static IEnumerator TryRechargeActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        public IEnumerator TryRechargeActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Loop through character's active skills and see if any of them trigger.
             foreach (RuntimeSkill skill in character.skills)
@@ -417,7 +697,7 @@ namespace DefaultNamespace
             yield break;
         }
         
-        public static bool RechargeActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
+        public bool RechargeActiveSkill(GameEvent gameEvent, RuntimeSkill skill, RuntimeCharacter character, RuntimeCharacter player)
         {
             // The current game event must match the skill's recharge game event.
             if (skill.skillData.rechargeGameEvent != gameEvent)

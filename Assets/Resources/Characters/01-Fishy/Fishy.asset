@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Fishy
   m_EditorClassIdentifier: 
   health: 30
-  startPower: 0
-  maxPower: 0
+  startSize: 3
+  maxSize: 0
   handSize: 5
-  turnCountDown: 0
+  staggerSize: 0
+  staggerCard: {fileID: 0}
   forms:
   - {fileID: 11400000, guid: e3391944cb253c14390b11c3282ed554, type: 2}
   - {fileID: 11400000, guid: f33518cce83f4a143b85b20c11fe3210, type: 2}

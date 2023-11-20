@@ -23,6 +23,17 @@ public class CardController : MonoBehaviour
 
     private WaitForSeconds drawDelay;
 
+    private IEnumerable<CardPile> AllPiles
+    {
+        get
+        {
+            yield return DeckPile;
+            yield return HandPile;
+            yield return DiscardPile;
+            yield return ExhaustPile;
+        }
+    }
+
     private void Awake()
     {
         drawDelay = new WaitForSeconds(drawInterval);
@@ -37,43 +48,44 @@ public class CardController : MonoBehaviour
             //Create card object
             var _newCardObj = CardFactory.CreateCardObject(_card);
                 
+            _newCardObj.OnDropped.AddListener(_target =>
+            {
+                if (_newCardObj.ValidateTarget(_target))
+                {
+                    if (ShowLog)
+                        Debug.Log($"target {_target.GameObject.name} = true");
+                    
+                    _newCardObj.transform.SetParent(null);
+
+                    var _targetChar = _target.GameObject.GetComponent<Character>();
+
+                    var _runtimeCharacter = _targetChar ? _targetChar.runtimeCharacter : null;
+
+                    StartCoroutine(BattleManager.current.PlayCard(_newCardObj.runtimeCard, Character.runtimeCharacter,
+                        _runtimeCharacter, BattleManager.current.runtimeEnemies));
+                }
+                else
+                {
+                    if (ShowLog)
+                        Debug.Log($"target {_target.GameObject.name} = false");
+                }
+            });
+            
             DeckPile.AddCard(_newCardObj);
         }
-        
+
         DeckPile.Shuffle();
     }
     
     public IEnumerator Draw(int _number)
     {
-
         foreach (var _card in DeckPile.GetCards(_number))
         {
             HandPile.AddCard(_card);
             
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
-            _card.UpdateValidTarget();
-            _card.ClearCallBack();
 
-            _card.OnDropped.AddListener(_target =>
-            {
-                if (_card.ValidateTarget(_target))
-                {
-                    if (ShowLog)
-                        Debug.Log($"target {_target.name} = true");
-                    
-                    _card.transform.SetParent(null);
-                    
-                    StartCoroutine(BattleManager.current.PlayCard(_card.runtimeCard, Character.runtimeCharacter,
-                        _target.runtimeCharacter, BattleManager.current.runtimeEnemies));
-                }
-                else
-                {
-                    if (ShowLog)
-                        Debug.Log($"target {_target.name} = false");
-                }
-            });
-            
             yield return drawDelay;
         }
     }
@@ -98,22 +110,42 @@ public class CardController : MonoBehaviour
 
     public IEnumerator ExhaustCard(Card _card)
     {
+        yield return _card.ExhaustCard();
+        
         ExhaustPile.AddCard(HandPile.PickCard(_card));
-
-        yield return drawDelay;
     }
     
-    public IEnumerator ClearHand()
+    public IEnumerator DestroyCard(Card _card)
     {
-        foreach (var _card in HandPile.GetCards(-1))
-        {
-            if (_card)
-            {
-                DiscardPile.AddCard(_card);
-                _card.ClearCallBack();
+        // throw new NotImplementedException(
+        //     " // TODO: Can we destroy cards from any card pile? Can we handle that?\n" + 
+        //     "// TODO: Add card destroy VFX\n" + 
+        //     "// TODO: Also remove runtime card data from player, and destroy the card gameobject\n" +
+        //     "// TODO: IDK what to do here haha. Kamee halp?");
 
-                yield return drawDelay;
-            }
+        foreach (var _pile in AllPiles)
+        {
+            _pile.RemoveCard(_card);
+        }
+        
+        GameManager.Instance.PlayerRuntimeDeck.RemoveCard(_card.runtimeCard);
+        
+        yield return _card.DestroyCard();
+        // E.g. SLIME card destroys itself when player changes size, you can debug using that.
+    }
+    
+    public IEnumerator DiscardRemainingCards()
+    {
+        while (HandPile.Cards.Count > 0)
+        {
+            Card card = HandPile.Cards[0];
+            
+            yield return BattleManager.current.DiscardCard(
+                card.runtimeCard, 
+                BattleManager.current.runtimePlayer,
+                BattleManager.current.runtimePlayer, 
+                null,
+                BattleManager.current.runtimeEnemies);
         }
     }
 }

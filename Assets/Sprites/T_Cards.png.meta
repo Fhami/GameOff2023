@@ -1,0 +1,582 @@
+fileFormatVersion: 2
+guid: 31304cf1d39a8f94d82b8ef5431d182d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_Cards_M_Base
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 256
+        width: 522
+        height: 742
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48860d7ebe4d1604880c27467fe069f8
+      internalID: -1001765784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_S_Base
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 255
+        width: 522
+        height: 742
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63940a8c66f173c4e8299eacffa23aed
+      internalID: -386003199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_L_Base
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 252
+        width: 522
+        height: 742
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcd596487beab5f4b86628bb7ad2f774
+      internalID: -1498794034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_M_NameTag
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 902
+        width: 415
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddfd03cb10b276e4d8f44073543dcc17
+      internalID: 962834708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_L_NameTag
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 791
+        width: 415
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d208f7da6afda946bdeb19e4b2d9dee
+      internalID: 1951485524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_S_NameTag
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 687
+        width: 415
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6322bb410cbee345a88ff148e5af068
+      internalID: 885737211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Rare_Crown
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 612
+        width: 123
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24e40b85010224a48978cc01cc7e0fa8
+      internalID: -437315746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Curse_Crown
+      rect:
+        serializedVersion: 2
+        x: 1801
+        y: 612
+        width: 223
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e535524baf1ffd43adc87caaf32e910
+      internalID: 1389797975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Status_Crown_L
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 407
+        width: 130
+        height: 187
+      alignment: 9
+      pivot: {x: 0.94625056, y: 0.95276403}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f5742bb24cb04342b3206b9a593ce06
+      internalID: -1186373310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Status_Accent_L
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 314
+        width: 281
+        height: 282
+      alignment: 9
+      pivot: {x: 0.9973266, y: 0.97600174}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b48674247d575d84ab05885614b42f67
+      internalID: -364414885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Status_Crown_R
+      rect:
+        serializedVersion: 2
+        x: 1670
+        y: 175
+        width: 82
+        height: 113
+      alignment: 9
+      pivot: {x: 0.9015369, y: 0.08374199}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da05e02c017e5f4bbb9bd4591eec55f
+      internalID: 1852418073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Status_Accent_R
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 7
+        width: 282
+        height: 301
+      alignment: 9
+      pivot: {x: 0.98371357, y: 0.95318025}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 060d61cc0d279864ab7a23b63703e2f0
+      internalID: 1009077297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Curse_Accent_Middle
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 140
+        width: 289
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ca9365b6686a2846a104f5592e9ebc9
+      internalID: -2120860097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Rare_Accent_L_Top
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 170
+        width: 182
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80528cd70a5e355448894b1108a77a2d
+      internalID: 706060860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Rare_Accent_R_Top
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 170
+        width: 183
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b74722e1536bc9849bc5ab48e54bf432
+      internalID: -1454875743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Status_Crown_Bottom
+      rect:
+        serializedVersion: 2
+        x: 1620
+        y: 196
+        width: 45
+        height: 44
+      alignment: 9
+      pivot: {x: 0.9021837, y: 0.46423304}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6fc7e81217cc444083b62c289df2a2b
+      internalID: -337952821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Curse_Accent_L
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 8
+        width: 455
+        height: 124
+      alignment: 9
+      pivot: {x: 0.004034671, y: 0.97891384}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4386c4cc548721b47b27b14d09ffd60d
+      internalID: 1513750018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Curse_Accent_R
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 19
+        width: 495
+        height: 129
+      alignment: 9
+      pivot: {x: 0.9939395, y: 0.98558563}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 210929b76a1dd5c4db64d7f6310aaa03
+      internalID: -1084890242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Rare_Accent_L_Bottom
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 41
+        width: 191
+        height: 44
+      alignment: 9
+      pivot: {x: 0.00472623, y: 0.66654396}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d671a6bd285d8b4c838800921ab4bbe
+      internalID: 1031611358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Cards_Rare_Accent_R_Bottom
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 52
+        width: 193
+        height: 36
+      alignment: 9
+      pivot: {x: 0.9853155, y: 0.5684696}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd67e1f2d4dbf5f4c8fd026bb37ea711
+      internalID: -1531205675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 965aee67fb24c9f46b0bd99c14ddb6d3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_Cards_14: 2100584554
+      T_Cards_16: -192924412
+      T_Cards_17: 1408554821
+      T_Cards_18: 308962454
+      T_Cards_19: -803890536
+      T_Cards_2: 552177097
+      T_Cards_22: 1484298721
+      T_Cards_23: -1929145612
+      T_Cards_24: -2000555099
+      T_Cards_28: -287383275
+      T_Cards_29: 1826829478
+      T_Cards_3: -2076177385
+      T_Cards_31: -1089667415
+      T_Cards_32: 1666243325
+      T_Cards_34: 379482536
+      T_Cards_36: -953754739
+      T_Cards_37: 449060406
+      T_Cards_39: -1623984401
+      T_Cards_4: -1359066732
+      T_Cards_41: -2094088109
+      T_Cards_44: -1707856922
+      T_Cards_45: 640614577
+      T_Cards_46: -339922021
+      T_Cards_47: -1381526612
+      T_Cards_48: -569164821
+      T_Cards_49: 1138803261
+      T_Cards_5: 1602164855
+      T_Cards_50: 1757489759
+      T_Cards_6: 304299749
+      T_Cards_7: 2049980471
+      T_Cards_Curse_Accent_L: 1513750018
+      T_Cards_Curse_Accent_Middle: -2120860097
+      T_Cards_Curse_Accent_R: -1084890242
+      T_Cards_Curse_Crown: 1389797975
+      T_Cards_L_Base: -1498794034
+      T_Cards_L_NameTag: 1951485524
+      T_Cards_M_Base: -1001765784
+      T_Cards_M_NameTag: 962834708
+      T_Cards_Rare_Accent_L_Bottom: 1031611358
+      T_Cards_Rare_Accent_L_Top: 706060860
+      T_Cards_Rare_Accent_R_Bottom: -1531205675
+      T_Cards_Rare_Accent_R_Top: -1454875743
+      T_Cards_Rare_Crown: -437315746
+      T_Cards_S_Base: -386003199
+      T_Cards_S_NameTag: 885737211
+      T_Cards_Status_Accent_L: -364414885
+      T_Cards_Status_Accent_R: 1009077297
+      T_Cards_Status_Crown_Bottom: -337952821
+      T_Cards_Status_Crown_L: -1186373310
+      T_Cards_Status_Crown_R: 1852418073
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

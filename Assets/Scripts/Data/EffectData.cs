@@ -6,6 +6,8 @@ namespace DefaultNamespace
 {
     public abstract class EffectData : ScriptableObject
     {
+        public IntentData intent;
+        
         /// <summary>
         /// A coroutine for playing a single card. Executes card's effects and can also trigger different skills.
         /// </summary>
@@ -35,5 +37,24 @@ namespace DefaultNamespace
         /// </summary>
         /// <returns></returns>
         public abstract string GetDescriptionText();
+
+        /// <summary>
+        /// Get the effect value inside a battle. Calculates the final value with all the modifiers.
+        /// </summary>
+        public abstract int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies);
+        /// <summary>
+        /// Get effect value outside the battle. If you have a reference to the card instance
+        /// the method will also calculate the card upgrades into the final value.
+        /// </summary>
+        public abstract string GetEffectValue(RuntimeCard card = null);
+        /// <summary>
+        /// Get the times value inside a battle. Calculates the final value with all the modifiers.
+        /// </summary>
+        public abstract int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies);
+        /// <summary>
+        /// Get times value outside the battle. If you have a reference to the card instance
+        /// the method will also calculate the card upgrades into the final value.
+        /// </summary>
+        public abstract string GetTimesValue(RuntimeCard card = null);
     }
 }

@@ -9,7 +9,7 @@ namespace DefaultNamespace
     /// </summary>
     public class RuntimeDeckData
     {
-        public int MaxSize = 10;
+        public int MaxSize = 9999;
         public List<RuntimeCard> Cards = new List<RuntimeCard>();
         public List<RuntimeCard> SpecialCards = new List<RuntimeCard>();
 

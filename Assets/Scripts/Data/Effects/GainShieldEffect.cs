@@ -27,7 +27,7 @@ namespace DefaultNamespace
         {
             // TODO: VFX
             
-            int shield = GetShieldValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += shield;
             
@@ -43,7 +43,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetShieldValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} shield");
+                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} shield");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);
@@ -66,7 +66,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetShieldValue()} shield");
+                    sb.Append($"Gain {GetEffectValue()} shield");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);
@@ -83,7 +83,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the shield value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetShieldValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int damage = shieldValueSource switch
             {
@@ -102,7 +102,7 @@ namespace DefaultNamespace
         /// Get shield value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public string GetShieldValue(RuntimeCard card = null)
+        public override string GetEffectValue(RuntimeCard card = null)
         {
             if (card == null)
             {
@@ -122,6 +122,17 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetTimesValue(RuntimeCard card = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
