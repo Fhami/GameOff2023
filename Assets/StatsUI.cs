@@ -31,13 +31,15 @@ public class StatsUI : MonoBehaviour
     Tween _hpNumberTween;
     Tween _hpBarTween;
 
+    [Header("HP Preview decrease")]
     [SerializeField] GameObject _hp_front_preview;
-    [SerializeField] Slider _hp_preview_front_slider;
+    [SerializeField] Slider _hp_decrease_preview_slider;
     [SerializeField] Image _hp_preview_front_slider_area;
 
-
+    [Header("HP Preview increase")]
     [SerializeField] GameObject _hp_back_preview;
-    [SerializeField] Image _hp_preview_increase_img;
+    [SerializeField] Slider _hp_increase_preview_slider;
+    //[SerializeField] Image _hp_preview_increase_img;
 
     [Header("SHIELD")]
     [SerializeField] TextMeshProUGUI _shield_txt;
@@ -116,7 +118,7 @@ public class StatsUI : MonoBehaviour
             //Decrease
             //Set front preview = to;
             //Set Back preview = current;
-            _hp_preview_front_slider.value = currentPercentile - deltaPercentile;
+            _hp_decrease_preview_slider.value = currentPercentile - deltaPercentile;
             _hp_preview_front_slider_area.fillAmount = currentPercentile;
 
             _hp_front_preview.SetActive(true);
@@ -127,9 +129,12 @@ public class StatsUI : MonoBehaviour
         else
         {
             //Increse
+            _hp_increase_preview_slider.value = currentPercentile - deltaPercentile;
+
             _hp_front_preview.SetActive(false);
             _hp_back_preview.SetActive(true);
-            _hp_preview_increase_img.fillAmount = currentPercentile - deltaPercentile;
+            //_hp_preview_increase_img.fillAmount = currentPercentile - deltaPercentile;
+ 
         }
 
     }
