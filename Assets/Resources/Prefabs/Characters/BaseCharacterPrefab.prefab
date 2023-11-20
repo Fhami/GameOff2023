@@ -50,6 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardController: {fileID: 0}
+  characterForms:
+    _serializedList: []
+  currentForm: {fileID: 0}
   outlinable: {fileID: 4825042608493409092}
   statUI: {fileID: 3741980050977522496}
   sizeUI: {fileID: 6964135813202548287}

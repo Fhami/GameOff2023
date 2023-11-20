@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
+using DG.Tweening;
 using EPOOutline;
 using NaughtyAttributes;
 using TMPro;
@@ -14,6 +16,9 @@ namespace DefaultNamespace
     {
         public RuntimeCharacter runtimeCharacter;
         public CardController cardController;
+
+        [SerializeField] private SerializedDictionary<FormData, CharacterForm> characterForms;
+        [SerializeField] private CharacterForm currentForm;
 
         [SerializeField] private Outlinable outlinable;
         [BoxGroup("UI"), SerializeField] private StatsUI statUI;
@@ -121,7 +126,24 @@ namespace DefaultNamespace
 
         public void UpdateFormVisual(FormData _form)
         {
-            
+            if (characterForms.TryGetValue(_form, out var _characterForm))
+            {
+                if (currentForm == _characterForm) return;
+
+                if (currentForm)
+                    currentForm.gameObject.SetActive(false);
+                
+                currentForm = _characterForm;
+                currentForm.gameObject.SetActive(true);
+
+                statUI.transform.DOMove(currentForm.statUIPos.position, 0.2f);
+                sizeUI.transform.DOMove(currentForm.statSizePos.position, 0.2f);
+                intentionUI.transform.DOMove(currentForm.statIntentionPos.position, 0.2f);
+            }
+            else
+            {
+                Debug.LogError($"Form {_form.name} doesn't exist in {name} object");
+            }
         }
 
         #endregion
