@@ -39,39 +39,13 @@ public class CardController : MonoBehaviour
         drawDelay = new WaitForSeconds(drawInterval);
     }
 
-    public void InitializeDeck(RuntimeDeckData _deck)
+    public IEnumerator InitializeDeck(RuntimeDeckData _deck)
     {
         DeckPile.Clear();
         
         foreach (var _card in _deck.Cards)
         {
-            //Create card object
-            var _newCardObj = CardFactory.CreateCardObject(_card);
-                
-            _newCardObj.OnDropped.AddListener(_target =>
-            {
-                if (_newCardObj.ValidateTarget(_target))
-                {
-                    if (ShowLog)
-                        Debug.Log($"target {_target.GameObject.name} = true");
-                    
-                    _newCardObj.transform.SetParent(null);
-
-                    var _targetChar = _target.GameObject.GetComponent<Character>();
-
-                    var _runtimeCharacter = _targetChar ? _targetChar.runtimeCharacter : null;
-
-                    StartCoroutine(BattleManager.current.PlayCard(_newCardObj.runtimeCard, Character.runtimeCharacter,
-                        _runtimeCharacter, BattleManager.current.runtimeEnemies));
-                }
-                else
-                {
-                    if (ShowLog)
-                        Debug.Log($"target {_target.GameObject.name} = false");
-                }
-            });
-            
-            DeckPile.AddCard(_newCardObj);
+            yield return BattleManager.current.CreateCardAndAddItToDrawPile(_card);
         }
 
         DeckPile.Shuffle();
@@ -147,5 +121,41 @@ public class CardController : MonoBehaviour
                 null,
                 BattleManager.current.runtimeEnemies);
         }
+    }
+
+    public IEnumerator CreateCardAndAddItToDrawPile(RuntimeCard runtimeCard)
+    {
+        // Create card object
+        var _newCardObj = CardFactory.CreateCardObject(runtimeCard);
+                
+        _newCardObj.OnDropped.AddListener(_target =>
+        {
+            if (_newCardObj.ValidateTarget(_target))
+            {
+                if (ShowLog)
+                {
+                    Debug.Log($"target {_target.GameObject.name} = true");
+                }
+                    
+                _newCardObj.transform.SetParent(null);
+
+                var _targetChar = _target.GameObject.GetComponent<Character>();
+
+                var _runtimeCharacter = _targetChar ? _targetChar.runtimeCharacter : null;
+
+                StartCoroutine(BattleManager.current.PlayCard(_newCardObj.runtimeCard, Character.runtimeCharacter, _runtimeCharacter, BattleManager.current.runtimeEnemies));
+            }
+            else
+            {
+                if (ShowLog)
+                {
+                    Debug.Log($"target {_target.GameObject.name} = false");
+                }
+            }
+        });
+            
+        DeckPile.AddCard(_newCardObj);
+        
+        yield break;
     }
 }

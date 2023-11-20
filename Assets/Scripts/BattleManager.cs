@@ -77,7 +77,7 @@ namespace DefaultNamespace
 
         public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
         {
-            cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
+            yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
 
             yield return InitializeCharacters(_playerData, _encounterData);
             
@@ -347,6 +347,11 @@ namespace DefaultNamespace
             {
                 cardInHand.runtimeCard.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.HAND;
             }
+        }
+        
+        public IEnumerator CreateCardAndAddItToDrawPile(RuntimeCard card)
+        {
+            yield return cardController.CreateCardAndAddItToDrawPile(card);
         }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
