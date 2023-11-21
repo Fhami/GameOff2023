@@ -427,7 +427,10 @@ namespace EPOOutline
         private int GetSubmeshCount(Renderer renderer)
         {
             if (renderer is MeshRenderer)
-                return renderer.GetComponent<MeshFilter>().sharedMesh.subMeshCount;
+            {
+                var _meshFilter = renderer.GetComponent<MeshFilter>();
+                return _meshFilter.sharedMesh != null ? _meshFilter.sharedMesh.subMeshCount : 1;
+            }
             else if (renderer is SkinnedMeshRenderer)
                 return (renderer as SkinnedMeshRenderer).sharedMesh.subMeshCount;
             else

@@ -64,6 +64,17 @@ public class CardController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update cards description and values
+    /// </summary>
+    public void UpdateCards()
+    {
+        foreach (var _card in HandPile.Cards)
+        {
+            _card.UpdateCard(Character.runtimeCharacter);
+        }
+    }
+
     public IEnumerator ShuffleDiscardPileIntoDeck()
     {
         foreach (var _recycledCard in DiscardPile.GetCards(-1))

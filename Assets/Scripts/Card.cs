@@ -71,7 +71,12 @@ namespace DefaultNamespace
                 
                 _builder.AppendLine(_description);
                 
-                Debug.Log($"{_effect.name} {_description}");
+                //Debug.Log($"{_effect.name} {_description}");
+            }
+
+            foreach (var _skill in runtimeCard.cardData.cardActiveSkills)
+            {
+                _builder.AppendLine(_skill.name);
             }
             
             effectTxt.SetText(_builder.ToString());
