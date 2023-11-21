@@ -51,6 +51,8 @@ namespace DefaultNamespace
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
+        //Use this to prevent player playing card while redraw
+        public bool canPlayCard = true;
 
         private bool isDebug = true;
         private void Awake()
@@ -78,6 +80,8 @@ namespace DefaultNamespace
 
         public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
         {
+            canPlayCard = true;
+            
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
 
             yield return InitializeCharacters(_playerData, _encounterData);
@@ -393,7 +397,36 @@ namespace DefaultNamespace
             
             yield return DrawCard(null, player, player, null, enemies);
         }
-        
+
+        public IEnumerator WaitForSelectCardToShuffle(int count, RuntimeCharacter player,
+        List<RuntimeCharacter> enemies)
+        {
+            while (count > 0 && cardController.HandPile.Cards.Count > 0)
+            {
+                //Prevent player playing card while selecting
+                canPlayCard = false;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,
+                        LayerMask.NameToLayer("Card"));
+
+                    if (_hit)
+                    {
+                        var _target = _hit.transform.gameObject.GetComponent<Card>();
+                        if (_target)
+                        {
+                            yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
+                            count--;
+                        }
+                    }
+                }
+
+                yield return null;
+            }
+
+            canPlayCard = true;
+        }
+
         /// <summary>
         /// Called when a character is killed (either player or enemy).
         /// </summary>
