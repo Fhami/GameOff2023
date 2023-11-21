@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Slum] Shield 5.'
+  m_Name: '[Puff] Size 1x5'
   m_EditorClassIdentifier: 
   cardType: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: b7e9e29c70f67cd479e036ede2762372, type: 2}
+  - {fileID: 11400000, guid: 8f6b0852a951b374cb701827a3e25dd8, type: 2}
+  cardActiveSkills: []
