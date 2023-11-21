@@ -11,8 +11,10 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Character", fileName = "New Character")]
     public class CharacterData : ScriptableObject
     {
+        public Character characterPrefab;
         public int health;
         public int startSize;
+        public int minSize;
         public int maxSize;
         public int handSize;
         [Expandable] public List<FormData> forms;

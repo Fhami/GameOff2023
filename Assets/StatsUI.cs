@@ -14,12 +14,11 @@ public class StatsUI : MonoBehaviour
     [SerializeField] GameObject _icon_content;
     [SerializeField] Image _hearth_img;
     [SerializeField] Image _sheild_img;
-    [SerializeField] GameObject _preview_content;
-    [SerializeField] Image _preview_sheild_img;
 
     [Header("HP")]
     [SerializeField] Image _hp_img;
     [SerializeField] TextMeshProUGUI _hp_txt;
+    [SerializeField] TextMeshProUGUI _preview_hp_txt;
 
     [Header("HP FEEDBACK")]
     [SerializeField] MMF_Player _hp_decrease_feedback;
@@ -43,7 +42,10 @@ public class StatsUI : MonoBehaviour
 
     [Header("SHIELD")]
     [SerializeField] TextMeshProUGUI _shield_txt;
+    [SerializeField] GameObject _preview_shield_content;
+    [SerializeField] Image _preview_shield_img;
     [SerializeField] TextMeshProUGUI _preview_shield_txt;
+
 
 
     [Header("SHIELD FEEDBACK")]
@@ -61,13 +63,18 @@ public class StatsUI : MonoBehaviour
 
     private void Start()
     {
+        _icon_content.SetActive(true);
+        _preview_shield_content.SetActive(false);
         _hp_front_preview.SetActive(false);
         _hp_back_preview.SetActive(false);
+        _sheild_img.gameObject.SetActive(false);
     }
 
     public void SetHp(int from, int to, int max, float duration = 0.33f,
         System.Action onStart= null,  System.Action onComplete = null)
     {
+        CancelPreviewHp();
+
         float targetPercentile = (float)to / (float)max;
 
         if (_hpNumberTween!=null && _hpNumberTween.IsPlaying())
@@ -88,14 +95,14 @@ public class StatsUI : MonoBehaviour
                 onComplete?.Invoke();
             })
             .OnUpdate(()=> {
-                _hp_txt.text = from.ToString() +"/"+ max.ToString();
+                _hp_txt.text = from.ToString() +" / "+ max.ToString();
             });
 
         //Animate Hp bar
 
         _hpBarTween = _hp_img.DOFillAmount(targetPercentile, duration);
 
-        if (from > to)
+        if (from >= to)
         {
             PlayHpDownFeedback();
         }
@@ -131,9 +138,10 @@ public class StatsUI : MonoBehaviour
             //Set Back preview = current;
             _hp_decrease_preview_slider.value = currentPercentile - deltaPercentile;
             _hp_preview_front_slider_area.fillAmount = currentPercentile;
-
             _hp_front_preview.SetActive(true);
             _hp_back_preview.SetActive(false);
+            _preview_hp_txt.text = "<color=#FDFF00>" + to + "</color> / " + max; ;//FF0909 Red //FDFF00 Yellow
+            _hp_focus_efx.Play();
 
 
         }
@@ -141,14 +149,30 @@ public class StatsUI : MonoBehaviour
         {
             //Increse
             _hp_increase_preview_slider.value = currentPercentile - deltaPercentile;
-
             _hp_front_preview.SetActive(false);
             _hp_back_preview.SetActive(true);
+            _preview_hp_txt.text = "<color=#46FF00>" +to +  "</color> / " + max;
+            _hp_focus_efx.Play();
             //_hp_preview_increase_img.fillAmount = currentPercentile - deltaPercentile;
- 
+
         }
 
+        _preview_hp_txt.gameObject.SetActive(true);
+        _hp_txt.gameObject.SetActive(false);
+       
+
     }
+
+
+    public void CancelPreviewHp()
+    {
+        _hp_front_preview.SetActive(false);
+        _hp_back_preview.SetActive(false);
+        _preview_hp_txt.gameObject.SetActive(false);
+        _hp_txt.gameObject.SetActive(true);
+        _hp_focus_efx.Stop();
+    }
+
 
     //void AnimateHpBar(int to,float duration)
     //{
@@ -157,7 +181,7 @@ public class StatsUI : MonoBehaviour
 
 
     //May need to change buff ID to something elsee????? ?
-    
+
     public void SetBuff(BuffData buffData, int value)
     {
         BuffIcon icon;
@@ -184,6 +208,8 @@ public class StatsUI : MonoBehaviour
 
     public void SetShield(int from, int to, System.Action onStart = null, System.Action onComplete = null)
     {
+        CancelPreviewShield();
+
         onStart?.Invoke();
 
         if (to > 0)
@@ -201,7 +227,7 @@ public class StatsUI : MonoBehaviour
         {
             PlayShieldDownFeedback();
         }
-        else if (from > to)
+        else if (from < to)
         {
             PlayShieldUpFeedback();
         }
@@ -210,17 +236,24 @@ public class StatsUI : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    public void PreviewShield(int value)
+    public void PreviewShield(int from, int to)
     {
-        _preview_content.SetActive(true);
+        _preview_shield_content.SetActive(true);
         _icon_content.SetActive(false);
-        _preview_shield_txt.text = value.ToString();
+        if (from < to)
+        {
+            _preview_shield_txt.text = "<color=#009A10>" + to + "</color>"; //GREEN
+        }
+        else
+        {
+            _preview_shield_txt.text = "<color=#DB0006>" + to + "</color>"; //RED
+        }
     }
 
     public void CancelPreviewShield()
     {
-        _preview_content.SetActive(true);
-        _icon_content.SetActive(false);
+        _preview_shield_content.SetActive(false);
+        _icon_content.SetActive(true);
         _preview_shield_txt.text = "";
     }
 
@@ -287,6 +320,26 @@ public class StatsUI : MonoBehaviour
     public void Btn_Preview02()
     {
         PreviewHp(15, 27, 30);
+    }
+
+    public void Btn_CancelPreviewHp()
+    {
+        CancelPreviewHp();
+    }
+
+    public  void Btn_PreviewShieldUp()
+    {
+        PreviewShield(0,13);
+    }
+
+    public void Btn_PreviewShieldDown()
+    {
+        PreviewShield(13,1);
+    }
+
+    public void Btn_CancelPreviewShield()
+    {
+        CancelPreviewShield();
     }
 
     #endregion

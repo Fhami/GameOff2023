@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a8e6bdca60490783f3789206e25b9b, type: 3}
   m_Name: Discard
   m_EditorClassIdentifier: 
-  intentType: 0
+  intentType: 18
   icon: {fileID: 0}

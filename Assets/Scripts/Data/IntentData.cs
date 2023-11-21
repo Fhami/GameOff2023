@@ -22,7 +22,8 @@ namespace DefaultNamespace
         Unknown,
         LoseHealth,
         Draw,
-        Discard
+        Discard,
+        Summon
     }
     
     /// <summary>

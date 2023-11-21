@@ -23,7 +23,7 @@ namespace DefaultNamespace
         ON_DEATH,
         ON_CHARACTER_SPAWNED,
         ON_BATTLE_START,
-        ON_PLAYER_SIZE_CHANGED
+        ON_PLAYER_SIZE_CHANGED,
     }
     
     /// <summary>
@@ -37,6 +37,7 @@ namespace DefaultNamespace
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;
         [SerializeField] private float characterSpawnDelay = 0.2f;
+        [SerializeField] private float stunDuration = 0.3f;
 
         public Character player;
         public RuntimeCharacter runtimePlayer;
@@ -50,6 +51,8 @@ namespace DefaultNamespace
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
+        //Use this to prevent player playing card while redraw
+        public bool canPlayCard = true;
 
         private bool isDebug = true;
         private void Awake()
@@ -77,6 +80,8 @@ namespace DefaultNamespace
 
         public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
         {
+            canPlayCard = true;
+            
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
 
             yield return InitializeCharacters(_playerData, _encounterData);
@@ -121,7 +126,15 @@ namespace DefaultNamespace
 
             yield return OnGameEvent(GameEvent.ON_CHARACTER_SPAWNED, _newEnemy.runtimeCharacter, runtimePlayer, runtimeEnemies);
         }
+
+        public IEnumerator FleeFromBattle(RuntimeCharacter runtimeCharacter)
+        {
+            runtimeCharacter.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.ESCAPED;
+            
+            throw new NotImplementedException("TODO: Implement enemy flee logic");
+        }
         
+        //Bind with button
         public void EndTurn()
         {
             StartCoroutine(IEEndTurn());
@@ -162,7 +175,7 @@ namespace DefaultNamespace
             yield return OnGameEvent(GameEvent.ON_BATTLE_START, player, player, enemies);
         }
         
-        // TODO: This should be called when player turn starts before player can play cards
+        //This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             FormData form = player.GetCurrentForm();
@@ -172,10 +185,8 @@ namespace DefaultNamespace
 
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
-            player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
-            
-            // TODO: Draw cards based on player action point value?
-            
+            player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
+
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
@@ -185,21 +196,26 @@ namespace DefaultNamespace
             // If player is stunned don't allow them to play any cards
             if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                // TODO: Don't allow playing cards / do we need STUN feedback for player?
-                throw new NotImplementedException();
+                player.Character.PlayParticle(ParticleKey.STUN);
+                
+                //Wait for particle to play for a while before skip
+                yield return new WaitForSeconds(stunDuration);
+                
             }
-          
-            // Draw cards based on the hand size
-            int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
-            for (int i = 0; i < handSize; i++)
+            else
             {
-                yield return DrawCard(null, player, player, null, enemies);
+                // Draw cards based on the hand size
+                int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
+                for (int i = 0; i < handSize; i++)
+                {
+                    yield return DrawCard(null, player, player, null, enemies);
+                }
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
         }
 
-        // TODO: This should be called when player turn ends before we start the enemy turn
+        //This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Discard hand but since this discard is not initiated by a card we leave it null.
@@ -227,6 +243,16 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+
+            // Death by size (if player is at min size or max size at the end of the turn they will die)
+            int minSize = player.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
+            int maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
+            int size = player.properties.Get<int>(PropertyKey.SIZE).Value;
+
+            if (size == minSize || size == maxSize)
+            {
+                yield return Kill(player, null, player, null, runtimeEnemies);
+            }
         }
 
         /// <summary>
@@ -353,6 +379,11 @@ namespace DefaultNamespace
         {
             yield return cardController.CreateCardAndAddItToDrawPile(card);
         }
+        
+        public IEnumerator CreateCardAndAddItToDiscardPile(RuntimeCard card)
+        {
+            yield return cardController.CreateCardAndAddItToDiscardPile(card);
+        }
 
         public IEnumerator ShuffleDiscardPileIntoDeck(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
@@ -360,7 +391,52 @@ namespace DefaultNamespace
 
             yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
         }
+
+        public IEnumerator ShuffleHandToDeck(RuntimeCard card, RuntimeCharacter player,
+            List<RuntimeCharacter> enemies)
+        {
+            yield return cardController.ShuffleHandToDeck(card);
+            
+            yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
+        }
         
+        public IEnumerator ShuffleHandToDeckAndDraw(RuntimeCard card, RuntimeCharacter player,
+            List<RuntimeCharacter> enemies)
+        {
+            yield return ShuffleHandToDeck(card, player, enemies);
+            
+            yield return DrawCard(null, player, player, null, enemies);
+        }
+
+        public IEnumerator WaitForSelectCardToShuffle(int count, RuntimeCharacter player,
+        List<RuntimeCharacter> enemies)
+        {
+            while (count > 0 && cardController.HandPile.Cards.Count > 0)
+            {
+                //Prevent player playing card while selecting
+                canPlayCard = false;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,
+                        LayerMask.NameToLayer("Card"));
+
+                    if (_hit)
+                    {
+                        var _target = _hit.transform.gameObject.GetComponent<Card>();
+                        if (_target)
+                        {
+                            yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
+                            count--;
+                        }
+                    }
+                }
+
+                yield return null;
+            }
+
+            canPlayCard = true;
+        }
+
         /// <summary>
         /// Called when a character is killed (either player or enemy).
         /// </summary>
@@ -372,11 +448,21 @@ namespace DefaultNamespace
             
             if (characterToKill == player)
             {
-                throw new NotImplementedException("TODO: Implement PLAYER death logic and visuals.");
+                yield return characterToKill.Character.OnKilled();
+                //Game over
+                yield return GameManager.Instance.GameOver();
             }
             else
             {
-                throw new NotImplementedException("TODO: Implement ENEMY death logic and visuals.");
+                runtimeEnemies.Remove(characterToKill);
+                this.enemies.Remove(characterToKill.Character);
+                
+                yield return characterToKill.Character.OnKilled();
+            }
+
+            if (runtimeEnemies.Count == 0)
+            {
+                //WIN!
             }
             
             yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
@@ -385,6 +471,7 @@ namespace DefaultNamespace
         public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
+            target.Character.PlayParticle(ParticleKey.DECAY);
             
             Property<int> decay = target.properties.Get<int>(PropertyKey.DECAY);
             int decayAmount = decay.GetValueWithModifiers(target);
@@ -427,6 +514,7 @@ namespace DefaultNamespace
         public IEnumerator Grow(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
+            target.Character.PlayParticle(ParticleKey.GROW);
             
             Property<int> grow = target.properties.Get<int>(PropertyKey.GROW);
             int growAmount = grow.GetValueWithModifiers(target);
@@ -474,6 +562,8 @@ namespace DefaultNamespace
             
             character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
             character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+            
+            character.Character.UpdateFormVisual(currentForm);
 
             yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
         }
@@ -482,6 +572,8 @@ namespace DefaultNamespace
         {
             // TODO: VFX, animation etc
 
+            character.Character.UpdateSizeVisual(previousSize, currentSize);
+            
             // Unique event for when explicitly player's size changes
             if (character == player)
             {
@@ -517,29 +609,32 @@ namespace DefaultNamespace
         /// <returns></returns>
         public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            // If enemy is stunned don't allow them to play any cards
-            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
-            {
-                // TODO: Skip enemy turn logic / VFX? / animation?
-                throw new NotImplementedException();
-            }
-           
             FormData form = enemy.GetCurrentForm();
 
             // Get enemy's next intent (the next card they plan to use)
             Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
-
-            CardData cardData = form.attackPattern[cardIndex.Value];
-
-            // Create card instance from the card data
-            // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
-            RuntimeCard card = CardFactory.Create(cardData);
-
-            foreach (EffectData effectData in card.cardData.effects)
+            
+            // If enemy is stunned don't allow them to play any cards
+            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                yield return effectData.Execute(card, enemy, player, player, enemies);
+                enemy.Character.PlayParticle(ParticleKey.STUN);
+                
+                //Wait for particle to play for a while before skip
+                yield return new WaitForSeconds(stunDuration);
             }
-        
+            else
+            {
+                CardData cardData = form.attackPattern[cardIndex.Value];
+
+                // Create card instance from the card data
+                RuntimeCard card = CardFactory.Create(cardData);
+
+                foreach (EffectData effectData in card.cardData.effects)
+                {
+                    yield return effectData.Execute(card, enemy, player, player, enemies);
+                }
+            }
+
             // Increment the index by 1 (wrap back to 0 if needed)
             cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }
@@ -572,7 +667,15 @@ namespace DefaultNamespace
             
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
             
-            yield break;
+            // Death by size (if player is at min size or max size at the end of the turn they will die)
+            int minSize = runtimePlayer.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
+            int maxSize = runtimePlayer.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
+            int size = runtimePlayer.properties.Get<int>(PropertyKey.SIZE).Value;
+
+            if (size == minSize || size == maxSize)
+            {
+                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies);
+            }
         }
 
         // TODO: Call this after current battle ended
@@ -587,6 +690,9 @@ namespace DefaultNamespace
         {
             yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
             yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
+            
+            //Update cards value when something happened
+            cardController.UpdateCards();
         }
 
         public IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)

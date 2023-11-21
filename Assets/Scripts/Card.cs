@@ -13,7 +13,6 @@ using UnityEngine.Events;
 
 namespace DefaultNamespace
 {
-    // TODO: This can be attached to card prefab
     public class Card : MonoBehaviour
     {
         public UnityEvent<Card> OnDrag;
@@ -71,7 +70,12 @@ namespace DefaultNamespace
                 
                 _builder.AppendLine(_description);
                 
-                Debug.Log($"{_effect.name} {_description}");
+                //Debug.Log($"{_effect.name} {_description}");
+            }
+
+            foreach (var _skill in runtimeCard.cardData.cardActiveSkills)
+            {
+                _builder.AppendLine(_skill.name);
             }
             
             effectTxt.SetText(_builder.ToString());
@@ -111,6 +115,8 @@ namespace DefaultNamespace
 
         private void OnMouseDrag()
         {
+            if (Unplayable || !BattleManager.current.canPlayCard) return;
+            
             HighlightTargets(true);
 
             var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, targetMask);

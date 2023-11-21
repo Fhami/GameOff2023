@@ -2,42 +2,58 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
+using DG.Tweening;
 using EPOOutline;
+using NaughtyAttributes;
+using Spine.Unity;
 using TMPro;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    // TODO: This can be attached to character prefab
     public class Character : MonoBehaviour, ICardTarget
     {
+        public Transform FrontPos => currentForm ? currentForm.frontPos : transform;
         public RuntimeCharacter runtimeCharacter;
         public CardController cardController;
 
+        [SerializeField] private SerializedDictionary<FormData, CharacterForm> characterForms;
+        public CharacterForm currentForm;
+
         [SerializeField] private Outlinable outlinable;
-        [SerializeField] private StatsUI statUI;
-        [SerializeField] private SizeUI sizeUI;
-        [SerializeField] private IntentionUI intentionUI;
+        [Foldout("UI"), SerializeField] private StatsUI statUI;
+        [Foldout("UI"), SerializeField] private SizeUI sizeUI;
+        [Foldout("UI"), SerializeField] private IntentionUI intentionUI;
+
+        [SerializeField]
+        private SerializedDictionary<ParticleKey, ParticleSystem> particles =
+            new SerializedDictionary<ParticleKey, ParticleSystem>();
 
         public void Init(RuntimeCharacter _runtimeCharacter)
         {
             runtimeCharacter = _runtimeCharacter;
             runtimeCharacter.Character = this;
             
+            //Hide all form first
+            foreach (var _form in characterForms.Values)
+            {
+                _form.gameObject.SetActive(false);
+            }
+            
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
-            UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE));
+            UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
             UpdateFormVisual(runtimeCharacter.GetCurrentForm());
-            
+
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
-            runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).OnChanged += UpdateSizeVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
-            
-            outlinable.AddAllChildRenderersToRenderingList();
         }
 
         public GameObject GameObject => gameObject;
+
+        #region Visual
 
         public void Highlight(bool _value)
         {
@@ -56,6 +72,18 @@ namespace DefaultNamespace
         public void UpdateHpVisual(int _oldValue, Property<int> _value)
         {
             statUI.SetHp(_oldValue, _value.Value, runtimeCharacter.properties.Get<int>(PropertyKey.MAX_HEALTH).Value);
+
+            if (_oldValue > _value.Value)
+            {
+                //Play animation
+                PlayParticle(ParticleKey.DAMAGED);
+
+                StartCoroutine(PlayAnimation(AnimationKey.HIT));
+            }
+            else
+            {
+                PlayParticle(ParticleKey.HEAL);
+            }
         }
 
         public void UpdateShield(int _oldValue, Property<int> _value)
@@ -63,10 +91,10 @@ namespace DefaultNamespace
             statUI.SetShield(_oldValue,_value.Value);
         }
 
-        public void UpdateSizeVisual(int _oldValue, Property<int> _size)
+        public void UpdateSizeVisual(int _oldValue, int _size)
         {
-            var _sizeEffect = _oldValue > _size.Value ? SizeEffectType.Increase : SizeEffectType.Decrease;
-            sizeUI.SetSize(_size.Value, _sizeEffect);
+            var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
+            sizeUI.SetSize(_size, _sizeEffect);
         }
 
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
@@ -94,9 +122,97 @@ namespace DefaultNamespace
 
         public void UpdateFormVisual(FormData _form)
         {
-            
+            if (characterForms.TryGetValue(_form, out var _characterForm))
+            {
+                if (currentForm == _characterForm) return;
+
+                PlayParticle(ParticleKey.CHANGED_FORM);
+                
+                if (currentForm)
+                    currentForm.gameObject.SetActive(false);
+                
+                currentForm = _characterForm;
+                currentForm.gameObject.SetActive(true);
+                
+                outlinable.AddAllChildRenderersToRenderingList();
+
+                statUI.transform.DOLocalMove(currentForm.statUIPos.localPosition, 0.2f);
+                sizeUI.transform.DOLocalMove(currentForm.statSizePos.localPosition, 0.2f);
+                intentionUI.transform.DOLocalMove(currentForm.statIntentionPos.localPosition, 0.2f);
+            }
+            else
+            {
+                Debug.LogError($"Form {_form.name} doesn't exist in {name} object");
+            }
         }
 
+        #endregion
+        
+        /// <summary>
+        /// Using target as direction to move
+        /// </summary>
+        public IEnumerator PlayAttackFeedback(Transform _target)
+        {
+            var _origin = transform.position;
+            transform.DOMove(_target.position, 0.2f).SetEase(Ease.Flash);
+
+            yield return PlayAnimation(AnimationKey.ATTACK);
+            PlayParticle(ParticleKey.ATTACK);
+            
+            transform.DOMove(_origin, 0.2f);
+        }
+        
+        public IEnumerator OnKilled()
+        {
+            PlayParticle(ParticleKey.DEATH);
+            
+            yield return PlayAnimation(AnimationKey.HIT);
+            yield return new WaitForSeconds(0.5f);
+            
+            Destroy(gameObject);
+        }
+
+        #region Animation
+
+        public IEnumerator PlayAnimation(string _anim)
+        {
+            if (!currentForm || !currentForm.skeletonAnimation || currentForm.skeletonAnimation.Skeleton.Data == null) yield break;
+            
+            var _animation = currentForm.skeletonAnimation.Skeleton.Data.FindAnimation(_anim);
+            if (_animation != null)
+            {
+                var _duration = _animation.Duration;
+                currentForm.skeletonAnimation.AnimationState.SetAnimation(0, _anim, false);
+
+                yield return new WaitForSeconds(_duration);
+                
+                //Change back to idle after finished
+                PlayIdleAnimation();
+            }
+        }
+
+        public void PlayIdleAnimation()
+        {
+            PlayLoopAnimation(AnimationKey.IDLE);
+        }
+        
+        public void PlayLoopAnimation(string _anim)
+        {
+            currentForm.skeletonAnimation.AnimationState.SetAnimation(0, _anim, true);
+        }
+
+        #endregion
+
+        public void PlayParticle(ParticleKey _key)
+        {
+            if (!particles.TryGetValue(_key, out var _prefab)) return;
+            if (!_prefab) return;
+            
+            var _particle = Instantiate(_prefab);
+            _particle.transform.position = transform.position;
+            _particle.Play();
+        }
+        
         /// <summary>
         /// Get current enemy's intention
         /// </summary>
