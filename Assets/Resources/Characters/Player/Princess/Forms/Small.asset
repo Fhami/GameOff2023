@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Small
   m_EditorClassIdentifier: 
   sizeMin: 0
-  sizeMax: 0
-  handSize: 0
+  sizeMax: 3
+  handSize: 5
   passives: []
   skills: []
   attackPattern: []
