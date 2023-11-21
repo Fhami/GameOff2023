@@ -405,6 +405,7 @@ namespace DefaultNamespace
         public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
+            target.Character.PlayParticle(ParticleKey.DECAY);
             
             Property<int> decay = target.properties.Get<int>(PropertyKey.DECAY);
             int decayAmount = decay.GetValueWithModifiers(target);
@@ -447,6 +448,7 @@ namespace DefaultNamespace
         public IEnumerator Grow(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
+            target.Character.PlayParticle(ParticleKey.GROW);
             
             Property<int> grow = target.properties.Get<int>(PropertyKey.GROW);
             int growAmount = grow.GetValueWithModifiers(target);

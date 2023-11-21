@@ -224,6 +224,7 @@ namespace DefaultNamespace
         private IEnumerator Evade(RuntimeCharacter target)
         {
             // TODO: VFX, animation etc.
+            target.Character.PlayParticle(ParticleKey.EVADE);
             
             target.properties.Get<int>(PropertyKey.EVADE).Value -= 1;
             yield break;
@@ -231,8 +232,6 @@ namespace DefaultNamespace
         
         private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: VFX, animation etc.
-
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
             Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
@@ -244,6 +243,7 @@ namespace DefaultNamespace
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             int damage = incomingDamage - damageAbsorbedByShield;
 
+            //Play animation/vfx
             yield return characterPlayingTheCard.Character.PlayAttackFeedback(target.Character.FrontPos);
 
             // Reduce the absorbed attack value from the shield

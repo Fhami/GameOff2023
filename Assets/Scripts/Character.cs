@@ -12,7 +12,6 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    // TODO: This can be attached to character prefab
     public class Character : MonoBehaviour, ICardTarget
     {
         public Transform FrontPos => currentForm ? currentForm.frontPos : transform;
@@ -23,15 +22,14 @@ namespace DefaultNamespace
         public CharacterForm currentForm;
 
         [SerializeField] private Outlinable outlinable;
-        [BoxGroup("UI"), SerializeField] private StatsUI statUI;
-        [BoxGroup("UI"), SerializeField] private SizeUI sizeUI;
-        [BoxGroup("UI"), SerializeField] private IntentionUI intentionUI;
+        [Foldout("UI"), SerializeField] private StatsUI statUI;
+        [Foldout("UI"), SerializeField] private SizeUI sizeUI;
+        [Foldout("UI"), SerializeField] private IntentionUI intentionUI;
 
-        [BoxGroup("Particle"), SerializeField] private ParticleSystem deathParticle;
-        [BoxGroup("Particle"), SerializeField] private ParticleSystem healParticle;
-        [BoxGroup("Particle"), SerializeField] private ParticleSystem damagedParticle;
-        [BoxGroup("Particle"), SerializeField] private ParticleSystem attackParticle;
-        
+        [SerializeField]
+        private SerializedDictionary<ParticleKey, ParticleSystem> particles =
+            new SerializedDictionary<ParticleKey, ParticleSystem>();
+
         public void Init(RuntimeCharacter _runtimeCharacter)
         {
             runtimeCharacter = _runtimeCharacter;
@@ -77,22 +75,13 @@ namespace DefaultNamespace
             if (_oldValue > _value.Value)
             {
                 //Play animation
-                if (damagedParticle)
-                {
-                    var _particle = Instantiate(damagedParticle);
-                    _particle.transform.position = transform.position;
-                }
+                PlayParticle(ParticleKey.DAMAGED);
 
                 StartCoroutine(PlayAnimation(AnimationKey.HIT));
             }
             else
             {
-                //Play animation
-                if (healParticle)
-                {
-                    var _particle = Instantiate(healParticle);
-                    _particle.transform.position = transform.position;
-                }
+                PlayParticle(ParticleKey.HEAL);
             }
         }
 
@@ -105,8 +94,6 @@ namespace DefaultNamespace
         {
             var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.SetSize(_size, _sizeEffect);
-            
-            UpdateFormVisual(runtimeCharacter.GetCurrentForm());
         }
 
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
@@ -138,6 +125,8 @@ namespace DefaultNamespace
             {
                 if (currentForm == _characterForm) return;
 
+                PlayParticle(ParticleKey.CHANGED_FORM);
+                
                 if (currentForm)
                     currentForm.gameObject.SetActive(false);
                 
@@ -167,20 +156,17 @@ namespace DefaultNamespace
             transform.DOMove(_target.position, 0.2f).SetEase(Ease.Flash);
 
             yield return PlayAnimation(AnimationKey.ATTACK);
+            PlayParticle(ParticleKey.ATTACK);
             
             transform.DOMove(_origin, 0.2f);
         }
         
         public IEnumerator OnKilled()
         {
-            if (deathParticle)
-            {
-                var _particle = Instantiate(deathParticle);
-                _particle.transform.position = transform.position;
-            }
-
-            //TODO: play animation
-            yield return new WaitForSeconds(1f);
+            PlayParticle(ParticleKey.DEATH);
+            
+            yield return PlayAnimation(AnimationKey.HIT);
+            yield return new WaitForSeconds(0.5f);
             
             Destroy(gameObject);
         }
@@ -215,6 +201,16 @@ namespace DefaultNamespace
         }
 
         #endregion
+
+        public void PlayParticle(ParticleKey _key)
+        {
+            if (!particles.TryGetValue(_key, out var _prefab)) return;
+            if (!_prefab) return;
+            
+            var _particle = Instantiate(_prefab);
+            _particle.transform.position = transform.position;
+            _particle.Play();
+        }
         
         /// <summary>
         /// Get current enemy's intention
