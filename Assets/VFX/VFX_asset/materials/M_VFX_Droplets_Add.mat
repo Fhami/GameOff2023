@@ -80,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: b291b2d1c22f8e342a19b236ca51a45e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 699677fda6b55fe45b049490c52e04a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -103,7 +103,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _Brightness: 2
+    - _Brightness: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -140,7 +140,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TextureRotation: 0
+    - _TextureRotation: -90
     - _UseDepthFade: 1
     - _WorkflowMode: 1
     - _ZTest: 2
@@ -152,7 +152,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GradientShapeChannel: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TextureChannel: {r: 0, g: 0, b: 1, a: 0}
+    - _TextureChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6184326343352367262
 MonoBehaviour:
