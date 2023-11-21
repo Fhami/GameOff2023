@@ -115,7 +115,7 @@ namespace DefaultNamespace
 
         private void OnMouseDrag()
         {
-            if (Unplayable) return;
+            if (Unplayable || !BattleManager.current.canPlayCard) return;
             
             HighlightTargets(true);
 
