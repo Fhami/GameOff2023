@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slim
   m_EditorClassIdentifier: 
   sizeMin: 0
-  sizeMax: 0
+  sizeMax: 3
   handSize: 0
   passives: []
   skills: []

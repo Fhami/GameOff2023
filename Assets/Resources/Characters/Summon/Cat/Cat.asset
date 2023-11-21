@@ -17,4 +17,5 @@ MonoBehaviour:
   startSize: 0
   maxSize: 0
   handSize: 0
-  forms: []
+  forms:
+  - {fileID: 11400000, guid: 41f0c0c80ec336b42bfb2f31ab59063e, type: 2}

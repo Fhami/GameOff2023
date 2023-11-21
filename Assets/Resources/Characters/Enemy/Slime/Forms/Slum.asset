@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
   m_Name: Slum
   m_EditorClassIdentifier: 
-  sizeMin: 0
-  sizeMax: 0
+  sizeMin: 7
+  sizeMax: 10
   handSize: 0
   passives: []
   skills: []
