@@ -25,6 +25,7 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.MAX_HEALTH, new Property<int>(characterData.health, PropertyKey.MAX_HEALTH));
             runtimeCharacter.properties.Add(PropertyKey.SIZE, new Property<int>(characterData.startSize, PropertyKey.SIZE));
             runtimeCharacter.properties.Add(PropertyKey.MAX_SIZE, new Property<int>(characterData.maxSize, PropertyKey.MAX_SIZE));
+            runtimeCharacter.properties.Add(PropertyKey.MIN_SIZE, new Property<int>(characterData.minSize, PropertyKey.MIN_SIZE));
             runtimeCharacter.properties.Add(PropertyKey.HAND_SIZE, new Property<int>(characterData.handSize, PropertyKey.HAND_SIZE));
             runtimeCharacter.properties.Add(PropertyKey.ATTACK, new Property<int>(0, PropertyKey.ATTACK));
             runtimeCharacter.properties.Add(PropertyKey.SHIELD, new Property<int>(0, PropertyKey.SHIELD));
