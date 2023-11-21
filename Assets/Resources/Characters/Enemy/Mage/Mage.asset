@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 0}
   health: 0
-  startSize: 0
-  maxSize: 0
+  startSize: 5
+  maxSize: 9
   handSize: 0
   forms:
   - {fileID: 11400000, guid: 7e694c2cbdd4f19479eaf274adacb69e, type: 2}

@@ -15,7 +15,7 @@ MonoBehaviour:
   characterPrefab: {fileID: 0}
   health: 0
   startSize: 0
-  maxSize: 0
+  maxSize: 9
   handSize: 0
   forms:
   - {fileID: 11400000, guid: ec16095409a212b4bb09eed0a43c5623, type: 2}
