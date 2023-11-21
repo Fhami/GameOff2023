@@ -590,6 +590,11 @@ PrefabInstance:
       propertyPath: outlineTargets.Array.data[3].frontEdgeDilateAmount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6266157238349668343, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -56
+      objectReference: {fileID: 0}
     - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: m_LocalPosition.x

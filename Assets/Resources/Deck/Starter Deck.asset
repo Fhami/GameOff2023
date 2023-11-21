@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf5b38227eee2a4ea1a738e241fef83, type: 3}
+  m_Name: Starter Deck
+  m_EditorClassIdentifier: 
+  Cards:
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  - {fileID: 11400000, guid: 0d26cd4aeae22984bbdedecaba3520dc, type: 2}
+  - {fileID: 11400000, guid: 0d26cd4aeae22984bbdedecaba3520dc, type: 2}
+  - {fileID: 11400000, guid: 996db141bb4a148a087c622f0966d479, type: 2}
+  - {fileID: 11400000, guid: 996db141bb4a148a087c622f0966d479, type: 2}
+  - {fileID: 11400000, guid: 75d6ce4c53c1f4d9fb2315626dcd3ccc, type: 2}
+  - {fileID: 11400000, guid: 75d6ce4c53c1f4d9fb2315626dcd3ccc, type: 2}
+  - {fileID: 11400000, guid: d7de6e0872e81c84bb59b07804fd032f, type: 2}
