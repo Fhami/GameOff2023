@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: BIG Jerry
+  m_EditorClassIdentifier: 
+  sizeMin: 7
+  sizeMax: 9
+  handSize: 0
+  passives: []
+  skills: []
+  attackPattern:
+  - {fileID: 11400000, guid: ce14f91afb200bb489092bc4b9640435, type: 2}
+  - {fileID: 11400000, guid: b0e1e5be958a27b48b1ed6ea712b577b, type: 2}
+  - {fileID: 11400000, guid: e575d513a3076474e8ec9d76c1821a14, type: 2}
+  - {fileID: 11400000, guid: 895880cbb8a1ee04eb888b89806364ba, type: 2}

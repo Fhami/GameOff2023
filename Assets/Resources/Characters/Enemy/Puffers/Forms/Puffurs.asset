@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Puffurs
+  m_EditorClassIdentifier: 
+  sizeMin: 3
+  sizeMax: 6
+  handSize: 0
+  passives: []
+  skills: []
+  attackPattern:
+  - {fileID: 11400000, guid: 4f9d35cd5e98a85419b3b62f2b7fceeb, type: 2}
+  - {fileID: 11400000, guid: be1fefc4e35655142a6bc78dac42ff07, type: 2}
+  - {fileID: 11400000, guid: b55d1e01e30707143b201c9169fe7969, type: 2}
+  - {fileID: 11400000, guid: 6e39576dd8e11f247a7b1f372bc3414a, type: 2}
+  - {fileID: 11400000, guid: 30bcfc2bb8faceb4fb705a0229f95f1c, type: 2}
