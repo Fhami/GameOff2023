@@ -13,10 +13,17 @@ public class SizeUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _current_size_txt;
     [SerializeField] TextMeshProUGUI _big_size_txt;
     [SerializeField] TextMeshProUGUI _small_size_txt;
+    [SerializeField] TextMeshProUGUI _big_dead_size_txt;
+    [SerializeField] TextMeshProUGUI _small_dead_size_txt;
+
     [SerializeField] Image _big_img;
     [SerializeField] Image _small_img;
+    [SerializeField] Image _big_dead_img;
+    [SerializeField] Image _small_dead_img;
+
 
     [SerializeField] MMF_Player text_squash;
+    [SerializeField] MMF_Player reduce_squash;
 
     [Header("Effect")]
     [SerializeField] ParticleSystem _increase_efx;
@@ -37,6 +44,17 @@ public class SizeUI : MonoBehaviour
 
         if (bigSize > -1) SetSize(bigSize);
         else SetEnableBig(false);
+    }
+
+    public void InitSizeUI(int startSize, int smallSize, int bigSize, int smallDeadSize, int bigDeadSize)
+    {
+        InitSizeUI(startSize, smallSize, bigSize);
+
+        if (smallDeadSize > -1) SetSize(smallDeadSize);
+        else _small_dead_size_txt.gameObject.SetActive(false);
+
+        if (bigDeadSize > -1) SetSize(bigDeadSize);
+        else _big_dead_img.gameObject.SetActive(false);
     }
 
     protected void SetSize(int size)
