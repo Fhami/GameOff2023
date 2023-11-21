@@ -180,9 +180,7 @@ namespace DefaultNamespace
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
             player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
-            
-            // TODO: Draw cards based on player action point value?
-            
+
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
@@ -387,12 +385,18 @@ namespace DefaultNamespace
                 yield return characterToKill.Character.OnKilled();
                 //Game over
                 yield return GameManager.Instance.GameOver();
-                //throw new NotImplementedException("TODO: Implement PLAYER death logic and visuals.");
             }
             else
             {
+                runtimeEnemies.Remove(characterToKill);
+                this.enemies.Remove(characterToKill.Character);
+                
                 yield return characterToKill.Character.OnKilled();
-                //throw new NotImplementedException("TODO: Implement ENEMY death logic and visuals.");
+            }
+
+            if (runtimeEnemies.Count == 0)
+            {
+                //WIN!
             }
             
             yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
@@ -401,6 +405,7 @@ namespace DefaultNamespace
         public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
+            target.Character.PlayParticle(ParticleKey.DECAY);
             
             Property<int> decay = target.properties.Get<int>(PropertyKey.DECAY);
             int decayAmount = decay.GetValueWithModifiers(target);
@@ -443,6 +448,7 @@ namespace DefaultNamespace
         public IEnumerator Grow(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
+            target.Character.PlayParticle(ParticleKey.GROW);
             
             Property<int> grow = target.properties.Get<int>(PropertyKey.GROW);
             int growAmount = grow.GetValueWithModifiers(target);
@@ -490,6 +496,8 @@ namespace DefaultNamespace
             
             character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
             character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+            
+            character.Character.UpdateFormVisual(currentForm);
 
             yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
         }
@@ -498,6 +506,8 @@ namespace DefaultNamespace
         {
             // TODO: VFX, animation etc
 
+            character.Character.UpdateSizeVisual(previousSize, currentSize);
+            
             // Unique event for when explicitly player's size changes
             if (character == player)
             {
@@ -548,7 +558,6 @@ namespace DefaultNamespace
             CardData cardData = form.attackPattern[cardIndex.Value];
 
             // Create card instance from the card data
-            // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
             RuntimeCard card = CardFactory.Create(cardData);
 
             foreach (EffectData effectData in card.cardData.effects)
@@ -603,6 +612,9 @@ namespace DefaultNamespace
         {
             yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
             yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
+            
+            //Update cards value when something happened
+            cardController.UpdateCards();
         }
 
         public IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)

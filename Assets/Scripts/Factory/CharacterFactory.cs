@@ -89,7 +89,11 @@ namespace DefaultNamespace
                 characterPrefab = Resources.Load<Character>(CharacterPrefabPath);
             }
 
-            var newChar = Object.Instantiate(characterPrefab);
+            //Use prefab from data or generic prefab
+            var newChar = Object.Instantiate(runtimeCharacter.characterData.characterPrefab
+                ? runtimeCharacter.characterData.characterPrefab
+                : characterPrefab);
+            
             newChar.name = runtimeCharacter.characterData.name;
             newChar.Init(runtimeCharacter);
 

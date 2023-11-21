@@ -46,6 +46,8 @@ public class CharacterSpawner : MonoBehaviour
         var _newEnemy = CharacterFactory.CreateCharacterObject(_name);
         _newEnemy.gameObject.tag = "ENEMY";
 
+        GetSpawnPosition().AssignCharacter(_newEnemy);
+        
         return _newEnemy;
     }
 

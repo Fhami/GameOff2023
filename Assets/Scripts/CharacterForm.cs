@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterForm : MonoBehaviour
 {
     public SkeletonAnimation skeletonAnimation;
+    public Transform frontPos;
     public Transform statUIPos;
     public Transform statSizePos;
     public Transform statIntentionPos;
