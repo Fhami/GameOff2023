@@ -180,9 +180,7 @@ namespace DefaultNamespace
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
             player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = form.handSize;
-            
-            // TODO: Draw cards based on player action point value?
-            
+
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
