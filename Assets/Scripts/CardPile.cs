@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -95,7 +96,7 @@ public class CardPile : MonoBehaviour
         }
     }
     
-    public void AddCard(Card _card)
+    public void AddCard(Card _card, bool _tween)
     {
         Cards.Add(_card);
 
@@ -103,7 +104,14 @@ public class CardPile : MonoBehaviour
         {
             //Set position to pile
             _card.transform.SetParent(Container);
-            _card.transform.localPosition = Vector3.zero;
+            if (_tween)
+            {
+                _card.transform.DOLocalMove(Vector3.zero, 0.2f);
+            }
+            else
+            {
+                _card.transform.localPosition = Vector3.zero;
+            }
             _card.transform.SetAsFirstSibling(); //Put newly draw card to left side
         }
         

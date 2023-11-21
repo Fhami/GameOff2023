@@ -23,7 +23,7 @@ namespace DefaultNamespace
         ON_DEATH,
         ON_CHARACTER_SPAWNED,
         ON_BATTLE_START,
-        ON_PLAYER_SIZE_CHANGED
+        ON_PLAYER_SIZE_CHANGED,
     }
     
     /// <summary>
@@ -376,6 +376,22 @@ namespace DefaultNamespace
             yield return cardController.ShuffleDiscardPileIntoDeck();
 
             yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
+        }
+
+        public IEnumerator ShuffleHandToDeck(RuntimeCard card, RuntimeCharacter player,
+            List<RuntimeCharacter> enemies)
+        {
+            yield return cardController.ShuffleHandToDeck(card);
+            
+            yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
+        }
+        
+        public IEnumerator ShuffleHandToDeckAndDraw(RuntimeCard card, RuntimeCharacter player,
+            List<RuntimeCharacter> enemies)
+        {
+            yield return ShuffleHandToDeck(card, player, enemies);
+            
+            yield return DrawCard(null, player, player, null, enemies);
         }
         
         /// <summary>

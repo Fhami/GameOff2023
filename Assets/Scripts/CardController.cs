@@ -55,7 +55,7 @@ public class CardController : MonoBehaviour
     {
         foreach (var _card in DeckPile.GetCards(_number))
         {
-            HandPile.AddCard(_card);
+            HandPile.AddCard(_card, false);
             
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
@@ -79,7 +79,7 @@ public class CardController : MonoBehaviour
     {
         foreach (var _recycledCard in DiscardPile.GetCards(-1))
         {
-            DeckPile.AddCard(_recycledCard);
+            DeckPile.AddCard(_recycledCard, true);
                 
             yield return drawDelay;
         }
@@ -88,7 +88,7 @@ public class CardController : MonoBehaviour
 
     public IEnumerator Discard(Card _card)
     {
-        DiscardPile.AddCard(HandPile.PickCard(_card));
+        DiscardPile.AddCard(HandPile.PickCard(_card), true);
 
         yield return drawDelay;
     }
@@ -97,7 +97,7 @@ public class CardController : MonoBehaviour
     {
         yield return _card.ExhaustCard();
         
-        ExhaustPile.AddCard(HandPile.PickCard(_card));
+        ExhaustPile.AddCard(HandPile.PickCard(_card), false);
     }
     
     public IEnumerator DestroyCard(Card _card)
@@ -141,7 +141,7 @@ public class CardController : MonoBehaviour
                 
         AddCardListeners(_newCardObj);
             
-        DeckPile.AddCard(_newCardObj);
+        DeckPile.AddCard(_newCardObj, false);
         
         yield break;
     }
@@ -153,9 +153,16 @@ public class CardController : MonoBehaviour
            
         AddCardListeners(_newCardObj);
         
-        DiscardPile.AddCard(_newCardObj);
+        DiscardPile.AddCard(_newCardObj, false);
         
         yield break;
+    }
+
+    public IEnumerator ShuffleHandToDeck(RuntimeCard card)
+    {
+        DeckPile.AddCard(HandPile.PickCard(card.Card), true);
+
+        yield return drawDelay;
     }
     
     private void AddCardListeners(Card card)

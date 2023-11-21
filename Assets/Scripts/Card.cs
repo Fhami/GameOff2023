@@ -13,7 +13,6 @@ using UnityEngine.Events;
 
 namespace DefaultNamespace
 {
-    // TODO: This can be attached to card prefab
     public class Card : MonoBehaviour
     {
         public UnityEvent<Card> OnDrag;
@@ -116,6 +115,8 @@ namespace DefaultNamespace
 
         private void OnMouseDrag()
         {
+            if (Unplayable) return;
+            
             HighlightTargets(true);
 
             var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, targetMask);
