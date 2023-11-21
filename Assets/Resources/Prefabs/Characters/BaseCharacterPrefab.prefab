@@ -77,6 +77,8 @@ MonoBehaviour:
       Value: {fileID: 0}
     - Key: 8
       Value: {fileID: 0}
+    - Key: 9
+      Value: {fileID: 0}
 --- !u!50 &3426283045656471505
 Rigidbody2D:
   serializedVersion: 4

@@ -12,5 +12,6 @@ public enum ParticleKey
     BLOCKED,
     GROW,
     DECAY,
-    CHANGED_FORM
+    CHANGED_FORM,
+    STUN
 }

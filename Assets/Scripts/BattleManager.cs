@@ -37,6 +37,7 @@ namespace DefaultNamespace
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;
         [SerializeField] private float characterSpawnDelay = 0.2f;
+        [SerializeField] private float stunDuration = 0.3f;
 
         public Character player;
         public RuntimeCharacter runtimePlayer;
@@ -129,6 +130,7 @@ namespace DefaultNamespace
             throw new NotImplementedException("TODO: Implement enemy flee logic");
         }
         
+        //Bind with button
         public void EndTurn()
         {
             StartCoroutine(IEEndTurn());
@@ -169,7 +171,7 @@ namespace DefaultNamespace
             yield return OnGameEvent(GameEvent.ON_BATTLE_START, player, player, enemies);
         }
         
-        // TODO: This should be called when player turn starts before player can play cards
+        //This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             FormData form = player.GetCurrentForm();
@@ -190,21 +192,26 @@ namespace DefaultNamespace
             // If player is stunned don't allow them to play any cards
             if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                // TODO: Don't allow playing cards / do we need STUN feedback for player?
-                throw new NotImplementedException();
+                player.Character.PlayParticle(ParticleKey.STUN);
+                
+                //Wait for particle to play for a while before skip
+                yield return new WaitForSeconds(stunDuration);
+                
             }
-          
-            // Draw cards based on the hand size
-            int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
-            for (int i = 0; i < handSize; i++)
+            else
             {
-                yield return DrawCard(null, player, player, null, enemies);
+                // Draw cards based on the hand size
+                int handSize = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
+                for (int i = 0; i < handSize; i++)
+                {
+                    yield return DrawCard(null, player, player, null, enemies);
+                }
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_START, player, player, enemies);
         }
 
-        // TODO: This should be called when player turn ends before we start the enemy turn
+        //This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Discard hand but since this discard is not initiated by a card we leave it null.
@@ -543,28 +550,32 @@ namespace DefaultNamespace
         /// <returns></returns>
         public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
-            // If enemy is stunned don't allow them to play any cards
-            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
-            {
-                // TODO: Skip enemy turn logic / VFX? / animation?
-                throw new NotImplementedException();
-            }
-           
             FormData form = enemy.GetCurrentForm();
 
             // Get enemy's next intent (the next card they plan to use)
             Property<int> cardIndex = enemy.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
-
-            CardData cardData = form.attackPattern[cardIndex.Value];
-
-            // Create card instance from the card data
-            RuntimeCard card = CardFactory.Create(cardData);
-
-            foreach (EffectData effectData in card.cardData.effects)
+            
+            // If enemy is stunned don't allow them to play any cards
+            if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                yield return effectData.Execute(card, enemy, player, player, enemies);
+                enemy.Character.PlayParticle(ParticleKey.STUN);
+                
+                //Wait for particle to play for a while before skip
+                yield return new WaitForSeconds(stunDuration);
             }
-        
+            else
+            {
+                CardData cardData = form.attackPattern[cardIndex.Value];
+
+                // Create card instance from the card data
+                RuntimeCard card = CardFactory.Create(cardData);
+
+                foreach (EffectData effectData in card.cardData.effects)
+                {
+                    yield return effectData.Execute(card, enemy, player, player, enemies);
+                }
+            }
+
             // Increment the index by 1 (wrap back to 0 if needed)
             cardIndex.Value = (cardIndex.Value + 1) % form.attackPattern.Count;
         }
