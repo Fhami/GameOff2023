@@ -721,7 +721,7 @@ namespace DefaultNamespace
             {
                 Card card = cardController.HandPile.Cards[i];
 
-                foreach (CardSkill cardActiveSkill in card.runtimeCard.cardData.cardActiveSkills)
+                foreach (CardActiveEffect cardActiveSkill in card.runtimeCard.cardData.cardActiveSkills)
                 {
                     if (TryTriggerCardActive(gameEvent, cardActiveSkill, player))
                     {
@@ -734,18 +734,18 @@ namespace DefaultNamespace
             }
         }
 
-        public bool TryTriggerCardActive(GameEvent gameEvent, CardSkill cardActiveSkill, RuntimeCharacter player)
+        public bool TryTriggerCardActive(GameEvent gameEvent, CardActiveEffect cardActiveActiveEffect, RuntimeCharacter player)
         {
             // The current game event must match the skill's trigger game event.
-            if (cardActiveSkill.triggerGameEvent != gameEvent)
+            if (cardActiveActiveEffect.triggerGameEvent != gameEvent)
             {
                 return false;
             }
             
             // If there are trigger conditions -> all must pass for the active skill to trigger!
-            if (cardActiveSkill.triggerConditions != null)
+            if (cardActiveActiveEffect.triggerConditions != null)
             {
-                foreach (ConditionData condition in cardActiveSkill.triggerConditions)
+                foreach (ConditionData condition in cardActiveActiveEffect.triggerConditions)
                 {
                     // If any condition fails the active won't trigger.
                     if (!condition.Evaluate(gameEvent, player, player))

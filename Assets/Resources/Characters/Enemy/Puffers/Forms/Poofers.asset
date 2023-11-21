@@ -16,7 +16,8 @@ MonoBehaviour:
   sizeMax: 9
   passives:
   - {fileID: 11400000, guid: 3febf1232bcc06f48bbf31770b0050b2, type: 2}
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: cf936ca36b4ce1f49bf9c4b31f45c9b9, type: 2}
   attackPattern:
   - {fileID: 11400000, guid: a78e5ba747f412f43b071eb75e1dd74e, type: 2}
   - {fileID: 11400000, guid: ca78fc4489ac74443912c5ba1ef76ceb, type: 2}

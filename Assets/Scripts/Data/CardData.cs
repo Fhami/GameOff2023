@@ -58,6 +58,6 @@ namespace DefaultNamespace
         
         [InfoBox("Card active skills are active when the card is in player's hand.")]
         [Expandable]
-        public List<CardSkill> cardActiveSkills;
+        public List<CardActiveEffect> cardActiveSkills;
     }
 }

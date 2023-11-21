@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(menuName = "Gamejam/Card Skill", fileName = "New Card Skill")]
-    public class CardSkill : ScriptableObject
+    [CreateAssetMenu(menuName = "Gamejam/Card Active Effect", fileName = "New Card Active Effect")]
+    public class CardActiveEffect : ScriptableObject
     {
         [Header("Triggering")]
         public GameEvent triggerGameEvent;

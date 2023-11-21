@@ -23,7 +23,8 @@ namespace DefaultNamespace
         LoseHealth,
         Draw,
         Discard,
-        Summon
+        Summon,
+        Suicide
     }
     
     /// <summary>
