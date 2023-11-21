@@ -1,5 +1,7 @@
+using DefaultNamespace;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,7 +9,14 @@ public class DeckView : MonoBehaviour
 {
 
     public Canvas canvas;
-    public bool showDeck = true;
+    public GameObject cardContainer;
+    public bool showDeck = false;
+
+    public List<CardUI> CurrentCard;
+    public List <CardData> Card;
+    GenerateCardScript generateCardScript = new GenerateCardScript();
+
+    
     void Start()
     {
         
@@ -20,18 +29,31 @@ public class DeckView : MonoBehaviour
 
     public void ShowDeck()
     {
-        Debug.Log("Hellow from show deck");
         canvas = GetComponent<Canvas>();
 
         if (showDeck == true )
         {
             canvas.enabled = false;
             showDeck = false;
+            foreach (var card in CurrentCard)
+            {
+                Destroy(card.gameObject);
+            }
+            CurrentCard.Clear();
+
+            
         }
         else
         {
             canvas.enabled = true;
             showDeck = true;
+
+            foreach (var card in GameManager.Instance.PlayerRuntimeDeck.Cards)
+            {
+                CardUI cardUI = CardFactory.CreateCardUI(card.name);
+                cardUI.transform.SetParent(cardContainer.transform, false);
+                CurrentCard.Add(cardUI);
+            }
         }
     }
 }

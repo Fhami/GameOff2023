@@ -22,6 +22,7 @@ namespace DefaultNamespace
 
         private void Init()
         {
+            Database.Initialize();
             PlayerRuntimeDeck = new RuntimeDeckData();
         }
 

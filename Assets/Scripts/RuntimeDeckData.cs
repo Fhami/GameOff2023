@@ -10,10 +10,10 @@ namespace DefaultNamespace
     public class RuntimeDeckData
     {
         public int MaxSize = 9999;
-        public List<RuntimeCard> Cards = new List<RuntimeCard>();
-        public List<RuntimeCard> SpecialCards = new List<RuntimeCard>();
+        public List<CardData> Cards = new List<CardData>();
+        public List<CardData> SpecialCards = new List<CardData>();
 
-        public void AddCard(RuntimeCard _card)
+        public void AddCard(CardData _card)
         {
             //Deck is full
             if (Cards.Count > MaxSize)
@@ -21,18 +21,16 @@ namespace DefaultNamespace
                 Debug.LogError("Deck is full!");
                 return;
             }
+
             
-            if (!Cards.Contains(_card))
-            {
                 Cards.Add(_card);
-            }
         }
 
         /// <summary>
         /// Call when card got destroyed after used
         /// </summary>
         /// <param name="_card"></param>
-        public void RemoveCard(RuntimeCard _card)
+        public void RemoveCard(CardData _card)
         {
             Cards.Remove(_card);
         }

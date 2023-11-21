@@ -12,7 +12,7 @@ public class GenerateCardScript : MonoBehaviour
 
 
     public int cardMAX = 3;
-    public int cardType = new int();
+    public int cardType;
     
     void Start()
     {
@@ -43,6 +43,9 @@ public class GenerateCardScript : MonoBehaviour
             cardType = Random.Range(0, Card.Length);
             cardUI = CardFactory.CreateCardUI(Card[cardType].name);
             cardUI.transform.SetParent(transform, false);
+
+            cardUI.OnClick.AddListener(AddCardToDeck);
+
             CurrentCard.Add(cardUI);
 
             RemoveSpawnedPrefab(cardType);
@@ -56,6 +59,14 @@ public class GenerateCardScript : MonoBehaviour
         List<CardData> prefabList = new List<CardData>(Card);
         prefabList.RemoveAt(index);
         Card = prefabList.ToArray();
+    }
+
+    private void AddCardToDeck(CardUI cardUI)
+    {
+        GameManager.Instance.PlayerRuntimeDeck.AddCard(cardUI.cardData);
+        CurrentCard.Remove(cardUI);
+        Destroy(cardUI.gameObject);
+        Debug.Log("add card");
     }
 
 }
