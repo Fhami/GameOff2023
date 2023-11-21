@@ -232,7 +232,7 @@ namespace DefaultNamespace
         private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc.
-            
+
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
             Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
@@ -243,7 +243,9 @@ namespace DefaultNamespace
             // Calculate the attack value after shield absorption (i.e. reduce shield value from attack value)
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             int damage = incomingDamage - damageAbsorbedByShield;
-                    
+
+            yield return characterPlayingTheCard.Character.PlayAttackFeedback(target.Character.FrontPos);
+
             // Reduce the absorbed attack value from the shield
             shield.Value = Mathf.Max(shield.Value - damageAbsorbedByShield, 0);
 
@@ -264,8 +266,7 @@ namespace DefaultNamespace
                     // If the target didn't die but their health changed -> trigger ON_HEALTH_CHANGED game event
                     yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
                     
-                    //Only play anim when health changed
-                    yield return target.Character.PlayAnimation(AnimationKey.HIT);
+                    //Damaged animation/vfx will be bind with properties.OnChanged
                 }
             }
             else

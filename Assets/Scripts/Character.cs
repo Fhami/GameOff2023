@@ -15,11 +15,12 @@ namespace DefaultNamespace
     // TODO: This can be attached to character prefab
     public class Character : MonoBehaviour, ICardTarget
     {
+        public Transform FrontPos => currentForm ? currentForm.frontPos : transform;
         public RuntimeCharacter runtimeCharacter;
         public CardController cardController;
 
         [SerializeField] private SerializedDictionary<FormData, CharacterForm> characterForms;
-        [SerializeField] private CharacterForm currentForm;
+        public CharacterForm currentForm;
 
         [SerializeField] private Outlinable outlinable;
         [BoxGroup("UI"), SerializeField] private StatsUI statUI;
@@ -81,6 +82,8 @@ namespace DefaultNamespace
                     var _particle = Instantiate(damagedParticle);
                     _particle.transform.position = transform.position;
                 }
+
+                StartCoroutine(PlayAnimation(AnimationKey.HIT));
             }
             else
             {
@@ -154,7 +157,20 @@ namespace DefaultNamespace
         }
 
         #endregion
+        
+        /// <summary>
+        /// Using target as direction to move
+        /// </summary>
+        public IEnumerator PlayAttackFeedback(Transform _target)
+        {
+            var _origin = transform.position;
+            transform.DOMove(_target.position, 0.2f).SetEase(Ease.Flash);
 
+            yield return PlayAnimation(AnimationKey.ATTACK);
+            
+            transform.DOMove(_origin, 0.2f);
+        }
+        
         public IEnumerator OnKilled()
         {
             if (deathParticle)
@@ -168,6 +184,8 @@ namespace DefaultNamespace
             
             Destroy(gameObject);
         }
+
+        #region Animation
 
         public IEnumerator PlayAnimation(string _anim)
         {
@@ -195,6 +213,8 @@ namespace DefaultNamespace
         {
             currentForm.skeletonAnimation.AnimationState.SetAnimation(0, _anim, true);
         }
+
+        #endregion
         
         /// <summary>
         /// Get current enemy's intention
