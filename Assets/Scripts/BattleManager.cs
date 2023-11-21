@@ -364,15 +364,15 @@ namespace DefaultNamespace
             }
             
             yield return cardController.Draw(1);
-            
-            // Handle game event (skills etc. can trigger here)
-            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
 
             // NOTE: Since cardController.Draw() doesn't return the drawn cards, I have to put this "hack" here.
             foreach (Card cardInHand in cardController.HandPile.Cards)
             {
                 cardInHand.runtimeCard.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.HAND;
             }
+                        
+            // Handle game event (skills etc. can trigger here)
+            yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
         }
         
         public IEnumerator CreateCardAndAddItToDrawPile(RuntimeCard card)

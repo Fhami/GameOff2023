@@ -290,7 +290,7 @@ namespace DefaultNamespace
             
             int playerAttackModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(characterPlayingTheCard);
             int playerStrengthModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(characterPlayingTheCard);
-            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card);
+            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(characterPlayingTheCard);
             
             return damage + playerAttackModifier + playerStrengthModifier + cardAttackModifier;
         }
@@ -308,7 +308,7 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            int cardTimesModifier = card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(card);
+            int cardTimesModifier = card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(characterPlayingTheCard);
             
             return times + cardTimesModifier;
         }

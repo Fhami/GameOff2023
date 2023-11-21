@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a148eee149ae5d94d86470909e5f6aa6, type: 3}
+  m_Name: +5 damage if own size is equal to 8
+  m_EditorClassIdentifier: 
+  modifier:
+    propertyKey: 6
+    operation: 0
+    value: 5
+    conditions:
+    - propertyKey: 3
+      comparison: 0
+      value: 8

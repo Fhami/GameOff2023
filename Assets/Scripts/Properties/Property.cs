@@ -16,7 +16,7 @@ namespace DefaultNamespace
             } 
         }
 
-        public List<Modifier> Modifiers { get; set; }
+        public List<Modifier> Modifiers { get; set; } = new();
 
         /// <summary>
         /// Invoked when the base value (<see cref="Value"/>) changes or when
@@ -41,7 +41,7 @@ namespace DefaultNamespace
 
             if (Modifiers.Contains(modifier))
             {
-                throw new Exception("Modifier has already been added.");
+                return;
             }
 
             Modifiers.Add(modifier);
@@ -53,7 +53,7 @@ namespace DefaultNamespace
         {
             if (!Modifiers.Contains(modifier))
             {
-                throw new Exception("Trying to remove a modifier which doesn't not exist.");
+                return;
             }
 
             Modifiers.Remove(modifier);

@@ -16,7 +16,6 @@ namespace DefaultNamespace
             return conditions is { Count: > 0 };
         }
 
-        // TODO: I think we need to add more info about the game state here so the modifier conditions can have more information about the battle
         public bool Evaluate(RuntimeEntity propertyOwner)
         {
             foreach (PropertyComparer condition in conditions)
