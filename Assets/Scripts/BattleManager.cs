@@ -239,6 +239,16 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             player.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
+
+            // Death by size (if player is at min size or max size at the end of the turn they will die)
+            int minSize = player.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
+            int maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
+            int size = player.properties.Get<int>(PropertyKey.SIZE).Value;
+
+            if (size == minSize || size == maxSize)
+            {
+                yield return Kill(player, null, player, null, runtimeEnemies);
+            }
         }
 
         /// <summary>
@@ -624,7 +634,15 @@ namespace DefaultNamespace
             
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
             
-            yield break;
+            // Death by size (if player is at min size or max size at the end of the turn they will die)
+            int minSize = runtimePlayer.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
+            int maxSize = runtimePlayer.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
+            int size = runtimePlayer.properties.Get<int>(PropertyKey.SIZE).Value;
+
+            if (size == minSize || size == maxSize)
+            {
+                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies);
+            }
         }
 
         // TODO: Call this after current battle ended
