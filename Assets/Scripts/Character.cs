@@ -44,11 +44,10 @@ namespace DefaultNamespace
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
-            UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE));
+            UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
-            runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).OnChanged += UpdateSizeVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
         }
 
@@ -99,10 +98,10 @@ namespace DefaultNamespace
             statUI.SetShield(_oldValue,_value.Value);
         }
 
-        public void UpdateSizeVisual(int _oldValue, Property<int> _size)
+        public void UpdateSizeVisual(int _oldValue, int _size)
         {
-            var _sizeEffect = _oldValue > _size.Value ? SizeEffectType.Increase : SizeEffectType.Decrease;
-            sizeUI.SetSize(_size.Value, _sizeEffect);
+            var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
+            sizeUI.SetSize(_size, _sizeEffect);
             
             UpdateFormVisual(runtimeCharacter.GetCurrentForm());
         }

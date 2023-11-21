@@ -496,6 +496,8 @@ namespace DefaultNamespace
             
             character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
             character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
+            
+            character.Character.UpdateFormVisual(currentForm);
 
             yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
         }
@@ -504,6 +506,8 @@ namespace DefaultNamespace
         {
             // TODO: VFX, animation etc
 
+            character.Character.UpdateSizeVisual(previousSize, currentSize);
+            
             // Unique event for when explicitly player's size changes
             if (character == player)
             {
@@ -554,7 +558,6 @@ namespace DefaultNamespace
             CardData cardData = form.attackPattern[cardIndex.Value];
 
             // Create card instance from the card data
-            // TODO: I'm not sure what ID we should give to the factory to create a new card instance (or should we just give reference to CardData)
             RuntimeCard card = CardFactory.Create(cardData);
 
             foreach (EffectData effectData in card.cardData.effects)
