@@ -6,6 +6,7 @@ using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using EPOOutline;
 using NaughtyAttributes;
+using Spine.Unity;
 using TMPro;
 using UnityEngine;
 
@@ -35,17 +36,20 @@ namespace DefaultNamespace
             runtimeCharacter = _runtimeCharacter;
             runtimeCharacter.Character = this;
             
+            //Hide all form first
+            foreach (var _form in characterForms.Values)
+            {
+                _form.gameObject.SetActive(false);
+            }
+            
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
             UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE));
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
-            UpdateFormVisual(runtimeCharacter.GetCurrentForm());
-            
+
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).OnChanged += UpdateSizeVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
-            
-            outlinable.AddAllChildRenderersToRenderingList();
         }
 
         public GameObject GameObject => gameObject;
@@ -99,6 +103,8 @@ namespace DefaultNamespace
         {
             var _sizeEffect = _oldValue > _size.Value ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.SetSize(_size.Value, _sizeEffect);
+            
+            UpdateFormVisual(runtimeCharacter.GetCurrentForm());
         }
 
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
@@ -135,10 +141,12 @@ namespace DefaultNamespace
                 
                 currentForm = _characterForm;
                 currentForm.gameObject.SetActive(true);
+                
+                outlinable.AddAllChildRenderersToRenderingList();
 
-                statUI.transform.DOMove(currentForm.statUIPos.position, 0.2f);
-                sizeUI.transform.DOMove(currentForm.statSizePos.position, 0.2f);
-                intentionUI.transform.DOMove(currentForm.statIntentionPos.position, 0.2f);
+                statUI.transform.DOLocalMove(currentForm.statUIPos.localPosition, 0.2f);
+                sizeUI.transform.DOLocalMove(currentForm.statSizePos.localPosition, 0.2f);
+                intentionUI.transform.DOLocalMove(currentForm.statIntentionPos.localPosition, 0.2f);
             }
             else
             {
@@ -160,6 +168,33 @@ namespace DefaultNamespace
             yield return new WaitForSeconds(1f);
             
             Destroy(gameObject);
+        }
+
+        public IEnumerator PlayAnimation(string _anim)
+        {
+            if (!currentForm || !currentForm.skeletonAnimation || currentForm.skeletonAnimation.Skeleton.Data == null) yield break;
+            
+            var _animation = currentForm.skeletonAnimation.Skeleton.Data.FindAnimation(_anim);
+            if (_animation != null)
+            {
+                var _duration = _animation.Duration;
+                currentForm.skeletonAnimation.AnimationState.SetAnimation(0, _anim, false);
+
+                yield return new WaitForSeconds(_duration);
+                
+                //Change back to idle after finished
+                PlayIdleAnimation();
+            }
+        }
+
+        public void PlayIdleAnimation()
+        {
+            PlayLoopAnimation(AnimationKey.IDLE);
+        }
+        
+        public void PlayLoopAnimation(string _anim)
+        {
+            currentForm.skeletonAnimation.AnimationState.SetAnimation(0, _anim, true);
         }
         
         /// <summary>

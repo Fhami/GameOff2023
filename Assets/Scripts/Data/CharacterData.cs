@@ -11,6 +11,7 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Character", fileName = "New Character")]
     public class CharacterData : ScriptableObject
     {
+        public Character characterPrefab;
         public int health;
         public int startSize;
         public int maxSize;

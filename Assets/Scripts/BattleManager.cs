@@ -375,12 +375,18 @@ namespace DefaultNamespace
                 yield return characterToKill.Character.OnKilled();
                 //Game over
                 yield return GameManager.Instance.GameOver();
-                //throw new NotImplementedException("TODO: Implement PLAYER death logic and visuals.");
             }
             else
             {
+                runtimeEnemies.Remove(characterToKill);
+                this.enemies.Remove(characterToKill.Character);
+                
                 yield return characterToKill.Character.OnKilled();
-                //throw new NotImplementedException("TODO: Implement ENEMY death logic and visuals.");
+            }
+
+            if (runtimeEnemies.Count == 0)
+            {
+                //WIN!
             }
             
             yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);

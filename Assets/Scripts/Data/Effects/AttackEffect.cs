@@ -263,6 +263,9 @@ namespace DefaultNamespace
                 {
                     // If the target didn't die but their health changed -> trigger ON_HEALTH_CHANGED game event
                     yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
+                    
+                    //Only play anim when health changed
+                    yield return target.Character.PlayAnimation(AnimationKey.HIT);
                 }
             }
             else
