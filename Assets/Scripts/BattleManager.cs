@@ -612,6 +612,9 @@ namespace DefaultNamespace
         {
             yield return TryRechargeActiveSkills(gameEvent, character, player, enemies);
             yield return TryTriggerActiveSkills(gameEvent, character, player, enemies);
+            
+            //Update cards value when something happened
+            cardController.UpdateCards();
         }
 
         public IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)

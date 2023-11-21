@@ -45,6 +45,7 @@ namespace DefaultNamespace
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
             UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
+            UpdateFormVisual(runtimeCharacter.GetCurrentForm());
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
