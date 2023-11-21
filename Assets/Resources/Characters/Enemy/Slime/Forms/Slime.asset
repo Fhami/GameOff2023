@@ -17,4 +17,8 @@ MonoBehaviour:
   handSize: 0
   passives: []
   skills: []
-  attackPattern: []
+  attackPattern:
+  - {fileID: 11400000, guid: 5ec2ffc2be3c4234faa45f8c250f9728, type: 2}
+  - {fileID: 11400000, guid: ea4c30fa88a85bf40ad7d5cd8cb2caf6, type: 2}
+  - {fileID: 11400000, guid: 5a3bb4ea542459c4e8cfa30c093bf2ff, type: 2}
+  - {fileID: 11400000, guid: d32bc7fe6b33dc7439ed64bd39436248, type: 2}
