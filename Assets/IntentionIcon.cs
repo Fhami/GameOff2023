@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DefaultNamespace;
 
 public class IntentionIcon : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class IntentionIcon : MonoBehaviour
     [SerializeField] Image _multiplier_img;
     [SerializeField] TextMeshProUGUI _multiplier_txt;
     [SerializeField] ParticleSystem _focus_efx;
+
     [SerializeField] ParticleSystem _small_size_efx;
     [SerializeField] ParticleSystem _big_size_efx;
 
@@ -40,9 +42,23 @@ public class IntentionIcon : MonoBehaviour
         }
     }
 
-    public void AddSizeEffect(IntentionDetail.Size size)
+    public void SetSizeEffect(IntentionDetail.Size size)
     {
+        if (size == IntentionDetail.Size.Small)
+        {
+            _small_size_efx?.gameObject.SetActive(true);
+        }
+        else if (size == IntentionDetail.Size.Big)
+        {
+            _big_size_efx?.gameObject.SetActive(true);
+        }
+        else
+        {
+            _small_size_efx?.gameObject.SetActive(false);
+            _big_size_efx?.gameObject.SetActive(false);
 
+            //new IntentionDetail(new IntentData(), 2).SetMultiplierMod(IntentionDetail.ValueMod.None).SetValueMod;
+        }
     }
 
 }

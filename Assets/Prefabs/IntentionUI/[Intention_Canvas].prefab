@@ -465,8 +465,11 @@ MonoBehaviour:
   _content: {fileID: 4305271220228639990}
   _use_intentions: []
   _pool_intentions: []
+  _intentDatas:
+    _serializedList: []
   intent01: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
   intent02: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
+  showDuration: 0.1
 --- !u!1 &3550468807204504412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,11 +1079,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Intention]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154731941939350741, guid: a2b0cc04bc8aa2545be2a47fc478dd07,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5887882484254418899, guid: a2b0cc04bc8aa2545be2a47fc478dd07,
         type: 3}
