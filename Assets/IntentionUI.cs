@@ -123,6 +123,7 @@ public class IntentionDetail
     {
         this._intentData = intentData;
         this._value = value;
+        this._multiplier = multiplier;
         this._description = description;
         this._size = Size.Medium;
     }

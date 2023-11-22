@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7e81af6a2fc6e40b84b76428d54db0, type: 3}
+  m_Name: TestEncounter
+  m_EditorClassIdentifier: 
+  type: 0
+  icon: {fileID: 0}
+  enemies:
+  - baseData: {fileID: 11400000, guid: fac0d641e39c3fc4f9035c9741618d2f, type: 2}
+    minMaxHpMod: {x: 0, y: 0}
+    startHp: 0
+    startShield: 0
+    startSize: 5
+    startAttackPattern: 0
+  - baseData: {fileID: 11400000, guid: 745960deb81f3624a8551905485ef044, type: 2}
+    minMaxHpMod: {x: 0, y: 0}
+    startHp: 0
+    startShield: 0
+    startSize: 5
+    startAttackPattern: 0
+  - baseData: {fileID: 11400000, guid: 367f03161af39114db2d0a40db99cef4, type: 2}
+    minMaxHpMod: {x: 0, y: 0}
+    startHp: 0
+    startShield: 0
+    startSize: 5
+    startAttackPattern: 0

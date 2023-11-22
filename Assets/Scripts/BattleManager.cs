@@ -693,6 +693,11 @@ namespace DefaultNamespace
             
             //Update cards value when something happened
             cardController.UpdateCards();
+            foreach (var _enemy in enemies)
+            {
+                _enemy.Character.UpdateBuffsAndDebuffsVisual();
+            }
+            player.Character.UpdateBuffsAndDebuffsVisual();
         }
 
         public IEnumerator TryTriggerActiveSkills(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)

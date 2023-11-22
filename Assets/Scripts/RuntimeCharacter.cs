@@ -124,6 +124,8 @@ namespace DefaultNamespace
             
             foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
             {
+                if (buffPropertyKey == PropertyKey.NONE) continue;
+                
                 Property<int> buffProperty = properties.Get<int>(buffPropertyKey);
                 int value = buffProperty.GetValueWithModifiers(this);
                 if (value > 0)
