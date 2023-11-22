@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Coffee.UIExtensions;
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using NaughtyAttributes;
@@ -62,35 +63,19 @@ namespace DefaultNamespace
         /// <param name="_character"></param>
         public void UpdateCard(RuntimeCharacter _character)
         {
-            StringBuilder _builder = new StringBuilder();
-            foreach (var _effect in runtimeCard.cardData.effects)
-            {
-                var _description = _effect.GetDescriptionTextWithModifiers(runtimeCard, _character, _character, null,
-                    BattleManager.current.runtimeEnemies);
-                
-                _builder.AppendLine(_description);
-                
-                //Debug.Log($"{_effect.name} {_description}");
-            }
-
-            foreach (var _skill in runtimeCard.cardData.cardActiveSkills)
-            {
-                _builder.AppendLine(_skill.name);
-            }
-            
-            effectTxt.SetText(_builder.ToString());
+            effectTxt.SetText(RuntimeCard.GetCardDescriptionWithModifiers(_character, runtimeCard));
         }
 
         public IEnumerator DestroyCard()
         {
-            yield return null;//TODO: Play vfx here
+            yield return transform.DOScale(Vector3.zero, 0.3f).WaitForCompletion();;//TODO: Play vfx here
 
             Destroy(gameObject);
         }
 
         public IEnumerator ExhaustCard()
         {
-            yield return null;//TODO: Play vfx here
+            yield return transform.DOScale(Vector3.zero, 0.3f).WaitForCompletion();//TODO: Play vfx here
         }
 
         public bool ValidateTarget(ICardTarget _target)

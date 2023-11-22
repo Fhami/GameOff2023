@@ -55,12 +55,17 @@ public class CharacterSpawner : MonoBehaviour
     {
         var _newEnemy = CharacterFactory.CreateCharacterObject(_enemyDataModifier.baseData.name);
         var _hpMod = Random.Range(_enemyDataModifier.minMaxHpMod.x, _enemyDataModifier.minMaxHpMod.y);
-        var _hp = _enemyDataModifier.startHp + _hpMod;
+        var _startHp = _enemyDataModifier.startHp > 0
+            ? _enemyDataModifier.startHp : _newEnemy.runtimeCharacter.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+        var _hp = _startHp + _hpMod;
         
         _newEnemy.runtimeCharacter.properties.Get<int>(PropertyKey.MAX_HEALTH).Value = _hp;
         _newEnemy.runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).Value = _hp;
         _newEnemy.runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).Value = _enemyDataModifier.startShield;
-        _newEnemy.runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value = _enemyDataModifier.startSize;
+        if (_enemyDataModifier.startSize > 0)
+        {
+            _newEnemy.runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value = _enemyDataModifier.startSize;
+        }
             
         _newEnemy.gameObject.tag = "ENEMY";
         

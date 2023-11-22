@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace
+﻿using System.Text;
+
+namespace DefaultNamespace
 {
     public enum CardState
     {
@@ -24,5 +26,54 @@
         public CardState cardState;
 
         public Card Card;
+
+        public static string GetCardDescription(RuntimeCard _runtimeCard)
+        {
+            StringBuilder _builder = new StringBuilder();
+            foreach (var _effect in _runtimeCard.cardData.effects)
+            {
+                var _description = _effect.GetDescriptionText();
+                
+                _builder.AppendLine(_description);
+                if (_effect.effectModifier)
+                {
+                    _builder.AppendLine(_effect.effectModifier.name);
+                }
+                
+                //Debug.Log($"{_effect.name} {_description}");
+            }
+
+            foreach (var _skill in _runtimeCard.cardData.cardActiveSkills)
+            {
+                _builder.AppendLine(_skill.name);
+            }
+
+            return _builder.ToString();
+        }
+
+        public static string GetCardDescriptionWithModifiers(RuntimeCharacter _character, RuntimeCard _runtimeCard)
+        {
+            StringBuilder _builder = new StringBuilder();
+            foreach (var _effect in _runtimeCard.cardData.effects)
+            {
+                var _description = _effect.GetDescriptionTextWithModifiers(_runtimeCard, _character, _character, null,
+                    BattleManager.current.runtimeEnemies);
+                
+                _builder.AppendLine(_description);
+                if (_effect.effectModifier)
+                {
+                    _builder.AppendLine(_effect.effectModifier.name);
+                }
+                
+                //Debug.Log($"{_effect.name} {_description}");
+            }
+
+            foreach (var _skill in _runtimeCard.cardData.cardActiveSkills)
+            {
+                _builder.AppendLine(_skill.name);
+            }
+
+            return _builder.ToString();
+        }
     }
 }

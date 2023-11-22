@@ -99,6 +99,8 @@ namespace DefaultNamespace
 
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
         {
+            if (_runtimeCard == null) yield break;
+            
             var _intentDetails = new List<IntentionDetail>();
 
             var _battleManager = BattleManager.current;
@@ -143,6 +145,18 @@ namespace DefaultNamespace
             else
             {
                 Debug.LogError($"Form {_form.name} doesn't exist in {name} object");
+            }
+        }
+
+        public void UpdateBuffsAndDebuffsVisual()
+        {
+            foreach (var _buffs in runtimeCharacter.GetActiveBuffsAndDebuffs())
+            {
+
+                if (Database.buffData.TryGetValue(_buffs.Key, out var _buffData))
+                {
+                    statUI.SetBuff(_buffData, _buffs.Value);
+                }
             }
         }
 
@@ -220,6 +234,10 @@ namespace DefaultNamespace
         {
             FormData _form = runtimeCharacter.GetCurrentForm();
             Property<int> _cardIndex = runtimeCharacter.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX);
+            if (_cardIndex.Value > _form.attackPattern.Count - 1)
+            {
+                return null;
+            }
             CardData _cardData = _form.attackPattern[_cardIndex.Value];
             RuntimeCard _card = CardFactory.Create(_cardData);
 

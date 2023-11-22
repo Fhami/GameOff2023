@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeMin: 4
   sizeMax: 10
-  handSize: 0
-  skills:
-  - {fileID: 11400000, guid: 3d22f7fb5d16cb342917b7f3cad16a7e, type: 2}
+  passives: []
+  skills: []
   attackPattern:
   - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}

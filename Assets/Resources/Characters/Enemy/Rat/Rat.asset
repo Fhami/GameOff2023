@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rat
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 0}
-  health: 0
+  health: 10
   startSize: 5
   minSize: 1
   maxSize: 9
