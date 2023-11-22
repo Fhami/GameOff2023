@@ -6,6 +6,7 @@ using TMPro;
 
 public class IntentionIcon : MonoBehaviour
 {
+    public enum Size { Small, Medium, Big }
 
     [SerializeField] Image _icon_img;
     [SerializeField] TextMeshProUGUI _value_txt;
@@ -13,6 +14,8 @@ public class IntentionIcon : MonoBehaviour
     [SerializeField] Image _multiplier_img;
     [SerializeField] TextMeshProUGUI _multiplier_txt;
     [SerializeField] ParticleSystem _focus_efx;
+    [SerializeField] ParticleSystem _small_size_efx;
+    [SerializeField] ParticleSystem _big_size_efx;
 
     public void SetIcon(Sprite sprite)
     {
@@ -35,6 +38,11 @@ public class IntentionIcon : MonoBehaviour
         {
             _multiplier_img.gameObject.SetActive(false);
         }
+    }
+
+    public void AddSizeEffect(IntentionDetail.Size size)
+    {
+
     }
 
 }
