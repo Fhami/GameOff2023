@@ -12,6 +12,7 @@ public class TooltipUI : MonoBehaviour
 
     [SerializeField] RectTransform _canvas;
     [SerializeField] Image _content;
+    [SerializeField] TextMeshProUGUI _header_txt;
     [SerializeField] TextMeshProUGUI _tooltip_txt;
 
     /// <summary>
@@ -19,20 +20,20 @@ public class TooltipUI : MonoBehaviour
     /// </summary>
     /// <param name="position"> Mouse position</param>
     /// <param name="text"> Detail </param>
-    /// <param name="pivot"> Graphic side from mouse</param>
-    public void Show(Vector3 position, string text, Side pivot)
+    /// <param name="side"> Graphic side from mouse</param>
+    public void Show(string text, Vector3 position, Side side)
     {
         Vector2 p;
         
-        if(pivot== Side.BotRight)//Pivot TopLeft -> Graphic on Botright.
+        if(side== Side.BotRight)//Pivot TopLeft -> Graphic on Botright.
         {
             p = new Vector2(0, 1);
         }
-        else if (pivot == Side.BotLeft)//Pivot TopRight  -> Graphic on Botleft.
+        else if (side == Side.BotLeft)//Pivot TopRight  -> Graphic on Botleft.
         {
             p = new Vector2(1, 1);
         }
-        else if (pivot == Side.TopRight)//Pivot BotLeft  -> Graphic on Topright.
+        else if (side == Side.TopRight)//Pivot BotLeft  -> Graphic on Topright.
         {
             p = new Vector2(0, 0);
         }
@@ -48,8 +49,43 @@ public class TooltipUI : MonoBehaviour
         _content.rectTransform.pivot = p;
         _tooltip_txt.text = text;
 
+        _header_txt.gameObject.SetActive(false);
         _content.gameObject.SetActive(true);
     }
+
+    public void Show(string header, string text, Vector3 position, Side side)
+    {
+        Vector2 p;
+
+        if (side == Side.BotRight)//Pivot TopLeft -> Graphic on Botright.
+        {
+            p = new Vector2(0, 1);
+        }
+        else if (side == Side.BotLeft)//Pivot TopRight  -> Graphic on Botleft.
+        {
+            p = new Vector2(1, 1);
+        }
+        else if (side == Side.TopRight)//Pivot BotLeft  -> Graphic on Topright.
+        {
+            p = new Vector2(0, 0);
+        }
+        else//Pivot BotRight -> Graphic on Topleft.
+        {
+            p = new Vector2(1, 0);
+        }
+
+        _canvas.position = position;
+        _canvas.pivot = p;
+        _content.rectTransform.anchorMin = p;
+        _content.rectTransform.anchorMax = p;
+        _content.rectTransform.pivot = p;
+        _tooltip_txt.text = text;
+        _header_txt.text = header;
+
+        _header_txt.gameObject.SetActive(true);
+        _content.gameObject.SetActive(true);
+    }
+
     /// <summary>
     /// Hide tooltip
     /// </summary>
@@ -60,7 +96,7 @@ public class TooltipUI : MonoBehaviour
 
     public void Btn_Tooltip()
     {
-        Show(new Vector2(0, 0), "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd" +
-            "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd", Side.BotRight);
+        Show( "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd" +
+            "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd",new Vector2(0, 0), Side.BotRight);
     }
 }

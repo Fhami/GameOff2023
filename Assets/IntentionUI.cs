@@ -89,10 +89,13 @@ public class IntentionUI : MonoBehaviour
 
 public class IntentionDetail
 {
+    public enum Size { Small,Medium, Big }
+
     public IntentData _intentData;
     public int _value;
     public string _description;
     public int _multiplier;
+    public Size _size;
 
     public IntentionDetail(IntentData intentData, int value)
     {
@@ -113,5 +116,13 @@ public class IntentionDetail
         this._value = value;
         this._multiplier = multiplier;
         this._description = description;
+    }
+
+    public IntentionDetail(IntentData intentData, int value, int multiplier, string description, Size size)
+    {
+        this._intentData = intentData;
+        this._value = value;
+        this._description = description;
+        this._size = size;
     }
 }

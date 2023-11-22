@@ -1163,8 +1163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon_img: {fileID: 5285920630134937553}
   _value_txt: {fileID: 4697050588654251905}
-  _multiplier_img: {fileID: 0}
-  _multiplier_txt: {fileID: 0}
+  _multiplier_img: {fileID: 2406685926738000857}
+  _multiplier_txt: {fileID: 1079129471033097074}
   _focus_efx: {fileID: 0}
 --- !u!1 &4544466554033204013
 GameObject:
