@@ -40,6 +40,17 @@ namespace DefaultNamespace
             {
                 _form.gameObject.SetActive(false);
             }
+
+            var _formCount = runtimeCharacter.characterData.forms.Count;
+            var _smallForm = runtimeCharacter.characterData.forms[0];
+            var _bigForm = runtimeCharacter.characterData.forms[_formCount - 1];
+            var _small = _formCount > 1 ? _smallForm.sizeMax : -1;
+            var _big = _formCount > 1 ? _bigForm.sizeMin : -1;
+            var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
+            
+
+            sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
+                _big, _smallDeath, _bigForm.sizeMax);
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
@@ -135,6 +146,19 @@ namespace DefaultNamespace
                 
                 currentForm = _characterForm;
                 currentForm.gameObject.SetActive(true);
+                
+                switch (_form.size)
+                {
+                    case Size.S:
+                        sizeUI.SetEnableSmall(true);
+                        break;
+                    case Size.M:
+                        break;
+                    case Size.L:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 
                 outlinable.AddAllChildRenderersToRenderingList();
 

@@ -37,7 +37,7 @@ namespace DefaultNamespace
 
         [Header("Visual")] 
         [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
-        [SerializeField] private SerializedDictionary<CardSize, GameObject> borderDict;
+        [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
 
         [SerializeField] private LayerMask targetMask;
         private List<ICardTarget> validTargets = new List<ICardTarget>();

@@ -32,13 +32,6 @@ namespace DefaultNamespace
         Rare
     }
 
-    public enum CardSize
-    {
-        S,
-        M,
-        L
-    }
-    
     /// <summary>
     /// The base data for a card which is immutable and should not be modified during runtime.
     /// This data is used as a template for creating card instances.
@@ -50,7 +43,7 @@ namespace DefaultNamespace
         public CardType cardType;
 
         [InfoBox("For graphic")]
-        public CardSize cardSize;
+        public Size cardSize;
 
         [InfoBox("Intent name can be used for enemies (e.g. Attack, Slam, Nom Nom, Poke, Stare etc." +
                  "For player we use the scriptable object as the card name.")]
