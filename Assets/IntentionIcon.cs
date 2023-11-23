@@ -7,8 +7,6 @@ using DefaultNamespace;
 
 public class IntentionIcon : MonoBehaviour
 {
-    public enum Size { Small, Medium, Big }
-
     [SerializeField] Image _icon_img;
     [SerializeField] TextMeshProUGUI _value_txt;
     [Header("Multiplier")]
@@ -42,14 +40,14 @@ public class IntentionIcon : MonoBehaviour
         }
     }
 
-    public void SetSizeEffect(IntentionDetail.Size size)
+    public void SetSizeEffect(Size size)
     {
-        if (size == IntentionDetail.Size.Small)
+        if (size == Size.Small)
         {
             if (_small_size_efx)
                 _small_size_efx.gameObject.SetActive(true);
         }
-        else if (size == IntentionDetail.Size.Big)
+        else if (size == Size.Big)
         {
             if (_big_size_efx)
                 _big_size_efx.gameObject.SetActive(true);

@@ -93,7 +93,6 @@ public class IntentionUI : MonoBehaviour
 
 public class IntentionDetail
 {
-    public enum Size { Medium,Small, Big }
     public enum ValueMod {None, Increase,Decrease}
 
     public IntentData _intentData;
