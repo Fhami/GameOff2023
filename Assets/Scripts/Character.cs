@@ -40,6 +40,8 @@ namespace DefaultNamespace
             {
                 _form.gameObject.SetActive(false);
             }
+
+            InitSizeUI();
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
@@ -49,6 +51,20 @@ namespace DefaultNamespace
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
+        }
+
+        private void InitSizeUI()
+        {
+            var _formCount = runtimeCharacter.characterData.forms.Count;
+            var _smallForm = runtimeCharacter.characterData.forms[0];
+            var _bigForm = runtimeCharacter.characterData.forms[_formCount - 1];
+            var _small = _formCount > 1 ? _smallForm.sizeMax : -1;
+            var _big = _formCount > 1 ? _bigForm.sizeMin : -1;
+            var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
+            var _bigDeath = _bigForm.deathOnMax ? _bigForm.sizeMax : -1;
+
+            sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
+                _big, _smallDeath, _bigDeath);
         }
 
         public GameObject GameObject => gameObject;
@@ -118,6 +134,7 @@ namespace DefaultNamespace
 
                 _intentDetails.Add(new IntentionDetail(_effectData.intent, _value, _times, _description));
             }
+            Debug.Log($"{name} intent: {_runtimeCard.cardData.name}");
             
             yield return intentionUI.SetIntention(_intentDetails);
         }
@@ -135,6 +152,18 @@ namespace DefaultNamespace
                 
                 currentForm = _characterForm;
                 currentForm.gameObject.SetActive(true);
+                
+                switch (_form.size)
+                {
+                    case Size.S:
+                        break;
+                    case Size.M:
+                        break;
+                    case Size.L:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 
                 outlinable.AddAllChildRenderersToRenderingList();
 
@@ -173,7 +202,7 @@ namespace DefaultNamespace
             yield return PlayAnimation(AnimationKey.ATTACK);
             PlayParticle(ParticleKey.ATTACK);
             
-            transform.DOMove(_origin, 0.2f);
+            yield return transform.DOMove(_origin, 0.2f).WaitForCompletion();
         }
         
         public IEnumerator OnKilled()

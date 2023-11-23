@@ -25,6 +25,9 @@ namespace DefaultNamespace
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
+            //Lose health mean character that use this effect so we set target to characterPlayingTheCard
+            cardTarget = characterPlayingTheCard;
+            
             // The amount of health to lose
             int health = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
@@ -150,12 +153,12 @@ namespace DefaultNamespace
         public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
             RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            throw new NotImplementedException();
+            return 1;
         }
 
         public override string GetTimesValue(RuntimeCard card = null)
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }

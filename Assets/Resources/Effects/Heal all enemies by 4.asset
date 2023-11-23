@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b706a7b9236f4c54a8cc302b0dfd8306, type: 3}
   m_Name: Heal all enemies by 4
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: f959fd2a89851a349937c36b51df9058, type: 2}
+  effectModifier: {fileID: 0}
   effectTarget: 4
   healValueSource: 1
   healValue: 4

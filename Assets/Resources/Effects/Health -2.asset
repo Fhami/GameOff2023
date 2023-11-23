@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Health -2
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 256110923519c8f499640e23de66a364, type: 2}
+  effectModifier: {fileID: 0}
   healthValueSource: 1
   healthValue: 2
   customHealthValue: {fileID: 0}

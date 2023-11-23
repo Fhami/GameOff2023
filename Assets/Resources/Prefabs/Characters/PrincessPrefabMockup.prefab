@@ -129,6 +129,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4650648689118758992, guid: 9b70062679fd80743827e1293728519c,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4650648689118758992, guid: 9b70062679fd80743827e1293728519c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4650648689118758992, guid: 9b70062679fd80743827e1293728519c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -186,6 +196,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045435725068620133, guid: 9b70062679fd80743827e1293728519c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.38
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -248,6 +263,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4650648689118758992, guid: 9b70062679fd80743827e1293728519c,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4650648689118758992, guid: 9b70062679fd80743827e1293728519c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4650648689118758992, guid: 9b70062679fd80743827e1293728519c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -304,7 +329,12 @@ PrefabInstance:
     - target: {fileID: 5218913648289318292, guid: 9b70062679fd80743827e1293728519c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045435725068620133, guid: 9b70062679fd80743827e1293728519c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8785346189543324205, guid: 9b70062679fd80743827e1293728519c,
         type: 3}
@@ -373,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 1204950516362683512, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: m_Name
-      value: PrincessPrefab
+      value: PrincessPrefabMockup
       objectReference: {fileID: 0}
     - target: {fileID: 1225378530737202112, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}

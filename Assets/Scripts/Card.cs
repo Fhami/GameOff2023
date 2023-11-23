@@ -22,7 +22,7 @@ namespace DefaultNamespace
         [Foldout("Event")] public UnityEvent<ICardTarget> OnExistTarget;
         [Foldout("Event")] public UnityEvent<ICardTarget> OnDropped;
         
-        public RuntimeCard runtimeCard;
+        public RuntimeCard runtimeCard { get; private set; }
 
         [SerializeField] private TextMeshPro nameTxt;
         [SerializeField] private TextMeshPro effectTxt;
@@ -37,7 +37,7 @@ namespace DefaultNamespace
 
         [Header("Visual")] 
         [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
-        [SerializeField] private SerializedDictionary<CardSize, GameObject> borderDict;
+        [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
 
         [SerializeField] private LayerMask targetMask;
         private List<ICardTarget> validTargets = new List<ICardTarget>();
@@ -207,7 +207,7 @@ namespace DefaultNamespace
                 {
                     if (_target.TryGetComponent<ICardTarget>(out var _validTarget))
                     {
-                        Debug.Log($"{_tag} {_target.name}");
+                        //Debug.Log($"{_tag} {_target.name}");
                         _results.Add(_validTarget);
                     }
                 }

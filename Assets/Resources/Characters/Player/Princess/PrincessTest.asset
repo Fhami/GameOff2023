@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: PrincessTest
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 2060372134160742666, guid: f6a716c81b7fa9c4aa9f2099025e6f9d,
+  characterPrefab: {fileID: 2060372134160742666, guid: 4934fc86c34b5fb4b8e88e82db1b4681,
     type: 3}
   health: 999
   startSize: 5

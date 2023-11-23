@@ -14,7 +14,7 @@ public class SizeUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _big_size_txt;
     [SerializeField] TextMeshProUGUI _small_size_txt;
     [SerializeField] TextMeshProUGUI _big_dead_size_txt;
-    [SerializeField] TextMeshProUGUI _small_dead_size_txt;
+    [SerializeField] GameObject _small_dead_size_txt;
 
     [SerializeField] Image _big_img;
     [SerializeField] Image _small_img;
@@ -39,10 +39,10 @@ public class SizeUI : MonoBehaviour
     {
         SetSize(startSize);
 
-        if (smallSize > -1) SetSize(smallSize);
+        if (smallSize > -1) SetSmallSize(smallSize);
         else SetEnableSmall(false);
 
-        if (bigSize > -1) SetSize(bigSize);
+        if (bigSize > -1) SetBigSize(bigSize);
         else SetEnableBig(false);
     }
 
@@ -51,7 +51,7 @@ public class SizeUI : MonoBehaviour
         InitSizeUI(startSize, smallSize, bigSize);
 
         if (smallDeadSize > -1) SetSize(smallDeadSize);
-        else _small_dead_size_txt.gameObject.SetActive(false);
+        else _small_dead_img.gameObject.SetActive(false);
 
         if (bigDeadSize > -1) SetSize(bigDeadSize);
         else _big_dead_img.gameObject.SetActive(false);

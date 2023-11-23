@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d34e8d233647cc9d787dadf32367fb, type: 3}
   m_Name: Health -4
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 256110923519c8f499640e23de66a364, type: 2}
+  effectModifier: {fileID: 0}
   healthValueSource: 1
   healthValue: 4
   customHealthValue: {fileID: 0}
