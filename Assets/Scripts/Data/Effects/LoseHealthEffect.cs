@@ -153,12 +153,12 @@ namespace DefaultNamespace
         public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
             RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            throw new NotImplementedException();
+            return 1;
         }
 
         public override string GetTimesValue(RuntimeCard card = null)
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }
