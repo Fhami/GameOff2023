@@ -22,7 +22,7 @@ namespace DefaultNamespace
         [Foldout("Event")] public UnityEvent<ICardTarget> OnExistTarget;
         [Foldout("Event")] public UnityEvent<ICardTarget> OnDropped;
         
-        public RuntimeCard runtimeCard;
+        public RuntimeCard runtimeCard { get; private set; }
 
         [SerializeField] private TextMeshPro nameTxt;
         [SerializeField] private TextMeshPro effectTxt;
@@ -207,7 +207,7 @@ namespace DefaultNamespace
                 {
                     if (_target.TryGetComponent<ICardTarget>(out var _validTarget))
                     {
-                        Debug.Log($"{_tag} {_target.name}");
+                        //Debug.Log($"{_tag} {_target.name}");
                         _results.Add(_validTarget);
                     }
                 }

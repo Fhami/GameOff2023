@@ -129,6 +129,7 @@ namespace DefaultNamespace
 
                 _intentDetails.Add(new IntentionDetail(_effectData.intent, _value, _times, _description));
             }
+            Debug.Log($"{name} intent: {_runtimeCard.cardData.name}");
             
             yield return intentionUI.SetIntention(_intentDetails);
         }
@@ -150,7 +151,6 @@ namespace DefaultNamespace
                 switch (_form.size)
                 {
                     case Size.S:
-                        sizeUI.SetEnableSmall(true);
                         break;
                     case Size.M:
                         break;
@@ -197,7 +197,7 @@ namespace DefaultNamespace
             yield return PlayAnimation(AnimationKey.ATTACK);
             PlayParticle(ParticleKey.ATTACK);
             
-            transform.DOMove(_origin, 0.2f);
+            yield return transform.DOMove(_origin, 0.2f).WaitForCompletion();
         }
         
         public IEnumerator OnKilled()
