@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Target Size Down
   m_EditorClassIdentifier: 
   intentType: 9
-  icon: {fileID: 0}
+  icon: {fileID: 896759182, guid: 31cb9b15010587d44916e75f56f57d23, type: 3}
