@@ -624,6 +624,10 @@ namespace DefaultNamespace
             }
             else
             {
+                if (cardIndex.Value > form.attackPattern.Count - 1)
+                {
+                    yield break;
+                }
                 CardData cardData = form.attackPattern[cardIndex.Value];
 
                 // Create card instance from the card data
