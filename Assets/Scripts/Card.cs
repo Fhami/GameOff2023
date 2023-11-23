@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AYellowpaper.SerializedCollections;
 using Coffee.UIExtensions;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
@@ -16,10 +17,10 @@ namespace DefaultNamespace
 {
     public class Card : MonoBehaviour
     {
-        public UnityEvent<Card> OnDrag;
-        public UnityEvent<ICardTarget> OnEnterTarget;
-        public UnityEvent<ICardTarget> OnExistTarget;
-        public UnityEvent<ICardTarget> OnDropped;
+        [Foldout("Event")] public UnityEvent<Card> OnDrag;
+        [Foldout("Event")] public UnityEvent<ICardTarget> OnEnterTarget;
+        [Foldout("Event")] public UnityEvent<ICardTarget> OnExistTarget;
+        [Foldout("Event")] public UnityEvent<ICardTarget> OnDropped;
         
         public RuntimeCard runtimeCard;
 
@@ -33,6 +34,10 @@ namespace DefaultNamespace
         [Header("VFX")] 
         [SerializeField] private UIParticle exhaustCardParticle;
         [SerializeField] private UIParticle destroyCardParticle;
+
+        [Header("Visual")] 
+        [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
+        [SerializeField] private SerializedDictionary<CardSize, GameObject> borderDict;
 
         [SerializeField] private LayerMask targetMask;
         private List<ICardTarget> validTargets = new List<ICardTarget>();
@@ -55,6 +60,27 @@ namespace DefaultNamespace
             runtimeCard = _runtimeCard;
             runtimeCard.Card = this;
             nameTxt.SetText(_runtimeCard.cardData.name);
+
+            foreach (var _obj in visualDict.Values)
+            {
+                _obj.SetActive(false);
+            }
+
+            foreach (var _obj in borderDict.Values)
+            {
+                _obj.SetActive(false);
+            }
+            
+            if (visualDict.TryGetValue(runtimeCard.cardData.cardType, out var _value))
+            {
+                _value.SetActive(true);
+            }
+
+            if (borderDict.TryGetValue(runtimeCard.cardData.cardSize, out var _size))
+            {
+                _size.SetActive(true);
+            }
+            
         }
 
         /// <summary>

@@ -27,6 +27,7 @@ namespace DefaultNamespace
             // Create cards's properties.
             runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0, PropertyKey.ATTACK));
             runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0, PropertyKey.SHIELD));
+            runtimeCard.properties.Add(PropertyKey.HEAL, new Property<int>(0, PropertyKey.HEAL));
             runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0, PropertyKey.SIZE));
             runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
             runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0, PropertyKey.TIMES));

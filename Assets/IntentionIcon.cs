@@ -46,16 +46,21 @@ public class IntentionIcon : MonoBehaviour
     {
         if (size == IntentionDetail.Size.Small)
         {
-            _small_size_efx?.gameObject.SetActive(true);
+            if (_small_size_efx)
+                _small_size_efx.gameObject.SetActive(true);
         }
         else if (size == IntentionDetail.Size.Big)
         {
-            _big_size_efx?.gameObject.SetActive(true);
+            if (_big_size_efx)
+                _big_size_efx.gameObject.SetActive(true);
         }
         else
         {
-            _small_size_efx?.gameObject.SetActive(false);
-            _big_size_efx?.gameObject.SetActive(false);
+            if (_small_size_efx)
+                _small_size_efx.gameObject.SetActive(false);
+            
+            if (_big_size_efx)
+                _big_size_efx.gameObject.SetActive(false);
 
             //new IntentionDetail(new IntentData(), 2).SetMultiplierMod(IntentionDetail.ValueMod.None).SetValueMod;
         }

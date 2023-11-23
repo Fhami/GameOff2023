@@ -28,7 +28,15 @@ namespace DefaultNamespace
         Skill,
         Power,
         Status,
-        Curse
+        Curse,
+        Rare
+    }
+
+    public enum CardSize
+    {
+        S,
+        M,
+        L
     }
     
     /// <summary>
@@ -40,6 +48,9 @@ namespace DefaultNamespace
     {
         [InfoBox("Card type can be used for the card graphic and other things (you can refer to Slay the Spire).")]
         public CardType cardType;
+
+        [InfoBox("For graphic")]
+        public CardSize cardSize;
 
         [InfoBox("Intent name can be used for enemies (e.g. Attack, Slam, Nom Nom, Poke, Stare etc." +
                  "For player we use the scriptable object as the card name.")]
