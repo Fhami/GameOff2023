@@ -41,16 +41,7 @@ namespace DefaultNamespace
                 _form.gameObject.SetActive(false);
             }
 
-            var _formCount = runtimeCharacter.characterData.forms.Count;
-            var _smallForm = runtimeCharacter.characterData.forms[0];
-            var _bigForm = runtimeCharacter.characterData.forms[_formCount - 1];
-            var _small = _formCount > 1 ? _smallForm.sizeMax : -1;
-            var _big = _formCount > 1 ? _bigForm.sizeMin : -1;
-            var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
-            
-
-            sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
-                _big, _smallDeath, _bigForm.sizeMax);
+            InitSizeUI();
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
@@ -60,6 +51,20 @@ namespace DefaultNamespace
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
+        }
+
+        private void InitSizeUI()
+        {
+            var _formCount = runtimeCharacter.characterData.forms.Count;
+            var _smallForm = runtimeCharacter.characterData.forms[0];
+            var _bigForm = runtimeCharacter.characterData.forms[_formCount - 1];
+            var _small = _formCount > 1 ? _smallForm.sizeMax : -1;
+            var _big = _formCount > 1 ? _bigForm.sizeMin : -1;
+            var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
+            var _bigDeath = _bigForm.deathOnMax ? _bigForm.sizeMax : -1;
+
+            sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
+                _big, _smallDeath, _bigDeath);
         }
 
         public GameObject GameObject => gameObject;
