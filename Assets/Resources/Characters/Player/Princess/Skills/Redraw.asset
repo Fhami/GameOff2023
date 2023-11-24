@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
-  m_Name: Small
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: Redraw
   m_EditorClassIdentifier: 
-  sizeMin: 0
-  sizeMax: 3
-  deathOnMax: 0
-  size: 0
-  activeSkill: {fileID: 11400000, guid: 6adca76abfe0ea34f8d5eb4d18030da7, type: 2}
-  passives: []
-  skills: []
-  attackPattern: []
+  cardType: 2
+  cardSize: 1
+  intentName: 
+  cardDragTarget: 4
+  effects:
+  - {fileID: 11400000, guid: d141c94bea8126a4cb62faea97c9b466, type: 2}
+  cardActiveSkills: []

@@ -268,6 +268,20 @@ namespace DefaultNamespace
             
             yield return OnGameEvent(GameEvent.ON_CARD_PLAYED, player, player, enemies); // NOTE: Not sure if this should happen here or below after executing the card effects?
 
+            var extraPlayTimes = player.properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES);
+
+            while (extraPlayTimes.Value > 0)
+            {
+                var clonedCard = CardFactory.CloneCard(card);
+
+                foreach (var effectData in clonedCard.cardData.effects)
+                {
+                    yield return effectData.Execute(clonedCard, player, player, target, enemies);
+                }
+                
+                extraPlayTimes.Value--;
+            }
+            
             // Execute card effects one by one
             foreach (EffectData effectData in card.cardData.effects)
             {

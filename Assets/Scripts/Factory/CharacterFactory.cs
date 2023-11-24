@@ -47,6 +47,7 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN, new Property<int>(0, PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN));
             runtimeCharacter.properties.Add(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX, new Property<int>(0, PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD, new Property<int>(0, PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD));
+            runtimeCharacter.properties.Add(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES, new Property<int>(0, PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES));
 
             runtimeCharacter.SetupPassiveSlots();
             

@@ -19,6 +19,8 @@ namespace DefaultNamespace
         public int sizeMax;
         public bool deathOnMax;
         public Size size;
+        [InfoBox("Player's active skill that will available when changed to this form")]
+        public CardData activeSkill;
         [Header("The passives the enemy has active in this form. Note that player's passives are NOT defined here.")]
         [Expandable] public List<PassiveData> passives;
         [Expandable] public List<SkillData> skills;
