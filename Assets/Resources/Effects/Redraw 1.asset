@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8731c2420a1d09479d69b90d85232d4, type: 3}
   m_Name: Redraw 1
   m_EditorClassIdentifier: 
-  intent: {fileID: 0}
+  intent: {fileID: 11400000, guid: 2b24a9cf89540454682bed99e689dbc9, type: 2}
+  effectModifier: {fileID: 0}
   count: 1

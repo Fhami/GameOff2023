@@ -86,6 +86,22 @@ namespace DefaultNamespace
             }
         }
 
+        public IEnumerator UpdateSize(int _oldValue, int _size)
+        {
+            UpdateSizeVisual(_oldValue, _size);
+            foreach (var _formData in runtimeCharacter.characterData.forms)
+            {
+                if (!_formData.activeSkill) continue;
+                
+                if (_formData.activeSkillSize == _size)
+                {
+                    Debug.Log($"Get Skill card {_formData.activeSkill.name}");
+                    var _skillCard = CardFactory.Create(_formData.activeSkill);
+                    yield return BattleManager.current.CreateCardAndAddItToHand(_skillCard);
+                }
+            }
+        }
+
         public GameObject GameObject => gameObject;
 
         #region Visual
@@ -208,6 +224,8 @@ namespace DefaultNamespace
         }
 
         #endregion
+
+        
         
         /// <summary>
         /// Using target as direction to move
