@@ -158,6 +158,17 @@ public class CardController : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator CreateCardAndAddItToHand(RuntimeCard runtimeCard)
+    {
+        var _newCardObj = CardFactory.CreateCardObject(runtimeCard);
+        
+        AddCardListeners(_newCardObj);
+        
+        HandPile.AddCard(_newCardObj, false);
+        
+        yield return drawDelay;
+    }
+
     public IEnumerator ShuffleHandToDeck(RuntimeCard card)
     {
         DeckPile.AddCard(HandPile.PickCard(card.Card), true);
