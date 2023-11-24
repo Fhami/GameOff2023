@@ -207,6 +207,7 @@ namespace DefaultNamespace
         
         public IEnumerator OnKilled()
         {
+            Debug.Log($"{name} is death");
             PlayParticle(ParticleKey.DEATH);
             
             yield return PlayAnimation(AnimationKey.HIT);

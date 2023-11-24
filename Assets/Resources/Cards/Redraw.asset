@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Redraw
   m_EditorClassIdentifier: 
   cardType: 2
+  cardSize: 1
   intentName: 
   cardDragTarget: 4
   effects:
-  - {fileID: 11400000, guid: 4b13f5ea24775624aa68c8c4a3dff246, type: 2}
+  - {fileID: 11400000, guid: d141c94bea8126a4cb62faea97c9b466, type: 2}
   cardActiveSkills: []
