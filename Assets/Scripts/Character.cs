@@ -61,7 +61,7 @@ namespace DefaultNamespace
             var _small = _formCount > 1 ? _smallForm.sizeMax : -1;
             var _big = _formCount > 1 ? _bigForm.sizeMin : -1;
             var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
-            var _bigDeath = _bigForm.deathOnMax ? _bigForm.sizeMax : -1;
+            var _bigDeath = runtimeCharacter.characterData.deathOnMax ? _bigForm.sizeMax : -1;
 
             sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
                 _big, _smallDeath, _bigDeath);
