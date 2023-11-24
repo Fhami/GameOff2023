@@ -42,12 +42,12 @@ public class IntentionIcon : MonoBehaviour
 
     public void SetSizeEffect(Size size)
     {
-        if (size == Size.Small)
+        if (size == Size.S)
         {
             if (_small_size_efx)
                 _small_size_efx.gameObject.SetActive(true);
         }
-        else if (size == Size.Big)
+        else if (size == Size.L)
         {
             if (_big_size_efx)
                 _big_size_efx.gameObject.SetActive(true);

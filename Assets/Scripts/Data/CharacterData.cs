@@ -16,6 +16,8 @@ namespace DefaultNamespace
         public int startSize;
         public int minSize;
         public int maxSize;
+        public bool deathOnMin;
+        public bool deathOnMax;
         public int handSize;
         [Expandable] public List<FormData> forms;
     }

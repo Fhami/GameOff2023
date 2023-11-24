@@ -22,9 +22,9 @@ public class ActiveSkillIcon : MonoBehaviour
         _button.interactable = enable;
     }
 
-    public void SetSkill(EffectData effectData, Action onClick)
+    public void SetSkill(CardData cardData, Action onClick)
     {
-        this._icon_img.sprite = effectData.intent.icon;
+        this._icon_img.sprite = cardData.effects[0].intent.icon;
         this._onClick = onClick;
     }
 
@@ -35,12 +35,12 @@ public class ActiveSkillIcon : MonoBehaviour
 
     public void SetSize(Size size)
     {
-        if (size == Size.Small)
+        if (size == Size.S)
         {
             _size_img.color = _smallColor;
 
         }
-        else if (size == Size.Medium)
+        else if (size == Size.M)
         {
             _size_img.color = _mediumColor;
 

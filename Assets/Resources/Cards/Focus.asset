@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2edc7cef6bb44ce1ad76aadc39b818c1, type: 3}
-  m_Name: Heal
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: Focus
   m_EditorClassIdentifier: 
-  intentType: 11
-  icon: {fileID: -1133126080, guid: 31cb9b15010587d44916e75f56f57d23, type: 3}
+  cardType: 2
+  cardSize: 0
+  intentName: 
+  cardDragTarget: 4
+  effects:
+  - {fileID: 11400000, guid: a395be4efba2dea46892b1683c8bdf92, type: 2}
+  cardActiveSkills: []

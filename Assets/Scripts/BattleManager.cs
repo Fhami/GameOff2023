@@ -24,6 +24,7 @@ namespace DefaultNamespace
         ON_CHARACTER_SPAWNED,
         ON_BATTLE_START,
         ON_PLAYER_SIZE_CHANGED,
+        ON_PLAYER_USE_SKILL
     }
     
     /// <summary>
@@ -268,6 +269,20 @@ namespace DefaultNamespace
             
             yield return OnGameEvent(GameEvent.ON_CARD_PLAYED, player, player, enemies); // NOTE: Not sure if this should happen here or below after executing the card effects?
 
+            var extraPlayTimes = player.properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES);
+
+            while (extraPlayTimes.Value > 0)
+            {
+                var clonedCard = CardFactory.CloneCard(card);
+
+                foreach (var effectData in clonedCard.cardData.effects)
+                {
+                    yield return effectData.Execute(clonedCard, player, player, target, enemies);
+                }
+                
+                extraPlayTimes.Value--;
+            }
+            
             // Execute card effects one by one
             foreach (EffectData effectData in card.cardData.effects)
             {
@@ -287,6 +302,12 @@ namespace DefaultNamespace
             // safely (I think) reset some properties used by subsequent effects. Like this one.
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD).Value = 0;
         }
+
+        // public IEnumerator PlayActiveSkill(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target,
+        //     List<RuntimeCharacter> enemies)
+        // {
+        //     
+        // }
 
         public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {

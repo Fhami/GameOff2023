@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   intentType: 3
-  icon: {fileID: 0}
+  icon: {fileID: 287774154, guid: 31cb9b15010587d44916e75f56f57d23, type: 3}

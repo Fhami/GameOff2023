@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using System;
 using AYellowpaper.SerializedCollections;
 
-public enum Size { Small, Medium, Big }
+//public enum Size { Small, Medium, Big }
 
 public class ActiveSkillUI : MonoBehaviour
 {
     [SerializeField] List<ActiveSkillIcon> _activeSkill = new List<ActiveSkillIcon>();
-    [SerializeField] SerializedDictionary<EffectData, ActiveSkillIcon> _skills;
+    [SerializeField] SerializedDictionary<CardData, ActiveSkillIcon> _skills;
 
     private void Start()
     {
@@ -23,23 +23,23 @@ public class ActiveSkillUI : MonoBehaviour
 
     public void SetSkill(int slot, ActiveSkillDetail  skillDetail, Action onClick)
     {
-        _activeSkill[slot].SetSkill(skillDetail.EffectData, onClick);
+        _activeSkill[slot].SetSkill(skillDetail.CardData, onClick);
         _activeSkill[slot].SetSize(skillDetail.Size);
         _activeSkill[slot].gameObject.SetActive(true);
 
-        if (!_skills.TryGetValue(skillDetail.EffectData, out var icon))
+        if (!_skills.TryGetValue(skillDetail.CardData, out var icon))
         {
-            _skills.Add(skillDetail.EffectData, _activeSkill[slot]);
+            _skills.Add(skillDetail.CardData, _activeSkill[slot]);
         }
         else
         {
-            _skills[skillDetail.EffectData] = _activeSkill[slot];
+            _skills[skillDetail.CardData] = _activeSkill[slot];
         }
     }
 
-    public void EnableSkill(EffectData effectData , bool enable)
+    public void EnableSkill(CardData cardData , bool enable)
     {
-        _skills[effectData].SetEnable(enable);
+        _skills[cardData].SetEnable(enable);
     }
 
     public void RemoveSkill(int slot)
@@ -58,15 +58,15 @@ public class ActiveSkillUI : MonoBehaviour
 
 public class ActiveSkillDetail
 {
-    private EffectData effectData;
+    private CardData cardData;
     private Size size;
 
-    public EffectData EffectData { get => effectData; set => effectData = value; }
+    public CardData CardData { get => cardData; set => cardData = value; }
     public Size Size { get => size; set => size = value; }
 
-    public ActiveSkillDetail(EffectData effectData, Size size)
+    public ActiveSkillDetail(CardData cardData, Size size)
     {
-        this.EffectData = effectData;
+        this.CardData = cardData;
         this.Size = size;
     }
 }

@@ -9,6 +9,7 @@ namespace DefaultNamespace
         DRAW_PILE,
         HAND,
         DISCARD_PILE,
+        AVAILABLE, //For player active skill
         FADED,
         DESTROYED
     }

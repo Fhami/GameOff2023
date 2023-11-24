@@ -27,6 +27,7 @@
         SKILL_STATE,
         CHARACTER_STATE,
         TIMES,
+        NEXT_CARD_PLAY_EXTRA_TIMES,
         STABLE,
         THORNS,
         DECAY,
