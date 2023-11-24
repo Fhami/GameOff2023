@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Redraw
+  m_Name: Crush
   m_EditorClassIdentifier: 
   cardType: 2
-  cardSize: 1
+  cardSize: 2
   intentName: 
   cardDragTarget: 4
   effects:
-  - {fileID: 11400000, guid: d141c94bea8126a4cb62faea97c9b466, type: 2}
+  - {fileID: 11400000, guid: 4f4783fd3acd9cf4ca5356f3c3360434, type: 2}
+  - {fileID: 11400000, guid: a3a1a5b65cb1b2848897645a7541930f, type: 2}
   cardActiveSkills: []

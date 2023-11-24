@@ -17,8 +17,10 @@ namespace DefaultNamespace
         [InfoBox("sizeMin (inclusive) and sizeMax (inclusive) defines the size range when this form is active.")]
         public int sizeMin;
         public int sizeMax;
-        public bool deathOnMax;
         public Size size;
+        [InfoBox("Player's active skill that will available when size match value")]
+        public CardData activeSkill;
+        public int activeSkillSize = 2;
         [Header("The passives the enemy has active in this form. Note that player's passives are NOT defined here.")]
         [Expandable] public List<PassiveData> passives;
         [Expandable] public List<SkillData> skills;

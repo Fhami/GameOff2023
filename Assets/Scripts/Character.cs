@@ -25,6 +25,7 @@ namespace DefaultNamespace
         [Foldout("UI"), SerializeField] private StatsUI statUI;
         [Foldout("UI"), SerializeField] private SizeUI sizeUI;
         [Foldout("UI"), SerializeField] private IntentionUI intentionUI;
+        [Foldout("UI"), SerializeField] private ActiveSkillUI activeSkillUI;
 
         [SerializeField]
         private SerializedDictionary<ParticleKey, ParticleSystem> particles =
@@ -42,6 +43,7 @@ namespace DefaultNamespace
             }
 
             InitSizeUI();
+            InitActiveSkillUI();
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
@@ -61,10 +63,43 @@ namespace DefaultNamespace
             var _small = _formCount > 1 ? _smallForm.sizeMax : -1;
             var _big = _formCount > 1 ? _bigForm.sizeMin : -1;
             var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
-            var _bigDeath = _bigForm.deathOnMax ? _bigForm.sizeMax : -1;
+            var _bigDeath = runtimeCharacter.characterData.deathOnMax ? _bigForm.sizeMax : -1;
 
             sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
                 _big, _smallDeath, _bigDeath);
+        }
+
+        private void InitActiveSkillUI()
+        {
+            for (var _index = 0; _index < runtimeCharacter.characterData.forms.Count; _index++)
+            {
+                var _formData = runtimeCharacter.characterData.forms[_index];
+                if (_formData.activeSkill)
+                {
+                    activeSkillUI.gameObject.SetActive(true);
+                    activeSkillUI.SetSkill(_index, new ActiveSkillDetail(_formData.activeSkill, _formData.activeSkill.cardSize),
+                        () =>
+                        {
+                            //TODO: Play activeSkill from BattleManager
+                        });
+                }
+            }
+        }
+
+        public IEnumerator UpdateSize(int _oldValue, int _size)
+        {
+            UpdateSizeVisual(_oldValue, _size);
+            foreach (var _formData in runtimeCharacter.characterData.forms)
+            {
+                if (!_formData.activeSkill) continue;
+                
+                if (_formData.activeSkillSize == _size)
+                {
+                    Debug.Log($"Get Skill card {_formData.activeSkill.name}");
+                    var _skillCard = CardFactory.Create(_formData.activeSkill);
+                    yield return BattleManager.current.CreateCardAndAddItToHand(_skillCard);
+                }
+            }
         }
 
         public GameObject GameObject => gameObject;
@@ -93,7 +128,6 @@ namespace DefaultNamespace
             {
                 //Play animation
                 PlayParticle(ParticleKey.DAMAGED);
-
                 StartCoroutine(PlayAnimation(AnimationKey.HIT));
             }
             else
@@ -112,7 +146,7 @@ namespace DefaultNamespace
             var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.SetSize(_size, _sizeEffect);
         }
-
+        
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
         {
             if (_runtimeCard == null) yield break;
@@ -190,6 +224,8 @@ namespace DefaultNamespace
         }
 
         #endregion
+
+        
         
         /// <summary>
         /// Using target as direction to move
@@ -207,6 +243,7 @@ namespace DefaultNamespace
         
         public IEnumerator OnKilled()
         {
+            Debug.Log($"{name} is death");
             PlayParticle(ParticleKey.DEATH);
             
             yield return PlayAnimation(AnimationKey.HIT);

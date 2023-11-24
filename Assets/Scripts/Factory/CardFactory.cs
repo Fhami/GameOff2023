@@ -25,6 +25,7 @@ namespace DefaultNamespace
             };
 
             // Create cards's properties.
+            //If you add some thing you also need to edit CloneCard too
             runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0, PropertyKey.ATTACK));
             runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0, PropertyKey.SHIELD));
             runtimeCard.properties.Add(PropertyKey.HEAL, new Property<int>(0, PropertyKey.HEAL));
@@ -67,6 +68,21 @@ namespace DefaultNamespace
         public static Card CreateCardObject(string name)
         {
             return CreateCardObject(Create(name));
+        }
+
+        public static RuntimeCard CloneCard(RuntimeCard runtimeCard)
+        {
+            var newCard = Create(runtimeCard.cardData);
+            
+            newCard.properties.Add(PropertyKey.ATTACK, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.ATTACK).Value, PropertyKey.ATTACK));
+            newCard.properties.Add(PropertyKey.SHIELD, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.SHIELD).Value, PropertyKey.SHIELD));
+            newCard.properties.Add(PropertyKey.HEAL, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.HEAL).Value, PropertyKey.HEAL));
+            newCard.properties.Add(PropertyKey.SIZE, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.SIZE).Value, PropertyKey.SIZE));
+            newCard.properties.Add(PropertyKey.STABLE, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.STABLE).Value, PropertyKey.STABLE));
+            newCard.properties.Add(PropertyKey.TIMES, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.TIMES).Value, PropertyKey.TIMES));
+            newCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE, PropertyKey.CARD_STATE));
+
+            return newCard;
         }
     }
 }
