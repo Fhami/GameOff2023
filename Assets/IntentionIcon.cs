@@ -22,6 +22,13 @@ public class IntentionIcon : MonoBehaviour
         _icon_img.sprite = sprite;
     }
 
+    public void SetVFXIcon(GameObject refGameObject)
+    {
+        var o = Instantiate(refGameObject);
+        o.transform.SetParent(_icon_img.transform);
+        o.transform.localScale = new Vector3(1, 1, 1);
+    }
+
     public void SetValue(int value)
     {
         _value_txt.text = value.ToString();

@@ -62,7 +62,7 @@ public class StatsUI : MonoBehaviour
     [Header("BUFF")]
     [SerializeField] BuffIcon _buff_prefab;
     [SerializeField] GameObject _buff_content;
-    [SerializeField] SerializedDictionary<BuffData, BuffType> _buffTypes;
+    [SerializeField] BuffTypeDatabase _buffTypeDB;
     [SerializeField] Color positiveBuffColor;
     [SerializeField] Color negativeBuffColor;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
@@ -206,7 +206,7 @@ public class StatsUI : MonoBehaviour
         if (value > 0)
         {
             icon.SetValue(value);
-            if(_buffTypes.TryGetValue(buffData,out var type))
+            if(_buffTypeDB._buffTypes.TryGetValue(buffData,out var type))
             {
                 icon. SetBuffType(type);
             }
