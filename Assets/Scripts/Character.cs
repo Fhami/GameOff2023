@@ -25,6 +25,7 @@ namespace DefaultNamespace
         [Foldout("UI"), SerializeField] private StatsUI statUI;
         [Foldout("UI"), SerializeField] private SizeUI sizeUI;
         [Foldout("UI"), SerializeField] private IntentionUI intentionUI;
+        [Foldout("UI"), SerializeField] private ActiveSkillUI activeSkillUI;
 
         [SerializeField]
         private SerializedDictionary<ParticleKey, ParticleSystem> particles =
@@ -42,6 +43,7 @@ namespace DefaultNamespace
             }
 
             InitSizeUI();
+            InitActiveSkillUI();
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
@@ -65,6 +67,23 @@ namespace DefaultNamespace
 
             sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
                 _big, _smallDeath, _bigDeath);
+        }
+
+        private void InitActiveSkillUI()
+        {
+            for (var _index = 0; _index < runtimeCharacter.characterData.forms.Count; _index++)
+            {
+                var _formData = runtimeCharacter.characterData.forms[_index];
+                if (_formData.activeSkill)
+                {
+                    activeSkillUI.gameObject.SetActive(true);
+                    activeSkillUI.SetSkill(_index, new ActiveSkillDetail(_formData.activeSkill, _formData.activeSkill.cardSize),
+                        () =>
+                        {
+                            //TODO: Play activeSkill from BattleManager
+                        });
+                }
+            }
         }
 
         public GameObject GameObject => gameObject;
@@ -93,7 +112,6 @@ namespace DefaultNamespace
             {
                 //Play animation
                 PlayParticle(ParticleKey.DAMAGED);
-
                 StartCoroutine(PlayAnimation(AnimationKey.HIT));
             }
             else
@@ -112,7 +130,7 @@ namespace DefaultNamespace
             var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.SetSize(_size, _sizeEffect);
         }
-
+        
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
         {
             if (_runtimeCard == null) yield break;

@@ -101,13 +101,13 @@ public class IntentionDetail
     public string _description;
     public int _multiplier;
     public ValueMod _multiplier_mod;
-    public Size _size = Size.Medium;
+    public Size _size = Size.M;
 
     public IntentionDetail(IntentData intentData, int value)
     {
         this._intentData = intentData;
         this._value = value;
-        this._size = Size.Medium;
+        this._size = Size.M;
     }
 
     public IntentionDetail(IntentData intentData, int value,int multiplier)
@@ -115,7 +115,7 @@ public class IntentionDetail
         this._intentData = intentData;
         this._value = value;
         this._multiplier = multiplier;
-        this._size = Size.Medium;
+        this._size = Size.M;
     }
 
     public IntentionDetail(IntentData intentData, int value, int multiplier, string description)
@@ -124,7 +124,7 @@ public class IntentionDetail
         this._value = value;
         this._multiplier = multiplier;
         this._description = description;
-        this._size = Size.Medium;
+        this._size = Size.M;
     }
 
     public IntentionDetail SetSize(Size size)

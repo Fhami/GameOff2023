@@ -24,6 +24,7 @@ namespace DefaultNamespace
         ON_CHARACTER_SPAWNED,
         ON_BATTLE_START,
         ON_PLAYER_SIZE_CHANGED,
+        ON_PLAYER_USE_SKILL
     }
     
     /// <summary>
@@ -301,6 +302,12 @@ namespace DefaultNamespace
             // safely (I think) reset some properties used by subsequent effects. Like this one.
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD).Value = 0;
         }
+
+        // public IEnumerator PlayActiveSkill(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target,
+        //     List<RuntimeCharacter> enemies)
+        // {
+        //     
+        // }
 
         public IEnumerator ExhaustCard(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {

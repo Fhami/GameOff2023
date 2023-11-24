@@ -18,7 +18,7 @@ namespace DefaultNamespace
         public int sizeMin;
         public int sizeMax;
         public Size size;
-        [InfoBox("Player's active skill that will available when changed to this form")]
+        [InfoBox("Player's active skill that will available when size match value")]
         public CardData activeSkill;
         [Header("The passives the enemy has active in this form. Note that player's passives are NOT defined here.")]
         [Expandable] public List<PassiveData> passives;
