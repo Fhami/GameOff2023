@@ -58,7 +58,7 @@ MonoBehaviour:
   statUI: {fileID: 3741980050977522496}
   sizeUI: {fileID: 6964135813202548287}
   intentionUI: {fileID: 917997359274966614}
-  activeSkillUI: {fileID: 0}
+  activeSkillUI: {fileID: 2752685202030568550}
   particles:
     _serializedList:
     - Key: 0
@@ -488,6 +488,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f46eb69ccd4df44f81fdb8df465fd34, type: 3}
+--- !u!114 &2752685202030568550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3663263984425032773, guid: 4f46eb69ccd4df44f81fdb8df465fd34,
+    type: 3}
+  m_PrefabInstance: {fileID: 1505618120161851427}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d6aa41abfd9c041b65a5faaa883eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5644567527770833885 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6534881348738300926, guid: 4f46eb69ccd4df44f81fdb8df465fd34,

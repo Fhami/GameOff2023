@@ -395,6 +395,11 @@ namespace DefaultNamespace
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_DRAWN, characterPlayingTheCard, player, enemies);
         }
+
+        public IEnumerator CreateCardAndAddItToHand(RuntimeCard card)
+        {
+            yield return cardController.CreateCardAndAddItToHand(card);
+        }
         
         public IEnumerator CreateCardAndAddItToDrawPile(RuntimeCard card)
         {
@@ -593,7 +598,7 @@ namespace DefaultNamespace
         {
             // TODO: VFX, animation etc
 
-            character.Character.UpdateSizeVisual(previousSize, currentSize);
+            yield return character.Character.UpdateSize(previousSize, currentSize);
             
             // Unique event for when explicitly player's size changes
             if (character == player)
