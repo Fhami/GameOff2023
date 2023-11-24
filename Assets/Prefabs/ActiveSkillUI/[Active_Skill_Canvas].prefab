@@ -185,10 +185,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeSkillUI: {fileID: 3663263984425032773}
-  A: {fileID: 11400000, guid: e78655ab6449d3043b4580aeca6bf13d, type: 2}
-  B: {fileID: 11400000, guid: 0e5a0b035b552cb479783fc89c178752, type: 2}
-  C: {fileID: 11400000, guid: 53b5a4ac7fcc152458aaff4e52479692, type: 2}
-  D: {fileID: 11400000, guid: bfc03096e406d4e44a96d2add1afe6b0, type: 2}
+  A: {fileID: 0}
+  B: {fileID: 0}
+  C: {fileID: 0}
+  D: {fileID: 0}
 --- !u!1 &4139578837010819266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,7 +1161,7 @@ PrefabInstance:
     - target: {fileID: 8551110705578776261, guid: 82af2514a3e64e744a894dfefd92bd25,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -136
+      value: -146.5
       objectReference: {fileID: 0}
     - target: {fileID: 8551110705578776261, guid: 82af2514a3e64e744a894dfefd92bd25,
         type: 3}
@@ -1307,7 +1307,7 @@ PrefabInstance:
     - target: {fileID: 8551110705578776261, guid: 82af2514a3e64e744a894dfefd92bd25,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 136.5
+      value: 149.9
       objectReference: {fileID: 0}
     - target: {fileID: 8551110705578776261, guid: 82af2514a3e64e744a894dfefd92bd25,
         type: 3}

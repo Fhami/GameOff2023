@@ -25,6 +25,7 @@ public class ActiveSkillUI : MonoBehaviour
     {
         _activeSkill[slot].SetSkill(skillDetail.CardData, onClick);
         _activeSkill[slot].SetSize(skillDetail.Size);
+        _activeSkill[slot].SetSizeNumber(skillDetail.SizeNumber);
         _activeSkill[slot].gameObject.SetActive(true);
 
         if (!_skills.TryGetValue(skillDetail.CardData, out var icon))
@@ -35,6 +36,8 @@ public class ActiveSkillUI : MonoBehaviour
         {
             _skills[skillDetail.CardData] = _activeSkill[slot];
         }
+
+
     }
 
     public void EnableSkill(CardData cardData , bool enable)
@@ -60,13 +63,22 @@ public class ActiveSkillDetail
 {
     private CardData cardData;
     private Size size;
+    private int sizeNumber;
 
     public CardData CardData { get => cardData; set => cardData = value; }
     public Size Size { get => size; set => size = value; }
+    public int SizeNumber { get => sizeNumber; set => sizeNumber = value; }
 
     public ActiveSkillDetail(CardData cardData, Size size)
     {
         this.CardData = cardData;
         this.Size = size;
+    }
+
+    public ActiveSkillDetail(CardData cardData,int sizeNumber, Size size)
+    {
+        this.CardData = cardData;
+        this.Size = size;
+        this.SizeNumber = sizeNumber;
     }
 }
