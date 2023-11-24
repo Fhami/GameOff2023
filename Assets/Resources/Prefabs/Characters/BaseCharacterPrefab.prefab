@@ -58,6 +58,7 @@ MonoBehaviour:
   statUI: {fileID: 3741980050977522496}
   sizeUI: {fileID: 6964135813202548287}
   intentionUI: {fileID: 917997359274966614}
+  activeSkillUI: {fileID: 0}
   particles:
     _serializedList:
     - Key: 0
