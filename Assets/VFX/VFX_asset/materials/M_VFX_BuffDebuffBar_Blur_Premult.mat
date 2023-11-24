@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_VFX_HPBar_Premult
-  m_Shader: {fileID: 4800000, guid: b78b8fd7fd075e144a508fc2e727b5c0, type: 3}
+  m_Name: M_VFX_BuffDebuffBar_Blur_Premult
+  m_Shader: {fileID: 4800000, guid: 71b5916d55060664bb15d239ed28e102, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -80,9 +80,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: 083f7a398ad10794da70dde2566d703f, type: 3}
-        m_Scale: {x: 4, y: 1}
-        m_Offset: {x: -3.53, y: 0}
+        m_Texture: {fileID: 2800000, guid: d55ba300723098847bbbc49fbd05cb5a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -151,7 +151,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GradientShapeChannel: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TextureChannel: {r: 1, g: 0, b: 0, a: 0}
+    - _TextureChannel: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6184326343352367262
 MonoBehaviour:
