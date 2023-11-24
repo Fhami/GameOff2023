@@ -8,8 +8,12 @@ using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using DefaultNamespace;
 
+public enum BuffType { Neutral, Positive, Negative }
+
 public class StatsUI : MonoBehaviour
 {
+
+
     [Header("Icon")]
     [SerializeField] GameObject _icon_content;
     [SerializeField] Image _hearth_img;
@@ -58,7 +62,11 @@ public class StatsUI : MonoBehaviour
     [Header("BUFF")]
     [SerializeField] BuffIcon _buff_prefab;
     [SerializeField] GameObject _buff_content;
+    [SerializeField] SerializedDictionary<BuffData, BuffType> _buffTypes;
+    [SerializeField] Color positiveBuffColor;
+    [SerializeField] Color negativeBuffColor;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
+
 
 
     private void Start()
@@ -198,12 +206,17 @@ public class StatsUI : MonoBehaviour
         if (value > 0)
         {
             icon.SetValue(value);
+            if(_buffTypes.TryGetValue(buffData,out var type))
+            {
+                icon. SetBuffType(type);
+            }
         }
         else//Remove this buff
         {
             Destroy(icon.gameObject);
             _buffs.Remove(buffData);
         }
+
     }
 
     public void SetShield(int from, int to, System.Action onStart = null, System.Action onComplete = null)
