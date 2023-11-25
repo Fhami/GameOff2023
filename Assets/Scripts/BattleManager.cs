@@ -599,8 +599,10 @@ namespace DefaultNamespace
             character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
             
             character.Character.UpdateFormVisual(currentForm);
+            character.Character.UpdatePassiveIcon(previousForm, currentForm);
 
             yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
+            
         }
         
         public IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
