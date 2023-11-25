@@ -23,7 +23,7 @@ public class ActiveSkillIcon : MonoBehaviour
 
     public void SetEnable(bool enable)
     {
-        _dimImage.gameObject.SetActive(enable);
+        _dimImage.gameObject.SetActive(!enable);
         _button.interactable = enable;
     }
 
