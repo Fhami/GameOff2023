@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MoreMountains.Feedbacks;
+using DefaultNamespace;
+using MPUIKIT;
+using DG.Tweening;
 
 public enum SizeEffectType { Increase,Decrease}
 public class SizeUI : MonoBehaviour
@@ -14,7 +17,7 @@ public class SizeUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _big_size_txt;
     [SerializeField] TextMeshProUGUI _small_size_txt;
     [SerializeField] TextMeshProUGUI _big_dead_size_txt;
-    [SerializeField] GameObject _small_dead_size_txt;
+    [SerializeField] TextMeshProUGUI _small_dead_size_txt;
 
     [SerializeField] Image _big_img;
     [SerializeField] Image _small_img;
@@ -29,12 +32,22 @@ public class SizeUI : MonoBehaviour
     [SerializeField] ParticleSystem _increase_efx;
     [SerializeField] ParticleSystem _decrease_efx;
 
-   /// <summary>
-   /// Use this to init this UI
-   /// </summary>
-   /// <param name="startSize"></param>
-   /// <param name="smallSize"></param>
-   /// <param name="bigSize"></param>
+    [Header("Tag")]
+    [SerializeField] TagSizeUI _sizeTag_prefab;
+    [SerializeField] GameObject _sizeSeparator_prefab;
+
+    [Header("Fill Graphic")]
+    [SerializeField] MPImage _line;
+    [SerializeField] MPImage _form;
+    [SerializeField] MPImage _size;
+
+
+    /// <summary>
+    /// Use this to init this UI
+    /// </summary>
+    /// <param name="startSize"></param>
+    /// <param name="smallSize"></param>
+    /// <param name="bigSize"></param>
     public void InitSizeUI(int startSize, int smallSize, int bigSize)
     {
         SetSize(startSize);
@@ -57,7 +70,7 @@ public class SizeUI : MonoBehaviour
         else _big_dead_img.gameObject.SetActive(false);
     }
 
-    protected void SetSize(int size)
+    public void SetSize(int size)
     {
         _current_size_txt.text = size.ToString();
     }
@@ -101,20 +114,38 @@ public class SizeUI : MonoBehaviour
         main_canvas.gameObject.SetActive(active);
     }
 
-    #region Test Button Function
-
-    public void Btn_Increase()
+    public void SetTag(Size size, int value, int minSize, int maxSize)
     {
-        SetSize(8,SizeEffectType.Increase);
-    }
-    public void Btn_Decrease()
-    {
-        SetSize(2, SizeEffectType.Decrease);
-    }
-    public void Btn_Set()
-    {
-        SetSize(5);
+        var t = Instantiate(_sizeTag_prefab);
+        t.transform.SetParent(main_canvas.transform);
+        t.transform.localScale = new Vector3(1, 1, 1);
+        t.transform.localPosition = new Vector3(0, 0, 0);
+        var percent = (float)value / (float)maxSize;
+        var total = -(percent * 180);
+        t.transform.localRotation = Quaternion.Euler(0, 0, total);
+        t.Set(size, value);
+        Debug.Log(total);
     }
 
-    #endregion
+    public void SetSizeSaperation(int value, int minSize, int maxSize)
+    {
+
+        var t = Instantiate(_sizeSeparator_prefab);
+        t.transform.SetParent(main_canvas.transform);
+        t.transform.localScale = new Vector3(1, 1, 1);
+        t.transform.localPosition = new Vector3(0, 0, 0);
+        var percent = (float)value / (float)maxSize;
+        var total = -(percent * 180);
+        t.transform.localRotation = Quaternion.Euler(0, 0, total);
+    }
+
+    public void GoToSize(int value, int s, int m, int l, int minSize, int maxSize)
+    {
+        var percent = ((float)value / (float)maxSize) * 0.5f;
+        _size.DOFillAmount(percent,0.2f);
+        _form.DOFillAmount(percent, 0.2f);
+        _line.DOFillAmount(percent, 0.2f);
+
+    }
+
 }
