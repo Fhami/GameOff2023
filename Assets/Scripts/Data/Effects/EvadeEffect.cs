@@ -16,7 +16,7 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.EVADE).Value += value;
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.EVASION).Value += value;
             yield break;
         }
 

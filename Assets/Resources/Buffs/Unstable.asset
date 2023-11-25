@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355f5ab7957f4eae9c8c5ceeb821be60, type: 3}
   m_Name: Unstable
   m_EditorClassIdentifier: 
-  buffPropertyKey: 0
+  buffPropertyKey: 32
   type: 2
-  icon: {fileID: 21300000, guid: 9dd64127e7fdc1644b8f93c1b32712ec, type: 3}
+  icon: {fileID: -63746925, guid: 59910bd53086d83499d6c98b013440c7, type: 3}

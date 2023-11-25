@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39a50e1c37d4ccf99f952b522b9232b, type: 3}
   m_Name: Player size -2
   m_EditorClassIdentifier: 
-  intent: {fileID: 11400000, guid: 1ae8b841db0037344b3029a855cf2824, type: 2}
+  intent: {fileID: 11400000, guid: 25ba8fb55c659634c905d61ac72b21ec, type: 2}
   effectModifier: {fileID: 0}
   operation: 1
   effectTarget: 1

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3904a475210264784c62656a7a5aba, type: 3}
+  m_Name: _IntentVFXDatabase
+  m_EditorClassIdentifier: 
+  _intentVFXs:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 1449f91235c121c498cf4a6779ea6229, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 2b24a9cf89540454682bed99e689dbc9, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 0e831c6a6e4271b4b92e6735a15fa382, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: d0c6d8135175a864488ef860fae490bb, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: f959fd2a89851a349937c36b51df9058, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 256110923519c8f499640e23de66a364, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 5fb110ea8d110734ebe4852370efed71, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: e49ef50d0f7170f47964a7749beafdda, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: b4f2cb50b58fb9744b65ad32aa10ceda, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 1ae8b841db0037344b3029a855cf2824, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 356a7de571711e243bd0775e83673436, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: d7d2f289e7ec36c48a0d62c64e2d1c02, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 50a7834cea7e4c142850a1a840c40ecc, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 6caa97adcc0bafa4490c7130c87c1255, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: f6a5a80089b75054eae6d084f90d2ca0, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 25ba8fb55c659634c905d61ac72b21ec, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: b53c8681916f24a4d88e258ddb11a79e, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: c9b170047615eb841beaa9c266bf0cfa, type: 2}
+      Value: {fileID: 0}

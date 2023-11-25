@@ -12,6 +12,7 @@ public class IntentionUI : MonoBehaviour
     [SerializeField] List<IntentionIcon> _use_intentions = new List<IntentionIcon>();
     [SerializeField] List<IntentionIcon> _pool_intentions = new List<IntentionIcon>();
     [SerializeField] SerializedDictionary<IntentData,int> _intentDatas;
+    [SerializeField] IntentVFXDatabase _intentVfxDB;
 
     [SerializeField] IntentData intent01;
     [SerializeField] IntentData intent02;
@@ -21,7 +22,7 @@ public class IntentionUI : MonoBehaviour
     public IEnumerator SetIntention(List<IntentionDetail> intentDetails)
     {
         ClearIntention();
-        for (int i = 0; i < intentDetails.Count; i++)
+        foreach (var intentionDetail in intentDetails)
         {
             IntentionIcon icon;
             if (_pool_intentions.Count > 0)
@@ -35,10 +36,22 @@ public class IntentionUI : MonoBehaviour
                 icon = CreateIntentionIcon();
                 _use_intentions.Add(icon);
             }
-            icon.SetIcon(intentDetails[i]._intentData.icon);
-            if(intentDetails[i]._value >= 0) icon.SetValue(intentDetails[i]._value);
-            icon.SetMultiplier(intentDetails[i]._multiplier);
-            icon.SetSizeEffect(intentDetails[i]._size);
+
+            icon.IntentionDetail = intentionDetail;
+            icon.SetIcon(intentionDetail._intentData.icon);
+
+            //if (_intentVfxDB._intentVFXs.TryGetValue(intentDetails[i]._intentData, out var obj)) 
+            //{
+            //    icon.SetVFXIcon(obj);
+            //}
+            //else
+            //{
+            //    icon.SetIcon(intentDetails[i]._intentData.icon);
+            //}
+
+            if(intentionDetail._value >= 0) icon.SetValue(intentionDetail._value);
+            icon.SetMultiplier(intentionDetail._multiplier);
+            icon.SetSizeEffect(intentionDetail._size);
             icon.gameObject.SetActive(true);
             icon.transform.localScale = Vector3.zero;
             

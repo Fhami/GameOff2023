@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Deal damage equal to player size times 2
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
+  effectModifier: {fileID: 0}
   effectTarget: 3
   damageValueSource: 2
   damageValue: 0
   customDamageValue: {fileID: 11400000, guid: 97ab28e5581c40d45a930b0411b7b583, type: 2}
-  customDamageDescription: Deal damage equal to player size
+  customDamageDescription: Deal damage equal to your size x 2
   timesValueSource: 1
   timesValue: 2
   customTimesValue: {fileID: 0}

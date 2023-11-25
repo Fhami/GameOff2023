@@ -169,11 +169,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buff_img: {fileID: 7017552023024144822}
   _buff_number_img: {fileID: 6825640319111163967}
-  _positive_buff_efx: {fileID: 0}
-  _negative_buff_efx: {fileID: 0}
+  _positive_buff_efx: {fileID: 3487570437601937343}
+  _negative_buff_efx: {fileID: 9030440849358140644}
   _neutralColor: {r: 1, g: 1, b: 1, a: 1}
   _positiveColor: {r: 0.29803923, g: 1, b: 0.6039216, a: 1}
   _negativeColor: {r: 1, g: 0.14509805, b: 0.3882353, a: 1}
+  buffData: {fileID: 0}
 --- !u!1 &6797494945646490015
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,15 +328,40 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2181850913448261409, guid: bf1a3a91a23704a4699846221eef4653,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267114228609573489, guid: bf1a3a91a23704a4699846221eef4653,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3684433792533783485, guid: bf1a3a91a23704a4699846221eef4653,
         type: 3}
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3737772039224188141, guid: bf1a3a91a23704a4699846221eef4653,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3927312338447634032, guid: bf1a3a91a23704a4699846221eef4653,
         type: 3}
       propertyPath: m_SortingLayer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118950723935606452, guid: bf1a3a91a23704a4699846221eef4653,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211116617857033289, guid: bf1a3a91a23704a4699846221eef4653,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7478448874279280440, guid: bf1a3a91a23704a4699846221eef4653,
         type: 3}
@@ -458,6 +484,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6318162652782450823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3487570437601937343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7478448874279280440, guid: bf1a3a91a23704a4699846221eef4653,
+    type: 3}
+  m_PrefabInstance: {fileID: 6318162652782450823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7579333217995212009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,6 +598,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 500915907658879057, guid: 82fdee3bbbac5bb45a4c99eae762341f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 807825957048376407, guid: 82fdee3bbbac5bb45a4c99eae762341f,
         type: 3}
       propertyPath: m_SortingLayer
@@ -581,10 +618,25 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3156662336001724821, guid: 82fdee3bbbac5bb45a4c99eae762341f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263738993487820951, guid: 82fdee3bbbac5bb45a4c99eae762341f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3905323259258856284, guid: 82fdee3bbbac5bb45a4c99eae762341f,
         type: 3}
       propertyPath: m_SortingLayer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539499012931713909, guid: 82fdee3bbbac5bb45a4c99eae762341f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6632691331602573045, guid: 82fdee3bbbac5bb45a4c99eae762341f,
         type: 3}
@@ -596,6 +648,11 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9221403360704201594, guid: 82fdee3bbbac5bb45a4c99eae762341f,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -604,6 +661,12 @@ PrefabInstance:
 --- !u!224 &7568961763504510421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 10531090911400252, guid: 82fdee3bbbac5bb45a4c99eae762341f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7579333217995212009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9030440849358140644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1476513810885341197, guid: 82fdee3bbbac5bb45a4c99eae762341f,
     type: 3}
   m_PrefabInstance: {fileID: 7579333217995212009}
   m_PrefabAsset: {fileID: 0}

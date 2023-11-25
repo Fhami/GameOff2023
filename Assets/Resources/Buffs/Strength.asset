@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965fabd94240488eaf3bc4714681fc8e, type: 3}
   m_Name: Strength
   m_EditorClassIdentifier: 
-  buffPropertyKey: 8
+  buffPropertyKey: 25
   type: 1
-  icon: {fileID: 21300000, guid: b8aae6ceee4523240a6095d8a9e2851e, type: 3}
+  icon: {fileID: -1683441913, guid: 59910bd53086d83499d6c98b013440c7, type: 3}

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Deal 4 damage
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
+  effectModifier: {fileID: 0}
   effectTarget: 3
   damageValueSource: 1
-  damageValue: 4
+  damageValue: 5
   customDamageValue: {fileID: 0}
   customDamageDescription: 
   timesValueSource: 0

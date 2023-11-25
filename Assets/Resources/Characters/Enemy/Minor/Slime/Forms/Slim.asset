@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Slim
+  m_EditorClassIdentifier: 
+  sizeMin: 1
+  sizeMax: 3
+  size: 0
+  activeSkill: {fileID: 0}
+  activeSkillSize: 2
+  passives: []
+  skills: []
+  attackPattern:
+  - {fileID: 11400000, guid: 990a65242fee5be4082726f8b27143df, type: 2}
+  - {fileID: 11400000, guid: 10e51ea6cea8c4bd7826a1ee50ac6ed4, type: 2}
+  - {fileID: 11400000, guid: 10e51ea6cea8c4bd7826a1ee50ac6ed4, type: 2}
+  - {fileID: 11400000, guid: ffc6a927aee7f49898c07454b76bfdf6, type: 2}
+  - {fileID: 11400000, guid: e003020476fb53643b5ed48dd49634e1, type: 2}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: 
+  sizeMin: 4
+  sizeMax: 6
+  size: 0
+  activeSkill: {fileID: 0}
+  activeSkillSize: 2
+  passives: []
+  skills: []
+  attackPattern:
+  - {fileID: 11400000, guid: b6252555db4d74864a4fd85e9f41c6f8, type: 2}
+  - {fileID: 11400000, guid: 5ce14c2fa5bf84ddd96aaab883b1444a, type: 2}
+  - {fileID: 11400000, guid: 458cbf322bacc4302ae1c5da45e96d7d, type: 2}
+  - {fileID: 11400000, guid: 412b52ffb755b44c5b42b1803033fff2, type: 2}

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545f0b4595d74654bc8530b24a70174b, type: 3}
   m_Name: Apply 1 stun to self
   m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 50a7834cea7e4c142850a1a840c40ecc, type: 2}
+  effectModifier: {fileID: 0}
   effectTarget: 2
   value: 1

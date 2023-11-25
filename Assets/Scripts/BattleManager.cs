@@ -33,6 +33,8 @@ namespace DefaultNamespace
     public class BattleManager : MonoBehaviour
     {
         public CardController CardController => cardController;
+
+        public TooltipUI TooltipUI;
         
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
@@ -191,7 +193,7 @@ namespace DefaultNamespace
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
-            player.properties.Get<int>(PropertyKey.EVADE).Value = 0;
+            player.properties.Get<int>(PropertyKey.EVASION).Value = 0;
             player.properties.Get<int>(PropertyKey.STUN).Value = 0;
 
             // If player is stunned don't allow them to play any cards
@@ -451,8 +453,15 @@ namespace DefaultNamespace
                         var _target = _hit.transform.gameObject.GetComponent<Card>();
                         if (_target)
                         {
-                            yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
-                            count--;
+                            if (!_target.runtimeCard.IsPersist())
+                            {
+                                yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
+                                count--;
+                            }
+                            else
+                            {
+                                //TODO: play can't select feedback
+                            }
                         }
                     }
                 }
@@ -621,7 +630,7 @@ namespace DefaultNamespace
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
-            enemy.properties.Get<int>(PropertyKey.EVADE).Value = 0;
+            enemy.properties.Get<int>(PropertyKey.EVASION).Value = 0;
             
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
         }

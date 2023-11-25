@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DefaultNamespace;
+using UnityEngine.EventSystems;
 
-public class IntentionIcon : MonoBehaviour
+public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image _icon_img;
     [SerializeField] TextMeshProUGUI _value_txt;
@@ -17,9 +18,19 @@ public class IntentionIcon : MonoBehaviour
     [SerializeField] ParticleSystem _small_size_efx;
     [SerializeField] ParticleSystem _big_size_efx;
 
+    public IntentionDetail IntentionDetail;
+    public RuntimeCharacter Character;
+    
     public void SetIcon(Sprite sprite)
     {
         _icon_img.sprite = sprite;
+    }
+
+    public void SetVFXIcon(GameObject refGameObject)
+    {
+        var o = Instantiate(refGameObject);
+        o.transform.SetParent(_icon_img.transform);
+        o.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void SetValue(int value)
@@ -64,4 +75,14 @@ public class IntentionIcon : MonoBehaviour
         }
     }
 
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        BattleManager.current.TooltipUI.Show(IntentionDetail._intentData.name, IntentionDetail._description, transform.position, TooltipUI.Side.TopLeft);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        BattleManager.current.TooltipUI.Hide();
+    }
 }
