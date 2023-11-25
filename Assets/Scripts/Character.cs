@@ -135,7 +135,7 @@ namespace DefaultNamespace
         {
             if (Database.buffData.TryGetValue(_value.Key, out var _buffData))
             {
-                statUI.SetBuff(_buffData, _value.GetValueWithModifiers());
+                statUI.SetBuff(_buffData, _value.GetValueWithModifiers(runtimeCharacter));
             }
         }
 
@@ -254,7 +254,7 @@ namespace DefaultNamespace
 
                 if (Database.buffData.TryGetValue(_buffs.Key, out var _buffData))
                 {
-                    statUI.SetBuff(_buffData, _buffs.GetValueWithModifiers());
+                    statUI.SetBuff(_buffData, _buffs.GetValueWithModifiers(runtimeCharacter));
                 }
             }
         }

@@ -60,22 +60,6 @@ namespace DefaultNamespace
 
             OnChanged?.Invoke(_value, this);//Not sure should we create separate callback for Modifier?
         }
-
-        public int GetValueWithModifiers()
-        {
-            var value = Value;
-
-            if (value is int intValue)
-            {
-                foreach (var modifier in Modifiers)
-                {
-                    intValue += modifier.value;
-                }
-
-                return intValue;
-            }
-            
-            return 0;
-        }
+        
     }
 }
