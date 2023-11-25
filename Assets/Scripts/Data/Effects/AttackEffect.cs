@@ -82,7 +82,7 @@ namespace DefaultNamespace
                     // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
                     else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
                     {
-                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies);
+                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies, false);
                     }
                 }
             }
@@ -230,7 +230,7 @@ namespace DefaultNamespace
             yield break;
         }
         
-        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies, bool isThorn)
         {
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
@@ -243,8 +243,11 @@ namespace DefaultNamespace
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             int damage = incomingDamage - damageAbsorbedByShield;
 
-            //Play animation/vfx
-            yield return characterPlayingTheCard.Character.PlayAttackFeedback(target.Character.FrontPos);
+            //Play animation/vfx if isn't thorn effect
+            if (!isThorn)
+            {
+                yield return characterPlayingTheCard.Character.PlayAttackFeedback(target.Character.FrontPos);
+            }
 
             // Reduce the absorbed attack value from the shield
             shield.Value = Mathf.Max(shield.Value - damageAbsorbedByShield, 0);
@@ -254,9 +257,9 @@ namespace DefaultNamespace
 
             // If target has thorns, deal damage from thorns to the attacker
             int thornsDamage = target.properties.Get<int>(PropertyKey.THORNS).GetValueWithModifiers(target);
-            if (thornsDamage > 0)
+            if (thornsDamage > 0 && !isThorn)
             {
-                yield return Attack(characterPlayingTheCard, thornsDamage, target, player, characterPlayingTheCard, enemies);
+                yield return Attack(characterPlayingTheCard, thornsDamage, target, player, characterPlayingTheCard, enemies, true);
             }
             
             if (health.Value > 0)

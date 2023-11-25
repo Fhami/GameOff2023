@@ -60,5 +60,6 @@ namespace DefaultNamespace
 
             OnChanged?.Invoke(_value, this);//Not sure should we create separate callback for Modifier?
         }
+        
     }
 }

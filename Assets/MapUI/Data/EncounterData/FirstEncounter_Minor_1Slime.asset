@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb7e81af6a2fc6e40b84b76428d54db0, type: 3}
-  m_Name: Minor-GreenSlime
+  m_Name: FirstEncounter_Minor_1Slime
   m_EditorClassIdentifier: 
   type: 0
   icon: {fileID: 0}
@@ -19,5 +19,5 @@ MonoBehaviour:
     minMaxHpMod: {x: 0, y: 0}
     startHp: 48
     startShield: 0
-    startSize: 5
+    startSize: 4
     startAttackPattern: 0

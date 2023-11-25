@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
   m_Name: Redraw
   m_EditorClassIdentifier: 
-  cardType: 2
+  cardType: 6
   cardSize: 1
   intentName: 
   cardDragTarget: 4

@@ -26,7 +26,8 @@ namespace DefaultNamespace
         [Foldout("UI"), SerializeField] private SizeUI sizeUI;
         [Foldout("UI"), SerializeField] private IntentionUI intentionUI;
         [Foldout("UI"), SerializeField] private ActiveSkillUI activeSkillUI;
-
+        [Foldout("UI"), SerializeField] private WatcherUI watcherUI;
+        
         [SerializeField]
         private SerializedDictionary<ParticleKey, ParticleSystem> particles =
             new SerializedDictionary<ParticleKey, ParticleSystem>();
@@ -52,6 +53,7 @@ namespace DefaultNamespace
             UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
             UpdateFormVisual(runtimeCharacter.GetCurrentForm());
+            UpdatePassiveIcon(null, runtimeCharacter.GetCurrentForm());
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
@@ -86,11 +88,16 @@ namespace DefaultNamespace
                 if (_formData.activeSkill)
                 {
                     activeSkillUI.gameObject.SetActive(true);
-                    activeSkillUI.SetSkill(_index, new ActiveSkillDetail(_formData.activeSkill, _formData.activeSkill.cardSize),
+                    activeSkillUI.SetSkill(_index, new ActiveSkillDetail(_formData.activeSkill, _formData.activeSkillSize, _formData.size),
                         () =>
                         {
                             //TODO: Play activeSkill from BattleManager
                         });
+                    activeSkillUI.EnableSkill(_formData.activeSkill, true);
+                }
+                else
+                {
+                    activeSkillUI.RemoveSkill(_index);
                 }
             }
         }
@@ -133,7 +140,7 @@ namespace DefaultNamespace
         {
             if (Database.buffData.TryGetValue(_value.Key, out var _buffData))
             {
-                statUI.SetBuff(_buffData, _value.Value);
+                statUI.SetBuff(_buffData, _value.GetValueWithModifiers(runtimeCharacter));
             }
         }
 
@@ -228,6 +235,23 @@ namespace DefaultNamespace
             }
         }
 
+        public void UpdatePassiveIcon(FormData _prevForm, FormData _currentForm)
+        {
+            if (_prevForm)
+            {
+                foreach (var _passiveData in _prevForm.passives)
+                {
+                    statUI.SetBuff(_passiveData.buffData, -1);
+                }
+            }
+
+            foreach (var _passiveData in _currentForm.passives)
+            {
+                statUI.SetBuff(_passiveData.buffData, _passiveData.value);
+            }
+            
+        }
+
         public void UpdateBuffsAndDebuffsVisual()
         {
             foreach (var _buffs in runtimeCharacter.GetActiveBuffsAndDebuffs())
@@ -235,7 +259,7 @@ namespace DefaultNamespace
 
                 if (Database.buffData.TryGetValue(_buffs.Key, out var _buffData))
                 {
-                    statUI.SetBuff(_buffData, _buffs.Value);
+                    statUI.SetBuff(_buffData, _buffs.GetValueWithModifiers(runtimeCharacter));
                 }
             }
         }
@@ -265,8 +289,22 @@ namespace DefaultNamespace
             
             yield return PlayAnimation(AnimationKey.HIT);
             yield return new WaitForSeconds(0.5f);
+
+            UnSubScribeProperties();
             
             Destroy(gameObject);
+        }
+
+        private void UnSubScribeProperties()
+        {
+            runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged -= UpdateHpVisual;
+            runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged -= UpdateShield;
+
+            foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
+            {
+                if (buffPropertyKey == PropertyKey.NONE) continue;
+                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged -= UpdateBuffVisual;
+            }
         }
 
         #region Animation
