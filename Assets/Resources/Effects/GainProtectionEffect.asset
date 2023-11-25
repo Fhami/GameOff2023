@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intent: {fileID: 0}
   effectModifier: {fileID: 0}
-  value: 1
   statusEffect: 41
+  valueSource: 1
+  value: 1
+  customValue: {fileID: 0}
+  customDescription: 
