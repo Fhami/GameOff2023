@@ -53,6 +53,13 @@ namespace DefaultNamespace
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
             runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged += UpdateShield;
+
+            foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
+            {
+                if (buffPropertyKey == PropertyKey.NONE) continue;
+                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged += UpdateBuffVisual;
+            }
+            
         }
 
         private void InitSizeUI()
@@ -118,6 +125,14 @@ namespace DefaultNamespace
                     Resources.Load<Shader>("Easy performant outline/Shaders/Fills/ColorFill");
             else
                 outlinable.OutlineParameters.FillPass.Shader = null;
+        }
+
+        public void UpdateBuffVisual(int _oldValue, Property<int> _value)
+        {
+            if (Database.buffData.TryGetValue(_value.Key, out var _buffData))
+            {
+                statUI.SetBuff(_buffData, _value.Value);
+            }
         }
 
         public void UpdateHpVisual(int _oldValue, Property<int> _value)
