@@ -1401,21 +1401,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 705506000516670837, guid: bd6763890d355814280542c2b92b2a15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1610353293325906824, guid: bd6763890d355814280542c2b92b2a15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926698658257179645, guid: bd6763890d355814280542c2b92b2a15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6991992334317338687, guid: bd6763890d355814280542c2b92b2a15,
         type: 3}
       propertyPath: m_Name
@@ -1969,7 +1954,7 @@ PrefabInstance:
     - target: {fileID: 410285295252881562, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 21.77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 410285295252881562, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
@@ -2675,6 +2660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8b2f5ef3e042e4da7685bad20a704e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TooltipUI: {fileID: 0}
   cardController: {fileID: 689958391}
   characterSpawner: {fileID: 689958395}
   characterSpawnDelay: 0.2
@@ -3285,7 +3271,7 @@ PrefabInstance:
     - target: {fileID: 410285295252881562, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 21.77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 410285295252881562, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
@@ -9196,7 +9182,7 @@ PrefabInstance:
     - target: {fileID: 410285295252881562, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 21.77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 410285295252881562, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
@@ -9873,7 +9859,7 @@ PrefabInstance:
     - target: {fileID: 3063804116552304626, guid: 625e25246199fe4408d058d060301250,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 151.645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063804116552304626, guid: 625e25246199fe4408d058d060301250,
         type: 3}
@@ -9913,7 +9899,7 @@ PrefabInstance:
     - target: {fileID: 4830244076140738369, guid: 625e25246199fe4408d058d060301250,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 151.645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4830244076140738369, guid: 625e25246199fe4408d058d060301250,
         type: 3}

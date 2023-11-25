@@ -81,7 +81,7 @@ MonoBehaviour:
   m_MaterialMode: 0
   m_StrokeWidth: 0
   m_OutlineWidth: 0
-  m_OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  m_OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_FalloffDistance: 0.5
   m_ConstrainRotation: 1
   m_ShapeRotation: 0
@@ -452,8 +452,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f7f9841e7d39849b55b5b0f4c9412c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 2825985145463278653}
   size_txt: {fileID: 351014904059149864}
   bgColor: {fileID: 2825985145463278653}
-  _l_color: {r: 0.24313727, g: 0.7568628, b: 0.7960785, a: 1}
+  _s_color: {r: 0.24313727, g: 0.7568628, b: 0.7960785, a: 1}
   _m_color: {r: 0.43529415, g: 0.43529415, b: 0.43529415, a: 1}
-  _s_color: {r: 0.8745099, g: 0.4784314, b: 0.227451, a: 1}
+  _l_color: {r: 0.8745098, g: 0.47843137, b: 0.22745098, a: 1}

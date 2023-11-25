@@ -4,15 +4,16 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DefaultNamespace;
+using MPUIKIT;
 
 public class TagSizeUI : MonoBehaviour
 {
+    [SerializeField] MPImage _image;
     [SerializeField] TextMeshProUGUI size_txt;
     [SerializeField] Image bgColor;
-    [SerializeField] Color _l_color;
-    [SerializeField] Color _m_color;
     [SerializeField] Color _s_color;
-
+    [SerializeField] Color _m_color;
+    [SerializeField] Color _l_color;
 
     public void Set(Size size, int value)
     {
@@ -32,6 +33,12 @@ public class TagSizeUI : MonoBehaviour
         }
 
         size_txt.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void Highlight(bool value)
+    {
+        if(value) _image.OutlineWidth = 2;
+        else _image.OutlineWidth = 0;
     }
 
 }
