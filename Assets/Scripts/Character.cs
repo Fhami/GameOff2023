@@ -88,11 +88,16 @@ namespace DefaultNamespace
                 if (_formData.activeSkill)
                 {
                     activeSkillUI.gameObject.SetActive(true);
-                    activeSkillUI.SetSkill(_index, new ActiveSkillDetail(_formData.activeSkill, _formData.activeSkill.cardSize),
+                    activeSkillUI.SetSkill(_index, new ActiveSkillDetail(_formData.activeSkill, _formData.activeSkillSize, _formData.size),
                         () =>
                         {
                             //TODO: Play activeSkill from BattleManager
                         });
+                    activeSkillUI.EnableSkill(_formData.activeSkill, true);
+                }
+                else
+                {
+                    activeSkillUI.RemoveSkill(_index);
                 }
             }
         }

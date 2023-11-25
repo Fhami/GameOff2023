@@ -15,10 +15,10 @@ public class ActiveSkillUI : MonoBehaviour
 
     private void Start()
     {
-        foreach(var icon in _activeSkill)
-        {
-            icon.gameObject.SetActive(false);
-        }
+        // foreach(var icon in _activeSkill)
+        // {
+        //     icon.gameObject.SetActive(false);
+        // }
     }
 
     public void SetSkill(int slot, ActiveSkillDetail  skillDetail, Action onClick)
@@ -52,8 +52,6 @@ public class ActiveSkillUI : MonoBehaviour
 
     public void AddSkill(int slot)
     {
-     
-        
         _activeSkill[slot].gameObject.SetActive(true);
     }
 
