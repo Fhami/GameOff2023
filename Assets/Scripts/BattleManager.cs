@@ -451,8 +451,15 @@ namespace DefaultNamespace
                         var _target = _hit.transform.gameObject.GetComponent<Card>();
                         if (_target)
                         {
-                            yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
-                            count--;
+                            if (!_target.runtimeCard.IsPersist())
+                            {
+                                yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
+                                count--;
+                            }
+                            else
+                            {
+                                //TODO: play can't select feedback
+                            }
                         }
                     }
                 }

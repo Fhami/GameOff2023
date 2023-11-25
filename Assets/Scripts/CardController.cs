@@ -121,10 +121,33 @@ public class CardController : MonoBehaviour
     
     public IEnumerator DiscardRemainingCards()
     {
-        while (HandPile.Cards.Count > 0)
+        var cardToDiscard = 0;
+        var handCount = HandPile.Cards.Count;
+        HashSet<Card> persistedCard = new HashSet<Card>();
+        
+        foreach (var card in HandPile.Cards)
         {
-            Card card = HandPile.Cards[0];
-            
+            if (card.runtimeCard.IsPersist())
+            {
+                persistedCard.Add(card);
+            }
+            else
+            {
+                cardToDiscard++;
+            }
+        }
+
+        while (HandPile.Cards.Count > handCount - cardToDiscard)
+        {
+            var index = 0;
+            Card card = HandPile.Cards[index];
+
+            while (persistedCard.Contains(card))
+            {
+                index++;
+                card = HandPile.Cards[index];
+            }
+
             yield return BattleManager.current.DiscardCard(
                 card.runtimeCard, 
                 BattleManager.current.runtimePlayer,

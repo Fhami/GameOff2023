@@ -76,5 +76,18 @@ namespace DefaultNamespace
 
             return _builder.ToString();
         }
+
+        public bool IsPersist()
+        {
+            foreach (var _effect in cardData.effects)
+            {
+                if (_effect.GetType() == typeof(PersistEffect))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
