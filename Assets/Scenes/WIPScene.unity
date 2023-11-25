@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1654,9 +1654,9 @@ MonoBehaviour:
   stunDuration: 0.3
   player: {fileID: 0}
   enemies: []
-  deckData: {fileID: 11400000, guid: dba53657e4e30a14e91c32be4ff51749, type: 2}
+  deckData: {fileID: 11400000, guid: b1bf5b3fa4a3e46acbdb9d5d72dca741, type: 2}
   playerData: {fileID: 11400000, guid: 15913e68fda5abf46a9221e92a94a559, type: 2}
-  encounterData: {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455, type: 2}
+  encounterData: {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf, type: 2}
   canPlayCard: 1
 --- !u!114 &689958394
 MonoBehaviour:

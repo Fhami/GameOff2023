@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 2060372134160742666, guid: 4934fc86c34b5fb4b8e88e82db1b4681,
     type: 3}
-  health: 999
+  health: 30
   startSize: 5
   minSize: 0
   maxSize: 10
+  deathOnMin: 0
+  deathOnMax: 0
   handSize: 5
   forms:
   - {fileID: 11400000, guid: dd94deeaa24549e47a7288db646296ae, type: 2}

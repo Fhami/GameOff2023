@@ -15,7 +15,7 @@ MonoBehaviour:
   cardType: 1
   cardSize: 0
   intentName: 
-  cardDragTarget: 6
+  cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: e1a36a2b0b538774d875963629b61705, type: 2}
   - {fileID: 11400000, guid: ca4511450cfc33b4e901386228998317, type: 2}
