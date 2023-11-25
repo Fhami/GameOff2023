@@ -484,6 +484,7 @@ namespace DefaultNamespace
             if (characterToKill == player)
             {
                 yield return characterToKill.Character.OnKilled();
+                runtimePlayer = null;
                 //Game over
                 yield return GameManager.Instance.GameOver();
             }

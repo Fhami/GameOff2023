@@ -284,8 +284,22 @@ namespace DefaultNamespace
             
             yield return PlayAnimation(AnimationKey.HIT);
             yield return new WaitForSeconds(0.5f);
+
+            UnSubScribeProperties();
             
             Destroy(gameObject);
+        }
+
+        private void UnSubScribeProperties()
+        {
+            runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged -= UpdateHpVisual;
+            runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD).OnChanged -= UpdateShield;
+
+            foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
+            {
+                if (buffPropertyKey == PropertyKey.NONE) continue;
+                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged -= UpdateBuffVisual;
+            }
         }
 
         #region Animation
