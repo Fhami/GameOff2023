@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f39a50e1c37d4ccf99f952b522b9232b, type: 3}
-  m_Name: Size +2 times 2
+  m_Name: Size +2 2 times
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 356a7de571711e243bd0775e83673436, type: 2}
   operation: 0

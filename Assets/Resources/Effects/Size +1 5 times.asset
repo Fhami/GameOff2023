@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f39a50e1c37d4ccf99f952b522b9232b, type: 3}
-  m_Name: Size +1 times 3
+  m_Name: Size +1 5 times
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 356a7de571711e243bd0775e83673436, type: 2}
   operation: 0
@@ -20,6 +20,6 @@ MonoBehaviour:
   customSizeValue: {fileID: 0}
   sizeValueDescription: 
   timesValueSource: 1
-  timesValue: 3
+  timesValue: 5
   customTimesValue: {fileID: 0}
   timesValueDescription: 
