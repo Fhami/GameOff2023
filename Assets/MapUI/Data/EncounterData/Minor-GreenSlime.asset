@@ -19,5 +19,5 @@ MonoBehaviour:
     minMaxHpMod: {x: 0, y: 0}
     startHp: 48
     startShield: 0
-    startSize: 5
+    startSize: 4
     startAttackPattern: 0
