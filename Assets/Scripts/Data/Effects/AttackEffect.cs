@@ -73,7 +73,7 @@ namespace DefaultNamespace
                 // Process the attack to every target
                 foreach (RuntimeCharacter target in targets)
                 {
-                    if (target.properties.Get<int>(PropertyKey.EVADE).Value > 0)
+                    if (target.properties.Get<int>(PropertyKey.EVASION).Value > 0)
                     {
                         // NOTE: Based on the current logic each damage in multi-damage (e.g 3x5 dmg) effect will reduce one evade. So 3x5 dmg would reduce 3 evade.
                         // NOTE: If we want 1 evade to evade the whole attack, we need to remove the target with evade from the list of targets or something..
@@ -226,7 +226,7 @@ namespace DefaultNamespace
             // TODO: VFX, animation etc.
             target.Character.PlayParticle(ParticleKey.EVADE);
             
-            target.properties.Get<int>(PropertyKey.EVADE).Value -= 1;
+            target.properties.Get<int>(PropertyKey.EVASION).Value -= 1;
             yield break;
         }
         

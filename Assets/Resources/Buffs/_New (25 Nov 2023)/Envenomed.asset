@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965fabd94240488eaf3bc4714681fc8e, type: 3}
-  m_Name: Strength
+  m_Script: {fileID: 11500000, guid: 5fe2d6926525b4acc9e76f4090d17bbe, type: 3}
+  m_Name: Envenomed
   m_EditorClassIdentifier: 
-  buffPropertyKey: 25
+  buffPropertyKey: 37
   type: 1
-  icon: {fileID: -1683441913, guid: 59910bd53086d83499d6c98b013440c7, type: 3}
+  icon: {fileID: 429540445, guid: 59910bd53086d83499d6c98b013440c7, type: 3}

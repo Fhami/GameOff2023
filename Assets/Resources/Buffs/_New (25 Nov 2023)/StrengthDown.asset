@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965fabd94240488eaf3bc4714681fc8e, type: 3}
-  m_Name: Strength
+  m_Script: {fileID: 11500000, guid: c93e2eaea8d2444da9025a37b5cc772c, type: 3}
+  m_Name: StrengthDown
   m_EditorClassIdentifier: 
-  buffPropertyKey: 25
-  type: 1
-  icon: {fileID: -1683441913, guid: 59910bd53086d83499d6c98b013440c7, type: 3}
+  buffPropertyKey: 26
+  type: 2
+  icon: {fileID: -1532114056, guid: 59910bd53086d83499d6c98b013440c7, type: 3}

@@ -30,7 +30,7 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.ATTACK, new Property<int>(0, PropertyKey.ATTACK));
             runtimeCharacter.properties.Add(PropertyKey.SHIELD, new Property<int>(0, PropertyKey.SHIELD));
             runtimeCharacter.properties.Add(PropertyKey.STRENGTH, new Property<int>(0, PropertyKey.STRENGTH));
-            runtimeCharacter.properties.Add(PropertyKey.EVADE, new Property<int>(0, PropertyKey.EVADE));
+            runtimeCharacter.properties.Add(PropertyKey.EVASION, new Property<int>(0, PropertyKey.EVASION));
             runtimeCharacter.properties.Add(PropertyKey.STUN, new Property<int>(0, PropertyKey.STUN));
             runtimeCharacter.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
             runtimeCharacter.properties.Add(PropertyKey.THORNS, new Property<int>(0, PropertyKey.THORNS));

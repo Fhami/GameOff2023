@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a086ab6e35a2494cb5a28b77d669dd24, type: 3}
   m_Name: Grow
   m_EditorClassIdentifier: 
-  buffPropertyKey: 28
+  buffPropertyKey: 30
   type: 1
-  icon: {fileID: 21300000, guid: 4db279853f5e0dc40b1dad4b9356429e, type: 3}
+  icon: {fileID: -2118006818, guid: 59910bd53086d83499d6c98b013440c7, type: 3}
