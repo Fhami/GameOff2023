@@ -15,7 +15,7 @@ MonoBehaviour:
   sizeMin: 7
   sizeMax: 10
   size: 0
-  activeSkill: {fileID: 11400000, guid: c6416c58f637e484bbc58afe0066262c, type: 2}
+  activeSkill: {fileID: 11400000, guid: 621e4824dcdf743b18c87d9d7df42bb3, type: 2}
   activeSkillSize: 8
   passives: []
   skills: []

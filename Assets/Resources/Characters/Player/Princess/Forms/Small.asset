@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeMin: 0
   sizeMax: 3
-  deathOnMax: 0
   size: 0
-  activeSkill: {fileID: 11400000, guid: 6adca76abfe0ea34f8d5eb4d18030da7, type: 2}
+  activeSkill: {fileID: 11400000, guid: 1ff9c05e730f446c5902ee4e2b4311e9, type: 2}
+  activeSkillSize: 2
   passives: []
   skills: []
   attackPattern: []
