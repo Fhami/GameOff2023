@@ -243,8 +243,11 @@ namespace DefaultNamespace
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             int damage = incomingDamage - damageAbsorbedByShield;
 
-            //Play animation/vfx
-            yield return characterPlayingTheCard.Character.PlayAttackFeedback(target.Character.FrontPos);
+            //Play animation/vfx if isn't thorn effect
+            if (!isThorn)
+            {
+                yield return characterPlayingTheCard.Character.PlayAttackFeedback(target.Character.FrontPos);
+            }
 
             // Reduce the absorbed attack value from the shield
             shield.Value = Mathf.Max(shield.Value - damageAbsorbedByShield, 0);
