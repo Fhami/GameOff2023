@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Slum] Nom Nom'
+  m_Name: '[Slime] Suck'
   m_EditorClassIdentifier: 
   cardType: 0
   cardSize: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 6b0f59c93697a4f40976415ac87e33cb, type: 2}
-  - {fileID: 11400000, guid: 17d5fd394dc90ad49bb7d6425b350a60, type: 2}
-  - {fileID: 11400000, guid: 8a8962211c36e0f46a9f3172c8cac20f, type: 2}
+  - {fileID: 11400000, guid: ad524a2de0e35b948ab4cb85fb70056e, type: 2}
+  - {fileID: 11400000, guid: 61b76badaa3c7eb48bb37142e711c7a9, type: 2}
+  - {fileID: 11400000, guid: ddead6539431b814fb1f5cb71dfb8ad7, type: 2}
   cardActiveSkills: []
