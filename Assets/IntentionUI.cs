@@ -22,7 +22,7 @@ public class IntentionUI : MonoBehaviour
     public IEnumerator SetIntention(List<IntentionDetail> intentDetails)
     {
         ClearIntention();
-        for (int i = 0; i < intentDetails.Count; i++)
+        foreach (var intentionDetail in intentDetails)
         {
             IntentionIcon icon;
             if (_pool_intentions.Count > 0)
@@ -37,7 +37,8 @@ public class IntentionUI : MonoBehaviour
                 _use_intentions.Add(icon);
             }
 
-            icon.SetIcon(intentDetails[i]._intentData.icon);
+            icon.IntentionDetail = intentionDetail;
+            icon.SetIcon(intentionDetail._intentData.icon);
 
             //if (_intentVfxDB._intentVFXs.TryGetValue(intentDetails[i]._intentData, out var obj)) 
             //{
@@ -48,9 +49,9 @@ public class IntentionUI : MonoBehaviour
             //    icon.SetIcon(intentDetails[i]._intentData.icon);
             //}
 
-            if(intentDetails[i]._value >= 0) icon.SetValue(intentDetails[i]._value);
-            icon.SetMultiplier(intentDetails[i]._multiplier);
-            icon.SetSizeEffect(intentDetails[i]._size);
+            if(intentionDetail._value >= 0) icon.SetValue(intentionDetail._value);
+            icon.SetMultiplier(intentionDetail._multiplier);
+            icon.SetSizeEffect(intentionDetail._size);
             icon.gameObject.SetActive(true);
             icon.transform.localScale = Vector3.zero;
             
