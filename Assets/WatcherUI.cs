@@ -71,8 +71,6 @@ public class WatcherUI : MonoBehaviour
             if (kvp.Key == key) kvp.Value.Highlight();
             else kvp.Value.UnHighlight();
         }
-
-
     }
 
     public void Focus(int size)
