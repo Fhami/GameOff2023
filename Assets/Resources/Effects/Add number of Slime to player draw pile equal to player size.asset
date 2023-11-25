@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Add number of Slime to player draw pile equal to player size
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
+  effectModifier: {fileID: 0}
   cardToAdd: {fileID: 11400000, guid: 0e9fce9fe5ab81e42b508ab1b8b2f314, type: 2}
   timesValueSource: 2
   timesValue: 0
   customTimesValue: {fileID: 11400000, guid: 97ab28e5581c40d45a930b0411b7b583, type: 2}
-  timesValueDescription: equal to player size.
+  timesValueDescription: Add Slime card into your draw pile equal to your size.
