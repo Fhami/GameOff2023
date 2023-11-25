@@ -174,6 +174,7 @@ MonoBehaviour:
   _neutralColor: {r: 1, g: 1, b: 1, a: 1}
   _positiveColor: {r: 0.29803923, g: 1, b: 0.6039216, a: 1}
   _negativeColor: {r: 1, g: 0.14509805, b: 0.3882353, a: 1}
+  buffData: {fileID: 0}
 --- !u!1 &6797494945646490015
 GameObject:
   m_ObjectHideFlags: 0

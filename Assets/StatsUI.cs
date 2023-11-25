@@ -12,7 +12,7 @@ public enum BuffType { Neutral, Positive, Negative }
 
 public class StatsUI : MonoBehaviour
 {
-
+    public RuntimeCharacter RuntimeCharacter;
 
     [Header("Icon")]
     [SerializeField] GameObject _icon_content;
@@ -201,8 +201,11 @@ public class StatsUI : MonoBehaviour
             icon.transform.localScale = new Vector3(1, 1, 1);
             icon.SetImage(buffData.icon);
             _buffs.Add(buffData, icon);
+            
+            icon.buffData = buffData;
+            icon.Character = RuntimeCharacter;
         }
-
+        
         if (value > 0)
         {
             icon.SetValue(value);

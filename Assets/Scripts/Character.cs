@@ -35,6 +35,8 @@ namespace DefaultNamespace
         {
             runtimeCharacter = _runtimeCharacter;
             runtimeCharacter.Character = this;
+
+            statUI.RuntimeCharacter = runtimeCharacter;
             
             //Hide all form first
             foreach (var _form in characterForms.Values)

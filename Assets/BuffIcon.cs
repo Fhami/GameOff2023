@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class BuffIcon : MonoBehaviour
+public class BuffIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image _buff_img;
     [SerializeField] TextMeshProUGUI _buff_number_img;
@@ -13,7 +15,8 @@ public class BuffIcon : MonoBehaviour
     [SerializeField] Color _neutralColor;
     [SerializeField] Color _positiveColor;
     [SerializeField] Color _negativeColor;
-
+    public BuffData buffData;
+    public RuntimeCharacter Character;
     public Image Buff_img { get => _buff_img; set => _buff_img = value; }
     public TextMeshProUGUI Buff_number_img { get => _buff_number_img; set => _buff_number_img = value; }
 
@@ -49,4 +52,14 @@ public class BuffIcon : MonoBehaviour
         }
 
      }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        BattleManager.current.TooltipUI.Show(buffData.name, buffData.GetDescription(Character), transform.position, TooltipUI.Side.TopRight);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        BattleManager.current.TooltipUI.Hide();
+    }
 }

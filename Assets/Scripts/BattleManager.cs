@@ -33,6 +33,8 @@ namespace DefaultNamespace
     public class BattleManager : MonoBehaviour
     {
         public CardController CardController => cardController;
+
+        public TooltipUI TooltipUI;
         
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;

@@ -26,12 +26,13 @@ namespace DefaultNamespace
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            RuntimeCard runtimeCard = CardFactory.Create(cardToAdd);
-
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             for (int i = 0; i < times; i++)
             {
-                yield return BattleManager.current.CreateCardAndAddItToDrawPile(runtimeCard);
+                //Need new instance of runtime card for every card
+                RuntimeCard runtimeCard = CardFactory.Create(cardToAdd);
+                
+                yield return BattleManager.current.CreateCardAndAddItToDiscardPile(runtimeCard);
             }
         }
 
