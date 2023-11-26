@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 0
+  intentName: 
   cardDragTarget: 1
   effects:
-  - {fileID: 11400000, guid: ad524a2de0e35b948ab4cb85fb70056e, type: 2}
+  - {fileID: 11400000, guid: ecbf55509e5671c46bcc82ae3a1b0e3b, type: 2}
+  cardActiveSkills: []

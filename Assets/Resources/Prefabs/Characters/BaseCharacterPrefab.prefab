@@ -184,7 +184,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
   m_Color: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
@@ -490,6 +490,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7061273907675487579, guid: 4f46eb69ccd4df44f81fdb8df465fd34,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1543251165
+      objectReference: {fileID: 0}
     - target: {fileID: 7973034565155945082, guid: 4f46eb69ccd4df44f81fdb8df465fd34,
         type: 3}
       propertyPath: m_Name
@@ -585,6 +590,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966141363150657741, guid: 677e4629309d0334f961d07b43dc797a,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1543251165
       objectReference: {fileID: 0}
     - target: {fileID: 6688616343395493400, guid: 677e4629309d0334f961d07b43dc797a,
         type: 3}
@@ -821,6 +831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511186667874988764, guid: 54e9c63c01128fa4da30779377ae5b98,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1543251165
       objectReference: {fileID: 0}
     - target: {fileID: 2135477649432185437, guid: 54e9c63c01128fa4da30779377ae5b98,
         type: 3}
@@ -1188,6 +1203,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8685165474293428308, guid: bbadbde826fc3e646af7b94e1b647b4c,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1543251165
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1328,6 +1348,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Watcher_Canvas]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3591776620739236112, guid: 92770f1dfcc252a42b36d189afea5f57,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1543251165
       objectReference: {fileID: 0}
     - target: {fileID: 7943469962553481855, guid: 92770f1dfcc252a42b36d189afea5f57,
         type: 3}

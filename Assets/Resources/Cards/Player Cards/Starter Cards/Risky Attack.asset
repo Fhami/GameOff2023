@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Risky Attack
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 0
   intentName: 
   cardDragTarget: 1
   effects:

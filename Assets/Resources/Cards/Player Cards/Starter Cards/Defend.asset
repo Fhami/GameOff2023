@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Defend
   m_EditorClassIdentifier: 
   cardType: 2
+  cardSize: 0
+  intentName: 
   cardDragTarget: 6
   effects:
-  - {fileID: 11400000, guid: 083fd00ebf0985647902f217bc1fc252, type: 2}
+  - {fileID: 11400000, guid: 913eccbad89cd2f4abc63913940a7fd0, type: 2}
+  cardActiveSkills: []

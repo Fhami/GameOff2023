@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffData: {fileID: 11400000, guid: e35737d70c0812d4299a757c57912a75, type: 2}
   propertyKey: 25
-  operation: 2
+  operation: 0
   value: 2
