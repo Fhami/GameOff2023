@@ -171,7 +171,8 @@ public class StatsUI : MonoBehaviour
 
         _preview_hp_txt.gameObject.SetActive(true);
         _hp_txt.gameObject.SetActive(false);
-       
+
+        _isPreviewHp = true;
 
     }
 
@@ -266,6 +267,8 @@ public class StatsUI : MonoBehaviour
         {
             _preview_shield_txt.text = "<color=#DB0006>" + to + "</color>"; //RED
         }
+
+        _isPreviewShield = true;
     }
 
     public void CancelPreviewShield()
