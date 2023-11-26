@@ -44,6 +44,17 @@ namespace DefaultNamespace
             {
                 _form.gameObject.SetActive(false);
             }
+            
+            var form = runtimeCharacter.GetCurrentForm();
+            foreach (var _passive in runtimeCharacter.passiveSlots[form])
+            {
+                if (_passive == null) continue;
+                
+                if (_passive.passiveData.triggerGameEvent != GameEvent.NONE)
+                {
+                    runtimeCharacter.DisablePassive(_passive);
+                }
+            }
 
             InitSizeUI();
             InitActiveSkillUI();
@@ -260,7 +271,10 @@ namespace DefaultNamespace
 
             foreach (var _passiveData in _currentForm.passives)
             {
-                statUI.SetBuff(_passiveData.buffData, _passiveData.value);
+                if (_passiveData.triggerGameEvent == GameEvent.NONE)
+                {
+                    statUI.SetBuff(_passiveData.buffData, _passiveData.value);
+                }
             }
             
         }

@@ -146,23 +146,34 @@ namespace DefaultNamespace
                 //Debug.Log($"hit {_hit.transform.gameObject.name} {Camera.main.ScreenToWorldPoint(Input.mousePosition)}");
                 var _target = _hit.transform.gameObject.GetComponent<ICardTarget>();
                 SetCurrentTarget(_target);
-                
+                if (_target != null)
+                {
+                    PreviewStat(_target, true);
+                }
+                else
+                {
+                    PreviewStat(null, false);
+                }
             }
             else
             {
                 SetCurrentTarget(null);
-                
+                PreviewStat(null, false);
             }
-
-            PreviewStat();
 
             OnDrag?.Invoke(this);
         }
 
-        private void PreviewStat()
+        private void PreviewStat(ICardTarget _newTarget, bool _value)
         {
-            if (ValidateTarget(currentTarget))
+            if (_value)
             {
+                //if (currentTarget == _newTarget) return;
+                if (!ValidateTarget(_newTarget))
+                {
+                    PreviewStat(_newTarget, false);
+                    return;
+                }
                 if (!BattleManager.current.canPlayCard) return;
 
                 foreach (var _effect in runtimeCard.cardData.effects)
@@ -172,20 +183,24 @@ namespace DefaultNamespace
                         BattleManager.current.runtimeEnemies);
                 }
             }
+            else
+            {
+                //if (currentTarget == _newTarget) return;
+                
+                foreach (var _enemy in BattleManager.current.enemies)
+                {
+                    _enemy.statUI.CancelPreviewHp();
+                    _enemy.statUI.CancelPreviewShield();
+                }
+            
+                BattleManager.current.player.statUI.CancelPreviewHp();
+                BattleManager.current.player.statUI.CancelPreviewShield();
+            }
         }
 
         private void SetCurrentTarget(ICardTarget _newTarget)
         {
             currentTarget?.HighlightSelected(false);
-
-            foreach (var _enemy in BattleManager.current.enemies)
-            {
-                _enemy.statUI.CancelPreviewHp();
-                _enemy.statUI.CancelPreviewShield();
-            }
-            
-            BattleManager.current.player.statUI.CancelPreviewHp();
-            BattleManager.current.player.statUI.CancelPreviewShield();
 
             currentTarget = _newTarget;
 

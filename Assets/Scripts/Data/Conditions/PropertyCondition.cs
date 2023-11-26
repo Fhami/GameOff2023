@@ -19,12 +19,12 @@ namespace DefaultNamespace
                 }
                 case PropertySource.SELF:
                 {
-                    propertyComparer.Evaluate(character);
+                    return propertyComparer.Evaluate(character);
                     break;
                 }
                 case PropertySource.PLAYER:
                 {
-                    propertyComparer.Evaluate(player);
+                    return propertyComparer.Evaluate(player);
                     break;
                 }
                 default:

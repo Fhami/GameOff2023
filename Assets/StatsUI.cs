@@ -42,7 +42,6 @@ public class StatsUI : MonoBehaviour
     [Header("HP Preview increase")]
     [SerializeField] GameObject _hp_back_preview;
     [SerializeField] Slider _hp_increase_preview_slider;
-    //[SerializeField] Image _hp_preview_increase_img;
 
     [Header("SHIELD")]
     [SerializeField] TextMeshProUGUI _shield_txt;
@@ -50,14 +49,11 @@ public class StatsUI : MonoBehaviour
     [SerializeField] Image _preview_shield_img;
     [SerializeField] TextMeshProUGUI _preview_shield_txt;
 
-
-
     [Header("SHIELD FEEDBACK")]
     [SerializeField] ParticleSystem _shield_increase_efx;
     [SerializeField] ParticleSystem _shield_decrease_efx;
     [SerializeField] ParticleSystem _shield_focus_efx;
     [SerializeField] MMF_Player _shield_preview_feedback;
-
 
     [Header("BUFF")]
     [SerializeField] BuffIcon _buff_prefab;
@@ -67,7 +63,8 @@ public class StatsUI : MonoBehaviour
     [SerializeField] Color negativeBuffColor;
     [SerializeField] SerializedDictionary<BuffData, BuffIcon> _buffs;
 
-
+    bool _isPreviewHp = false;
+    bool _isPreviewShield = false;
 
     private void Start()
     {
@@ -135,6 +132,7 @@ public class StatsUI : MonoBehaviour
     
     public void PreviewHp(int current, int to, int max)
     {
+        if (_isPreviewHp) return;
         var deltaHp = current - to;
         float currentPercentile = (float)current / (float)max;
         float deltaPercentile = (float)deltaHp / (float)max;
@@ -173,28 +171,23 @@ public class StatsUI : MonoBehaviour
 
         _preview_hp_txt.gameObject.SetActive(true);
         _hp_txt.gameObject.SetActive(false);
-       
+
+        _isPreviewHp = true;
 
     }
 
-
     public void CancelPreviewHp()
     {
+        if (!_isPreviewHp) return;
         _hp_front_preview.SetActive(false);
         _hp_back_preview.SetActive(false);
         _preview_hp_txt.gameObject.SetActive(false);
         _hp_txt.gameObject.SetActive(true);
         _hp_focus_efx.Stop();
+        _isPreviewHp = false;
     }
 
-
-    //void AnimateHpBar(int to,float duration)
-    //{
-    //    _hpBarTween = _hp_img.DOFillAmount(to, duration);
-    //}
-
-
-    //May need to change buff ID to something elsee????? ?
+    //May need to change buff ID to something elsee??????
 
     public void SetBuff(BuffData buffData, int value)
     {
@@ -262,6 +255,8 @@ public class StatsUI : MonoBehaviour
 
     public void PreviewShield(int from, int to)
     {
+        if (_isPreviewShield) return;
+
         _preview_shield_content.SetActive(true);
         _icon_content.SetActive(false);
         if (from < to)
@@ -272,13 +267,17 @@ public class StatsUI : MonoBehaviour
         {
             _preview_shield_txt.text = "<color=#DB0006>" + to + "</color>"; //RED
         }
+
+        _isPreviewShield = true;
     }
 
     public void CancelPreviewShield()
     {
+        if (!_isPreviewShield) return;
         _preview_shield_content.SetActive(false);
         _icon_content.SetActive(true);
         _preview_shield_txt.text = "";
+        _isPreviewShield = false;
     }
 
     public void PlayShieldUpFeedback()
@@ -292,80 +291,5 @@ public class StatsUI : MonoBehaviour
         _shield_decrease_efx.Stop();
          _shield_decrease_efx.Play();
     }
-
-
-    #region Test Function
-
-    public void Btn_SetHp(int hp)
-    {
-        SetHp(20, hp, 100,0.2f,()=> { Debug.Log("Finish set hp"); });
-    }
-
-    public void Btn_DecreaseHp()
-    {
-        SetHp(100, 70, 100, 0.2f);
-    }
-
-    public void Btn_AddBuffA(BuffData buffData)
-    {
-        SetBuff(buffData, 1);
-    }
-
-    public void Btn_RemoveBuffA(BuffData buffData)
-    {
-        SetBuff(buffData, 0);
-    }
-
-    public void Btn_AddBuffB(BuffData buffData)
-    {
-        SetBuff(buffData, 2);
-    }
-
-    public void Btn_RemoveBuffB(BuffData buffData)
-    {
-        SetBuff(buffData, 0);
-    }
-
-    public void Btn_GetShield(int value)
-    {
-        SetShield(0, value, PlayShieldUpFeedback);
-    }
-
-    public void Btn_LostShield(int value)
-    {
-        SetShield(20, value, PlayShieldDownFeedback);
-    }
-
-    public void Btn_Preview01()
-    {
-        PreviewHp(15, 3, 30);
-    }
-
-    public void Btn_Preview02()
-    {
-        PreviewHp(15, 27, 30);
-    }
-
-    public void Btn_CancelPreviewHp()
-    {
-        CancelPreviewHp();
-    }
-
-    public  void Btn_PreviewShieldUp()
-    {
-        PreviewShield(0,13);
-    }
-
-    public void Btn_PreviewShieldDown()
-    {
-        PreviewShield(13,1);
-    }
-
-    public void Btn_CancelPreviewShield()
-    {
-        CancelPreviewShield();
-    }
-
-    #endregion
 
 }

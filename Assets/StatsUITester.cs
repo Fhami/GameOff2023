@@ -12,18 +12,6 @@ public class StatsUITester : MonoBehaviour
     [SerializeField] int _currentHp = 100;
     [SerializeField] int _currentShield = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     #region Test Function
 
     public void Btn_AddHp(TMP_InputField value)

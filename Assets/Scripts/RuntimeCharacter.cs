@@ -84,7 +84,7 @@ namespace DefaultNamespace
                 {
                     // If there's a passive assigned to that slot, add the modifier to character's property
                     RuntimePassive passive = slots[i];
-                    if (passive != null)
+                    if (passive != null && passive.passiveData.triggerGameEvent == GameEvent.NONE)
                     {
                         IProperty property = properties.Get(passive.modifier.propertyKey);
                         property.AddModifier(passive.modifier);
@@ -113,6 +113,20 @@ namespace DefaultNamespace
                     }
                 }
             }
+        }
+
+        public void EnablePassive(RuntimePassive passive)
+        {
+            if (passive == null) return;
+            IProperty property = properties.Get(passive.modifier.propertyKey);
+            property.AddModifier(passive.modifier);
+        }
+
+        public void DisablePassive(RuntimePassive passive)
+        {
+            if (passive == null) return;
+            IProperty property = properties.Get(passive.modifier.propertyKey);
+            property.RemoveModifier(passive.modifier);
         }
 
         /// <summary>
