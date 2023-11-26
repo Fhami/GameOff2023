@@ -198,6 +198,8 @@ public class StatsUI : MonoBehaviour
 
     public void SetBuff(BuffData buffData, int value)
     {
+        if (!buffData) return;
+        
         BuffIcon icon;
 
         if (!_buffs.TryGetValue(buffData, out icon)) //If not found this buff id in Dictionary, create one and add to the UI and Dictionary
