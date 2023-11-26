@@ -57,7 +57,7 @@ public class SizeUITester : MonoBehaviour
         var to = _currentSize + 1;
         if (to < 0) to = 0;
         if (to > 10) to = 10;
-        _sizeUI.GoToSize(_currentSize, to, _setting);
+        _sizeUI.GoToSize(_currentSize, to);
         _currentSize = to;
     }
 
@@ -66,7 +66,7 @@ public class SizeUITester : MonoBehaviour
         var to = _currentSize - 1;
         if (to < 0) to = 0;
         if (to > 10) to = 10;
-        _sizeUI.GoToSize(_currentSize, to, _setting);
+        _sizeUI.GoToSize(_currentSize, to);
         _currentSize = to;
     }
 
@@ -75,7 +75,7 @@ public class SizeUITester : MonoBehaviour
         var to = _currentSize +3;
         if (to < 0) to = 0;
         if (to > 10) to = 10;
-        _sizeUI.GoToSize(_currentSize, to, _setting);
+        _sizeUI.GoToSize(_currentSize, to);
         _currentSize = to;
     }
 
@@ -84,7 +84,7 @@ public class SizeUITester : MonoBehaviour
         var to = _currentSize - 3;
         if (to < 0) to = 0;
         if (to > 10) to = 10;
-        _sizeUI.GoToSize(_currentSize, to, _setting);
+        _sizeUI.GoToSize(_currentSize, to);
         _currentSize = to;
 
 

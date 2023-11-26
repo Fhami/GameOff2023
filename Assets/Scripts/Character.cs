@@ -76,8 +76,19 @@ namespace DefaultNamespace
             var _smallDeath = _smallForm.sizeMin == 0 ? 0 : -1;
             var _bigDeath = runtimeCharacter.characterData.deathOnMax ? _bigForm.sizeMax : -1;
 
-            sizeUI.InitSizeUI(runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value, _small,
-                _big, _smallDeath, _bigDeath);
+
+            var _sizeSetting = new SizeSetting(_small, (_smallForm.sizeMax + _bigForm.sizeMin) / 2, _big,
+                runtimeCharacter.characterData.minSize, runtimeCharacter.characterData.maxSize, _smallDeath, _bigDeath);
+
+            foreach (var _form in runtimeCharacter.characterData.forms)
+            {
+                if (_form.activeSkill)
+                {
+                    _sizeSetting.skills.Add(_form.activeSkillSize);
+                }
+            }
+            
+            sizeUI.InitSizeUI(runtimeCharacter.characterData.startSize, _sizeSetting);
         }
 
         private void InitActiveSkillUI()
@@ -168,7 +179,7 @@ namespace DefaultNamespace
         public void UpdateSizeVisual(int _oldValue, int _size)
         {
             var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
-            sizeUI.SetSize(_size, _sizeEffect);
+            sizeUI.GoToSize(_oldValue, _size);
         }
         
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)

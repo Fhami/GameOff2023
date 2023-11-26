@@ -54,6 +54,8 @@ public class SizeUI : MonoBehaviour
     [SerializeField] List<GameObject> _lines = new List<GameObject>();
     [SerializeField] SerializedDictionary<int, TagSizeUI> _tagUIs = new SerializedDictionary<int, TagSizeUI>();
 
+    private SizeSetting sizeSetting;
+    
     /// <summary>
     /// Use this to init this UI
     /// </summary>
@@ -74,6 +76,7 @@ public class SizeUI : MonoBehaviour
 
     public void InitSizeUI(int start, SizeSetting _setting)
     {
+        sizeSetting = _setting;
         foreach(var o in _lines)
         {
             GameObject.Destroy(o);
@@ -113,7 +116,7 @@ public class SizeUI : MonoBehaviour
         }
 
 
-        GoToSize(0, start, _setting);
+        GoToSize(0, start);
 
     }
 
@@ -204,7 +207,7 @@ public class SizeUI : MonoBehaviour
     Tween _sizeNumberTween;
     Sequence _sizeTween;
 
-    public void GoToSize(int from,int to, SizeSetting setting, System.Action onComplete = null)
+    public void GoToSize(int from,int to, System.Action onComplete = null)
     {
         if (_sizeTween != null && _sizeTween.IsPlaying())
         {
@@ -213,7 +216,7 @@ public class SizeUI : MonoBehaviour
   
         _sizeTween = DOTween.Sequence();
 
-        var percent = ((float)to / (float)setting.max) * 0.5f;
+        var percent = ((float)to / (float)sizeSetting.max) * 0.5f;
         var form_delay = 0f;
         var size_delay = 0f;
         if (Mathf.Abs(from - to) >= 2) form_delay = 0.3f;
@@ -234,11 +237,11 @@ public class SizeUI : MonoBehaviour
         _sizeTween.Join(_line.DOFillAmount(percent + 0.005f, 0.3f));
         _sizeTween.Join(_form.DOFillAmount(percent - 0.005f, 0.3f).SetDelay(form_delay));
 
-        if(setting.GetSize(to) == Size.L)
+        if(sizeSetting.GetSize(to) == Size.L)
         {
             _form.DOColor(_l_color,0.2f);
         }
-        else if (setting.GetSize(to) == Size.S)
+        else if (sizeSetting.GetSize(to) == Size.S)
         {
             _form.DOColor(_s_color, 0.2f);
         }
@@ -248,9 +251,9 @@ public class SizeUI : MonoBehaviour
         }
 
 
-        if (to > setting.l)
+        if (to > sizeSetting.l)
         {
-            var L = (float)setting.l / (float)setting.max;
+            var L = (float)sizeSetting.l / (float)sizeSetting.max;
             _sizeTween.Join(_size.DOFillAmount(L * 0.5f, 0.2f).SetDelay(size_delay));
         }
         //else if (value >= m)
@@ -258,9 +261,9 @@ public class SizeUI : MonoBehaviour
         //    var M = (float)m / (float)maxSize;
         //    _size.DOFillAmount(M * 0.5f, 0.2f).SetDelay(0.3f);
         //}
-        else if(to > setting.s)
+        else if(to > sizeSetting.s)
         {
-            var S = (float)setting.s / (float)setting.max;
+            var S = (float)sizeSetting.s / (float)sizeSetting.max;
             _sizeTween.Join(_size.DOFillAmount(S * 0.5f, 0.2f).SetDelay(size_delay));
         }
         else
@@ -269,15 +272,15 @@ public class SizeUI : MonoBehaviour
         }
 
 
-        if (setting.maxDead != -1)
+        if (sizeSetting.maxDead != -1)
         {
-            if (to >= setting.maxDead) SetDangerMax(true);
+            if (to >= sizeSetting.maxDead) SetDangerMax(true);
             else SetDangerMax(false);
         }
 
-        if (setting.minDead != -1)
+        if (sizeSetting.minDead != -1)
         {
-            if (to <= setting.minDead) SetDangerMin(true);
+            if (to <= sizeSetting.minDead) SetDangerMin(true);
             else SetDangerMin(false);
         }
 
@@ -325,7 +328,7 @@ public class SizeUI : MonoBehaviour
     public int max;
     public int minDead;
     public int maxDead;
-    public List<int> skills;
+    public List<int> skills = new List<int>();
 
     public SizeSetting ( int s, int m,int l, int min, int max, int minDead, int maxDead)
     {
