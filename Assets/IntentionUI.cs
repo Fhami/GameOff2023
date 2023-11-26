@@ -38,7 +38,15 @@ public class IntentionUI : MonoBehaviour
             }
 
             icon.IntentionDetail = intentionDetail;
-            icon.SetIcon(intentionDetail._intentData.icon);
+
+            if(_intentVfxDB._intentVFXs.TryGetValue(intentionDetail._intentData,out var refObject))
+            {
+                icon.SetIcon(refObject);
+            }
+            else
+            {
+                icon.SetIcon(intentionDetail._intentData.icon);
+            }
 
             //if (_intentVfxDB._intentVFXs.TryGetValue(intentDetails[i]._intentData, out var obj)) 
             //{
@@ -49,7 +57,7 @@ public class IntentionUI : MonoBehaviour
             //    icon.SetIcon(intentDetails[i]._intentData.icon);
             //}
 
-            if(intentionDetail._value >= 0) icon.SetValue(intentionDetail._value);
+            if (intentionDetail._value >= 0) icon.SetValue(intentionDetail._value);
             icon.SetMultiplier(intentionDetail._multiplier);
             icon.SetSizeEffect(intentionDetail._size);
             icon.gameObject.SetActive(true);
