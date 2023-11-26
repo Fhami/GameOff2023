@@ -14,6 +14,7 @@ public class TagSizeUI : MonoBehaviour
     [SerializeField] Color _s_color;
     [SerializeField] Color _m_color;
     [SerializeField] Color _l_color;
+    [SerializeField] GameObject _focus_efx;
 
     public void Set(Size size, int value)
     {
@@ -37,8 +38,18 @@ public class TagSizeUI : MonoBehaviour
 
     public void Highlight(bool value)
     {
-        if(value) _image.OutlineWidth = 2;
-        else _image.OutlineWidth = 0;
+        if (value)
+        {
+            _image.OutlineWidth = 2;
+            _image.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+            _focus_efx?.gameObject.SetActive(true);
+        }
+        else
+        {
+            _image.OutlineWidth = 0;
+            _image.transform.localScale = new Vector3(1, 1, 1);
+            _focus_efx?.gameObject.SetActive(false);
+        }
     }
 
 }

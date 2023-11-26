@@ -90,6 +90,16 @@ public class SizeUITester : MonoBehaviour
 
     }
 
+    public void FocusSkill(int value)
+    {
+        _sizeUI.HighlightTag(value, true);
+    }
+
+    public void StopFocusSkill(int value)
+    {
+        _sizeUI.HighlightTag(value, false);
+    }
+
 
 
 
