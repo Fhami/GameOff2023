@@ -108,5 +108,11 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
+
+        public virtual void PreviewEffect(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            
+        }
     }
 }

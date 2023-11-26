@@ -149,7 +149,10 @@ public class StatsUI : MonoBehaviour
             _hp_front_preview.SetActive(true);
             _hp_back_preview.SetActive(false);
             _preview_hp_txt.text = "<color=#FDFF00>" + to + "</color> / " + max; ;//FF0909 Red //FDFF00 Yellow
-            _hp_focus_efx.Play();
+            if (!_hp_focus_efx.isPlaying)
+            {
+                _hp_focus_efx.Play();
+            }
 
 
         }
@@ -160,7 +163,10 @@ public class StatsUI : MonoBehaviour
             _hp_front_preview.SetActive(false);
             _hp_back_preview.SetActive(true);
             _preview_hp_txt.text = "<color=#46FF00>" +to +  "</color> / " + max;
-            _hp_focus_efx.Play();
+            if (!_hp_focus_efx.isPlaying)
+            {
+                _hp_focus_efx.Play();
+            }
             //_hp_preview_increase_img.fillAmount = currentPercentile - deltaPercentile;
 
         }
