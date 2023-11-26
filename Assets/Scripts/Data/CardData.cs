@@ -30,7 +30,9 @@ namespace DefaultNamespace
         Power,
         Status,
         Curse,
-        Rare
+        Rare,
+        SizeUp,
+        SizeDown
     }
 
     /// <summary>
