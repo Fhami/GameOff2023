@@ -14,14 +14,14 @@ public class SizeUI : MonoBehaviour
 {
 
     [SerializeField] CanvasGroup main_canvas; 
+
     [SerializeField] TextMeshProUGUI _current_size_txt;
     [SerializeField] TextMeshProUGUI _big_size_txt;
     [SerializeField] TextMeshProUGUI _small_size_txt;
     [SerializeField] TextMeshProUGUI _big_dead_size_txt;
     [SerializeField] TextMeshProUGUI _small_dead_size_txt;
 
-    [SerializeField] Image _big_img;
-    [SerializeField] Image _small_img;
+    [SerializeField] Image _size_img;
 
     [SerializeField] DeadIcon _big_dead_icon;
     [SerializeField] DeadIcon _small_dead_icon;
@@ -44,11 +44,16 @@ public class SizeUI : MonoBehaviour
     [SerializeField] MPImage _form;
     [SerializeField] MPImage _size;
 
-    [Header("Color")]
+    [Header("Size Color")]
     [SerializeField] Color _s_color;
     [SerializeField] Color _m_color;
     [SerializeField] Color _l_color;
 
+    [Header("Size Number Color")]
+    [SerializeField] Color _s2_color;
+    [SerializeField] Color _m2_color;
+    [SerializeField] Color _l2_color;
+    [SerializeField] Color _dead_color;
 
     [Header("Cache")]
     [SerializeField] List<GameObject> _lines = new List<GameObject>();
@@ -56,24 +61,6 @@ public class SizeUI : MonoBehaviour
 
     private SizeSetting sizeSetting;
     
-    /// <summary>
-    /// Use this to init this UI
-    /// </summary>
-    /// <param name="startSize"></param>
-    /// <param name="smallSize"></param>
-    /// <param name="bigSize"></param>
-    public void InitSizeUI(int startSize, int smallSize, int bigSize)
-    {
-        SetSize(startSize);
-
-        if (smallSize > -1) SetSmallSize(smallSize);
-        else SetEnableSmall(false);
-
-        if (bigSize > -1) SetBigSize(bigSize);
-        else SetEnableBig(false);
-    }
-
-
     public void InitSizeUI(int start, SizeSetting _setting)
     {
         sizeSetting = _setting;
@@ -90,7 +77,7 @@ public class SizeUI : MonoBehaviour
         _tagUIs.Clear();
 
 
-        InitSizeUI(start, _setting.s, _setting.l);
+        _current_size_txt.text = start.ToString(); //Set start size string
 
         if (_setting.minDead != -1)
         {
@@ -121,25 +108,8 @@ public class SizeUI : MonoBehaviour
     }
 
 
-    public void InitSizeUI(int startSize, int smallSize, int bigSize, int smallDeadSize, int bigDeadSize)//OLD
+    void SetSize(int size, SizeEffectType effect)
     {
-        InitSizeUI(startSize, smallSize, bigSize);
-
-        if (smallDeadSize > -1) SetSize(startSize);
-        else _small_dead_icon.gameObject.SetActive(false);
-
-        if (bigDeadSize > -1) SetSize(startSize);
-        else _big_dead_icon.gameObject.SetActive(false);
-    }
-
-    public void SetSize(int size)
-    {
-        _current_size_txt.text = size.ToString();
-    }
-
-    public void SetSize(int size, SizeEffectType effect)
-    {
-        SetSize(size);
         text_squash.PlayFeedbacks();
         //if(effect == SizeEffectType.Decrease)
         //{
@@ -149,16 +119,6 @@ public class SizeUI : MonoBehaviour
         //{
         //    _increase_efx.Play();
         //}
-    }
-
-    public void SetEnableBig(bool enable)
-    {
-        _big_img.gameObject.SetActive(enable);
-    }
-
-    public void SetEnableSmall(bool enable)
-    {
-        _small_img.gameObject.SetActive(enable);
     }
 
     public void SetBigSize(int size)
@@ -237,19 +197,28 @@ public class SizeUI : MonoBehaviour
         _sizeTween.Join(_line.DOFillAmount(percent + 0.005f, 0.3f));
         _sizeTween.Join(_form.DOFillAmount(percent - 0.005f, 0.3f).SetDelay(form_delay));
 
+        //Update size color
         if(sizeSetting.GetSize(to) == Size.L)
         {
             _form.DOColor(_l_color,0.2f);
+            _size_img.DOColor(_l2_color, 0.2f);
+            _size_img.DOFade(0.8f, 0.2f);
+
         }
         else if (sizeSetting.GetSize(to) == Size.S)
         {
             _form.DOColor(_s_color, 0.2f);
+            _size_img.DOColor(_s2_color, 0.2f);
+            _size_img.DOFade(0.8f, 0.2f);
+
         }
         else
         {
             _form.DOColor(_m_color, 0.2f);
+            _size_img.DOColor(_m2_color, 0.2f);
+            _size_img.DOFade(0.8f, 0.2f);
         }
-
+        
 
         if (to > sizeSetting.l)
         {
@@ -271,16 +240,27 @@ public class SizeUI : MonoBehaviour
             _sizeTween.Join(_size.DOFillAmount(0, 0.2f).SetDelay(size_delay));
         }
 
-
+        //Check Dead Color and Feedback
         if (sizeSetting.maxDead != -1)
         {
-            if (to >= sizeSetting.maxDead) SetDangerMax(true);
+            if (to >= sizeSetting.maxDead)
+            {
+                SetDangerMax(true);
+                _size_img.DOColor(_dead_color, 0.2f);
+                _size_img.DOFade(0.8f, 0.2f);
+            }
             else SetDangerMax(false);
         }
 
         if (sizeSetting.minDead != -1)
         {
-            if (to <= sizeSetting.minDead) SetDangerMin(true);
+            if (to <= sizeSetting.minDead)
+            {
+                SetDangerMin(true);
+                _size_img.DOColor(_dead_color, 0.2f);
+                _size_img.DOFade(0.8f, 0.2f);
+
+            }
             else SetDangerMin(false);
         }
 
