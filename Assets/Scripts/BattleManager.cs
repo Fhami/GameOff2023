@@ -428,10 +428,10 @@ namespace DefaultNamespace
             yield return OnGameEvent(GameEvent.ON_CARD_SHUFFLED, player, player, enemies);
         }
         
-        public IEnumerator ShuffleHandToDeckAndDraw(RuntimeCard card, RuntimeCharacter player,
+        public IEnumerator DiscardCardAndDraw(RuntimeCard card, RuntimeCharacter player,
             List<RuntimeCharacter> enemies)
         {
-            yield return ShuffleHandToDeck(card, player, enemies);
+            yield return DiscardCard(card, player, player, null, enemies);
             
             yield return DrawCard(null, player, player, null, enemies);
         }
@@ -443,7 +443,7 @@ namespace DefaultNamespace
             {
                 //Prevent player playing card while selecting
                 canPlayCard = false;
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonUp(0))
                 {
                     var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,
                         LayerMask.NameToLayer("Card"));
@@ -455,7 +455,7 @@ namespace DefaultNamespace
                         {
                             if (!_target.runtimeCard.IsPersist())
                             {
-                                yield return ShuffleHandToDeckAndDraw(_target.runtimeCard, player, enemies);
+                                yield return DiscardCardAndDraw(_target.runtimeCard, player, enemies);
                                 count--;
                             }
                             else

@@ -24,12 +24,12 @@ public class RedrawEffect : EffectData
     public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
         RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
     {
-        return $"Shuffle {count} cards to deck and draw the same amount.";
+        return GetDescriptionText();
     }
 
     public override string GetDescriptionText()
     {
-        return $"Shuffle {count} card to deck and draw the same amount.";
+        return $"Discard {count} cards and draw the same amount.";
     }
 
     public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,

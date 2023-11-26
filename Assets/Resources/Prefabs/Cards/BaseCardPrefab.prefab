@@ -2570,6 +2570,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 561015503707376079}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  draggableLine: {fileID: 157846041662216799}
   visualDict:
     _serializedList:
     - Key: 4

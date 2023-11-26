@@ -36,6 +36,7 @@ namespace DefaultNamespace
         [SerializeField] private UIParticle destroyCardParticle;
 
         [Header("Visual")] 
+        [SerializeField] private DraggableLine draggableLine;
         [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
         [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
 
@@ -122,12 +123,20 @@ namespace DefaultNamespace
         private void OnMouseDown()
         {
             validTargets = GetValidTargets(runtimeCard);
+            
         }
 
         private void OnMouseDrag()
         {
-            if (Unplayable || !BattleManager.current.canPlayCard) return;
-            
+            if (Unplayable || !BattleManager.current.canPlayCard)
+            {
+                draggableLine.Cancel();
+                draggableLine.enabled = false;
+                return;
+            }
+
+            draggableLine.enabled = true;
+
             HighlightTargets(true);
 
             var _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, targetMask);

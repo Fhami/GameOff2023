@@ -203,6 +203,8 @@ public class CardController : MonoBehaviour
     {
         card.OnDropped.AddListener(_target =>
         {
+            if (!BattleManager.current.canPlayCard) return;
+            
             if (card.ValidateTarget(_target))
             {
                 if (ShowLog)

@@ -9,6 +9,11 @@ public class DraggableLine : MonoBehaviour
 
     private Vector3[] points = new Vector3[2];
 
+    public void Cancel()
+    {
+        lineRenderer.enabled = false;
+    }
+    
     private void OnMouseDown()
     {
         points[0] = transform.position;
@@ -29,6 +34,6 @@ public class DraggableLine : MonoBehaviour
 
     private void OnMouseUp()
     {
-        lineRenderer.enabled = false;
+        Cancel();
     }
 }
