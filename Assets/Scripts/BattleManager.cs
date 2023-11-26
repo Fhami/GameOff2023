@@ -735,8 +735,11 @@ namespace DefaultNamespace
             
             //Update cards value when something happened
             cardController.UpdateCards();
+            
+            TryTriggerPassives(gameEvent, player, player, enemies);
             foreach (var _enemy in enemies)
             {
+                TryTriggerPassives(gameEvent, _enemy, player, enemies);
                 _enemy.Character.UpdateBuffsAndDebuffsVisual();
             }
             player.Character.UpdateBuffsAndDebuffsVisual();
@@ -885,6 +888,53 @@ namespace DefaultNamespace
             }
 
             // There's no recharge conditions assigned, therefore the skill can't recharge. :(
+            return false;
+        }
+        
+        public void TryTriggerPassives(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
+        {
+            var form = character.GetCurrentForm();
+            foreach (var passive in character.passiveSlots[form])
+            {
+                if (passive == null) continue;
+
+                if (passive.passiveData.triggerGameEvent == gameEvent)
+                {
+                    if (TriggerPassive(gameEvent, passive, character, player))
+                    {
+                        character.EnablePassive(passive);
+                    }
+                    else
+                    {
+                        character.DisablePassive(passive);
+                    }
+                }
+            }
+        }
+
+        public bool TriggerPassive(GameEvent gameEvent, RuntimePassive passive, RuntimeCharacter character, RuntimeCharacter player)
+        {
+            if (passive.passiveData.triggerGameEvent != gameEvent)
+            {
+                return false;
+            }
+            
+            if (passive.passiveData.triggerConditions != null)
+            {
+                foreach (ConditionData condition in passive.passiveData.triggerConditions)
+                {
+                    // If any condition fails the skill won't trigger.
+                    if (!condition.Evaluate(gameEvent, character, player))
+                    {
+                        return false;
+                    }
+                }
+                
+                // All conditions passed and the skill will trigger!
+                return true;
+            }
+
+            // There's no trigger conditions assigned, therefore the skill can't trigger. :(
             return false;
         }
     }

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d735d963044655a14ad58b0f301302, type: 3}
   m_Name: TestPassive
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: e7996daa1be0e494c92603a5da0bdca0, type: 2}
-  propertyKey: 33
-  operation: 2
+  triggerGameEvent: 15
+  triggerConditions:
+  - {fileID: 11400000, guid: 20369abaefd23764cb738eeb02da15ed, type: 2}
+  buffData: {fileID: 11400000, guid: e35737d70c0812d4299a757c57912a75, type: 2}
+  propertyKey: 25
+  operation: 0
   value: 3
