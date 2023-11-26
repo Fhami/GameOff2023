@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -63,5 +64,29 @@ namespace DefaultNamespace
         [InfoBox("Card active skills are active when the card is in player's hand.")]
         [Expandable]
         public List<CardActiveEffect> cardActiveSkills;
+        
+        public static string GetCardDescription(CardData _cardData)
+        {
+            StringBuilder _builder = new StringBuilder();
+            foreach (var _effect in _cardData.effects)
+            {
+                var _description = _effect.GetDescriptionText();
+                
+                _builder.AppendLine(_description);
+                if (_effect.effectModifier)
+                {
+                    _builder.AppendLine(_effect.effectModifier.name);
+                }
+                
+                //Debug.Log($"{_effect.name} {_description}");
+            }
+
+            foreach (var _skill in _cardData.cardActiveSkills)
+            {
+                _builder.AppendLine(_skill.name);
+            }
+
+            return _builder.ToString();
+        }
     }
 }

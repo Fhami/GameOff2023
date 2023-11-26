@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class ActiveSkillIcon : MonoBehaviour
+public class ActiveSkillIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Button _button;
     [SerializeField] Image _dimImage;
@@ -19,6 +20,9 @@ public class ActiveSkillIcon : MonoBehaviour
     [SerializeField] Color _smallColor;
     [SerializeField] Color _mediumColor;
     [SerializeField] Color _bigColor;
+
+    private CardData cardData;
+    
     Action _onClick;
 
     public void SetEnable(bool enable)
@@ -29,6 +33,7 @@ public class ActiveSkillIcon : MonoBehaviour
 
     public void SetSkill(CardData cardData, Action onClick)
     {
+        this.cardData = cardData;
         this._icon_img.sprite = cardData.effects[0].intent.icon;
         this._onClick = onClick;
     }
@@ -62,5 +67,16 @@ public class ActiveSkillIcon : MonoBehaviour
             _size_img.color = _bigColor;
             _size_number_img.color = _bigColor;
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        var _text = $"{CardData.GetCardDescription(cardData)}";
+        BattleManager.current.TooltipUI.Show($"Size {_size_txt.text} Gain card <color=#00CED1>{cardData.name}</color>" ,_text, transform.position, TooltipUI.Side.TopRight);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        BattleManager.current.TooltipUI.Hide();
     }
 }
