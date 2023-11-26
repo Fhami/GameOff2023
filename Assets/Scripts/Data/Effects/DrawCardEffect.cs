@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -16,18 +18,58 @@ namespace DefaultNamespace
                 // TODO: VFX / visuals what happens when can't draw?
                 yield break;
             }
+            
+            int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            var count = times + this.count;
 
-            yield return BattleManager.current.DrawCard(card, characterPlayingTheCard, player, cardTarget, enemies);
+            for (int i = 0; i < count; i++)
+            {
+                yield return BattleManager.current.DrawCard(card, characterPlayingTheCard, player, cardTarget, enemies);
+            }
         }
 
         public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            return GetDescriptionText();
+            StringBuilder sb = new();
+            
+            sb.Append($"Draw {count.ToString()} cards.");
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return sb.ToString();
         }
 
         public override string GetDescriptionText()
         {
-            return $"Draw {count.ToString()} cards.";
+            StringBuilder sb = new();
+
+            sb.Append($"Draw {count.ToString()} cards.");
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return sb.ToString();
         }
 
         public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
@@ -39,17 +81,6 @@ namespace DefaultNamespace
         public override string GetEffectValue(RuntimeCard card = null)
         {
             return count.ToString();
-        }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "1";
         }
     }
 }

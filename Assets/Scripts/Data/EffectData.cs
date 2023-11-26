@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -9,6 +11,19 @@ namespace DefaultNamespace
         public IntentData intent;
 
         public EffectModifier effectModifier;
+        
+        [Header("Times")]
+        public ValueSource timesValueSource;
+        
+        [ShowIf("timesValueSource", ValueSource.CARD)]
+        public int timesValue;
+
+        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
+        public CustomValueSource customTimesValue;
+        
+        [ResizableTextArea]
+        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
+        public string customTimesDescription;
         
         /// <summary>
         /// A coroutine for playing a single card. Executes card's effects and can also trigger different skills.
@@ -49,14 +64,49 @@ namespace DefaultNamespace
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
         public abstract string GetEffectValue(RuntimeCard card = null);
+
         /// <summary>
         /// Get the times value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public abstract int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies);
+        public int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            int times = timesValueSource switch
+            {
+                ValueSource.NONE => 1,
+                ValueSource.CARD => timesValue,
+                ValueSource.CUSTOM => customTimesValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            int cardTimesModifier = card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(characterPlayingTheCard);
+            
+            return times + cardTimesModifier;
+        }
+        
         /// <summary>
         /// Get times value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
         /// </summary>
-        public abstract string GetTimesValue(RuntimeCard card = null);
+        public string GetTimesValue(RuntimeCard card = null)
+        {
+            if (card == null)
+            {
+                return timesValueSource switch
+                {
+                    ValueSource.NONE => 1.ToString(),
+                    ValueSource.CARD => timesValue.ToString(),
+                    ValueSource.CUSTOM => "X",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+          
+            return timesValueSource switch
+            {
+                ValueSource.NONE => 1.ToString(),
+                ValueSource.CARD => (timesValue + card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CUSTOM => "X",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
     }
 }

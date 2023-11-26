@@ -28,8 +28,12 @@ namespace DefaultNamespace
             // TODO: VFX
             
             int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
-            
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += shield;
+            var times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+
+            for (int i = 0; i < times; i++)
+            {
+                characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += shield;
+            }
             
             yield break;
         }
@@ -47,6 +51,20 @@ namespace DefaultNamespace
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -70,6 +88,20 @@ namespace DefaultNamespace
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -123,15 +155,6 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "";
-        }
+        
     }
 }

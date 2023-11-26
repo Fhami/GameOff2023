@@ -36,15 +36,4 @@ public class PlayNextCardMultipleTimesEffect : EffectData
     {
         return extraTimes.ToString();
     }
-
-    public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-        RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-    {
-        return 1;
-    }
-
-    public override string GetTimesValue(RuntimeCard card = null)
-    {
-        return "1";
-    }
 }

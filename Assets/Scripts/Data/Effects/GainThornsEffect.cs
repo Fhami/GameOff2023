@@ -8,6 +8,7 @@ using UnityEngine;
 namespace DefaultNamespace
 {
     [CreateAssetMenu(menuName = "Gamejam/Effect/Gain Thorns Effect", fileName = "New Gain Thorns Effect")]
+    [Obsolete("Use GainStatusEffect")]
     public class GainThornsEffect : EffectData
     {
         [Header("Thorns")]
@@ -122,17 +123,6 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
-        }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "1";
         }
     }
 }

@@ -32,9 +32,12 @@ namespace DefaultNamespace
             int health = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             // TODO: VFX
-            
+            int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             // Process the effect
-            yield return LoseHealth(cardTarget, health, characterPlayingTheCard, player, cardTarget, enemies);
+            for (int i = 0; i < times; i++)
+            {
+                yield return LoseHealth(cardTarget, health, characterPlayingTheCard, player, cardTarget, enemies);
+            }
         }
 
         private IEnumerator LoseHealth(RuntimeCharacter target, int incomingHealthChange, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
@@ -80,6 +83,20 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
             
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             sb.Append(".");
 
             return sb.ToString();
@@ -98,6 +115,20 @@ namespace DefaultNamespace
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customHealthDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue().ToString()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -148,17 +179,6 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
-        }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "";
         }
     }
 }

@@ -42,15 +42,4 @@ public class RedrawEffect : EffectData
     {
         return count.ToString();
     }
-
-    public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-        RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-    {
-        return 1;
-    }
-
-    public override string GetTimesValue(RuntimeCard card = null)
-    {
-        return "1";
-    }
 }

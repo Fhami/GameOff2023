@@ -77,17 +77,6 @@ namespace DefaultNamespace
             return "1";
         }
 
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "1";
-        }
-
         private IEnumerator HalveSize(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // Get the target's form before we change it's size

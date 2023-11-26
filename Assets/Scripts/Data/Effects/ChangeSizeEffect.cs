@@ -29,18 +29,6 @@ namespace DefaultNamespace
         [ShowIf("sizeValueSource", ValueSource.CUSTOM)]
         public string sizeValueDescription;
         
-        [Header("Times")]
-        public ValueSource timesValueSource;
-        
-        [ShowIf("timesValueSource", ValueSource.CARD)]
-        public int timesValue;
-        
-        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
-        public CustomValueSource customTimesValue;
-        
-        [ResizableTextArea]
-        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
-        public string timesValueDescription;
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
@@ -178,7 +166,7 @@ namespace DefaultNamespace
                     sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
                     break;
                 case ValueSource.CUSTOM:
-                    sb.Append(" " + timesValueDescription);
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -287,7 +275,7 @@ namespace DefaultNamespace
                     sb.Append($" {GetTimesValue()} times");
                     break;
                 case ValueSource.CUSTOM:
-                    sb.Append(" " + timesValueDescription);
+                    sb.Append(" " + customTimesDescription);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -369,23 +357,7 @@ namespace DefaultNamespace
             
             return value + cardSizeWithModifiers;
         }
-        
-        /// <summary>
-        /// Get the times value inside a battle. Calculates the final value with all the modifiers.
-        /// </summary>
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            int value = timesValueSource switch
-            {
-                ValueSource.NONE => 1,
-                ValueSource.CARD => timesValue,
-                ValueSource.CUSTOM => customTimesValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
-                _ => throw new ArgumentOutOfRangeException()
-            };
 
-            return value;
-        }
-        
         /// <summary>
         /// Get size value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
@@ -412,30 +384,5 @@ namespace DefaultNamespace
             };
         }
         
-        /// <summary>
-        /// Get times value outside the battle. If you have a reference to the card instance
-        /// the method will also calculate the card upgrades into the final value.
-        /// </summary>
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            if (card == null)
-            {
-                return timesValueSource switch
-                {
-                    ValueSource.NONE => 1.ToString(),
-                    ValueSource.CARD => timesValue.ToString(),
-                    ValueSource.CUSTOM => "X",
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-            }
-          
-            return timesValueSource switch
-            {
-                ValueSource.NONE => 1.ToString(),
-                ValueSource.CARD => (timesValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
-                ValueSource.CUSTOM => "X",
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
     }
 }

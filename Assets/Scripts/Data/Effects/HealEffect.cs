@@ -51,21 +51,25 @@ namespace DefaultNamespace
             }
             
             int heal = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
-            foreach (RuntimeCharacter target in targets)
+            for (int i = 0; i < time; i++)
             {
-                Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
-                Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
-            
-                // Keep track of how much health we had before healing
-                int healthBefore = health.Value;
-            
-                // Apply the healing value
-                health.Value = Mathf.Clamp(health.Value + heal, 0, maxHealth.GetValueWithModifiers(target));
-
-                if (healthBefore != health.Value)
+                foreach (RuntimeCharacter target in targets)
                 {
-                    yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
+                    Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
+                    Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
+            
+                    // Keep track of how much health we had before healing
+                    int healthBefore = health.Value;
+            
+                    // Apply the healing value
+                    health.Value = Mathf.Clamp(health.Value + heal, 0, maxHealth.GetValueWithModifiers(target));
+
+                    if (healthBefore != health.Value)
+                    {
+                        yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
+                    }
                 }
             }
         }
@@ -222,17 +226,6 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
-        }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "1";
         }
     }
 }

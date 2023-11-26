@@ -31,15 +31,5 @@ namespace DefaultNamespace
         {
             return "";
         }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 0;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "";
-        }
     }
 }

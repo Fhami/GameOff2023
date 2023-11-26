@@ -10,20 +10,7 @@ namespace DefaultNamespace
     public class AddCardToDrawPileEffect : EffectData
     {
         public CardData cardToAdd;
-        
-        [Header("Times")]
-        public ValueSource timesValueSource;
-        
-        [ShowIf("timesValueSource", ValueSource.CARD)]
-        public int timesValue;
-        
-        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
-        public CustomValueSource customTimesValue;
-        
-        [ResizableTextArea]
-        [ShowIf("timesValueSource", ValueSource.CUSTOM)]
-        public string timesValueDescription;
-        
+
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
@@ -87,42 +74,8 @@ namespace DefaultNamespace
 
         public override string GetEffectValue(RuntimeCard card = null)
         {
-            return "0";
+            return "";
         }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            int value = timesValueSource switch
-            {
-                ValueSource.NONE => 1,
-                ValueSource.CARD => timesValue + card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(card),
-                ValueSource.CUSTOM => customTimesValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            return value;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            if (card == null)
-            {
-                return timesValueSource switch
-                {
-                    ValueSource.NONE => 1.ToString(),
-                    ValueSource.CARD => timesValue.ToString(),
-                    ValueSource.CUSTOM => "X",
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-            }
-          
-            return timesValueSource switch
-            {
-                ValueSource.NONE => 1.ToString(),
-                ValueSource.CARD => (timesValue + card.properties.Get<int>(PropertyKey.TIMES).GetValueWithModifiers(card)).ToString(),
-                ValueSource.CUSTOM => "X",
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+        
     }
 }

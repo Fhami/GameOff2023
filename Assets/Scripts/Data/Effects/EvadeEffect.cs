@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
     [CreateAssetMenu(menuName = "Gamejam/Effect/Evade Effect", fileName = "New Evade Effect")]
+    [Obsolete("Use GainStatusEffect")]
     public class EvadeEffect : EffectData
     {
         public int value;
@@ -16,7 +19,8 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.EVASION).Value += value;
+            var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies); 
+            characterPlayingTheCard.properties.Get<int>(PropertyKey.EVASION).Value += value + time;
             yield break;
         }
 
@@ -26,12 +30,52 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            return GetDescriptionText();
+            StringBuilder sb = new();
+
+            sb.Append($"Gain {value.ToString()} evade.");
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            sb.Append(".");
+
+            return sb.ToString();
         }
 
         public override string GetDescriptionText()
         {
-            return $"Gain {value.ToString()} evade.";
+            StringBuilder sb = new();
+
+            sb.Append($"Gain {value.ToString()} evade.");
+            
+            switch (timesValueSource)
+            {
+                case ValueSource.NONE:
+                    break;
+                case ValueSource.CARD:
+                    sb.Append($" {GetTimesValue().ToString()} times");
+                    break;
+                case ValueSource.CUSTOM:
+                    sb.Append(" " + customTimesDescription);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            sb.Append(".");
+
+            return sb.ToString();
         }
 
         public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
@@ -44,16 +88,6 @@ namespace DefaultNamespace
         {
             return value.ToString();
         }
-
-        public override int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
-        {
-            return 1;
-        }
-
-        public override string GetTimesValue(RuntimeCard card = null)
-        {
-            return "1";
-        }
+        
     }
 }
