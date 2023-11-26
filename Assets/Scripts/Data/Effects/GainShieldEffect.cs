@@ -164,6 +164,18 @@ namespace DefaultNamespace
 
             return cardShieldModifier + shieldUpModifier - shieldDownModifier;
         }
-        
+
+        public override void PreviewEffect(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            var times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            var currentShield = characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value;
+
+            for (int i = 0; i < times; i++)
+            {
+                characterPlayingTheCard.Character.statUI.PreviewShield(currentShield, currentShield + shield);
+            }
+        }
     }
 }
