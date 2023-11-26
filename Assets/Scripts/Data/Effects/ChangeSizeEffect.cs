@@ -315,13 +315,13 @@ namespace DefaultNamespace
             switch (operation)
             {
                 case Operation.INCREASE:
-                    size.Value = Mathf.Clamp(size.Value + sizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(size.Value + sizeChange, target.characterData.minSize, maxSize.GetValueWithModifiers(target));
                     break;
                 case Operation.DECREASE:
-                    size.Value = Mathf.Clamp(size.Value - sizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(size.Value - sizeChange, target.characterData.minSize, maxSize.GetValueWithModifiers(target));
                     break;
                 case Operation.SET:
-                    size.Value = Mathf.Clamp(sizeChange, 0, maxSize.GetValueWithModifiers(target));
+                    size.Value = Mathf.Clamp(sizeChange, target.characterData.minSize, maxSize.GetValueWithModifiers(target));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

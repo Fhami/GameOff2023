@@ -22,11 +22,11 @@ namespace DefaultNamespace
         public CharacterForm currentForm;
 
         [SerializeField] private Outlinable outlinable;
-        [Foldout("UI"), SerializeField] private StatsUI statUI;
-        [Foldout("UI"), SerializeField] private SizeUI sizeUI;
-        [Foldout("UI"), SerializeField] private IntentionUI intentionUI;
-        [Foldout("UI"), SerializeField] private ActiveSkillUI activeSkillUI;
-        [Foldout("UI"), SerializeField] private WatcherUI watcherUI;
+        [Foldout("UI"), SerializeField] public StatsUI statUI;
+        [Foldout("UI"), SerializeField] public SizeUI sizeUI;
+        [Foldout("UI"), SerializeField] public IntentionUI intentionUI;
+        [Foldout("UI"), SerializeField] public ActiveSkillUI activeSkillUI;
+        [Foldout("UI"), SerializeField] public WatcherUI watcherUI;
         
         [SerializeField]
         private SerializedDictionary<ParticleKey, ParticleSystem> particles =

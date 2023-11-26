@@ -10,26 +10,24 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Effect/Attack Effect", fileName = "New Attack Effect")]
     public class AttackEffect : EffectData
     {
-        [Header("Target")]
-        public EffectTarget effectTarget;
-        
-        [Header("Damage")]
-        public ValueSource damageValueSource;
-        
+        [Header("Target")] public EffectTarget effectTarget;
+
+        [Header("Damage")] public ValueSource damageValueSource;
+
         [ShowIf("damageValueSource", ValueSource.CARD)]
         public int damageValue;
-        
+
         [ShowIf("damageValueSource", ValueSource.CUSTOM)]
         public CustomValueSource customDamageValue;
-        
-        [ResizableTextArea]
-        [ShowIf("damageValueSource", ValueSource.CUSTOM)]
+
+        [ResizableTextArea] [ShowIf("damageValueSource", ValueSource.CUSTOM)]
         public string customDamageDescription;
 
-        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             List<RuntimeCharacter> targets = new();
-            
+
             // Get the affected targets for the size change effect
             switch (effectTarget)
             {
@@ -54,7 +52,7 @@ namespace DefaultNamespace
             // Process the attack effect to every target
             int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
-            
+
             for (int i = 0; i < times; i++)
             {
                 // Process the attack to every target
@@ -67,18 +65,22 @@ namespace DefaultNamespace
                         yield return Evade(target);
                     }
                     // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
-                    else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
+                    else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value ==
+                             CharacterState.ALIVE)
                     {
-                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies, false);
+                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies,
+                            false);
                     }
                 }
             }
-            
+
             // Clear the attacker's strength stack after the attack
             characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
         }
-        
-        public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+
+        public override string GetDescriptionTextWithModifiers(RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
             StringBuilder sb = new();
 
@@ -96,7 +98,8 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append($"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
+                            sb.Append(
+                                $"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -104,6 +107,7 @@ namespace DefaultNamespace
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
                     break;
                 case EffectTarget.ALL_ENEMIES:
                     switch (damageValueSource)
@@ -111,7 +115,8 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append($"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
+                            sb.Append(
+                                $"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -119,17 +124,19 @@ namespace DefaultNamespace
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
+                    sb.Append(
+                        $" {GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} times");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customTimesDescription);
@@ -139,7 +146,7 @@ namespace DefaultNamespace
             }
 
             sb.Append(".");
-            
+
             return sb.ToString();
         }
 
@@ -169,6 +176,7 @@ namespace DefaultNamespace
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
                     break;
                 case EffectTarget.ALL_ENEMIES:
                     switch (damageValueSource)
@@ -184,11 +192,12 @@ namespace DefaultNamespace
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             switch (timesValueSource)
             {
                 case ValueSource.NONE:
@@ -202,7 +211,7 @@ namespace DefaultNamespace
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             sb.Append(".");
 
             return sb.ToString();
@@ -212,12 +221,14 @@ namespace DefaultNamespace
         {
             // TODO: VFX, animation etc.
             target.Character.PlayParticle(ParticleKey.EVADE);
-            
+
             target.properties.Get<int>(PropertyKey.EVASION).Value -= 1;
             yield break;
         }
-        
-        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies, bool isThorn)
+
+        private IEnumerator Attack(RuntimeCharacter target, int incomingDamage,
+            RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies, bool isThorn)
         {
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
@@ -225,7 +236,7 @@ namespace DefaultNamespace
 
             // Keep track of how much health the target had before receiving damage
             int healthBefore = health.Value;
-            
+
             // Calculate the attack value after shield absorption (i.e. reduce shield value from attack value)
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             int damage = incomingDamage - damageAbsorbedByShield;
@@ -246,16 +257,18 @@ namespace DefaultNamespace
             int thornsDamage = target.properties.Get<int>(PropertyKey.THORNS).GetValueWithModifiers(target);
             if (thornsDamage > 0 && !isThorn)
             {
-                yield return Attack(characterPlayingTheCard, thornsDamage, target, player, characterPlayingTheCard, enemies, true);
+                yield return Attack(characterPlayingTheCard, thornsDamage, target, player, characterPlayingTheCard,
+                    enemies, true);
             }
-            
+
             if (health.Value > 0)
             {
                 if (healthBefore != health.Value)
                 {
                     // If the target didn't die but their health changed -> trigger ON_HEALTH_CHANGED game event
-                    yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player, enemies);
-                    
+                    yield return BattleManager.current.OnGameEvent(GameEvent.ON_HEALTH_CHANGED, target, player,
+                        enemies);
+
                     //Damaged animation/vfx will be bind with properties.OnChanged
                 }
             }
@@ -268,25 +281,29 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the damage value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             int damage = damageValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => damageValue,
-                ValueSource.CUSTOM => customDamageValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
+                ValueSource.CUSTOM => customDamageValue.GetValue(card, characterPlayingTheCard, player, cardTarget,
+                    enemies),
                 _ => throw new ArgumentOutOfRangeException()
             };
-            
-            int playerAttackModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(characterPlayingTheCard);
-            int playerStrengthModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(characterPlayingTheCard);
-            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(characterPlayingTheCard);
-            
+
+            int playerAttackModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.ATTACK)
+                .GetValueWithModifiers(characterPlayingTheCard);
+            int playerStrengthModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH)
+                .GetValueWithModifiers(characterPlayingTheCard);
+            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK)
+                .GetValueWithModifiers(characterPlayingTheCard);
+
             return damage + playerAttackModifier + playerStrengthModifier + cardAttackModifier;
         }
-        
 
-        
+
         /// <summary>
         /// Get damage value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
@@ -303,16 +320,63 @@ namespace DefaultNamespace
                     _ => throw new ArgumentOutOfRangeException()
                 };
             }
-          
+
             return damageValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
-                ValueSource.CARD => (damageValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CARD => (damageValue +
+                                     card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card))
+                    .ToString(),
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-        
 
+        public override void PreviewEffect(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        {
+            List<RuntimeCharacter> targets = new();
+            switch (effectTarget)
+            {
+                case EffectTarget.NONE:
+                    break;
+                case EffectTarget.PLAYER:
+                    targets.Add(player);
+                    break;
+                case EffectTarget.CARD_PLAYER:
+                    targets.Add(characterPlayingTheCard);
+                    break;
+                case EffectTarget.TARGET:
+                    targets.Add(cardTarget);
+                    break;
+                case EffectTarget.ALL_ENEMIES:
+                    targets.AddRange(enemies);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+
+            for (int i = 0; i < times; i++)
+            {
+                foreach (var runtimeTarget in targets)
+                {
+                    var hp = runtimeTarget.properties.Get<int>(PropertyKey.HEALTH).Value;
+                    var maxHp = runtimeTarget.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+                    var shield = runtimeTarget.properties.Get<int>(PropertyKey.SHIELD).Value;
+
+                    if (shield > 0)
+                    {
+                        runtimeTarget.Character.statUI.PreviewShield(shield, shield - damage);
+                    }
+
+                    damage -= shield;
+                    runtimeTarget.Character.statUI.PreviewHp(hp, hp - damage, maxHp);
+                }
+            }
+        }
     }
 }
