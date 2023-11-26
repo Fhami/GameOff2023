@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] CanvasGroup _main_canvas;
+    [SerializeField] Image _balloon_img;
     [SerializeField] Image _icon_img;
     [SerializeField] TextMeshProUGUI _value_txt;
     [Header("Multiplier")]
@@ -21,6 +23,19 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public IntentionDetail IntentionDetail;
     public RuntimeCharacter Character;
     
+    /// <summary>
+    /// Use if icon is VFX
+    /// </summary>
+    /// <param name="gob"> Reference VFX gameobject</param>
+    public void SetIcon(GameObject gob)
+    {
+        var g = Instantiate(gob);
+        g.transform.SetParent(_balloon_img.transform);
+        g.transform.localScale = new Vector3(1, 1, 1);
+        g.transform.localPosition = new Vector3(0, 0, 0);
+        _icon_img.gameObject.SetActive(false);
+    }
+
     public void SetIcon(Sprite sprite)
     {
         _icon_img.sprite = sprite;
@@ -74,7 +89,6 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             //new IntentionDetail(new IntentData(), 2).SetMultiplierMod(IntentionDetail.ValueMod.None).SetValueMod;
         }
     }
-
 
     public void OnPointerEnter(PointerEventData eventData)
     {

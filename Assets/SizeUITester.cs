@@ -10,32 +10,12 @@ public class SizeUITester : MonoBehaviour
 
     #region Test Button Function
 
-    public void Btn_Increase()
-    {
-        _sizeUI.SetSize(8, SizeEffectType.Increase);
-    }
-    public void Btn_Decrease()
-    {
-        _sizeUI.SetSize(2, SizeEffectType.Decrease);
-    }
-    public void Btn_Set()
-    {
-        _sizeUI.SetSize(5);
-    }
-
     public void Btn_Set01()
     {
         _setting = new(3, 5, 7, 0, 10,0,-1);
         _setting.skills = new List<int>() { 2, 5, 8 };
         _currentSize = 5;
         _sizeUI.InitSizeUI(_currentSize, _setting);
-
-       
-
-        //_sizeUI.SetTag(2, _setting);
-        //_sizeUI.SetTag(5, _setting);
-        //_sizeUI.SetTag(8, _setting);
-
     }
 
     public void Btn_Set02()
@@ -44,12 +24,6 @@ public class SizeUITester : MonoBehaviour
         _setting.skills = new List<int>() { 1, 3, 8 };
         _currentSize = 8;
         _sizeUI.InitSizeUI(_currentSize, _setting);
-  
-
-        //_sizeUI.SetTag(1, _setting);
-        //_sizeUI.SetTag(3, _setting);
-        //_sizeUI.SetTag(8, _setting);
-
     }
 
     public void GoToSize04()
@@ -88,6 +62,16 @@ public class SizeUITester : MonoBehaviour
         _currentSize = to;
 
 
+    }
+
+    public void FocusSkill(int value)
+    {
+        _sizeUI.HighlightTag(value, true);
+    }
+
+    public void StopFocusSkill(int value)
+    {
+        _sizeUI.HighlightTag(value, false);
     }
 
 

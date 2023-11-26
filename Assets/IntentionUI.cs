@@ -19,7 +19,7 @@ public class IntentionUI : MonoBehaviour
 
     [SerializeField] private float showDuration = 0.1f;
     
-    public IEnumerator SetIntention(List<IntentionDetail> intentDetails)
+    public IEnumerator SetIntention(List<IntentionDetail> intentDetails, bool withAnimation = true)
     {
         ClearIntention();
         foreach (var intentionDetail in intentDetails)
@@ -38,7 +38,15 @@ public class IntentionUI : MonoBehaviour
             }
 
             icon.IntentionDetail = intentionDetail;
-            icon.SetIcon(intentionDetail._intentData.icon);
+
+            if(_intentVfxDB._intentVFXs.TryGetValue(intentionDetail._intentData,out var refObject))
+            {
+                icon.SetIcon(refObject);
+            }
+            else
+            {
+                icon.SetIcon(intentionDetail._intentData.icon);
+            }
 
             //if (_intentVfxDB._intentVFXs.TryGetValue(intentDetails[i]._intentData, out var obj)) 
             //{
@@ -49,16 +57,18 @@ public class IntentionUI : MonoBehaviour
             //    icon.SetIcon(intentDetails[i]._intentData.icon);
             //}
 
-            if(intentionDetail._value >= 0) icon.SetValue(intentionDetail._value);
+            if (intentionDetail._value >= 0) icon.SetValue(intentionDetail._value);
             icon.SetMultiplier(intentionDetail._multiplier);
             icon.SetSizeEffect(intentionDetail._size);
             icon.gameObject.SetActive(true);
-            icon.transform.localScale = Vector3.zero;
-            
-            yield return icon.transform.DOScale(1, showDuration);
+
+            if (withAnimation)
+            {
+                icon.transform.localScale = Vector3.zero;
+                yield return icon.transform.DOScale(1, showDuration);
+            }
         }
     }
-
 
     protected IntentionIcon CreateIntentionIcon()
     {
@@ -67,7 +77,6 @@ public class IntentionUI : MonoBehaviour
         icon.transform.localScale = new Vector3(1, 1, 1);
         return icon;
     }
-
 
     protected void ClearIntention()
     {
@@ -78,7 +87,7 @@ public class IntentionUI : MonoBehaviour
         }
         _use_intentions.Clear();
     }
-
+        
     #region TestFunction
 
 

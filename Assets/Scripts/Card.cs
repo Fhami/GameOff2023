@@ -154,19 +154,45 @@ namespace DefaultNamespace
                 
             }
 
+            PreviewStat();
+
             OnDrag?.Invoke(this);
+        }
+
+        private void PreviewStat()
+        {
+            if (ValidateTarget(currentTarget))
+            {
+                if (!BattleManager.current.canPlayCard) return;
+
+                foreach (var _effect in runtimeCard.cardData.effects)
+                {
+                    _effect.PreviewEffect(runtimeCard, BattleManager.current.runtimePlayer,
+                        BattleManager.current.runtimePlayer, currentTarget.GameObject.GetComponent<Character>()?.runtimeCharacter,
+                        BattleManager.current.runtimeEnemies);
+                }
+            }
         }
 
         private void SetCurrentTarget(ICardTarget _newTarget)
         {
             currentTarget?.HighlightSelected(false);
 
+            foreach (var _enemy in BattleManager.current.enemies)
+            {
+                _enemy.statUI.CancelPreviewHp();
+                _enemy.statUI.CancelPreviewShield();
+            }
+            
+            BattleManager.current.player.statUI.CancelPreviewHp();
+            BattleManager.current.player.statUI.CancelPreviewShield();
+
             currentTarget = _newTarget;
 
             if (currentTarget != null)
             {
                 currentTarget.HighlightSelected(true);
-                
+
                 enterTargetPlayer.PlayFeedbacks();
             }
             else

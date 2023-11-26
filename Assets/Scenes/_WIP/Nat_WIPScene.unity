@@ -1153,6 +1153,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 0}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  draggableLine: {fileID: 0}
   visualDict:
     _serializedList: []
   borderDict:
@@ -2556,6 +2557,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 0}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  draggableLine: {fileID: 0}
   visualDict:
     _serializedList: []
   borderDict:

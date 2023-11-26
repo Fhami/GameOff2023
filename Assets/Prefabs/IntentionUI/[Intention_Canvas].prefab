@@ -467,6 +467,7 @@ MonoBehaviour:
   _pool_intentions: []
   _intentDatas:
     _serializedList: []
+  _intentVfxDB: {fileID: 11400000, guid: 35dc8e16788f2ef45869ef24e777d783, type: 2}
   intent01: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
   intent02: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
   showDuration: 0.1
