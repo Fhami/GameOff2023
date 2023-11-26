@@ -124,9 +124,9 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => customShieldValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
                 _ => throw new ArgumentOutOfRangeException()
             };
-            
-            int cardShieldModifier = card.properties.Get<int>(PropertyKey.SHIELD).GetValueWithModifiers(card);
-            
+
+            int cardShieldModifier = GetShieldModifiers(card, characterPlayingTheCard);
+
             return damage + cardShieldModifier;
         }
         
@@ -150,10 +150,19 @@ namespace DefaultNamespace
             return shieldValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
-                ValueSource.CARD => (shieldValue + card.properties.Get<int>(PropertyKey.SHIELD).GetValueWithModifiers(card)).ToString(),
+                ValueSource.CARD => (shieldValue + GetShieldModifiers(card, null)).ToString(),
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        private int GetShieldModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard)
+        {
+            int cardShieldModifier = card.properties.Get<int>(PropertyKey.SHIELD).GetValueWithModifiers(card);
+            var shieldUpModifier = characterPlayingTheCard != null ? characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD_UP).GetValueWithModifiers(card) : 0;
+            var shieldDownModifier = characterPlayingTheCard != null ? characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD_DOWN).GetValueWithModifiers(card) : 0;
+
+            return cardShieldModifier + shieldUpModifier - shieldDownModifier;
         }
         
     }

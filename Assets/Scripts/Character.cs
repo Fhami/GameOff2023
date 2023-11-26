@@ -153,6 +153,8 @@ namespace DefaultNamespace
             {
                 statUI.SetBuff(_buffData, _value.GetValueWithModifiers(runtimeCharacter));
             }
+            
+            BattleManager.current.CardController.UpdateCards();
         }
 
         public void UpdateHpVisual(int _oldValue, Property<int> _value)

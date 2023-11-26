@@ -28,6 +28,8 @@ namespace DefaultNamespace
             //If you add some thing you also need to edit CloneCard too
             runtimeCard.properties.Add(PropertyKey.ATTACK, new Property<int>(0, PropertyKey.ATTACK));
             runtimeCard.properties.Add(PropertyKey.SHIELD, new Property<int>(0, PropertyKey.SHIELD));
+            runtimeCard.properties.Add(PropertyKey.SHIELD_UP, new Property<int>(0, PropertyKey.SHIELD_UP));
+            runtimeCard.properties.Add(PropertyKey.SHIELD_DOWN, new Property<int>(0, PropertyKey.SHIELD_DOWN));
             runtimeCard.properties.Add(PropertyKey.HEAL, new Property<int>(0, PropertyKey.HEAL));
             runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0, PropertyKey.SIZE));
             runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
@@ -76,6 +78,8 @@ namespace DefaultNamespace
             
             newCard.properties.Add(PropertyKey.ATTACK, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.ATTACK).Value, PropertyKey.ATTACK));
             newCard.properties.Add(PropertyKey.SHIELD, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.SHIELD).Value, PropertyKey.SHIELD));
+            newCard.properties.Add(PropertyKey.SHIELD_UP, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.SHIELD_UP).Value, PropertyKey.SHIELD_UP));
+            newCard.properties.Add(PropertyKey.SHIELD_DOWN, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.SHIELD_DOWN).Value, PropertyKey.SHIELD_DOWN));
             newCard.properties.Add(PropertyKey.HEAL, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.HEAL).Value, PropertyKey.HEAL));
             newCard.properties.Add(PropertyKey.SIZE, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.SIZE).Value, PropertyKey.SIZE));
             newCard.properties.Add(PropertyKey.STABLE, new Property<int>(runtimeCard.properties.Get<int>(PropertyKey.STABLE).Value, PropertyKey.STABLE));
