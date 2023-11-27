@@ -7,8 +7,16 @@ public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] AudioSource _bgmSource;
     [SerializeField] AudioSource _sfxSource;
-    [SerializeField] AudioSource _uiSource;
     [SerializeField] AudioMixer _mixer;
+
+    public const string MASTER_KEY = "mastervol";
+    public const string BGM_KEY = "bgmvol";
+    public const string SFX_KEY = "sfxvol";
+
+    public const float DEFAULT_MASTER_VOL = 0.17f;
+    public const float DEFAULT_BGM_VOL = 0.7f;
+    public const float DEFAULT_SFX_VOL = 0.7f;
+
 
     public AudioMixer Mixer { get => _mixer; set => _mixer = value; }
 
@@ -27,9 +35,41 @@ public class SoundManager : Singleton<SoundManager>
         _sfxSource.loop = false;
         _sfxSource.playOnAwake = false;
 
-        _uiSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("UI")[0];
-        _uiSource.loop = false;
-        _uiSource.playOnAwake = false;
+        float v;
+        if (PlayerPrefs.HasKey(MASTER_KEY))
+        {
+            v = PlayerPrefs.GetFloat(MASTER_KEY);
+            _mixer.SetFloat(MASTER_KEY, Mathf.Log10(v) * 20);
+            Debug.Log(v);
+        }
+        else
+        {
+            _mixer.SetFloat(MASTER_KEY, Mathf.Log10(DEFAULT_MASTER_VOL) * 20);
+        }
+
+
+        if (PlayerPrefs.HasKey(BGM_KEY))
+        {
+            v = PlayerPrefs.GetFloat(BGM_KEY);
+            _mixer.SetFloat(BGM_KEY, Mathf.Log10(v) * 20);
+            Debug.Log(v);
+        }
+        else
+        {
+            _mixer.SetFloat(BGM_KEY, Mathf.Log10(DEFAULT_BGM_VOL) * 20);
+        }
+
+
+        if (PlayerPrefs.HasKey(SFX_KEY))
+        {
+            v = PlayerPrefs.GetFloat(SFX_KEY);
+            _mixer.SetFloat(SFX_KEY, Mathf.Log10(v) * 20);
+            Debug.Log(v);
+        }
+        else
+        {
+            _mixer.SetFloat(SFX_KEY, Mathf.Log10(DEFAULT_SFX_VOL) * 20);
+        }
 
     }
 
@@ -42,11 +82,6 @@ public class SoundManager : Singleton<SoundManager>
     public void PlaySFX(AudioClip audio)
     {
         _sfxSource.PlayOneShot(audio);
-    }
-
-    public void PlayUISFX(AudioClip audio)
-    {
-        _uiSource.PlayOneShot(audio);
     }
 
 }
