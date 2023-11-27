@@ -236,7 +236,7 @@ namespace DefaultNamespace
             float _mult = 1f + (_diff * 0.1f);
             
             visual.DOScale(Vector3.one * _mult, 0.1f);
-            statUI.transform.DOLocalMoveY(_mult, 0.1f);
+            sizeUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
 
             PlayParticle(_oldValue > _size ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
         }
