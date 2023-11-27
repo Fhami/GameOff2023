@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DefaultNamespace;
 using UnityEngine.EventSystems;
+using MoreMountains.Feedbacks;
 
 public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,6 +14,7 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Image _icon_img;
     [SerializeField] GameObject _vfx_icon;
     [SerializeField] TextMeshProUGUI _value_txt;
+
     [Header("Multiplier")]
     [SerializeField] Image _multiplier_img;
     [SerializeField] TextMeshProUGUI _multiplier_txt;
@@ -23,7 +25,7 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public IntentionDetail IntentionDetail;
     public RuntimeCharacter Character;
-    
+
     /// <summary>
     /// Use if icon is VFX
     /// </summary>

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using DefaultNamespace;
+using AYellowpaper.SerializedCollections;
 
 public class WatcherUITester : MonoBehaviour
 {
     [SerializeField] WatcherUI _watcherUI;
+    [SerializeField] PropertyCondition codition;
 
     public void Btn_Small()
     {
@@ -45,6 +49,11 @@ public class WatcherUITester : MonoBehaviour
     public void Btn_Hide()
     {
         _watcherUI.Hide();
+    }
+
+    public void Btn_PropertyUI()
+    {
+        _watcherUI.AddDetail(codition,"sdasdsadasd");
     }
 
 }

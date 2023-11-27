@@ -4,6 +4,7 @@ using UnityEngine;
 using DefaultNamespace;
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class WatcherUI : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class WatcherUI : MonoBehaviour
     [SerializeField] WatcherDetail _watcherDetailPrefab;
     [SerializeField] Canvas _mainCanvas;
     [SerializeField] CanvasGroup _canvasGroup;
-    [SerializeField] Transform _content;
+    [SerializeField] RectTransform _content;
     [SerializeField] SerializedDictionary<string, WatcherDetail> _details;
 
     void Start()
@@ -36,6 +37,7 @@ public class WatcherUI : MonoBehaviour
         detailUI.gameObject.SetActive(true);
     }
 
+    //AddDetail(6,"Increase attack by 3")
     public void AddDetail(int size, string text)
     {
         WatcherDetail detailUI;
@@ -52,10 +54,29 @@ public class WatcherUI : MonoBehaviour
         detailUI.gameObject.SetActive(true);
     }
 
+    public void AddDetail(PropertyCondition codition, string text)
+    {
+        WatcherDetail detailUI;
+        string key = codition.name;
+        Comparison c = codition.propertyComparer.comparison;
+        int v = codition.propertyComparer.value;
+
+        if (!_details.TryGetValue(key, out detailUI))
+        {
+            detailUI = Create();
+            _details.Add(key, detailUI);
+        }
+        detailUI.SetDetail(codition, text);
+
+        detailUI.gameObject.SetActive(false);
+        detailUI.gameObject.SetActive(true);
+    }
+
     public void Show()
     {
         _canvasGroup.gameObject.SetActive(true);
         _canvasGroup.DOFade(1, 0.2f);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_content);
     }
 
     public void Hide()
@@ -83,6 +104,16 @@ public class WatcherUI : MonoBehaviour
         }
     }
 
+    public void Focus(PropertyCondition codition)
+    {
+        string key = codition.name;
+        foreach (KeyValuePair<string, WatcherDetail> kvp in _details)
+        {
+            if (kvp.Key == key) kvp.Value.Highlight();
+            else kvp.Value.UnHighlight();
+        }
+    }
+
     void Sorting()
     {
 
@@ -91,7 +122,7 @@ public class WatcherUI : MonoBehaviour
     public WatcherDetail Create()
     {
         WatcherDetail detail = Instantiate(_watcherDetailPrefab);
-        detail.transform.SetParent(_content);
+        detail.transform.SetParent(_content.transform);
         detail.transform.localScale = new Vector3(1,1,1);
         return detail;
     }

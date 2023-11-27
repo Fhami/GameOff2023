@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MoreMountains;
-
+using MoreMountains.Feedbacks;
 
 public class TooltipUI : MonoBehaviour
 {
@@ -14,6 +14,13 @@ public class TooltipUI : MonoBehaviour
     [SerializeField] Image _content;
     [SerializeField] TextMeshProUGUI _header_txt;
     [SerializeField] TextMeshProUGUI _tooltip_txt;
+
+    [SerializeField] MMF_Player _feedback;
+
+    //public void OnEnable()
+    //{
+    //    _feedback.PlayFeedbacks();
+    //}
 
     /// <summary>
     /// Show Tooltip
@@ -52,8 +59,8 @@ public class TooltipUI : MonoBehaviour
         _header_txt.gameObject.SetActive(false);
         _content.gameObject.SetActive(true);
 
-
         LayoutRebuilder.ForceRebuildLayoutImmediate(_content.rectTransform);
+        _feedback.PlayFeedbacks();
     }
 
     public void Show(string header, string text, Vector3 position, Side side)
@@ -89,6 +96,7 @@ public class TooltipUI : MonoBehaviour
         _content.gameObject.SetActive(true);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_content.rectTransform);
+        _feedback.PlayFeedbacks();
     }
 
     //IEnumerator ieShow(string text, Vector3 position, Side side)
