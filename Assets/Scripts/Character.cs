@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using EPOOutline;
@@ -58,6 +59,7 @@ namespace DefaultNamespace
 
             InitSizeUI();
             InitActiveSkillUI();
+            InitWatcherUI();
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
@@ -120,6 +122,22 @@ namespace DefaultNamespace
                 else
                 {
                     activeSkillUI.RemoveSkill(_index);
+                }
+            }
+        }
+
+        private void InitWatcherUI()
+        {
+            foreach (var _passiveSlot in runtimeCharacter.passiveSlots)
+            {
+                foreach (var _runtimePassive in _passiveSlot.Value)
+                {
+                    if (_runtimePassive == null) continue;
+                    var _sb = new StringBuilder();
+                    
+                    _sb.AppendLine(_runtimePassive.passiveData.GetDescription());
+                    
+                    watcherUI.AddDetail(_passiveSlot.Key.size, _sb.ToString());
                 }
             }
         }
@@ -390,6 +408,16 @@ namespace DefaultNamespace
             RuntimeCard _card = CardFactory.Create(_cardData);
 
             return _card;
+        }
+
+        private void OnMouseEnter()
+        {
+            watcherUI.Show();
+        }
+
+        private void OnMouseExit()
+        {
+            watcherUI.Hide();
         }
     }
 }
