@@ -65,20 +65,31 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value: {fileID: 0}
+    - Key: 12
+      Value: {fileID: 1135819082365606461, guid: 7a592e228faa101439e7574f8b3e36ac,
+        type: 3}
+    - Key: 13
+      Value: {fileID: 8964900251706186517, guid: c9f88476acd64c147ba7b4533422a68c,
+        type: 3}
     - Key: 1
-      Value: {fileID: 0}
+      Value: {fileID: 8979077114980181949, guid: 22e7d47409f15a54c944f17422a09e2d,
+        type: 3}
     - Key: 2
-      Value: {fileID: 0}
+      Value: {fileID: 7043684303366724405, guid: 79c1e55017017ce489752ff308cc1d43,
+        type: 3}
     - Key: 3
-      Value: {fileID: 0}
+      Value: {fileID: 7953479495271016247, guid: 2b636c11da45bfb479cf50ca2c596ec5,
+        type: 3}
     - Key: 4
-      Value: {fileID: 0}
+      Value: {fileID: 1972841001429162825, guid: 741a705ffd9c0924b8235f9c02d3a455,
+        type: 3}
     - Key: 5
       Value: {fileID: 0}
     - Key: 6
       Value: {fileID: 0}
     - Key: 7
-      Value: {fileID: 0}
+      Value: {fileID: 4664055154539669787, guid: 3ae5c4a256fb1374c8d08f338c7f8ffc,
+        type: 3}
     - Key: 8
       Value: {fileID: 0}
     - Key: 9
@@ -590,6 +601,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962059998509507059, guid: 677e4629309d0334f961d07b43dc797a,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5966141363150657741, guid: 677e4629309d0334f961d07b43dc797a,
         type: 3}

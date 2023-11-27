@@ -251,10 +251,14 @@ namespace DefaultNamespace
             int minSize = player.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
             int maxSize = player.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
             int size = player.properties.Get<int>(PropertyKey.SIZE).Value;
-
-            if (size == minSize || size == maxSize)
+            
+            if (size == minSize)
             {
-                yield return Kill(player, null, player, null, runtimeEnemies);
+                yield return Kill(player, null, player, null, enemies, ParticleKey.SMALL_DEATH);
+            }
+            else if (size == maxSize)
+            {
+                yield return Kill(player, null, player, null, enemies, ParticleKey.BIG_DEATH);
             }
         }
 
@@ -475,7 +479,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Called when a character is killed (either player or enemy).
         /// </summary>
-        public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies, ParticleKey condition)
         {
             // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
             
@@ -483,7 +487,7 @@ namespace DefaultNamespace
             
             if (characterToKill == player)
             {
-                yield return characterToKill.Character.OnKilled();
+                yield return characterToKill.Character.OnKilled(condition);
                 runtimePlayer = null;
                 //Game over
                 yield return GameManager.Instance.GameOver();
@@ -493,7 +497,7 @@ namespace DefaultNamespace
                 runtimeEnemies.Remove(characterToKill);
                 this.enemies.Remove(characterToKill.Character);
                 
-                yield return characterToKill.Character.OnKilled();
+                yield return characterToKill.Character.OnKilled(condition);
             }
 
             if (runtimeEnemies.Count == 0)
@@ -599,7 +603,7 @@ namespace DefaultNamespace
             character.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value++;
             character.properties.Get<int>(PropertyKey.ENEMY_ATTACK_PATTERN_CARD_INDEX).Value = 0;
             
-            character.Character.UpdateFormVisual(currentForm);
+            character.Character.UpdateFormVisual(previousForm, currentForm);
             character.Character.UpdatePassiveIcon(previousForm, currentForm);
 
             yield return OnGameEvent(GameEvent.ON_FORM_CHANGED, character, player, enemies);
@@ -714,9 +718,13 @@ namespace DefaultNamespace
             int maxSize = runtimePlayer.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
             int size = runtimePlayer.properties.Get<int>(PropertyKey.SIZE).Value;
 
-            if (size == minSize || size == maxSize)
+            if (size == minSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies);
+                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, ParticleKey.SMALL_DEATH);
+            }
+            else if (size == maxSize)
+            {
+                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, ParticleKey.BIG_DEATH);
             }
         }
 
