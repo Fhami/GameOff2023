@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using EPOOutline;
@@ -12,6 +13,13 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
+    public enum DeathCondition
+    {
+        SMALL,
+        BIG,
+        HP
+    }
+    
     public class Character : MonoBehaviour, ICardTarget
     {
         public Transform FrontPos => currentForm ? currentForm.frontPos : transform;
@@ -58,12 +66,13 @@ namespace DefaultNamespace
 
             InitSizeUI();
             InitActiveSkillUI();
+            InitWatcherUI();
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
             UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
-            UpdateFormVisual(runtimeCharacter.GetCurrentForm());
+            UpdateFormVisual(null, runtimeCharacter.GetCurrentForm());
             UpdatePassiveIcon(null, runtimeCharacter.GetCurrentForm());
 
             runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).OnChanged += UpdateHpVisual;
@@ -120,6 +129,22 @@ namespace DefaultNamespace
                 else
                 {
                     activeSkillUI.RemoveSkill(_index);
+                }
+            }
+        }
+
+        private void InitWatcherUI()
+        {
+            foreach (var _passiveSlot in runtimeCharacter.passiveSlots)
+            {
+                foreach (var _runtimePassive in _passiveSlot.Value)
+                {
+                    if (_runtimePassive == null) continue;
+                    var _sb = new StringBuilder();
+                    
+                    _sb.AppendLine(_runtimePassive.passiveData.GetDescription());
+                    
+                    watcherUI.AddDetail(_passiveSlot.Key.size, _sb.ToString());
                 }
             }
         }
@@ -187,12 +212,18 @@ namespace DefaultNamespace
         public void UpdateShield(int _oldValue, Property<int> _value)
         {
             statUI.SetShield(_oldValue,_value.Value);
+            if (_oldValue > 0)
+            {
+                PlayParticle(ParticleKey.BLOCKED);
+            }
         }
 
         public void UpdateSizeVisual(int _oldValue, int _size)
         {
-            var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
+            //var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.GoToSize(_oldValue, _size);
+
+            PlayParticle(_oldValue > _size ? ParticleKey.SIZE_DOWN : ParticleKey.SIZE_UP);
         }
         
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
@@ -221,14 +252,17 @@ namespace DefaultNamespace
             yield return intentionUI.SetIntention(_intentDetails);
         }
 
-        public void UpdateFormVisual(FormData _form)
+        public void UpdateFormVisual(FormData _prevForm, FormData _form)
         {
             if (characterForms.TryGetValue(_form, out var _characterForm))
             {
                 if (currentForm == _characterForm) return;
 
-                PlayParticle(ParticleKey.CHANGED_FORM);
-                
+                if (_prevForm)
+                {
+                    PlayParticle(_prevForm.sizeMax < _form.sizeMax ? ParticleKey.FORM_UP : ParticleKey.FORM_DOWN);
+                }
+
                 if (currentForm)
                     currentForm.gameObject.SetActive(false);
                 
@@ -283,7 +317,6 @@ namespace DefaultNamespace
         {
             foreach (var _buffs in runtimeCharacter.GetActiveBuffsAndDebuffs())
             {
-
                 if (Database.buffData.TryGetValue(_buffs.Key, out var _buffData))
                 {
                     statUI.SetBuff(_buffData, _buffs.GetValueWithModifiers(runtimeCharacter));
@@ -301,24 +334,23 @@ namespace DefaultNamespace
         public IEnumerator PlayAttackFeedback(Transform _target)
         {
             var _origin = transform.position;
-            transform.DOMove(_target.position, 0.2f).SetEase(Ease.Flash);
+            //transform.DOMove(_target.position, 0.2f).SetEase(Ease.Flash);
 
             yield return PlayAnimation(AnimationKey.ATTACK);
             PlayParticle(ParticleKey.ATTACK);
             
-            yield return transform.DOMove(_origin, 0.2f).WaitForCompletion();
+            //yield return transform.DOMove(_origin, 0.2f).WaitForCompletion();
         }
         
-        public IEnumerator OnKilled()
+        public IEnumerator OnKilled(ParticleKey _condition)
         {
             Debug.Log($"{name} is death");
             PlayParticle(ParticleKey.DEATH);
+            UnSubScribeProperties();
             
             yield return PlayAnimation(AnimationKey.HIT);
             yield return new WaitForSeconds(0.5f);
 
-            UnSubScribeProperties();
-            
             Destroy(gameObject);
         }
 
@@ -390,6 +422,16 @@ namespace DefaultNamespace
             RuntimeCard _card = CardFactory.Create(_cardData);
 
             return _card;
+        }
+
+        private void OnMouseEnter()
+        {
+            watcherUI.Show();
+        }
+
+        private void OnMouseExit()
+        {
+            watcherUI.Hide();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace DefaultNamespace
             }
             else
             {
-                yield return BattleManager.current.Kill(target, characterPlayingTheCard, player, cardTarget, enemies);
+                yield return BattleManager.current.Kill(target, characterPlayingTheCard, player, cardTarget, enemies, ParticleKey.DEATH);
             }
         }
 

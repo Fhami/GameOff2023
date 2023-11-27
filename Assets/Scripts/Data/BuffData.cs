@@ -15,6 +15,7 @@ namespace DefaultNamespace
         public BuffType type;
         public Sprite icon;
 
-        public abstract string GetDescription(RuntimeCharacter character);
+        public abstract string GetDescriptionWithModifier(RuntimeCharacter character);
+        public abstract string GetDescription(int value);
     }
 }

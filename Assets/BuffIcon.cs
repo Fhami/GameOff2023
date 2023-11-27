@@ -55,7 +55,7 @@ public class BuffIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        BattleManager.current.TooltipUI.Show(buffData.name, buffData.GetDescription(Character), transform.position, TooltipUI.Side.TopRight);
+        BattleManager.current.TooltipUI.Show(buffData.name, buffData.GetDescriptionWithModifier(Character), transform.position, TooltipUI.Side.TopRight);
     }
 
     public void OnPointerExit(PointerEventData eventData)
