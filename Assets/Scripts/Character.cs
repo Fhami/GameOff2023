@@ -146,8 +146,15 @@ namespace DefaultNamespace
                     var _sb = new StringBuilder();
                     
                     _sb.AppendLine(_runtimePassive.passiveData.GetDescription());
-                    
-                    watcherUI.AddDetail(_passiveSlot.Key.size, _sb.ToString());
+
+                    if (_runtimePassive.passiveData.triggerConditions.Count > 0)
+                    {
+                        watcherUI.AddDetail((PropertyCondition)_runtimePassive.passiveData.triggerConditions[0], _sb.ToString());
+                    }
+                    else
+                    {
+                        watcherUI.AddDetail(_passiveSlot.Key.size, _sb.ToString());
+                    }
                 }
             }
         }

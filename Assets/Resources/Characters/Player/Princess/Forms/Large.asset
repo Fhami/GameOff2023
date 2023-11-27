@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeMin: 7
   sizeMax: 10
-  size: 0
+  size: 2
   activeSkill: {fileID: 11400000, guid: 621e4824dcdf743b18c87d9d7df42bb3, type: 2}
   activeSkillSize: 8
   passives:

@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardController: {fileID: 0}
+  visual: {fileID: 0}
   characterForms:
     _serializedList: []
   currentForm: {fileID: 0}
@@ -1383,11 +1384,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Watcher_Canvas]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 3591776620739236112, guid: 92770f1dfcc252a42b36d189afea5f57,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1543251165
       objectReference: {fileID: 0}
     - target: {fileID: 7943469962553481855, guid: 92770f1dfcc252a42b36d189afea5f57,
         type: 3}

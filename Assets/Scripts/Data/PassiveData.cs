@@ -22,12 +22,12 @@ namespace DefaultNamespace
             var sb = new StringBuilder();
             if (triggerGameEvent != GameEvent.NONE)
             {
-                sb.Append("When ");
-                foreach (var _condition in triggerConditions)
-                {
-                    sb.Append(_condition.name);
-                    sb.Append(", ");
-                }
+                // sb.Append("When ");
+                // foreach (var _condition in triggerConditions)
+                // {
+                //     sb.Append(_condition.name);
+                //     sb.Append(", ");
+                // }
             }
 
             sb.Append(buffData.GetDescription(value));
