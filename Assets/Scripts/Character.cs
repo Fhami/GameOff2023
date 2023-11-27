@@ -25,7 +25,7 @@ namespace DefaultNamespace
         public Transform FrontPos => currentForm ? currentForm.frontPos : transform;
         public RuntimeCharacter runtimeCharacter;
         public CardController cardController;
-
+        public Transform visual;
         [SerializeField] private SerializedDictionary<FormData, CharacterForm> characterForms;
         public CharacterForm currentForm;
 
@@ -35,10 +35,13 @@ namespace DefaultNamespace
         [Foldout("UI"), SerializeField] public IntentionUI intentionUI;
         [Foldout("UI"), SerializeField] public ActiveSkillUI activeSkillUI;
         [Foldout("UI"), SerializeField] public WatcherUI watcherUI;
-        
+
         [SerializeField]
-        private SerializedDictionary<ParticleKey, ParticleSystem> particles =
-            new SerializedDictionary<ParticleKey, ParticleSystem>();
+        private SerializedDictionary<FXKey, ParticleSystem> particles =
+            new SerializedDictionary<FXKey, ParticleSystem>();
+
+        [SerializeField]
+        private SerializedDictionary<FXKey, AudioClip> audioClips = new SerializedDictionary<FXKey, AudioClip>();
 
         public void Init(RuntimeCharacter _runtimeCharacter)
         {
@@ -200,12 +203,12 @@ namespace DefaultNamespace
             if (_oldValue > _value.Value)
             {
                 //Play animation
-                PlayParticle(ParticleKey.DAMAGED);
+                PlayParticle(FXKey.DAMAGED);
                 StartCoroutine(PlayAnimation(AnimationKey.HIT));
             }
             else
             {
-                PlayParticle(ParticleKey.HEAL);
+                PlayParticle(FXKey.HEAL);
             }
         }
 
@@ -214,7 +217,12 @@ namespace DefaultNamespace
             statUI.SetShield(_oldValue,_value.Value);
             if (_oldValue > 0)
             {
-                PlayParticle(ParticleKey.BLOCKED);
+                PlayParticle(FXKey.BLOCKED);
+            }
+
+            if (_oldValue < _value.Value)
+            {
+                PlayAudio(FXKey.GAIN_SHIELD);
             }
         }
 
@@ -223,7 +231,14 @@ namespace DefaultNamespace
             //var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.GoToSize(_oldValue, _size);
 
-            PlayParticle(_oldValue > _size ? ParticleKey.SIZE_DOWN : ParticleKey.SIZE_UP);
+            var _defaultSize = runtimeCharacter.characterData.startSize;
+            var _diff = _size - _defaultSize;
+            float _mult = 1f + (_diff * 0.1f);
+            
+            visual.DOScale(Vector3.one * _mult, 0.1f);
+            statUI.transform.DOLocalMoveY(_mult, 0.1f);
+
+            PlayParticle(_oldValue > _size ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
         }
         
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
@@ -260,7 +275,7 @@ namespace DefaultNamespace
 
                 if (_prevForm)
                 {
-                    PlayParticle(_prevForm.sizeMax < _form.sizeMax ? ParticleKey.FORM_UP : ParticleKey.FORM_DOWN);
+                    PlayParticle(_prevForm.sizeMax < _form.sizeMax ? FXKey.FORM_UP : FXKey.FORM_DOWN);
                 }
 
                 if (currentForm)
@@ -337,15 +352,15 @@ namespace DefaultNamespace
             //transform.DOMove(_target.position, 0.2f).SetEase(Ease.Flash);
 
             yield return PlayAnimation(AnimationKey.ATTACK);
-            PlayParticle(ParticleKey.ATTACK);
+            PlayParticle(FXKey.ATTACK);
             
             //yield return transform.DOMove(_origin, 0.2f).WaitForCompletion();
         }
         
-        public IEnumerator OnKilled(ParticleKey _condition)
+        public IEnumerator OnKilled(FXKey _condition)
         {
             Debug.Log($"{name} is death");
-            PlayParticle(ParticleKey.DEATH);
+            PlayParticle(FXKey.DEATH);
             UnSubScribeProperties();
             
             yield return PlayAnimation(AnimationKey.HIT);
@@ -397,7 +412,7 @@ namespace DefaultNamespace
 
         #endregion
 
-        public void PlayParticle(ParticleKey _key)
+        public void PlayParticle(FXKey _key)
         {
             if (!particles.TryGetValue(_key, out var _prefab)) return;
             if (!_prefab) return;
@@ -405,6 +420,16 @@ namespace DefaultNamespace
             var _particle = Instantiate(_prefab);
             _particle.transform.position = transform.position;
             _particle.Play();
+            
+            PlayAudio(_key);
+        }
+
+        public void PlayAudio(FXKey _key)
+        {
+            if (!audioClips.TryGetValue(_key, out var _clip)) return;
+            if (!_clip) return;
+            
+            SoundManager.Instance.PlaySFX(_clip);
         }
         
         /// <summary>

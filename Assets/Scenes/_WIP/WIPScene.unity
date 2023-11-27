@@ -883,6 +883,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 0}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  draggableLine: {fileID: 0}
   visualDict:
     _serializedList: []
   borderDict:
@@ -1455,6 +1456,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 0}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  draggableLine: {fileID: 0}
   visualDict:
     _serializedList: []
   borderDict:
@@ -1658,6 +1660,7 @@ MonoBehaviour:
   deckData: {fileID: 11400000, guid: b1bf5b3fa4a3e46acbdb9d5d72dca741, type: 2}
   playerData: {fileID: 11400000, guid: 15913e68fda5abf46a9221e92a94a559, type: 2}
   encounterData: {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf, type: 2}
+  bgm: {fileID: 0}
   canPlayCard: 1
 --- !u!114 &689958394
 MonoBehaviour:

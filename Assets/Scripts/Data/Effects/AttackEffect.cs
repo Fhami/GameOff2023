@@ -220,7 +220,7 @@ namespace DefaultNamespace
         private IEnumerator Evade(RuntimeCharacter target)
         {
             // TODO: VFX, animation etc.
-            target.Character.PlayParticle(ParticleKey.EVADE);
+            target.Character.PlayParticle(FXKey.EVADE);
 
             target.properties.Get<int>(PropertyKey.EVASION).Value -= 1;
             yield break;
@@ -274,7 +274,7 @@ namespace DefaultNamespace
             }
             else
             {
-                yield return BattleManager.current.Kill(target, characterPlayingTheCard, player, cardTarget, enemies, ParticleKey.DEATH);
+                yield return BattleManager.current.Kill(target, characterPlayingTheCard, player, cardTarget, enemies, FXKey.DEATH);
             }
         }
 

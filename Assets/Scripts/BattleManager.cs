@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -52,6 +53,10 @@ namespace DefaultNamespace
         public CharacterData playerData;
         public EncounterData encounterData;
 
+        [Foldout("Sound")] 
+        public AudioClip bgm;
+        //public AudioClip 
+
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
         //Use this to prevent player playing card while redraw
@@ -83,6 +88,8 @@ namespace DefaultNamespace
 
         public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
         {
+            SoundManager.Instance.PlayBGM(bgm);
+            
             canPlayCard = true;
             
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
@@ -199,7 +206,7 @@ namespace DefaultNamespace
             // If player is stunned don't allow them to play any cards
             if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                player.Character.PlayParticle(ParticleKey.STUN);
+                player.Character.PlayParticle(FXKey.STUN);
                 
                 //Wait for particle to play for a while before skip
                 yield return new WaitForSeconds(stunDuration);
@@ -254,11 +261,11 @@ namespace DefaultNamespace
             
             if (size == minSize)
             {
-                yield return Kill(player, null, player, null, enemies, ParticleKey.SMALL_DEATH);
+                yield return Kill(player, null, player, null, enemies, FXKey.SMALL_DEATH);
             }
             else if (size == maxSize)
             {
-                yield return Kill(player, null, player, null, enemies, ParticleKey.BIG_DEATH);
+                yield return Kill(player, null, player, null, enemies, FXKey.BIG_DEATH);
             }
         }
 
@@ -479,7 +486,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Called when a character is killed (either player or enemy).
         /// </summary>
-        public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies, ParticleKey condition)
+        public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies, FXKey condition)
         {
             // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
             
@@ -511,7 +518,7 @@ namespace DefaultNamespace
         public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
-            target.Character.PlayParticle(ParticleKey.DECAY);
+            target.Character.PlayParticle(FXKey.DECAY);
             
             Property<int> decay = target.properties.Get<int>(PropertyKey.DECAY);
             int decayAmount = decay.GetValueWithModifiers(target);
@@ -554,7 +561,7 @@ namespace DefaultNamespace
         public IEnumerator Grow(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX
-            target.Character.PlayParticle(ParticleKey.GROW);
+            target.Character.PlayParticle(FXKey.GROW);
             
             Property<int> grow = target.properties.Get<int>(PropertyKey.GROW);
             int growAmount = grow.GetValueWithModifiers(target);
@@ -659,7 +666,7 @@ namespace DefaultNamespace
             // If enemy is stunned don't allow them to play any cards
             if (enemy.properties.Get<int>(PropertyKey.STUN).Value > 0)
             {
-                enemy.Character.PlayParticle(ParticleKey.STUN);
+                enemy.Character.PlayParticle(FXKey.STUN);
                 
                 //Wait for particle to play for a while before skip
                 yield return new WaitForSeconds(stunDuration);
@@ -720,11 +727,11 @@ namespace DefaultNamespace
 
             if (size == minSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, ParticleKey.SMALL_DEATH);
+                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.SMALL_DEATH);
             }
             else if (size == maxSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, ParticleKey.BIG_DEATH);
+                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
         }
 
