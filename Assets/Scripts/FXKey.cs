@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ParticleKey
+public enum FXKey
 {
     HEAL,
     DEATH,
@@ -18,5 +18,6 @@ public enum ParticleKey
     FORM_DOWN,
     SIZE_UP,
     SIZE_DOWN,
-    STUN
+    STUN,
+    GAIN_SHIELD
 }

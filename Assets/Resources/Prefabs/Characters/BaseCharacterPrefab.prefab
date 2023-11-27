@@ -94,6 +94,40 @@ MonoBehaviour:
       Value: {fileID: 0}
     - Key: 9
       Value: {fileID: 0}
+  audioClips:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 0}
+    - Key: 1
+      Value: {fileID: 8300000, guid: 627096af31b68b34bb3525fb697a9a9d, type: 3}
+    - Key: 2
+      Value: {fileID: 0}
+    - Key: 3
+      Value: {fileID: 8300000, guid: debaa09a33d5a0344b733ea2b4ecd2b0, type: 3}
+    - Key: 4
+      Value: {fileID: 8300000, guid: 9367b9761efff1e488f34e7b7cba2282, type: 3}
+    - Key: 5
+      Value: {fileID: 0}
+    - Key: 6
+      Value: {fileID: 8300000, guid: 2d7522f71fe17004ebf35a316d73a97f, type: 3}
+    - Key: 7
+      Value: {fileID: 8300000, guid: e41c7bdd19c23394792d7aaa5a6ea272, type: 3}
+    - Key: 8
+      Value: {fileID: 0}
+    - Key: 9
+      Value: {fileID: 0}
+    - Key: 10
+      Value: {fileID: 0}
+    - Key: 11
+      Value: {fileID: 0}
+    - Key: 12
+      Value: {fileID: 0}
+    - Key: 13
+      Value: {fileID: 0}
+    - Key: 14
+      Value: {fileID: 0}
+    - Key: 15
+      Value: {fileID: 8300000, guid: 56808221ea3fa354dbaad0f25c5880d9, type: 3}
 --- !u!50 &3426283045656471505
 Rigidbody2D:
   serializedVersion: 4
@@ -1094,6 +1128,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7304912489016288312}
     m_Modifications:
+    - target: {fileID: 5156565218728106832, guid: bd6763890d355814280542c2b92b2a15,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6991992334317338687, guid: bd6763890d355814280542c2b92b2a15,
         type: 3}
       propertyPath: m_Name

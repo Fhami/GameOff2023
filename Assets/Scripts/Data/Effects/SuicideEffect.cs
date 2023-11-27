@@ -9,7 +9,7 @@ namespace DefaultNamespace
     {
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            yield return BattleManager.current.Kill(characterPlayingTheCard, characterPlayingTheCard, player, cardTarget, enemies, ParticleKey.BIG_DEATH);
+            yield return BattleManager.current.Kill(characterPlayingTheCard, characterPlayingTheCard, player, cardTarget, enemies, FXKey.BIG_DEATH);
         }
 
         public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
