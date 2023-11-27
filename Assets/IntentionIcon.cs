@@ -11,6 +11,7 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] CanvasGroup _main_canvas;
     [SerializeField] Image _balloon_img;
     [SerializeField] Image _icon_img;
+    [SerializeField] GameObject _vfx_icon;
     [SerializeField] TextMeshProUGUI _value_txt;
     [Header("Multiplier")]
     [SerializeField] Image _multiplier_img;
@@ -29,15 +30,17 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// <param name="gob"> Reference VFX gameobject</param>
     public void SetIcon(GameObject gob)
     {
-        var g = Instantiate(gob);
-        g.transform.SetParent(_balloon_img.transform);
-        g.transform.localScale = new Vector3(1, 1, 1);
-        g.transform.localPosition = new Vector3(0, 0, 0);
+        if (_vfx_icon != null) GameObject.Destroy(_vfx_icon);
+        _vfx_icon = Instantiate(gob);
+        _vfx_icon.transform.SetParent(_balloon_img.transform);
+        _vfx_icon.transform.localScale = new Vector3(1, 1, 1);
+        _vfx_icon.transform.localPosition = new Vector3(0, 0, 0);
         _icon_img.gameObject.SetActive(false);
     }
 
     public void SetIcon(Sprite sprite)
     {
+        if (_vfx_icon != null) GameObject.Destroy(_vfx_icon);
         _icon_img.sprite = sprite;
     }
 
@@ -58,7 +61,7 @@ public class IntentionIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (value > 1)
         {
             _multiplier_img.gameObject.SetActive(true);
-            _multiplier_txt.text = value.ToString();
+            _multiplier_txt.text = "X" + value.ToString();
         }
         else
         {
