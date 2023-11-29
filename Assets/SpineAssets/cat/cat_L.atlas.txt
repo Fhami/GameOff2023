@@ -1,0 +1,83 @@
+
+cat_L.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cat_L/Body
+  rotate: false
+  xy: 2, 51
+  size: 256, 203
+  orig: 257, 205
+  offset: 1, 1
+  index: -1
+Cat_L/Head
+  rotate: true
+  xy: 260, 113
+  size: 141, 113
+  orig: 143, 116
+  offset: 1, 2
+  index: -1
+Cat_L/L_Eye_Close
+  rotate: false
+  xy: 156, 4
+  size: 29, 10
+  orig: 37, 18
+  offset: 4, 4
+  index: -1
+Cat_L/L_Eye_Open
+  rotate: true
+  xy: 259, 20
+  size: 29, 20
+  orig: 37, 28
+  offset: 4, 4
+  index: -1
+Cat_L/L_Hand
+  rotate: false
+  xy: 2, 9
+  size: 59, 40
+  orig: 61, 43
+  offset: 1, 2
+  index: -1
+Cat_L/Mouth_Close
+  rotate: false
+  xy: 119, 2
+  size: 35, 12
+  orig: 43, 20
+  offset: 4, 4
+  index: -1
+Cat_L/Mouth_Open
+  rotate: true
+  xy: 236, 21
+  size: 28, 21
+  orig: 36, 29
+  offset: 4, 4
+  index: -1
+Cat_L/R_Eye_Close
+  rotate: true
+  xy: 214, 17
+  size: 32, 20
+  orig: 40, 28
+  offset: 4, 4
+  index: -1
+Cat_L/R_Eye_Open
+  rotate: false
+  xy: 176, 18
+  size: 36, 31
+  orig: 44, 39
+  offset: 4, 4
+  index: -1
+Cat_L/R_Hand
+  rotate: false
+  xy: 119, 16
+  size: 55, 33
+  orig: 63, 41
+  offset: 4, 4
+  index: -1
+Cat_L/Tail
+  rotate: true
+  xy: 63, 7
+  size: 42, 54
+  orig: 50, 62
+  offset: 4, 4
+  index: -1

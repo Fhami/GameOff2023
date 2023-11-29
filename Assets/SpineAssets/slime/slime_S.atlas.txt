@@ -1,0 +1,41 @@
+
+slime_S.png
+size: 128,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Slime_S/Body
+  rotate: false
+  xy: 2, 2
+  size: 70, 42
+  orig: 79, 50
+  offset: 4, 4
+  index: -1
+Slime_S/L_Eye_Close_01
+  rotate: false
+  xy: 74, 27
+  size: 12, 5
+  orig: 20, 13
+  offset: 4, 4
+  index: -1
+Slime_S/L_Eye_Open_01
+  rotate: false
+  xy: 85, 36
+  size: 9, 8
+  orig: 17, 16
+  offset: 4, 4
+  index: -1
+Slime_S/R_Eye_Close_01
+  rotate: true
+  xy: 88, 23
+  size: 11, 5
+  orig: 20, 13
+  offset: 5, 4
+  index: -1
+Slime_S/R_Eye_Open_01
+  rotate: true
+  xy: 74, 34
+  size: 10, 9
+  orig: 18, 17
+  offset: 4, 4
+  index: -1

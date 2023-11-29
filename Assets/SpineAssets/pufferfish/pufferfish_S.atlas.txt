@@ -1,0 +1,41 @@
+
+pufferfish_S.png
+size: 256,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Puffer_Fish_S/Body
+  rotate: false
+  xy: 2, 2
+  size: 145, 53
+  orig: 147, 56
+  offset: 1, 2
+  index: -1
+Puffer_Fish_S/L_Eye
+  rotate: false
+  xy: 170, 48
+  size: 7, 7
+  orig: 15, 15
+  offset: 4, 4
+  index: -1
+Puffer_Fish_S/Mouth
+  rotate: false
+  xy: 149, 21
+  size: 24, 11
+  orig: 32, 19
+  offset: 4, 4
+  index: -1
+Puffer_Fish_S/R_Eye
+  rotate: false
+  xy: 170, 39
+  size: 7, 7
+  orig: 15, 15
+  offset: 4, 4
+  index: -1
+Puffer_Fish_S/R_Hand
+  rotate: true
+  xy: 149, 34
+  size: 21, 19
+  orig: 29, 27
+  offset: 4, 4
+  index: -1

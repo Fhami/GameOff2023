@@ -1,0 +1,76 @@
+
+cat_s.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cat_S/Body
+  rotate: true
+  xy: 2, 5
+  size: 121, 91
+  orig: 122, 91
+  offset: 0, 0
+  index: -1
+Cat_S/Head
+  rotate: true
+  xy: 95, 44
+  size: 82, 66
+  orig: 84, 69
+  offset: 1, 2
+  index: -1
+Cat_S/L_Eye_Close
+  rotate: false
+  xy: 146, 8
+  size: 18, 7
+  orig: 26, 15
+  offset: 4, 4
+  index: -1
+Cat_S/L_Eye_Open
+  rotate: true
+  xy: 163, 106
+  size: 20, 18
+  orig: 28, 26
+  offset: 4, 4
+  index: -1
+Cat_S/L_Hand
+  rotate: true
+  xy: 95, 6
+  size: 36, 27
+  orig: 37, 30
+  offset: 0, 2
+  index: -1
+Cat_S/Mouth_Close
+  rotate: true
+  xy: 166, 2
+  size: 15, 6
+  orig: 23, 14
+  offset: 4, 4
+  index: -1
+Cat_S/Mouth_Open
+  rotate: false
+  xy: 163, 86
+  size: 18, 18
+  orig: 22, 21
+  offset: 3, 2
+  index: -1
+Cat_S/R_Eye_Close
+  rotate: false
+  xy: 124, 7
+  size: 20, 8
+  orig: 28, 16
+  offset: 4, 4
+  index: -1
+Cat_S/R_Eye_Open
+  rotate: true
+  xy: 149, 19
+  size: 23, 20
+  orig: 31, 28
+  offset: 4, 4
+  index: -1
+Cat_S/R_Hand
+  rotate: true
+  xy: 124, 17
+  size: 25, 23
+  orig: 33, 31
+  offset: 4, 4
+  index: -1
