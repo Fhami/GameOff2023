@@ -234,6 +234,7 @@ namespace DefaultNamespace
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
             Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
             int vulnerable = target.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(target);
+            int weak = characterPlayingTheCard.properties.Get<int>(PropertyKey.WEAK).GetValueWithModifiers(characterPlayingTheCard);
 
             // Keep track of how much health the target had before receiving damage
             int healthBefore = health.Value;
@@ -246,6 +247,10 @@ namespace DefaultNamespace
             //Amp damage by 50% if target have VULNERABLE
             float damageAmp = vulnerable > 0 ? 1.5f : 1f;
             damage = (int)Mathf.Round(damage * damageAmp);
+            
+            //Reduce damage by 25% if character perform attack have WEAK
+            float damageReduc = weak > 0 ? 0.75f : 1f;
+            damage = (int)Mathf.Round(damage * damageReduc);
             
             //Play animation/vfx if isn't thorn effect
             if (!isThorn)
@@ -373,13 +378,17 @@ namespace DefaultNamespace
                     var hp = runtimeTarget.properties.Get<int>(PropertyKey.HEALTH).Value;
                     var maxHp = runtimeTarget.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
                     var shield = runtimeTarget.properties.Get<int>(PropertyKey.SHIELD).Value;
-
+                    int vulnerable = runtimeTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(runtimeTarget);
+                    
                     if (shield > 0)
                     {
                         runtimeTarget.Character.statUI.PreviewShield(shield, shield - damage);
                     }
 
                     damage -= shield;
+                    
+                    float damageAmp = vulnerable > 0 ? 1.5f : 1f;
+                    damage = (int)Mathf.Round(damage * damageAmp);
                     runtimeTarget.Character.statUI.PreviewHp(hp, hp - damage, maxHp);
                 }
             }
