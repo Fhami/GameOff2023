@@ -241,11 +241,12 @@ namespace DefaultNamespace
             // Calculate the attack value after shield absorption (i.e. reduce shield value from attack value)
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             
+            int damage = incomingDamage - damageAbsorbedByShield;
+            
             //Amp damage by 50% if target have VULNERABLE
             float damageAmp = vulnerable > 0 ? 1.5f : 1f;
-            incomingDamage = (int)Mathf.Round(incomingDamage * damageAmp);
-            int damage = incomingDamage - damageAbsorbedByShield;
-
+            damage = (int)Mathf.Round(damage * damageAmp);
+            
             //Play animation/vfx if isn't thorn effect
             if (!isThorn)
             {
