@@ -233,25 +233,28 @@ namespace DefaultNamespace
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
             Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
-            int vulnerable = target.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(target);
-            int weak = characterPlayingTheCard.properties.Get<int>(PropertyKey.WEAK).GetValueWithModifiers(characterPlayingTheCard);
-
+            
             // Keep track of how much health the target had before receiving damage
             int healthBefore = health.Value;
 
+            int vulnerable = cardTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(cardTarget);
+            int weak = characterPlayingTheCard.properties.Get<int>(PropertyKey.WEAK).GetValueWithModifiers(characterPlayingTheCard);
+
+            //Amp damage by 50% if target have VULNERABLE
+            float damageAmp = vulnerable > 0 ? 0.5f : 0f;
+            //Reduce damage by 25% if character perform attack have WEAK
+            float damageReduc = weak > 0 ? 0.25f : 0f;
+            
+            float damageMod = (1 + damageAmp) * (1 - damageReduc);
+            
+            //Modify damage before calculate shield
+            incomingDamage = (int)Mathf.Round(incomingDamage * damageMod);
+            
             // Calculate the attack value after shield absorption (i.e. reduce shield value from attack value)
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
             
             int damage = incomingDamage - damageAbsorbedByShield;
-            
-            //Amp damage by 50% if target have VULNERABLE
-            float damageAmp = vulnerable > 0 ? 1.5f : 1f;
-            damage = (int)Mathf.Round(damage * damageAmp);
-            
-            //Reduce damage by 25% if character perform attack have WEAK
-            float damageReduc = weak > 0 ? 0.75f : 1f;
-            damage = (int)Mathf.Round(damage * damageReduc);
-            
+
             //Play animation/vfx if isn't thorn effect
             if (!isThorn)
             {
@@ -378,7 +381,16 @@ namespace DefaultNamespace
                     var hp = runtimeTarget.properties.Get<int>(PropertyKey.HEALTH).Value;
                     var maxHp = runtimeTarget.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
                     var shield = runtimeTarget.properties.Get<int>(PropertyKey.SHIELD).Value;
-                    int vulnerable = runtimeTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(runtimeTarget);
+                    int vulnerable = cardTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(cardTarget);
+                    int weak = characterPlayingTheCard.properties.Get<int>(PropertyKey.WEAK).GetValueWithModifiers(characterPlayingTheCard);
+
+                    //Amp damage by 50% if target have VULNERABLE
+                    float damageAmp = vulnerable > 0 ? 0.5f : 0f;
+                    //Reduce damage by 25% if character perform attack have WEAK
+                    float damageReduc = weak > 0 ? 0.25f : 0f;
+            
+                    float damageMod = (1 + damageAmp) * (1 - damageReduc);
+                    damage = (int)Mathf.Round(damage * damageMod);
                     
                     if (shield > 0)
                     {
@@ -386,9 +398,7 @@ namespace DefaultNamespace
                     }
 
                     damage -= shield;
-                    
-                    float damageAmp = vulnerable > 0 ? 1.5f : 1f;
-                    damage = (int)Mathf.Round(damage * damageAmp);
+
                     runtimeTarget.Character.statUI.PreviewHp(hp, hp - damage, maxHp);
                 }
             }

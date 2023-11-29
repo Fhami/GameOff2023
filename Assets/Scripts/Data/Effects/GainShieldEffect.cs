@@ -30,6 +30,15 @@ namespace DefaultNamespace
             int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             var times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
+            var fragile = characterPlayingTheCard.properties.Get<int>(PropertyKey.FRAGILE)
+                .GetValueWithModifiers(characterPlayingTheCard);
+            
+            //Reduce shield gain by 25% if character have FRAGILE
+            var shieldReduc = fragile > 0 ? 0.25f : 0;
+            var shieldMod = (1 - shieldReduc);
+            
+            shield = (int)Mathf.Round(shield * shieldMod);
+            
             for (int i = 0; i < times; i++)
             {
                 characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += shield;
@@ -117,7 +126,7 @@ namespace DefaultNamespace
         /// </summary>
         public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            int damage = shieldValueSource switch
+            int shield = shieldValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => shieldValue,
@@ -127,7 +136,7 @@ namespace DefaultNamespace
 
             int cardShieldModifier = GetShieldModifiers(card, characterPlayingTheCard);
 
-            return damage + cardShieldModifier;
+            return shield + cardShieldModifier;
         }
         
         /// <summary>
@@ -171,7 +180,16 @@ namespace DefaultNamespace
             int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             var times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             var currentShield = characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value;
-
+            
+            var fragile = characterPlayingTheCard.properties.Get<int>(PropertyKey.FRAGILE)
+                .GetValueWithModifiers(characterPlayingTheCard);
+            
+            //Reduce shield gain by 25% if character have FRAGILE
+            var shieldReduc = fragile > 0 ? 0.25f : 0;
+            var shieldMod = (1 - shieldReduc);
+            
+            shield = (int)Mathf.Round(shield * shieldMod);
+            
             for (int i = 0; i < times; i++)
             {
                 characterPlayingTheCard.Character.statUI.PreviewShield(currentShield, currentShield + shield);
