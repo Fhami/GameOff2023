@@ -118,7 +118,7 @@ namespace DefaultNamespace
                     enemies.Add(_newEnemy);
                     runtimeEnemies.Add(_newEnemy.runtimeCharacter);
                     
-                    yield return _newEnemy.runtimeCharacter.Character.UpdateIntention(_newEnemy.GetIntention());
+                    yield return _newEnemy.runtimeCharacter.Character.UpdateIntention(_newEnemy.GetIntention(), true);
                 
                     yield return new WaitForSeconds(characterSpawnDelay);
 
@@ -646,7 +646,7 @@ namespace DefaultNamespace
             enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             enemy.properties.Get<int>(PropertyKey.EVASION).Value = 0;
             
-            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention(), true);
         }
         
         /// <summary>
@@ -718,7 +718,7 @@ namespace DefaultNamespace
             enemy.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT).Value = 0;
             enemy.properties.Get<int>(PropertyKey.CARDS_FADED_ON_CURRENT_TURN_COUNT).Value = 0;
             
-            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention());
+            yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention(), true);
             
             // Death by size (if player is at min size or max size at the end of the turn they will die)
             int minSize = runtimePlayer.properties.Get<int>(PropertyKey.MIN_SIZE).Value;

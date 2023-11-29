@@ -84,7 +84,7 @@ namespace DefaultNamespace
             foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
             {
                 if (buffPropertyKey == PropertyKey.NONE) continue;
-                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged += UpdateBuffVisual;
+                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged += UpdateBuff;
             }
             
         }
@@ -193,13 +193,14 @@ namespace DefaultNamespace
                 outlinable.OutlineParameters.FillPass.Shader = null;
         }
 
-        public void UpdateBuffVisual(int _oldValue, Property<int> _value)
+        public void UpdateBuff(int _oldValue, Property<int> _value)
         {
             if (Database.buffData.TryGetValue(_value.Key, out var _buffData))
             {
                 statUI.SetBuff(_buffData, _value.GetValueWithModifiers(runtimeCharacter));
             }
             
+            StartCoroutine(UpdateIntention(GetIntention(), false));
             BattleManager.current.CardController.UpdateCards();
         }
 
@@ -248,7 +249,7 @@ namespace DefaultNamespace
             PlayParticle(_oldValue > _size ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
         }
         
-        public IEnumerator UpdateIntention(RuntimeCard _runtimeCard)
+        public IEnumerator UpdateIntention(RuntimeCard _runtimeCard, bool _anim)
         {
             if (_runtimeCard == null) yield break;
             
@@ -269,9 +270,9 @@ namespace DefaultNamespace
 
                 _intentDetails.Add(new IntentionDetail(_effectData.intent, _value, _times, _description));
             }
-            Debug.Log($"{name} intent: {_runtimeCard.cardData.name}");
+            //Debug.Log($"{name} intent: {_runtimeCard.cardData.name}");
             
-            yield return intentionUI.SetIntention(_intentDetails);
+            yield return intentionUI.SetIntention(_intentDetails, _anim);
         }
 
         public void UpdateFormVisual(FormData _prevForm, FormData _form)
@@ -290,6 +291,8 @@ namespace DefaultNamespace
                 
                 currentForm = _characterForm;
                 currentForm.gameObject.SetActive(true);
+
+                StartCoroutine(UpdateIntention(GetIntention(), true));
                 
                 switch (_form.size)
                 {
@@ -384,7 +387,7 @@ namespace DefaultNamespace
             foreach (PropertyKey buffPropertyKey in Database.buffData.Keys)
             {
                 if (buffPropertyKey == PropertyKey.NONE) continue;
-                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged -= UpdateBuffVisual;
+                runtimeCharacter.properties.Get<int>(buffPropertyKey).OnChanged -= UpdateBuff;
             }
         }
 
