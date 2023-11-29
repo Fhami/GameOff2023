@@ -233,12 +233,17 @@ namespace DefaultNamespace
             Property<int> shield = target.properties.Get<int>(PropertyKey.SHIELD);
             Property<int> health = target.properties.Get<int>(PropertyKey.HEALTH);
             Property<int> maxHealth = target.properties.Get<int>(PropertyKey.MAX_HEALTH);
+            int vulnerable = target.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(target);
 
             // Keep track of how much health the target had before receiving damage
             int healthBefore = health.Value;
 
             // Calculate the attack value after shield absorption (i.e. reduce shield value from attack value)
             int damageAbsorbedByShield = Mathf.Min(incomingDamage, shield.Value);
+            
+            //Amp damage by 50% if target have VULNERABLE
+            float damageAmp = vulnerable > 0 ? 1.5f : 1f;
+            incomingDamage = (int)Mathf.Round(incomingDamage * damageAmp);
             int damage = incomingDamage - damageAbsorbedByShield;
 
             //Play animation/vfx if isn't thorn effect
