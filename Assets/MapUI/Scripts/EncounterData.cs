@@ -10,6 +10,7 @@ public class EncounterData : ScriptableObject
     public NodeType type;
     public Sprite icon;
     public List<EnemyDataModifier> enemies;
+    public List<CardData> rewardPool;
 }
 
 [System.Serializable] public class EnemyDataModifier

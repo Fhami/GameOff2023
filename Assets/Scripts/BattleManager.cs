@@ -80,7 +80,7 @@ namespace DefaultNamespace
             //Add cards to player deck
             foreach (var _cardData in deckData.Cards)
             {
-                GameManager.Instance.PlayerRuntimeDeck.AddCard(CardFactory.Create(_cardData.name));
+                GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
             }
 
             yield return StartBattle(playerData, encounterData);
