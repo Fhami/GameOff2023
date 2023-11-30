@@ -388,7 +388,7 @@ namespace DefaultNamespace
                         runtimeTarget.Character.statUI.PreviewShield(shield, shield - damage);
                     }
 
-                    damage -= shield;
+                    damage = Mathf.Max(0, damage - shield);
 
                     runtimeTarget.Character.statUI.PreviewHp(hp, hp - damage, maxHp);
                 }
