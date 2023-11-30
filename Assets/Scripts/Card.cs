@@ -41,6 +41,7 @@ namespace DefaultNamespace
         [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
 
         [SerializeField] private LayerMask targetMask;
+        public Collider2D Collider;
         private List<ICardTarget> validTargets = new List<ICardTarget>();
         private ICardTarget currentTarget;
 

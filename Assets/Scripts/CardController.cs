@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -55,7 +56,7 @@ public class CardController : MonoBehaviour
     {
         foreach (var _card in DeckPile.GetCards(_number))
         {
-            HandPile.AddCard(_card, false, Vector3.one);
+            HandPile.AddCard(_card, false, Vector3.one, true);
             
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
@@ -213,6 +214,9 @@ public class CardController : MonoBehaviour
                 }
                     
                 card.transform.SetParent(null);
+                card.transform.DOMove(new Vector3(0, 1, 0), 0.2f);
+                card.transform.DOScale(new Vector3(1.03f, 1.03f, 1f), 0.1f);
+                card.Collider.enabled = false;
 
                 var _targetChar = _target.GameObject.GetComponent<Character>();
 

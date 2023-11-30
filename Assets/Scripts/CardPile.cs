@@ -95,9 +95,10 @@ public class CardPile : MonoBehaviour
         }
     }
     
-    public void AddCard(Card _card, bool _tween, Vector3 _scaleTween)
+    public void AddCard(Card _card, bool _tween, Vector3 _scaleTween, bool _canInteract = false)
     {
         Cards.Add(_card);
+        _card.Collider.enabled = _canInteract;
 
         if (Container)
         {

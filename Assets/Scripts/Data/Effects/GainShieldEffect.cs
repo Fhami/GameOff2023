@@ -44,7 +44,7 @@ namespace DefaultNamespace
                 characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value += shield;
             }
             
-            yield break;
+            yield return new WaitForSeconds(0.2f);
         }
 
         public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
