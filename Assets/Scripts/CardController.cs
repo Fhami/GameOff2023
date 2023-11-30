@@ -188,7 +188,7 @@ public class CardController : MonoBehaviour
         
         AddCardListeners(_newCardObj);
         
-        HandPile.AddCard(_newCardObj, false, Vector3.one);
+        HandPile.AddCard(_newCardObj, false, Vector3.one, true);
         
         yield return drawDelay;
     }
