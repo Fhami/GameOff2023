@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Puff
   m_EditorClassIdentifier: 
   sizeMin: 1
-  sizeMax: 2
-  handSize: 0
+  sizeMax: 3
+  size: 0
+  activeSkill: {fileID: 0}
+  activeSkillSize: 0
   passives: []
-  skills: []
+  skills:
+  - {fileID: 11400000, guid: 0c571ee00cf164540a15c379b4a03713, type: 2}
   attackPattern:
-  - {fileID: 11400000, guid: a8bb00377286cc642b287d67123d211d, type: 2}
-  - {fileID: 11400000, guid: 2c5134a773c5ed947815b74583928476, type: 2}
+  - {fileID: 11400000, guid: 7c5f930d41dc94d348f24b83b0a33459, type: 2}
+  - {fileID: 11400000, guid: af8958fbcd86342968b745e507a467ee, type: 2}
+  - {fileID: 11400000, guid: 6de898ee6a80147999b0338306bd33c0, type: 2}
+  - {fileID: 11400000, guid: 6ef431582c70543d4b716b40ac80f5b9, type: 2}

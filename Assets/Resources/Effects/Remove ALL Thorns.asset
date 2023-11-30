@@ -9,12 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e87758f01a284243b08baf3955d8c127, type: 3}
-  m_Name: Suicide
+  m_Script: {fileID: 11500000, guid: 23ea424101cd499aa021d1b695fbefdd, type: 3}
+  m_Name: Remove ALL Thorns
   m_EditorClassIdentifier: 
-  intent: {fileID: 11400000, guid: 6caa97adcc0bafa4490c7130c87c1255, type: 2}
+  intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
   effectModifier: {fileID: 0}
   timesValueSource: 0
   timesValue: 0
   customTimesValue: {fileID: 0}
   customTimesDescription: 
+  statusEffect: 33
+  valueSource: 1
+  value: -99
+  customValue: {fileID: 0}
+  customDescription: 

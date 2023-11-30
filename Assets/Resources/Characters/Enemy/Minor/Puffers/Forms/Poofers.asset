@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Poofers
   m_EditorClassIdentifier: 
   sizeMin: 7
-  sizeMax: 9
+  sizeMax: 10
+  size: 2
+  activeSkill: {fileID: 0}
+  activeSkillSize: 0
   passives:
   - {fileID: 11400000, guid: 3febf1232bcc06f48bbf31770b0050b2, type: 2}
   skills:

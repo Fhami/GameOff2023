@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Puffurs] +2 Thorn, Size +1'
+  m_Name: '[Poofers] Explode'
   m_EditorClassIdentifier: 
   cardType: 0
   cardSize: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: d56009c91c2d846ab97f70393c00bd64, type: 2}
-  - {fileID: 11400000, guid: e6bb44a8fefac3647a9ca301fe903899, type: 2}
+  - {fileID: 11400000, guid: 8238855f50416e8469b615c8b2b3d656, type: 2}
+  - {fileID: 11400000, guid: f686ec2ad1823564c85fe4e1b495c67b, type: 2}
   cardActiveSkills: []

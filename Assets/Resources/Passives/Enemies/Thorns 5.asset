@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d735d963044655a14ad58b0f301302, type: 3}
   m_Name: Thorns 5
   m_EditorClassIdentifier: 
-  propertyKey: 26
+  triggerGameEvent: 0
+  triggerConditions: []
+  buffData: {fileID: 11400000, guid: e7996daa1be0e494c92603a5da0bdca0, type: 2}
+  propertyKey: 33
   operation: 0
   value: 5

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: '[Poofers] +3 Thorn, Size +1x2'
   m_EditorClassIdentifier: 
   cardType: 0
+  cardSize: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: b982e59f472b2fa43a3d5f329bd9814e, type: 2}
+  - {fileID: 11400000, guid: 9a699d71dac604e68b196d05a810cf8b, type: 2}
   - {fileID: 11400000, guid: 28c15b69e5cbc664893d59f460c6537d, type: 2}
   cardActiveSkills: []

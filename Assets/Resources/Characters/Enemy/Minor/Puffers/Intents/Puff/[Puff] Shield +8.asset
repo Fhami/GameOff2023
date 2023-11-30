@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Poofers] Explode'
+  m_Name: '[Puff] Shield +8'
   m_EditorClassIdentifier: 
   cardType: 0
+  cardSize: 0
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 8238855f50416e8469b615c8b2b3d656, type: 2}
-  - {fileID: 11400000, guid: f686ec2ad1823564c85fe4e1b495c67b, type: 2}
+  - {fileID: 11400000, guid: 0d534d829b99be348927a441d5b38147, type: 2}
   cardActiveSkills: []

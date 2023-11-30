@@ -9,11 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7834ae75984adaaba43ab1ee7dfba8, type: 3}
-  m_Name: Thorns +3
+  m_Script: {fileID: 11500000, guid: 23ea424101cd499aa021d1b695fbefdd, type: 3}
+  m_Name: Thorn +2
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
-  thornsValueSource: 1
-  thornsValue: 3
-  customThornsValue: {fileID: 0}
-  customThornsDescription: 
+  effectModifier: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}
+  customTimesDescription: 
+  statusEffect: 33
+  valueSource: 1
+  value: 2
+  customValue: {fileID: 0}
+  customDescription: 
