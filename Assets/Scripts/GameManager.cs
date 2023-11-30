@@ -32,6 +32,11 @@ namespace DefaultNamespace
             yield break;
         }
 
+        public IEnumerator WinBattle()
+        {
+            yield break;
+        }
+        
         private void Update()
         {
             if (debugMode)

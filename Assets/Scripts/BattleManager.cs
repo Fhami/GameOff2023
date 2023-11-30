@@ -492,9 +492,9 @@ namespace DefaultNamespace
         /// </summary>
         public IEnumerator Kill(RuntimeCharacter characterToKill, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies, FXKey condition)
         {
-            // TODO: VFX, animation etc. Remove the character from battle (if it's enemy)
-            
             characterToKill.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.DEAD;
+            
+            yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
             
             if (characterToKill == player)
             {
@@ -513,10 +513,9 @@ namespace DefaultNamespace
 
             if (runtimeEnemies.Count == 0)
             {
-                //WIN!
+                yield return GameManager.Instance.WinBattle();
+                player.ClearStatusEffectStackAtEndOfBattle();
             }
-            
-            yield return OnGameEvent(GameEvent.ON_DEATH, characterToKill, player, enemies);
         }
 
         public IEnumerator Decay(RuntimeCharacter target, RuntimeCharacter player, List<RuntimeCharacter> enemies)
