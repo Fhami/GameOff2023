@@ -14,6 +14,7 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [SerializeField] RectTransform _rect; 
     [SerializeField] Image _parent_img;
     [SerializeField] Image _ground_img;
+    [SerializeField] GameObject _icon_parent;
     [SerializeField] Image _icon_img;
     [SerializeField] TextMeshProUGUI _name_txt;
     [SerializeField] List<MapNodeUI> _prevNodes = new List<MapNodeUI>();
@@ -81,5 +82,15 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public void SetImage(Sprite sprite)
     {
         _icon_img.sprite = sprite;
+        _icon_img.gameObject.SetActive(true);
+    }
+
+    public void SetIconPrefab(GameObject gameObject)
+    {
+        var o = Instantiate(gameObject);      
+        o.transform.SetParent(_icon_parent.transform);
+        o.transform.localScale = new Vector3(1, 1, 1);
+        o.transform.localPosition = new Vector3(0, 0, 0);
+        _icon_img.gameObject.SetActive(false);
     }
 }

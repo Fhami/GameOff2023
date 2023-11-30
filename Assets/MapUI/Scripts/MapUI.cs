@@ -90,7 +90,15 @@ public class MapUI : MonoBehaviour
             nodeUI.NodeInfo = tempChoosingNode[i];
             nodeUI.EncounterData =RandomPossibleEncounter(nodeUI.NodeInfo.nodeType , rowSetting);
 
-            nodeUI.SetImage(nodeUI.NodeInfo.icon);
+            if (nodeUI.NodeInfo.iconGameObject != null)
+            {
+                nodeUI.SetIconPrefab(nodeUI.NodeInfo.iconGameObject);
+            }
+            else
+            {
+                nodeUI.SetImage(nodeUI.NodeInfo.icon);
+            }
+
             nodeUI.transform.SetParent(rowUI.transform,false);
             nodeUI.transform.localScale = new Vector3(1, 1, 1);
             nodeUI.onClick = OnClickMapNode;

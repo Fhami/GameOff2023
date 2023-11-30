@@ -9,5 +9,6 @@ public class NodeInfo : ScriptableObject
 {
     public NodeType nodeType;
     public Sprite icon;
+    public GameObject iconGameObject;
     
 }
