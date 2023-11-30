@@ -240,6 +240,17 @@ namespace DefaultNamespace
                 yield return Grow(player, player, enemies);
             }
             
+            // Gain X strength at the end of the turn if character has nutrient
+            Property<int> nutrient = player.properties.Get<int>(PropertyKey.NUTRIENT);
+            int nutrientValue = nutrient.GetValueWithModifiers(player);
+            if (nutrientValue > 0)
+            {
+                // Gain X strength
+                player.properties.Get<int>(PropertyKey.STRENGTH).Value += nutrientValue;
+                // Reduce nutrient by 1
+                nutrient.Value -= 1;
+            }
+
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
             // Clear buff stacks
@@ -704,6 +715,17 @@ namespace DefaultNamespace
             if (enemy.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(enemy) > 0)
             {
                 yield return Grow(enemy, runtimePlayer, runtimeEnemies);
+            }
+            
+            // Gain X strength at the end of the turn if character has nutrient
+            Property<int> nutrient = enemy.properties.Get<int>(PropertyKey.NUTRIENT);
+            int nutrientValue = nutrient.GetValueWithModifiers(enemy);
+            if (nutrientValue > 0)
+            {
+                // Gain X strength
+                enemy.properties.Get<int>(PropertyKey.STRENGTH).Value += nutrientValue;
+                // Reduce nutrient by 1
+                nutrient.Value -= 1;
             }
             
             enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
