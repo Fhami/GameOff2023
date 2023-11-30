@@ -91,20 +91,21 @@ namespace DefaultNamespace
             return newCard;
         }
 
-        public static CardUI CreateCardUI(RuntimeCard runtimeCard)
+        public static CardUI CreateCardUI(CardData cardData)
         {
             //Load and cache card prefab
-            var cardUIPrefab = Resources.Load<CardUI>("Temp/CardUIMockup");
+            var cardUIPrefab = Resources.Load<CardUI>("Prefabs/Cards/CardUIPrefab");
 
             var newCard = Object.Instantiate(cardUIPrefab);
-            newCard.name = runtimeCard.cardData.name;
-            newCard.InitCard(runtimeCard);
+            newCard.name = cardData.name;
+            newCard.InitCard(cardData);
 
             return newCard;
         }
+        
         public static CardUI CreateCardUI(string name)
         {
-            return CreateCardUI(Create(name));
+            return CreateCardUI(Database.cardData[name]);
         }
     }
 }

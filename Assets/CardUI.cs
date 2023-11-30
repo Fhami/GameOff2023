@@ -1,51 +1,53 @@
 using DefaultNamespace;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
+using AYellowpaper.SerializedCollections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour, IPointerClickHandler
 {
-    //[SerializeField] public TextMeshPro EffectText;
+    public bool Interactable = true;
     [SerializeField] public TextMeshProUGUI CardName;
     [SerializeField] public TextMeshProUGUI EffectTextUI;
-
+    [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
+    [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
     [SerializeField] public CardData cardData;
-
-    public Button button;
+    
     public UnityEvent<CardUI> OnClick;
-
-    void Start()
+    
+    public void InitCard(CardData _cardData)
     {
-
-    }
-
-    void Update()
-    {
-        
-    }
-    public void InitCard(RuntimeCard runtimeCard)
-    {
-        cardData = runtimeCard.cardData;
-        StringBuilder _builder = new StringBuilder();
-
+        cardData = _cardData;
         CardName.text = cardData.name;
-
-        foreach(var _effect in cardData.effects)
+        EffectTextUI.text = CardData.GetCardDescription(cardData);
+        
+        foreach (var _obj in visualDict.Values)
         {
-            _builder.AppendLine(_effect.GetDescriptionText());
+            _obj.SetActive(false);
         }
 
-        EffectTextUI.text = _builder.ToString();
+        foreach (var _obj in borderDict.Values)
+        {
+            _obj.SetActive(false);
+        }
+            
+        if (visualDict.TryGetValue(cardData.cardType, out var _value))
+        {
+            _value.SetActive(true);
+        }
+
+        if (borderDict.TryGetValue(cardData.cardSize, out var _size))
+        {
+            _size.SetActive(true);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!Interactable) return;
+        
         OnClick?.Invoke(this);
     }
 }

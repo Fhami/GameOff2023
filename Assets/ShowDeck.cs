@@ -14,18 +14,6 @@ public class DeckView : MonoBehaviour
 
     public List<CardUI> CurrentCard;
     public List <CardData> Card;
-    GenerateCardScript generateCardScript = new GenerateCardScript();
-
-    
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void ShowDeck()
     {
@@ -40,7 +28,6 @@ public class DeckView : MonoBehaviour
                 Destroy(card.gameObject);
             }
             CurrentCard.Clear();
-
             
         }
         else

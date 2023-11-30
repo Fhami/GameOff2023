@@ -16,14 +16,13 @@ namespace DefaultNamespace
         public void AddCard(CardData _card)
         {
             //Deck is full
-            if (Cards.Count > MaxSize)
-            {
-                Debug.LogError("Deck is full!");
-                return;
-            }
-
+            // if (Cards.Count > MaxSize)
+            // {
+            //     Debug.LogError("Deck is full!");
+            //     return;
+            // }
             
-                Cards.Add(_card);
+            Cards.Add(_card);
         }
 
         /// <summary>
