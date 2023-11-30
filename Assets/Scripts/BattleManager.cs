@@ -190,15 +190,11 @@ namespace DefaultNamespace
         {
             FormData form = player.GetCurrentForm();
 
-            // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
-            player.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
-
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
             player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
 
-            // Clear properties that are only tracked per turn
-            player.ClearBuffStackTurnStart();
+            player.ClearStatusEffectDurationAtTurnStart();
 
             // If player is stunned don't allow them to play any cards
             if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
@@ -207,7 +203,6 @@ namespace DefaultNamespace
                 
                 //Wait for particle to play for a while before skip
                 yield return new WaitForSeconds(stunDuration);
-                
             }
             else
             {
@@ -251,8 +246,12 @@ namespace DefaultNamespace
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
-            // Clear buff stacks
-            player.ClearBuffStackTurnEnd();
+            // Clear stun
+            player.properties.Get<int>(PropertyKey.STUN).Value = 0;
+            
+            // Clear status and reduce effects
+            player.ReduceStatusEffectDurationAtEndOfTurn();
+            player.ClearStatusEffectStackAtEndOfTurn();
 
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
@@ -546,9 +545,6 @@ namespace DefaultNamespace
 
             // Reduce the target size by decay amount
             size.Value = Mathf.Clamp(size.Value - decayAmount, 0, maxSize.GetValueWithModifiers(target));
-
-            // Reduce decay stack by 1
-            decay.Value = Mathf.Clamp(decay.Value - 1, 0, int.MaxValue);
             
             FormData currentForm = target.GetCurrentForm();
 
@@ -589,9 +585,6 @@ namespace DefaultNamespace
 
             // Reduce the target size by grow amount
             size.Value = Mathf.Clamp(size.Value - growAmount, 0, maxSize.GetValueWithModifiers(target));
-
-            // Reduce grow stack by 1
-            grow.Value = Mathf.Clamp(grow.Value - 1, 0, int.MaxValue);
             
             FormData currentForm = target.GetCurrentForm();
 
@@ -643,13 +636,7 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn it is now.</param>
         public IEnumerator EnemyTurnStart(RuntimeCharacter enemy)
         {
-            // Clear shield stack TODO: If there's an artifact e.g. "Don't clear shield at turn start" we can do it here.
-            enemy.properties.Get<int>(PropertyKey.SHIELD).Value = 0;
-          
-            // Clear properties that are only tracked per turn
-            enemy.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
-            enemy.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
-            enemy.properties.Get<int>(PropertyKey.EVASION).Value = 0;
+            enemy.ClearStatusEffectDurationAtTurnStart();
             
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention(), true);
         }
@@ -724,8 +711,9 @@ namespace DefaultNamespace
                 enemy.properties.Get<int>(PropertyKey.STRENGTH).Value += nutrientValue;
             }
             
-            enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            enemy.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+            // Clear status and reduce effects
+            enemy.ReduceStatusEffectDurationAtEndOfTurn();
+            enemy.ClearStatusEffectStackAtEndOfTurn();
 
             // Clear properties that are only tracked per turn
             enemy.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;
@@ -749,7 +737,6 @@ namespace DefaultNamespace
             }
         }
 
-        // TODO: Call this after current battle ended
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
         {
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT).Value = 0;

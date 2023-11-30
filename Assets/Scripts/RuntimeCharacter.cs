@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -130,29 +131,55 @@ namespace DefaultNamespace
         }
 
         /// <summary>
-        /// Effects that will also play on opponent's turn
+        /// Clear/reset each applicable status effect stack.
         /// </summary>
-        public void ClearBuffStackTurnStart()
+        public void ClearStatusEffectStackAtEndOfBattle()
         {
-            //TODO: very wip, need to decide which effect to clear when turn start
             properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES).Value = 0;
             properties.Get<int>(PropertyKey.EVASION).Value = 0;
+            properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
             properties.Get<int>(PropertyKey.THORNS).Value = 0;
             properties.Get<int>(PropertyKey.STABLE).Value = 0;
+            properties.Get<int>(PropertyKey.SHIELD).Value = 0;
+            properties.Get<int>(PropertyKey.NUTRIENT).Value = 0;
+            properties.Get<int>(PropertyKey.DECAY).Value = 0;
+            properties.Get<int>(PropertyKey.GROW).Value = 0;
+            properties.Get<int>(PropertyKey.FRAGILE).Value = 0;
         }
         
         /// <summary>
-        /// Effects that only play on character's own turn
+        /// Clear/reset each applicable status effect stack.
         /// </summary>
-        public void ClearBuffStackTurnEnd()
+        public void ClearStatusEffectStackAtEndOfTurn()
         {
-            //TODO: very wip, need to decide which effect to clear when turn end
-            properties.Get<int>(PropertyKey.STUN).Value = 0;
-            properties.Get<int>(PropertyKey.DECAY).Value = 0;
-            properties.Get<int>(PropertyKey.FRAGILE).Value = 0;
-            properties.Get<int>(PropertyKey.GROW).Value = 0;
+            properties.Get<int>(PropertyKey.EVASION).Value = 0;
+        }
+        
+        /// <summary>
+        /// Clear/reset each applicable status effect stack.
+        /// </summary>
+        public void ClearStatusEffectDurationAtTurnStart()
+        {
+            properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
+            properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
+            properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES).Value = 0;
+            properties.Get<int>(PropertyKey.STABLE).Value = 0;
+            properties.Get<int>(PropertyKey.SHIELD).Value = 0;
+            properties.Get<int>(PropertyKey.WEAK).Value = 0;
+        }
+        
+        /// <summary>
+        /// Reduce duration of applicable status effects by 1.
+        /// </summary>
+        public void ReduceStatusEffectDurationAtEndOfTurn()
+        {
+            properties.Get<int>(PropertyKey.DECAY).Value = Mathf.Clamp(properties.Get<int>(PropertyKey.DECAY).Value - 1, 0, int.MaxValue);
+            properties.Get<int>(PropertyKey.GROW).Value = Mathf.Clamp(properties.Get<int>(PropertyKey.GROW).Value - 1, 0, int.MaxValue);
+            properties.Get<int>(PropertyKey.FRAGILE).Value = Mathf.Clamp(properties.Get<int>(PropertyKey.FRAGILE).Value - 1, 0, int.MaxValue);
+            properties.Get<int>(PropertyKey.VULNERABLE).Value = Mathf.Clamp(properties.Get<int>(PropertyKey.VULNERABLE).Value - 1, 0, int.MaxValue);
+            properties.Get<int>(PropertyKey.WEAK).Value = Mathf.Clamp(properties.Get<int>(PropertyKey.WEAK).Value - 1, 0, int.MaxValue);
         }
         
         /// <summary>

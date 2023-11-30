@@ -60,22 +60,15 @@ namespace DefaultNamespace
                 {
                     if (target.properties.Get<int>(PropertyKey.EVASION).Value > 0)
                     {
-                        // NOTE: Based on the current logic each damage in multi-damage (e.g 3x5 dmg) effect will reduce one evade. So 3x5 dmg would reduce 3 evade.
-                        // NOTE: If we want 1 evade to evade the whole attack, we need to remove the target with evade from the list of targets or something..
                         yield return Evade(target);
                     }
                     // A target might die during a multi-damage effect, so let's make sure we only attack targets that are ALIVE
-                    else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value ==
-                             CharacterState.ALIVE)
+                    else if (target.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value == CharacterState.ALIVE)
                     {
-                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies,
-                            false);
+                        yield return Attack(target, damage, characterPlayingTheCard, player, cardTarget, enemies, false);
                     }
                 }
             }
-
-            // Clear the attacker's strength stack after the attack
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
         }
 
         public override string GetDescriptionTextWithModifiers(RuntimeCard card,
@@ -219,10 +212,8 @@ namespace DefaultNamespace
 
         private IEnumerator Evade(RuntimeCharacter target)
         {
-            // TODO: VFX, animation etc.
             target.Character.PlayParticle(FXKey.EVADE);
-
-            target.properties.Get<int>(PropertyKey.EVASION).Value -= 1;
+            target.properties.Get<int>(PropertyKey.EVASION).Value = Mathf.Clamp(target.properties.Get<int>(PropertyKey.EVASION).Value - 1, 0, int.MaxValue);
             yield break;
         }
 
