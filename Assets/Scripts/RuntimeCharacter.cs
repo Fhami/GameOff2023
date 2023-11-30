@@ -130,6 +130,33 @@ namespace DefaultNamespace
         }
 
         /// <summary>
+        /// Effects that will also play on opponent's turn
+        /// </summary>
+        public void ClearBuffStackTurnStart()
+        {
+            //TODO: very wip, need to decide which effect to clear when turn start
+            properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
+            properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
+            properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES).Value = 0;
+            properties.Get<int>(PropertyKey.EVASION).Value = 0;
+            properties.Get<int>(PropertyKey.THORNS).Value = 0;
+            properties.Get<int>(PropertyKey.STABLE).Value = 0;
+        }
+        
+        /// <summary>
+        /// Effects that only play on character's own turn
+        /// </summary>
+        public void ClearBuffStackTurnEnd()
+        {
+            //TODO: very wip, need to decide which effect to clear when turn end
+            properties.Get<int>(PropertyKey.STUN).Value = 0;
+            properties.Get<int>(PropertyKey.DECAY).Value = 0;
+            properties.Get<int>(PropertyKey.FRAGILE).Value = 0;
+            properties.Get<int>(PropertyKey.GROW).Value = 0;
+            
+        }
+        
+        /// <summary>
         /// Get active buffs and debuffs. 
         /// </summary>
         public List<Property<int>> GetActiveBuffsAndDebuffs()

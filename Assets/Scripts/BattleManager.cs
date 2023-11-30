@@ -198,10 +198,7 @@ namespace DefaultNamespace
             player.properties.Get<int>(PropertyKey.HAND_SIZE).Value = player.properties.Get<int>(PropertyKey.HAND_SIZE).GetValueWithModifiers(player);
 
             // Clear properties that are only tracked per turn
-            player.properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
-            player.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
-            player.properties.Get<int>(PropertyKey.EVASION).Value = 0;
-            player.properties.Get<int>(PropertyKey.STUN).Value = 0;
+            player.ClearBuffStackTurnStart();
 
             // If player is stunned don't allow them to play any cards
             if (player.properties.Get<int>(PropertyKey.STUN).Value > 0)
@@ -246,8 +243,7 @@ namespace DefaultNamespace
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
             
             // Clear buff stacks
-            player.properties.Get<int>(PropertyKey.STUN).Value = 0;
-            player.properties.Get<int>(PropertyKey.THORNS).Value = 0;
+            player.ClearBuffStackTurnEnd();
 
             // Clear properties that are only tracked per turn
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT).Value = 0;

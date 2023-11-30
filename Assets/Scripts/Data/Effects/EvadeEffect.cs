@@ -19,8 +19,11 @@ namespace DefaultNamespace
             RuntimeCharacter cardTarget,
             List<RuntimeCharacter> enemies)
         {
-            var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies); 
-            characterPlayingTheCard.properties.Get<int>(PropertyKey.EVASION).Value += value + time;
+            var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            for (int i = 0; i < time; i++)
+            {
+                characterPlayingTheCard.properties.Get<int>(PropertyKey.EVASION).Value += value;
+            }
             yield break;
         }
 
