@@ -74,3 +74,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Plugins/Febucci/Text Animator/Extra/Typewriter Sound - Package.unitypackage.meta
+Assets/Plugins/Febucci/Text Animator/Integrations/PlayMaker - Integration.unitypackage.meta
+Assets/Plugins/Febucci/Text Animator/Integrations/Visual Scripting - Integration.unitypackage.meta
