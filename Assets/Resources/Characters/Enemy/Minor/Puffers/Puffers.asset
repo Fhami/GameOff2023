@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: Puffers
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 0}
+  characterPrefab: {fileID: 1268478702914123795, guid: 3e5bbcd9827e328428b7e76837de5f2e,
+    type: 3}
   health: 40
   startSize: 3
   minSize: 1

@@ -43,6 +43,14 @@ namespace DefaultNamespace
         [SerializeField]
         private SerializedDictionary<FXKey, AudioClip> audioClips = new SerializedDictionary<FXKey, AudioClip>();
 
+        private Vector3 visualScale;
+        private Tween uiTween;
+
+        private void Awake()
+        {
+            visualScale = visual.localScale;
+        }
+
         public void Init(RuntimeCharacter _runtimeCharacter)
         {
             runtimeCharacter = _runtimeCharacter;
@@ -243,11 +251,14 @@ namespace DefaultNamespace
             var _diff = _size - _defaultSize;
             float _mult = 1f + (_diff * 0.1f);
             
-            visual.DOScale(Vector3.one * _mult, 0.1f);
-            sizeUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-            intentionUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-            watcherUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-            activeSkillUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            visual.DOScale(visualScale * _mult, 0.1f);
+            if (uiTween != null && !uiTween.IsPlaying())
+            {
+                sizeUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+                intentionUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+                watcherUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+                activeSkillUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            }
 
             PlayParticle(_oldValue > _size ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
         }
@@ -318,10 +329,11 @@ namespace DefaultNamespace
 
                 //statUI.transform.DOLocalMove(currentForm.statUIPos.localPosition, 0.2f);
                 var _newUIPos = currentForm.uiPos.localPosition;
+                
                 sizeUI.transform.DOLocalMove(_newUIPos, 0.2f);
                 intentionUI.transform.DOLocalMove(_newUIPos, 0.2f);
                 watcherUI.transform.DOLocalMove(_newUIPos, 0.2f);
-                activeSkillUI.transform.DOLocalMove(_newUIPos, 0.2f);
+                uiTween = activeSkillUI.transform.DOLocalMove(_newUIPos, 0.2f);
             }
             else
             {

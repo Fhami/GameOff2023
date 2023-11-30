@@ -41,7 +41,14 @@ public class IntentionUI : MonoBehaviour
 
             if(_intentVfxDB._intentVFXs.TryGetValue(intentionDetail._intentData,out var refObject))
             {
-                icon.SetIcon(refObject);
+                if (refObject)
+                {
+                    icon.SetIcon(refObject);
+                }
+                else
+                {
+                    icon.SetIcon(intentionDetail._intentData.icon);
+                }
             }
             else
             {

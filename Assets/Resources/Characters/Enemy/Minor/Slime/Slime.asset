@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 0}
+  characterPrefab: {fileID: 1268478702914123795, guid: 5d8ddb5eba88ca6468d691673e33af42,
+    type: 3}
   health: 48
   startSize: 4
   minSize: 1
