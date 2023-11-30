@@ -81,7 +81,7 @@ namespace DefaultNamespace
             
             //Update visual
             UpdateHpVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH));
-            UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value);
+            StartCoroutine(UpdateSizeVisual(0, runtimeCharacter.properties.Get<int>(PropertyKey.SIZE).Value));
             UpdateShield(0, runtimeCharacter.properties.Get<int>(PropertyKey.SHIELD));
             UpdateFormVisual(null, runtimeCharacter.GetCurrentForm());
             UpdatePassiveIcon(null, runtimeCharacter.GetCurrentForm());
@@ -169,7 +169,8 @@ namespace DefaultNamespace
 
         public IEnumerator UpdateSize(int _oldValue, int _size)
         {
-            UpdateSizeVisual(_oldValue, _size);
+            yield return UpdateSizeVisual(_oldValue, _size);
+            
             foreach (var _formData in runtimeCharacter.characterData.forms)
             {
                 if (!_formData.activeSkill) continue;
@@ -242,7 +243,7 @@ namespace DefaultNamespace
             }
         }
 
-        public void UpdateSizeVisual(int _oldValue, int _size)
+        public IEnumerator UpdateSizeVisual(int _oldValue, int _size)
         {
             //var _sizeEffect = _oldValue > _size ? SizeEffectType.Increase : SizeEffectType.Decrease;
             sizeUI.GoToSize(_oldValue, _size);
@@ -251,16 +252,12 @@ namespace DefaultNamespace
             var _diff = _size - _defaultSize;
             float _mult = 1f + (_diff * 0.1f);
             
-            visual.DOScale(visualScale * _mult, 0.1f);
-            if (uiTween != null && !uiTween.IsPlaying())
-            {
-                sizeUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-                intentionUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-                watcherUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-                activeSkillUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
-            }
-
-            PlayParticle(_oldValue > _size ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
+            sizeUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            intentionUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            watcherUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            activeSkillUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            
+            yield return visual.DOScale(visualScale * _mult, 0.2f).WaitForCompletion();
         }
         
         public IEnumerator UpdateIntention(RuntimeCard _runtimeCard, bool _anim)

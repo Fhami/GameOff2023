@@ -618,6 +618,7 @@ namespace DefaultNamespace
         {
             // TODO: VFX, animation etc
 
+            character.Character.PlayParticle(previousSize > currentSize ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
             yield return character.Character.UpdateSize(previousSize, currentSize);
             
             // Unique event for when explicitly player's size changes
