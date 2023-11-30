@@ -73,6 +73,7 @@ namespace DefaultNamespace
             return CreateCardObject(Create(name));
         }
 
+
         public static RuntimeCard CloneCard(RuntimeCard runtimeCard)
         {
             var newCard = Create(runtimeCard.cardData);
@@ -88,6 +89,22 @@ namespace DefaultNamespace
             newCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE, PropertyKey.CARD_STATE));
 
             return newCard;
+        }
+
+        public static CardUI CreateCardUI(RuntimeCard runtimeCard)
+        {
+            //Load and cache card prefab
+            var cardUIPrefab = Resources.Load<CardUI>("Temp/CardUIMockup");
+
+            var newCard = Object.Instantiate(cardUIPrefab);
+            newCard.name = runtimeCard.cardData.name;
+            newCard.InitCard(runtimeCard);
+
+            return newCard;
+        }
+        public static CardUI CreateCardUI(string name)
+        {
+            return CreateCardUI(Create(name));
         }
     }
 }

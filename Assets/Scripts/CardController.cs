@@ -45,7 +45,7 @@ public class CardController : MonoBehaviour
         
         foreach (var _card in _deck.Cards)
         {
-            yield return BattleManager.current.CreateCardAndAddItToDrawPile(_card);
+            yield return BattleManager.current.CreateCardAndAddItToDrawPile(CardFactory.Create(_card.name));
         }
 
         DeckPile.Shuffle();
@@ -113,7 +113,7 @@ public class CardController : MonoBehaviour
             _pile.RemoveCard(_card);
         }
         
-        GameManager.Instance.PlayerRuntimeDeck.RemoveCard(_card.runtimeCard);
+        GameManager.Instance.PlayerRuntimeDeck.RemoveCard(_card.runtimeCard.cardData);
         
         yield return _card.DestroyCard();
         // E.g. SLIME card destroys itself when player changes size, you can debug using that.
