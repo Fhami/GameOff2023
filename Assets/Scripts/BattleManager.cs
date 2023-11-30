@@ -247,8 +247,6 @@ namespace DefaultNamespace
             {
                 // Gain X strength
                 player.properties.Get<int>(PropertyKey.STRENGTH).Value += nutrientValue;
-                // Reduce nutrient by 1
-                nutrient.Value -= 1;
             }
 
             yield return OnGameEvent(GameEvent.ON_PLAYER_TURN_END, player, player, enemies);
@@ -724,8 +722,6 @@ namespace DefaultNamespace
             {
                 // Gain X strength
                 enemy.properties.Get<int>(PropertyKey.STRENGTH).Value += nutrientValue;
-                // Reduce nutrient by 1
-                nutrient.Value -= 1;
             }
             
             enemy.properties.Get<int>(PropertyKey.STUN).Value = 0;

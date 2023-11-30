@@ -153,7 +153,6 @@ namespace DefaultNamespace
             properties.Get<int>(PropertyKey.DECAY).Value = 0;
             properties.Get<int>(PropertyKey.FRAGILE).Value = 0;
             properties.Get<int>(PropertyKey.GROW).Value = 0;
-            
         }
         
         /// <summary>
