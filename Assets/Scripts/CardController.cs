@@ -55,7 +55,7 @@ public class CardController : MonoBehaviour
     {
         foreach (var _card in DeckPile.GetCards(_number))
         {
-            HandPile.AddCard(_card, false);
+            HandPile.AddCard(_card, false, Vector3.one);
             
             _card.UpdateCard(Character.runtimeCharacter);
             _card.transform.position = DeckPile.transform.position;
@@ -79,7 +79,7 @@ public class CardController : MonoBehaviour
     {
         foreach (var _recycledCard in DiscardPile.GetCards(-1))
         {
-            DeckPile.AddCard(_recycledCard, true);
+            DeckPile.AddCard(_recycledCard, true, Vector3.zero);
                 
             yield return drawDelay;
         }
@@ -88,7 +88,7 @@ public class CardController : MonoBehaviour
 
     public IEnumerator Discard(Card _card)
     {
-        DiscardPile.AddCard(HandPile.PickCard(_card), true);
+        DiscardPile.AddCard(HandPile.PickCard(_card), true, Vector3.zero);
 
         yield return drawDelay;
     }
@@ -97,7 +97,7 @@ public class CardController : MonoBehaviour
     {
         yield return _card.ExhaustCard();
         
-        ExhaustPile.AddCard(HandPile.PickCard(_card), false);
+        ExhaustPile.AddCard(HandPile.PickCard(_card), false, Vector3.zero);
     }
     
     public IEnumerator DestroyCard(Card _card)
@@ -164,7 +164,7 @@ public class CardController : MonoBehaviour
                 
         AddCardListeners(_newCardObj);
             
-        DeckPile.AddCard(_newCardObj, false);
+        DeckPile.AddCard(_newCardObj, false, Vector3.zero);
         
         yield break;
     }
@@ -176,7 +176,7 @@ public class CardController : MonoBehaviour
            
         AddCardListeners(_newCardObj);
         
-        DiscardPile.AddCard(_newCardObj, false);
+        DiscardPile.AddCard(_newCardObj, false, Vector3.zero);
         
         yield break;
     }
@@ -187,14 +187,14 @@ public class CardController : MonoBehaviour
         
         AddCardListeners(_newCardObj);
         
-        HandPile.AddCard(_newCardObj, false);
+        HandPile.AddCard(_newCardObj, false, Vector3.one);
         
         yield return drawDelay;
     }
 
     public IEnumerator ShuffleHandToDeck(RuntimeCard card)
     {
-        DeckPile.AddCard(HandPile.PickCard(card.Card), true);
+        DeckPile.AddCard(HandPile.PickCard(card.Card), true, Vector3.zero);
 
         yield return drawDelay;
     }

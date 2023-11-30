@@ -95,7 +95,7 @@ public class CardPile : MonoBehaviour
         }
     }
     
-    public void AddCard(Card _card, bool _tween)
+    public void AddCard(Card _card, bool _tween, Vector3 _scaleTween)
     {
         Cards.Add(_card);
 
@@ -106,10 +106,12 @@ public class CardPile : MonoBehaviour
             if (_tween)
             {
                 _card.transform.DOLocalMove(Vector3.zero, 0.2f);
+                _card.transform.DOScale(_scaleTween, 0.2f);
             }
             else
             {
                 _card.transform.localPosition = Vector3.zero;
+                _card.transform.localScale = _scaleTween;
             }
             _card.transform.SetAsFirstSibling(); //Put newly draw card to left side
         }
