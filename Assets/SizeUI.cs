@@ -147,7 +147,7 @@ public class SizeUI : MonoBehaviour
         t.transform.localRotation = Quaternion.Euler(0, 0, total);
         t.Set(setting.GetSize(value), value);
         _tagUIs.Add(value, t); 
-        Debug.Log(total);
+        //Debug.Log(total);
     }
 
     public void SetSizeSaperation(int value, SizeSetting setting)
@@ -267,7 +267,7 @@ public class SizeUI : MonoBehaviour
 
         _sizeTween.OnComplete(() =>
         {
-            Debug.Log("Complete");
+            //Debug.Log("Complete");
             
             onComplete?.Invoke();
         });
