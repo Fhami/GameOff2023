@@ -84,9 +84,9 @@ namespace Febucci.UI.Core
         public StartTypewriterMode startTypewriterMode = StartTypewriterMode.AutomaticallyFromAllEvents;
 
         #region Typewriter Skip
-        [SerializeField]
-        bool hideAppearancesOnSkip = false;
-        [SerializeField, Tooltip("True = plays all remaining events once the typewriter has been skipped")]
+        public bool hideAppearancesOnSkip = false;
+        public bool hideDisappearancesOnSkip = false;
+        [SerializeField, Tooltip("True = plays all remaining events once the typewriter has been skipped during a show routine")]
         bool triggerEventsOnSkip = false;
         #endregion
 
@@ -215,8 +215,18 @@ namespace Febucci.UI.Core
                 onTextShowed?.Invoke();
             }
             
-            //TODO is hiding
+            if(isHidingText)
+            {
+                StopAllCoroutines();
+                isHidingText = false;
+                onTextDisappeared?.Invoke();
+                
+                TextAnimator.SetVisibilityEntireText(false, !hideDisappearancesOnSkip);
 
+                // No events on disappearance
+                
+                onTextDisappeared?.Invoke();
+            }
         }
 
         

@@ -3,6 +3,7 @@ using System.Text;
 using Febucci.UI.Actions;
 using Febucci.UI.Core.Parsing;
 using Febucci.UI.Effects;
+using Febucci.UI.Styles;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -285,6 +286,24 @@ namespace Febucci.UI.Core
                 requiresTagRefresh = true;
             }
         }
+        
+        // ----------------
+        // -- Styles --
+        // ----------------
+        
+        public bool useDefaultStyleSheet = true;
+        [SerializeField] StyleSheetScriptable styleSheet;
+
+        public StyleSheetScriptable StyleSheet
+        {
+            get => useDefaultStyleSheet ? TextAnimatorSettings.Instance.defaultStyleSheet : styleSheet;
+            set
+            {
+                useDefaultStyleSheet = false;
+                requiresTagRefresh = true;
+                styleSheet = value;
+            }
+        }
 
         // ----------------
         // -- Effects --
@@ -492,6 +511,7 @@ namespace Febucci.UI.Core
             if(DatabaseActions) DatabaseActions.ForceBuildRefresh();
             if(DatabaseAppearances) DatabaseAppearances.ForceBuildRefresh();
             if(DatabaseBehaviors) DatabaseBehaviors.ForceBuildRefresh();
+            if(StyleSheet) StyleSheet.ForceBuildRefresh();
 
             OnInitialized();
         }
@@ -548,7 +568,7 @@ namespace Febucci.UI.Core
         void ConvertText(string textToParse, ShowTextMode showTextMode)
         {
             #region Local Methods
-            void PopulateCharacters()
+            void PopulateCharacters(bool resetVisibility)
             {
                 if (characters.Length < charactersCount)
                     Array.Resize(ref characters, charactersCount);
@@ -556,7 +576,7 @@ namespace Febucci.UI.Core
                 for (int i = 0; i < charactersCount; i++)
                 {
                     //--Resets info--
-                    characters[i].ResetInfo(i);
+                    characters[i].ResetInfo(i, resetVisibility);
 
                     //--Assigns effect times--
                     float CalculateRegionMaxDuration(AnimationRegion[] tags)
@@ -806,7 +826,6 @@ namespace Febucci.UI.Core
                 databaseActions = settings.actions.defaultDatabase;
             }
             
-
             var ruleBehavior = new AnimationParser<AnimationScriptableBase>(settings.behaviors.openingSymbol, '/', settings.behaviors.closingSymbol, VisibilityMode.Persistent, databaseBehaviors);
             var ruleAppearance = new AnimationParser<AnimationScriptableBase>(settings.appearances.openingSymbol, '/', settings.appearances.closingSymbol, VisibilityMode.OnVisible, databaseAppearances);
             var ruleDisappearance = new AnimationParser<AnimationScriptableBase>(settings.appearances.openingSymbol, '/', '#', settings.appearances.closingSymbol, VisibilityMode.OnHiding, databaseAppearances);
@@ -828,8 +847,14 @@ namespace Febucci.UI.Core
                 parsers.Add(extraParser);
             }
 
+            // Parses stylesheets before anything else
+            textWithoutTextAnimTags = 
+                StyleSheet 
+                    ? TextParser.ParseText(_text, new StylesParser('<', '/', '>', StyleSheet))
+                    : _text;
+                
             //Convert text in tags, mesh etc.
-            textWithoutTextAnimTags = TextParser.ParseText(_text, parsers.ToArray());
+            textWithoutTextAnimTags = TextParser.ParseText(textWithoutTextAnimTags, parsers.ToArray());
 
             //Set converted text to source
             SetTextToSource(textWithoutTextAnimTags);
@@ -854,7 +879,7 @@ namespace Febucci.UI.Core
             foreach (var disappearance in disappearances) disappearance.animation.InitializeOnce();
 
             //Prepares Characters
-            PopulateCharacters();
+            PopulateCharacters(showTextMode != ShowTextMode.Refresh);
             CopyMeshFromSource(ref characters);
             CalculateWords();
             
@@ -899,6 +924,18 @@ namespace Febucci.UI.Core
         /// <param name="text">Full text that you want to paste, including rich text tags.</param>
         /// <remarks>This method shows the text instantly. To control if it should be hidden instead, please see <see cref="SetText(string, bool)"/>. </remarks>
         public void SetText(string text) => ConvertText(text, ShowTextMode.Shown);
+
+        /// <summary>
+        /// Changes the text to Text Animator with a new one, keeping the current visibility
+        /// </summary>
+        /// <param name="text"></param>
+        public void SwapText(string text)
+        {
+            int visible = maxVisibleCharacters;
+            ConvertText(text, ShowTextMode.Refresh);
+            maxVisibleCharacters = visible;
+        }
+
         /// <summary>
         /// Sets the text to Text Animator, parsing its rich text tags.
         /// </summary>
@@ -948,8 +985,8 @@ namespace Febucci.UI.Core
         {
             //temp fix, opening and closing this TMPro tag (which won't be showed in the text, acting like they aren't there) because otherwise
             //there isn't any way to trigger that the text has changed, if it's actually the same as the previous one.
-            if (text.Length <= 0) //forces clearing the mesh during the tempFix, without the <noparse> tags
-                typewriter.ShowText("");
+            if (string.IsNullOrEmpty(text)) //forces clearing the mesh during the tempFix, without the <noparse> tags
+                typewriter.ShowText(string.Empty);
             else
                 typewriter.ShowText($"<noparse></noparse>{text}");
         }
@@ -1217,6 +1254,7 @@ namespace Febucci.UI.Core
             if(DatabaseActions) DatabaseActions.ForceBuildRefresh();
             if(DatabaseAppearances) DatabaseAppearances.ForceBuildRefresh();
             if(DatabaseBehaviors) DatabaseBehaviors.ForceBuildRefresh();
+            if(StyleSheet) StyleSheet.ForceBuildRefresh();
             
             ConvertText(GetOriginalTextFromSource(), ShowTextMode.Refresh);
         }

@@ -103,6 +103,8 @@ namespace Febucci.UI
                 //needed to update tmp mesh from editor
                 tmpComponent.havePropertiesChanged = true;
                 UnityEditor.EditorUtility.SetDirty(tmpComponent);
+
+                Animate(0);
             }
             else
 #endif

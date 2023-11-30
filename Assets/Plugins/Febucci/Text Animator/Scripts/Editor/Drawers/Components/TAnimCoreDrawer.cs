@@ -33,6 +33,9 @@ namespace Febucci.UI.Core
         SerializedProperty databaseActionsField;
         DatabaseSharedDrawer databaseActionsDrawer;
 
+        SerializedProperty useDefaultStylesheet;
+        SerializedProperty styleSheetField;
+        
         Core.TAnimCore script;
         static string[] excludedProperties = new string[]
         {
@@ -52,6 +55,8 @@ namespace Febucci.UI.Core
             nameof(TAnimCore.isResettingTimeOnNewText),
             "databaseActions",
             "useDefaultDatabases",
+            nameof(TAnimCore.useDefaultStyleSheet),
+            "styleSheet"
         };
 
         void OnEnable()
@@ -75,6 +80,9 @@ namespace Febucci.UI.Core
             defaultAppearancesTags = serializedObject.FindProperty("defaultAppearancesTags");
             defaultBehaviorsTags = serializedObject.FindProperty("defaultBehaviorsTags");
             defaultDisappearancesTags = serializedObject.FindProperty("defaultDisappearancesTags");
+            
+            useDefaultStylesheet = serializedObject.FindProperty(nameof(Febucci.UI.Core.TAnimCore.useDefaultStyleSheet));
+            styleSheetField = serializedObject.FindProperty("styleSheet");
 
             referenceFontSize = serializedObject.FindProperty(nameof(Febucci.UI.Core.TAnimCore.referenceFontSize));
             useDynamicScaling = serializedObject.FindProperty(nameof(Febucci.UI.Core.TAnimCore.useDynamicScaling));
@@ -511,8 +519,27 @@ namespace Febucci.UI.Core
         bool editBehaviors = false;
         bool editAppearances = false;
         bool editActions = false;
+        TextAnimatorSettings settings;
         SerializedObject settingsObject;
 
+        void CacheSettingsObject()
+        {
+            if (!settings) settings = TextAnimatorSettings.Instance;
+            if(!settings) return;
+            if(settingsObject == null) settingsObject = new SerializedObject(settings);
+        }
+
+        void DrawSettingsFixErrorLabel()
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.HelpBox("Text Animator Settings not found. Please re-run the setup wizard or click the following button.", MessageType.Error);
+            if (GUILayout.Button("Fix it for me", GUILayout.Width(80)))
+            {
+                TextAnimatorSetupWindow.FixSettingsFileNotFound();
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        
         void DrawDatabases()
         {
             EditorGUILayout.LabelField("Edit Effects & Actions", EditorStyles.boldLabel);
@@ -533,7 +560,9 @@ namespace Febucci.UI.Core
                 {
                     EditorGUI.indentLevel++;
                     EditorGUI.BeginChangeCheck();
+                    GUI.enabled = !useDefaultDatabases.boolValue;
                     EditorGUILayout.PropertyField(field);
+                    GUI.enabled = true;
                     if (EditorGUI.EndChangeCheck())
                         ForceDatabaseRefresh();
                     drawer.OnInspectorGUI(field);
@@ -543,21 +572,14 @@ namespace Febucci.UI.Core
 
             if (useDefaultDatabases.boolValue)
             {
-                var settings = TextAnimatorSettings.Instance;
+                CacheSettingsObject();
+
                 if (!settings)
                 {
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.HelpBox("Text Animator Settings not found. Please re-run the setup wizard or click the following button.", MessageType.Error);
-                    if (GUILayout.Button("Fix it for me", GUILayout.Width(80)))
-                    {
-                        TextAnimatorSetupWindow.FixSettingsFileNotFound();
-                    }
-                    EditorGUILayout.EndHorizontal();
+                    DrawSettingsFixErrorLabel();
                 }
                 else
                 {
-                    if(settingsObject == null) settingsObject = new SerializedObject(settings);
-                    
                     //Draws default settings instead
                     SerializedProperty databaseBehaviorsField = settingsObject.FindProperty(nameof(settings.behaviors)).FindPropertyRelative(nameof(settings.behaviors.defaultDatabase));
                     SerializedProperty databaseAppearancesField = settingsObject.FindProperty(nameof(settings.appearances)).FindPropertyRelative(nameof(settings.appearances.defaultDatabase));
@@ -579,6 +601,46 @@ namespace Febucci.UI.Core
 
         #endregion
 
+        #region StyleSheet
+
+        void DrawStyleSheet()
+        {
+            EditorGUILayout.LabelField("Style Sheet", EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
+            
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PropertyField(useDefaultStylesheet);
+            GUI.enabled = false;
+            EditorGUILayout.LabelField(useDefaultStylesheet.boolValue ? "Using the StyleSheet found in your Settings Scriptable Object" : "Using the specific StyleSheet reference below", EditorStyles.wordWrappedMiniLabel);
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+
+            if (useDefaultStylesheet.boolValue)
+            {
+                CacheSettingsObject();
+
+                if (!settings)
+                {
+                    DrawSettingsFixErrorLabel();
+                }
+                else
+                {
+                    GUI.enabled = false;
+                    var defaultSettingsField = settingsObject.FindProperty(nameof(settings.defaultStyleSheet));
+                    EditorGUILayout.PropertyField(defaultSettingsField);
+                    GUI.enabled = true;
+                }
+            }
+            else
+            {
+                EditorGUILayout.PropertyField(styleSheetField);
+            }
+            
+            EditorGUI.indentLevel--;
+        }
+
+        #endregion
+        
         #region Main Settings
         void DrawMainSettings()
         {
@@ -610,6 +672,37 @@ namespace Febucci.UI.Core
         }
         #endregion
 
+        void DrawHelpers()
+        {
+            //EditorGUILayout.LabelField("Helpers", EditorStyles.boldLabel);
+            
+            EditorGUI.indentLevel++;
+            CacheSettingsObject();
+            EditorGUILayout.BeginHorizontal();
+            
+            GUI.enabled = settings;
+            if (GUILayout.Button("Select Global Settings", EditorStyles.helpBox))
+            {
+                Selection.activeObject = settings;
+                EditorGUIUtility.PingObject(settings);
+            }
+            GUI.enabled = true;
+            
+            if (GUILayout.Button("Open Documentation", EditorStyles.helpBox))
+            {
+                Application.OpenURL("https://www.febucci.com/text-animator-unity/docs/");
+            }
+            
+            if (GUILayout.Button("Join Discord", EditorStyles.helpBox))
+            {
+                Application.OpenURL(TextAnimatorSetupWindow.url_discord);
+            }
+
+            EditorGUILayout.EndHorizontal();
+            
+            EditorGUI.indentLevel--;
+        }
+        
         public override void OnInspectorGUI()
         {
             GUI.enabled = false;
@@ -629,6 +722,12 @@ namespace Febucci.UI.Core
             DrawDatabases();
             EditorGUILayout.Space();
 
+            DrawStyleSheet();
+            EditorGUILayout.Space();
+            
+            DrawHelpers();
+            EditorGUILayout.Space();
+            
             //--- Draws the rest ---
             //(in case of custom inspector from child classes etc.)
             DrawPropertiesExcluding(serializedObject, excludedProperties);

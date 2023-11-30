@@ -16,12 +16,13 @@ namespace Febucci.UI.Core
         public MeshData source;
         public MeshData current;
 
-        public void ResetInfo(int i)
+        public void ResetInfo(int i, bool resetVisibility = true)
         {
 
             index = i;
             wordIndex = -1;
-            isVisible = true; //text is visible by default
+            
+            if(resetVisibility) isVisible = true; //text is visible by default
 
             //--Initializes first time only--
             if (!info.initialized)
