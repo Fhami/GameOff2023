@@ -2590,6 +2590,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 192
+  Collider: {fileID: 9203440080791108620}
 --- !u!61 &9203440080791108620
 BoxCollider2D:
   m_ObjectHideFlags: 0

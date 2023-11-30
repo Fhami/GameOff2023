@@ -20,11 +20,13 @@ namespace DefaultNamespace
             }
             
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
-            var count = times + this.count;
 
-            for (int i = 0; i < count; i++)
+            for (int j = 0; j < times; j++)
             {
-                yield return BattleManager.current.DrawCard(card, characterPlayingTheCard, player, cardTarget, enemies);
+                for (int i = 0; i < count; i++)
+                {
+                    yield return BattleManager.current.DrawCard(card, characterPlayingTheCard, player, cardTarget, enemies);
+                }
             }
         }
 

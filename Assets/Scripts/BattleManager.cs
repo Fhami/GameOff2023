@@ -283,7 +283,7 @@ namespace DefaultNamespace
         public IEnumerator PlayCard(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target, List<RuntimeCharacter> enemies)
         {
             card.properties.Get<CardState>(PropertyKey.CARD_STATE).Value = CardState.PLAYING;
-            
+
             yield return OnGameEvent(GameEvent.ON_CARD_PLAYED, player, player, enemies); // NOTE: Not sure if this should happen here or below after executing the card effects?
 
             var extraPlayTimes = player.properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES);
