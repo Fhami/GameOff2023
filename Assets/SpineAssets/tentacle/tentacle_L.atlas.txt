@@ -1,0 +1,90 @@
+
+tentacle_L.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Slime_L/Body
+  rotate: false
+  xy: 2, 43
+  size: 290, 193
+  orig: 290, 194
+  offset: 0, 1
+  index: -1
+Slime_L/L_Eye_02
+  rotate: false
+  xy: 992, 225
+  size: 15, 11
+  orig: 23, 19
+  offset: 4, 4
+  index: -1
+Slime_L/L_Tentacle_01_A
+  rotate: true
+  xy: 521, 2
+  size: 93, 175
+  orig: 95, 177
+  offset: 1, 1
+  index: -1
+Slime_L/L_Tentacle_01_B
+  rotate: false
+  xy: 294, 32
+  size: 225, 66
+  orig: 227, 68
+  offset: 1, 1
+  index: -1
+Slime_L/L_Tentacle_02_A
+  rotate: true
+  xy: 849, 159
+  size: 77, 141
+  orig: 79, 144
+  offset: 1, 2
+  index: -1
+Slime_L/L_Tentacle_02_B
+  rotate: true
+  xy: 602, 177
+  size: 59, 245
+  orig: 67, 253
+  offset: 4, 4
+  index: -1
+Slime_L/Mood_02
+  rotate: false
+  xy: 2, 23
+  size: 48, 18
+  orig: 56, 26
+  offset: 4, 4
+  index: -1
+Slime_L/R_Eye_02
+  rotate: true
+  xy: 800, 159
+  size: 16, 12
+  orig: 24, 20
+  offset: 4, 4
+  index: -1
+Slime_L/R_Tentacle_01_A
+  rotate: true
+  xy: 602, 97
+  size: 78, 196
+  orig: 82, 198
+  offset: 2, 1
+  index: -1
+Slime_L/R_Tentacle_01_B
+  rotate: true
+  xy: 294, 100
+  size: 64, 304
+  orig: 74, 312
+  offset: 5, 4
+  index: -1
+Slime_L/R_Tentacle_02_A
+  rotate: true
+  xy: 800, 47
+  size: 110, 195
+  orig: 113, 199
+  offset: 1, 2
+  index: -1
+Slime_L/R_Tentacle_02_B
+  rotate: false
+  xy: 294, 166
+  size: 306, 70
+  orig: 309, 74
+  offset: 1, 2
+  index: -1

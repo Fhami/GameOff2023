@@ -307,6 +307,11 @@ namespace DefaultNamespace
                 }
                 
                 outlinable.AddAllChildRenderersToRenderingList();
+                foreach (var _target in outlinable.OutlineTargets)
+                {
+                    _target.CutoutTextureName = "_MainTex";
+                    _target.BoundsMode = BoundsMode.ForceRecalculate;
+                }
 
                 statUI.transform.DOLocalMove(currentForm.statUIPos.localPosition, 0.2f);
                 sizeUI.transform.DOLocalMove(currentForm.statSizePos.localPosition, 0.2f);

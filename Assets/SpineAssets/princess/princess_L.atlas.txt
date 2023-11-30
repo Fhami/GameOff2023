@@ -1,0 +1,139 @@
+
+princess_L.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Main_Character_L/Body
+  rotate: false
+  xy: 2, 166
+  size: 490, 295
+  orig: 493, 298
+  offset: 2, 2
+  index: -1
+Main_Character_L/Crown
+  rotate: true
+  xy: 811, 240
+  size: 61, 57
+  orig: 69, 65
+  offset: 4, 4
+  index: -1
+Main_Character_L/Hair
+  rotate: true
+  xy: 494, 77
+  size: 300, 133
+  orig: 302, 136
+  offset: 1, 2
+  index: -1
+Main_Character_L/L_Bun
+  rotate: false
+  xy: 309, 36
+  size: 118, 128
+  orig: 126, 136
+  offset: 4, 4
+  index: -1
+Main_Character_L/L_Eye_Close
+  rotate: true
+  xy: 994, 244
+  size: 26, 11
+  orig: 34, 19
+  offset: 4, 4
+  index: -1
+Main_Character_L/L_Eye_Open
+  rotate: true
+  xy: 997, 434
+  size: 27, 19
+  orig: 35, 27
+  offset: 4, 4
+  index: -1
+Main_Character_L/L_Side_Hair_A
+  rotate: false
+  xy: 2, 12
+  size: 160, 152
+  orig: 162, 154
+  offset: 1, 2
+  index: -1
+Main_Character_L/L_Side_Hair_B
+  rotate: false
+  xy: 919, 2
+  size: 73, 376
+  orig: 77, 379
+  offset: 2, 1
+  index: -1
+Main_Character_L/L_Weapon_Scale
+  rotate: false
+  xy: 811, 174
+  size: 55, 64
+  orig: 65, 73
+  offset: 5, 4
+  index: -1
+Main_Character_L/Mouth_Close
+  rotate: true
+  xy: 994, 272
+  size: 71, 16
+  orig: 79, 24
+  offset: 4, 4
+  index: -1
+Main_Character_L/Mouth_Open
+  rotate: false
+  xy: 811, 303
+  size: 73, 74
+  orig: 81, 82
+  offset: 4, 4
+  index: -1
+Main_Character_L/R_Bun
+  rotate: true
+  xy: 629, 8
+  size: 165, 180
+  orig: 173, 189
+  offset: 4, 4
+  index: -1
+Main_Character_L/R_Eye_Close
+  rotate: true
+  xy: 997, 399
+  size: 33, 14
+  orig: 41, 22
+  offset: 4, 4
+  index: -1
+Main_Character_L/R_Eye_Open
+  rotate: true
+  xy: 994, 345
+  size: 33, 24
+  orig: 41, 32
+  offset: 4, 4
+  index: -1
+Main_Character_L/R_Side_Hair_A
+  rotate: false
+  xy: 629, 175
+  size: 180, 202
+  orig: 182, 204
+  offset: 1, 1
+  index: -1
+Main_Character_L/R_Side_Hair_B
+  rotate: true
+  xy: 494, 379
+  size: 82, 423
+  orig: 90, 431
+  offset: 4, 4
+  index: -1
+Main_Character_L/Weapon
+  rotate: true
+  xy: 164, 25
+  size: 139, 143
+  orig: 147, 152
+  offset: 4, 4
+  index: -1
+Main_Character_L/Weapon_Liquid
+  rotate: true
+  xy: 811, 127
+  size: 45, 37
+  orig: 53, 45
+  offset: 4, 4
+  index: -1
+Main_Character_L/Weapon_Scale
+  rotate: false
+  xy: 919, 380
+  size: 76, 81
+  orig: 85, 90
+  offset: 4, 4
+  index: -1
