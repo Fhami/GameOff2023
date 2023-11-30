@@ -26,7 +26,7 @@ namespace DefaultNamespace
         public RuntimeCharacter runtimeCharacter;
         public CardController cardController;
         public Transform visual;
-        [SerializeField] private SerializedDictionary<FormData, CharacterForm> characterForms;
+        [SerializeField] private SerializedDictionary<Size, CharacterForm> characterForms;
         public CharacterForm currentForm;
 
         [SerializeField] private Outlinable outlinable;
@@ -245,6 +245,9 @@ namespace DefaultNamespace
             
             visual.DOScale(Vector3.one * _mult, 0.1f);
             sizeUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            intentionUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            watcherUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
+            activeSkillUI.transform.DOLocalMoveY(_mult * 0.1f, 0.1f);
 
             PlayParticle(_oldValue > _size ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
         }
@@ -277,7 +280,7 @@ namespace DefaultNamespace
 
         public void UpdateFormVisual(FormData _prevForm, FormData _form)
         {
-            if (characterForms.TryGetValue(_form, out var _characterForm))
+            if (characterForms.TryGetValue(_form.size, out var _characterForm))
             {
                 if (currentForm == _characterForm) return;
 
@@ -313,9 +316,12 @@ namespace DefaultNamespace
                     _target.BoundsMode = BoundsMode.ForceRecalculate;
                 }
 
-                statUI.transform.DOLocalMove(currentForm.statUIPos.localPosition, 0.2f);
-                sizeUI.transform.DOLocalMove(currentForm.statSizePos.localPosition, 0.2f);
-                intentionUI.transform.DOLocalMove(currentForm.statIntentionPos.localPosition, 0.2f);
+                //statUI.transform.DOLocalMove(currentForm.statUIPos.localPosition, 0.2f);
+                var _newUIPos = currentForm.uiPos.localPosition;
+                sizeUI.transform.DOLocalMove(_newUIPos, 0.2f);
+                intentionUI.transform.DOLocalMove(_newUIPos, 0.2f);
+                watcherUI.transform.DOLocalMove(_newUIPos, 0.2f);
+                activeSkillUI.transform.DOLocalMove(_newUIPos, 0.2f);
             }
             else
             {
