@@ -1,0 +1,76 @@
+
+princess_S.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Main_Character_S/Body
+  rotate: false
+  xy: 2, 33
+  size: 148, 86
+  orig: 148, 86
+  offset: 0, 0
+  index: -1
+Main_Character_S/Crown
+  rotate: false
+  xy: 2, 2
+  size: 30, 29
+  orig: 39, 37
+  offset: 4, 4
+  index: -1
+Main_Character_S/Hair
+  rotate: false
+  xy: 152, 74
+  size: 73, 45
+  orig: 75, 47
+  offset: 1, 2
+  index: -1
+Main_Character_S/L_Hair
+  rotate: false
+  xy: 205, 29
+  size: 43, 43
+  orig: 51, 51
+  offset: 4, 4
+  index: -1
+Main_Character_S/Mouth_Close
+  rotate: false
+  xy: 34, 23
+  size: 22, 8
+  orig: 30, 16
+  offset: 4, 4
+  index: -1
+Main_Character_S/Mouth_Open
+  rotate: false
+  xy: 227, 94
+  size: 26, 25
+  orig: 34, 33
+  offset: 4, 4
+  index: -1
+Main_Character_S/R_Hair
+  rotate: true
+  xy: 152, 22
+  size: 50, 51
+  orig: 58, 59
+  offset: 4, 4
+  index: -1
+Main_Character_S/S_L_Eye_Close
+  rotate: false
+  xy: 58, 25
+  size: 13, 6
+  orig: 21, 14
+  offset: 4, 4
+  index: -1
+Main_Character_S/S_L_Eye_Open
+  rotate: false
+  xy: 34, 12
+  size: 11, 9
+  orig: 19, 17
+  offset: 4, 4
+  index: -1
+Main_Character_S/S_R_Eye_Open
+  rotate: false
+  xy: 227, 83
+  size: 13, 9
+  orig: 21, 18
+  offset: 4, 5
+  index: -1

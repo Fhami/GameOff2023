@@ -1,0 +1,55 @@
+
+tentacle_S.png
+size: 128,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Slime_S/Body
+  rotate: false
+  xy: 2, 2
+  size: 70, 42
+  orig: 79, 50
+  offset: 4, 4
+  index: -1
+Slime_S/L_Eye_Close_02
+  rotate: false
+  xy: 100, 10
+  size: 12, 5
+  orig: 20, 13
+  offset: 4, 4
+  index: -1
+Slime_S/L_Eye_Open_02
+  rotate: false
+  xy: 74, 8
+  size: 11, 8
+  orig: 19, 16
+  offset: 4, 4
+  index: -1
+Slime_S/L_Tentacle
+  rotate: true
+  xy: 74, 18
+  size: 26, 28
+  orig: 34, 37
+  offset: 4, 5
+  index: -1
+Slime_S/R_Eye_Close_02
+  rotate: false
+  xy: 114, 10
+  size: 11, 5
+  orig: 20, 13
+  offset: 5, 4
+  index: -1
+Slime_S/R_Eye_Open_02
+  rotate: false
+  xy: 87, 8
+  size: 11, 8
+  orig: 19, 16
+  offset: 4, 4
+  index: -1
+Slime_S/R_Tentacle
+  rotate: false
+  xy: 104, 17
+  size: 22, 27
+  orig: 30, 35
+  offset: 4, 4
+  index: -1
