@@ -228,7 +228,7 @@ namespace DefaultNamespace
             // Keep track of how much health the target had before receiving damage
             int healthBefore = health.Value;
 
-            int vulnerable = cardTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(cardTarget);
+            int vulnerable = target.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(target);
             int weak = characterPlayingTheCard.properties.Get<int>(PropertyKey.WEAK).GetValueWithModifiers(characterPlayingTheCard);
 
             //Amp damage by 50% if target have VULNERABLE
@@ -372,7 +372,7 @@ namespace DefaultNamespace
                     var hp = runtimeTarget.properties.Get<int>(PropertyKey.HEALTH).Value;
                     var maxHp = runtimeTarget.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
                     var shield = runtimeTarget.properties.Get<int>(PropertyKey.SHIELD).Value;
-                    int vulnerable = cardTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(cardTarget);
+                    int vulnerable = runtimeTarget.properties.Get<int>(PropertyKey.VULNERABLE).GetValueWithModifiers(cardTarget);
                     int weak = characterPlayingTheCard.properties.Get<int>(PropertyKey.WEAK).GetValueWithModifiers(characterPlayingTheCard);
 
                     //Amp damage by 50% if target have VULNERABLE

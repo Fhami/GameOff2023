@@ -33,6 +33,7 @@ namespace DefaultNamespace
             runtimeCard.properties.Add(PropertyKey.HEAL, new Property<int>(0, PropertyKey.HEAL));
             runtimeCard.properties.Add(PropertyKey.SIZE, new Property<int>(0, PropertyKey.SIZE));
             runtimeCard.properties.Add(PropertyKey.STABLE, new Property<int>(0, PropertyKey.STABLE));
+            runtimeCard.properties.Add(PropertyKey.THORNS, new Property<int>(0, PropertyKey.THORNS));
             runtimeCard.properties.Add(PropertyKey.TIMES, new Property<int>(0, PropertyKey.TIMES));
             runtimeCard.properties.Add(PropertyKey.CARD_STATE, new Property<CardState>(CardState.NONE, PropertyKey.CARD_STATE));
 
