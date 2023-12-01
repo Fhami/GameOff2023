@@ -709,6 +709,7 @@ namespace DefaultNamespace
         public IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc
+            if (character == null || character.Character) yield break;
 
             character.Character.PlayParticle(previousSize > currentSize ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
             yield return character.Character.UpdateSize(previousSize, currentSize);
