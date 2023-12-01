@@ -1,0 +1,76 @@
+
+rat_L.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Rat_L/Body
+  rotate: true
+  xy: 2, 9
+  size: 245, 217
+  orig: 248, 220
+  offset: 2, 2
+  index: -1
+Rat_L/Cheese
+  rotate: true
+  xy: 221, 59
+  size: 79, 57
+  orig: 87, 65
+  offset: 4, 4
+  index: -1
+Rat_L/Head
+  rotate: true
+  xy: 221, 140
+  size: 114, 101
+  orig: 122, 109
+  offset: 4, 4
+  index: -1
+Rat_L/L_Ear
+  rotate: false
+  xy: 309, 25
+  size: 50, 51
+  orig: 58, 59
+  offset: 4, 4
+  index: -1
+Rat_L/L_Hand
+  rotate: true
+  xy: 309, 3
+  size: 20, 23
+  orig: 28, 31
+  offset: 4, 4
+  index: -1
+Rat_L/Layer 56
+  rotate: false
+  xy: 221, 4
+  size: 13, 8
+  orig: 21, 16
+  offset: 4, 4
+  index: -1
+Rat_L/Layer 57
+  rotate: true
+  xy: 236, 2
+  size: 10, 8
+  orig: 18, 16
+  offset: 4, 4
+  index: -1
+Rat_L/R_Ear
+  rotate: true
+  xy: 280, 78
+  size: 60, 52
+  orig: 68, 60
+  offset: 4, 4
+  index: -1
+Rat_L/R_Hand
+  rotate: false
+  xy: 324, 226
+  size: 24, 28
+  orig: 32, 36
+  offset: 4, 4
+  index: -1
+Rat_L/Tail
+  rotate: false
+  xy: 221, 14
+  size: 86, 43
+  orig: 88, 46
+  offset: 1, 2
+  index: -1
