@@ -15,6 +15,17 @@ public class RewardController : MonoBehaviour
     public Button SkipButton;
     public Button NextButton;
 
+    public void Show(List<CardData> _pool)
+    {
+        gameObject.SetActive(true);
+        GenerateCards(_pool);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    
     public void GenerateCards(List<CardData> _pool)
     {
         SkipButton.gameObject.SetActive(true);

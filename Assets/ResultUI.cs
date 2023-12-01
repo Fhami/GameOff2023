@@ -10,11 +10,12 @@ public class ResultUI : MonoBehaviour
     [SerializeField] Canvas main_canvasGroup;
     [SerializeField] GameObject win_parent;
     [SerializeField] GameObject lost_parent;
-    [SerializeField] Action onClick_Playagain;
+    [SerializeField] Action onClickGoNext;
     [SerializeField] Action onClick_BackToMenu;
 
-    public Action OnClick_Playagain { get => onClick_Playagain; set => onClick_Playagain = value; }
+    public Action OnClick_GoNext { get => onClickGoNext; set => onClickGoNext = value; }
     public Action OnClick_BackToMenu { get => onClick_BackToMenu; set => onClick_BackToMenu = value; }
+    
 
     public void ShowWin()
     {
@@ -43,7 +44,7 @@ public class ResultUI : MonoBehaviour
 
     public void Btn_PlayAgain()
     {
-        if (OnClick_Playagain != null) OnClick_Playagain.Invoke();
+        if (OnClick_GoNext != null) OnClick_GoNext.Invoke();
         Hide();
     }
 

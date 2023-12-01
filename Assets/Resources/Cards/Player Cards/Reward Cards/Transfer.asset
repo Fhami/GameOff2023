@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Sleeping Beauty
+  m_Name: Transfer
   m_EditorClassIdentifier: 
-  cardType: 2
+  cardType: 1
   cardSize: 1
   intentName: 
-  cardDragTarget: 6
+  cardDragTarget: 1
   effects:
-  - {fileID: 11400000, guid: 117b016389cf58c459bd52da1c59eeb7, type: 2}
-  - {fileID: 11400000, guid: 41184f327a5bb47408264d45f038e7e4, type: 2}
+  - {fileID: 11400000, guid: 35caa44273c821a4e9f9044ea079934a, type: 2}
+  - {fileID: 11400000, guid: a940f59e7ead95745b6d0f698190c508, type: 2}
+  - {fileID: 11400000, guid: 2ffe1ff86b1a7c24a8205bb21cfb7248, type: 2}
   cardActiveSkills: []

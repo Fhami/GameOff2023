@@ -74,9 +74,9 @@ public class CharacterSpawner : MonoBehaviour
         return _newEnemy;
     }
 
-    public Character SpawnPlayer(string _name)
+    public Character SpawnPlayer(RuntimeCharacter _runtimePlayer)
     {
-        var _player = CharacterFactory.CreateCharacterObject(_name);
+        var _player = CharacterFactory.CreateCharacterObject(_runtimePlayer);
         _player.gameObject.tag = "PLAYER";
         
         playerPos.AssignCharacter(_player);

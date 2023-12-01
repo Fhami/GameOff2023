@@ -37,7 +37,11 @@ namespace DefaultNamespace
     {
         public CardController CardController => cardController;
 
+        [Header("UI")]
         public TooltipUI TooltipUI;
+        public ResultUI resultUI;
+        public RewardController RewardController;
+        public MapUI mapUI;
         
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
@@ -50,7 +54,7 @@ namespace DefaultNamespace
         public List<Character> enemies = new List<Character>();
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
 
-        public ResultUI resultUI;
+        
         
         [Header("Mockup")] 
         public DeckData deckData;
@@ -74,7 +78,7 @@ namespace DefaultNamespace
         /// <returns></returns>
         private IEnumerator Start()
         {
-            InitUI();
+            SubscribeUIs();
 
             if (isDebug)
             {
@@ -82,26 +86,51 @@ namespace DefaultNamespace
                 {
                     GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
                 }
-
-                yield return StartBattle(playerData, encounterData);
+                
+                yield return StartBattle(CharacterFactory.Create(playerData.name), encounterData);
             }
             else
             {
                 SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+
+                var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
                 
-                yield return StartBattle(GameManager.Instance.playerCharacterData,
-                    GameManager.Instance.currentEncounterData);
+                yield return StartBattle(player, GameManager.Instance.currentEncounterData);
             }
 
             //Add cards to player deck
         }
 
-        private void InitUI()
+        private void SubscribeUIs()
         {
-            //resultUI.OnClick_BackToMenu += () => 
+            resultUI.OnClick_GoNext += () =>
+            {
+                RewardController.Show(GameManager.Instance.currentEncounterData.rewardPool);
+            };
+            
+            RewardController.SkipButton.onClick.AddListener(() =>
+            {
+                runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+                
+                RewardController.Hide();
+                //TODO: show map
+            });
+            
+            RewardController.NextButton.onClick.AddListener(() =>
+            {
+                RewardController.Hide();
+                //TODO: show map
+            });
+            
+            //TODO: subscribe map ui to update encounter in GameManager when select node 
         }
 
-        public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
+        public void ClearBattleScene()
+        {
+            //TODO: call this before start next encounter
+        }
+
+        public IEnumerator StartBattle(RuntimeCharacter _playerData, EncounterData _encounterData)
         {
             canPlayCard = true;
             
@@ -114,9 +143,9 @@ namespace DefaultNamespace
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
         }
 
-        public IEnumerator InitializeCharacters(CharacterData _player, EncounterData _encounterData)
+        public IEnumerator InitializeCharacters(RuntimeCharacter _player, EncounterData _encounterData)
         {
-            player = characterSpawner.SpawnPlayer(_player.name);
+            player = characterSpawner.SpawnPlayer(_player);
             player.cardController = cardController;
             
             cardController.Character = player;
@@ -478,7 +507,7 @@ namespace DefaultNamespace
         public IEnumerator WaitForSelectCardToShuffle(int count, RuntimeCharacter player,
         List<RuntimeCharacter> enemies)
         {
-            while (count > 0 && cardController.HandPile.Cards.Count > 0)
+            while (count > 0 && cardController.HandPile.Cards.Count > 1)
             {
                 //Prevent player playing card while selecting
                 canPlayCard = false;
@@ -988,6 +1017,7 @@ namespace DefaultNamespace
         public IEnumerator OnWin()
         {
             resultUI.ShowWin();
+
             yield return GameManager.Instance.WinBattle();
             runtimePlayer.ClearStatusEffectStackAtEndOfBattle();
         }

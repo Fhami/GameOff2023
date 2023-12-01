@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Rupture
+  m_Name: Slimed
   m_EditorClassIdentifier: 
-  cardType: 1
+  cardType: 4
   cardSize: 1
   intentName: 
-  cardDragTarget: 6
+  cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 10797e91bab664943a20c5ede650618e, type: 2}
-  - {fileID: 11400000, guid: 68b2abccf8d800049a8354c20f73e466, type: 2}
-  cardActiveSkills: []
+  - {fileID: 11400000, guid: c9c71f43360d8964a8aeb54a9fc26737, type: 2}
+  cardActiveSkills:
+  - {fileID: 11400000, guid: b17fcebbf6065ab4787dde01a12e794c, type: 2}
