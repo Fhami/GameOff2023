@@ -11,7 +11,10 @@ using DefaultNamespace;
 public class MapUI : MonoBehaviour
 {
     // Start is called before the first frame update
-   // [SerializeField] BattleMana
+    // [SerializeField] BattleMana
+    [SerializeField] Canvas _main_canvas;
+    [SerializeField] CanvasGroup _canvasGroup;
+
     [SerializeField] MapNodeUI _node_ui_prefab;
     [SerializeField] MapRowUI _row_ui_prefab;
     [SerializeField] MapLineUI _map_line_ui;
@@ -19,7 +22,8 @@ public class MapUI : MonoBehaviour
     [SerializeField] MapInfo _map_info;
     [SerializeField] RectTransform _player_icon;
     [SerializeField] ScrollRect _scroll_rect;
-    [SerializeField] CanvasGroup _canvasGroup;
+
+
     [SerializeField] bool isShow = false;
     Tween _mapTween;
     Tween _player_tween;
@@ -339,8 +343,11 @@ public class MapUI : MonoBehaviour
     public void Show()
     {
         if (isShow) return;
-        _mapTween = _canvasGroup.DOFade(1, 1).
-            OnComplete(()=> { isShow = true; });
+        _main_canvas.enabled = true;
+        _mapTween = _canvasGroup.DOFade(1, .4f).
+            OnComplete(()=> { 
+                isShow = true; 
+            });
     }
 
     public void Hide()
@@ -348,6 +355,7 @@ public class MapUI : MonoBehaviour
         if (!isShow) return;
         isShow = false;
         _canvasGroup.alpha = 0;
+        _main_canvas.enabled = false;
     }
 
     public void Toggle()
@@ -358,7 +366,6 @@ public class MapUI : MonoBehaviour
 
     public void Btn_GenerateMap()
     {
-        //StartCoroutine(ieGenerateMap(_map_info));
         LoadNewMap(_map_info);
     }
 

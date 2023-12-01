@@ -17,11 +17,14 @@ MonoBehaviour:
   rows:
   - minMaxNode: {x: 1, y: 1}
     fixedNodes:
-    - {fileID: 11400000, guid: 2d64190def603084aaeb763479a90746, type: 2}
+    - {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
     possibleNodes:
       _serializedList: []
     possibleEncounters:
-      _serializedList: []
+      _serializedList:
+      - Key: 0
+        Value:
+        - {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf, type: 2}
   - minMaxNode: {x: 1, y: 1}
     fixedNodes:
     - {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
