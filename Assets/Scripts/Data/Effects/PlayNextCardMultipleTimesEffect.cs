@@ -19,12 +19,12 @@ public class PlayNextCardMultipleTimesEffect : EffectData
     public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
         RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
     {
-        return $"Next card is played {extraTimes.ToString()} times.";
+        return $"Next card is played {(1 + extraTimes).ToString()} times.";
     }
 
     public override string GetDescriptionText()
     {
-        return $"Next card is played {extraTimes.ToString()} times.";
+        return $"Next card is played {(1 + extraTimes).ToString()} times.";
     }
 
     public override int GetEffectValue(
