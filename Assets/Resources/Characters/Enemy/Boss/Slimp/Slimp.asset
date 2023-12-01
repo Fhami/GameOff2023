@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c9fc15142d4ac38df9b90a920fddb1, type: 3}
   m_Name: Slimp
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 0}
+  characterPrefab: {fileID: 1268478702914123795, guid: 9e1573593c607a74b859a40445462c79,
+    type: 3}
   health: 300
   startSize: 5
   minSize: 1
@@ -20,7 +21,6 @@ MonoBehaviour:
   deathOnMin: 0
   deathOnMax: 0
   handSize: 0
-  deckData: {fileID: 0}
   forms:
   - {fileID: 11400000, guid: f6dddeebdba8d2c4e8ac693356dfffc5, type: 2}
   - {fileID: 11400000, guid: 682855a559954c849970013f79764473, type: 2}
