@@ -377,6 +377,12 @@ public class MapUI : MonoBehaviour
     public void Show()
     {
         if (isShow) return;
+
+        if (BattleManager.current)
+        {
+            BattleManager.current.SoundManagerTesting.PlayBGM(SoundType.Map);
+        }
+        
         _main_canvas.enabled = true;
         _mapTween = _canvasGroup.DOFade(1, .4f).
             OnComplete(()=> { 
