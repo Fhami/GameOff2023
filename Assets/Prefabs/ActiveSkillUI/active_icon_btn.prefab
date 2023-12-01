@@ -157,6 +157,18 @@ MonoBehaviour:
   _smallColor: {r: 0.24313727, g: 0.76470596, b: 0.8000001, a: 1}
   _mediumColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   _bigColor: {r: 0.9245283, g: 0.44248965, b: 0.10902455, a: 1}
+  cardDataSprites:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 1ff9c05e730f446c5902ee4e2b4311e9, type: 2}
+      Value: {fileID: 693466642, guid: a8dce1b030044b344992b8d3bfe08557, type: 3}
+    - Key: {fileID: 11400000, guid: fa0d2dd8aeac1442d89a5eea626462dc, type: 2}
+      Value: {fileID: 643884936, guid: a8dce1b030044b344992b8d3bfe08557, type: 3}
+    - Key: {fileID: 11400000, guid: 621e4824dcdf743b18c87d9d7df42bb3, type: 2}
+      Value: {fileID: -333028385, guid: a8dce1b030044b344992b8d3bfe08557, type: 3}
+    - Key: {fileID: 11400000, guid: 15942391bc276994fb717c2ae6bb60c9, type: 2}
+      Value: {fileID: 643884936, guid: a8dce1b030044b344992b8d3bfe08557, type: 3}
+    - Key: {fileID: 11400000, guid: baf16b3fada5b584595bffaa7483a6ff, type: 2}
+      Value: {fileID: -333028385, guid: a8dce1b030044b344992b8d3bfe08557, type: 3}
 --- !u!114 &755466497938483029
 MonoBehaviour:
   m_ObjectHideFlags: 0
