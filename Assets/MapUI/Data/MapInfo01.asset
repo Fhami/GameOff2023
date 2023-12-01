@@ -94,23 +94,20 @@ MonoBehaviour:
       - Key: 1
         Value:
         - {fileID: 11400000, guid: fc78d1c897038404ba2e95e4753b671c, type: 2}
-        - {fileID: 11400000, guid: a983058568cc547d3b372270f775c395, type: 2}
   - minMaxNode: {x: 2, y: 3}
     fixedNodes: []
     possibleNodes:
       _serializedList:
       - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
         Value: 5
-      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
-        Value: 1
-      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
-        Value: 1
     possibleEncounters:
       _serializedList:
       - Key: 0
         Value:
-        - {fileID: 11400000, guid: c1863791c235bbf45bb779dba726a982, type: 2}
-        - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
+        - {fileID: 11400000, guid: a5ea4c6d383af42e99078aaa9dae37d0, type: 2}
+        - {fileID: 11400000, guid: 28378df1ba3ed47088ac786483b6ac86, type: 2}
+        - {fileID: 11400000, guid: bc83b2d0bf98a46c3871a807b6ef3bee, type: 2}
+        - {fileID: 11400000, guid: fac39a6a61e85402cba6359706bccf3c, type: 2}
   - minMaxNode: {x: 3, y: 3}
     fixedNodes: []
     possibleNodes:
@@ -127,7 +124,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: bc83b2d0bf98a46c3871a807b6ef3bee, type: 2}
       - Key: 1
         Value:
-        - {fileID: 11400000, guid: a983058568cc547d3b372270f775c395, type: 2}
+        - {fileID: 11400000, guid: fc78d1c897038404ba2e95e4753b671c, type: 2}
   - minMaxNode: {x: 1, y: 1}
     fixedNodes:
     - {fileID: 11400000, guid: 019c5d0797b5f20489e0803be22332a7, type: 2}
