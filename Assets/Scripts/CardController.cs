@@ -89,6 +89,8 @@ public class CardController : MonoBehaviour
 
     public IEnumerator Discard(Card _card)
     {
+        if (!_card) yield break;
+        
         DiscardPile.AddCard(HandPile.PickCard(_card), true, Vector3.zero);
 
         yield return drawDelay;
@@ -96,6 +98,8 @@ public class CardController : MonoBehaviour
 
     public IEnumerator ExhaustCard(Card _card)
     {
+        if (!_card) yield break;
+        
         yield return _card.ExhaustCard();
         
         ExhaustPile.AddCard(HandPile.PickCard(_card), false, Vector3.zero);
@@ -103,12 +107,8 @@ public class CardController : MonoBehaviour
     
     public IEnumerator DestroyCard(Card _card)
     {
-        // throw new NotImplementedException(
-        //     " // TODO: Can we destroy cards from any card pile? Can we handle that?\n" + 
-        //     "// TODO: Add card destroy VFX\n" + 
-        //     "// TODO: Also remove runtime card data from player, and destroy the card gameobject\n" +
-        //     "// TODO: IDK what to do here haha. Kamee halp?");
-
+        if (!_card) yield break;
+        
         foreach (var _pile in AllPiles)
         {
             _pile.RemoveCard(_card);
@@ -118,6 +118,17 @@ public class CardController : MonoBehaviour
         
         yield return _card.DestroyCard();
         // E.g. SLIME card destroys itself when player changes size, you can debug using that.
+    }
+
+    public void ClearAllCards()
+    {
+        foreach (var _pile in AllPiles)
+        {
+            foreach (var _card in _pile.GetCards())
+            {
+                Destroy(_card.gameObject);
+            }
+        }
     }
     
     public IEnumerator DiscardRemainingCards()
