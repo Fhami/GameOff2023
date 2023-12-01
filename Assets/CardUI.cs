@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour, IPointerClickHandler
 {
@@ -14,6 +15,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
     [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
     [SerializeField] public CardData cardData;
+    public Image Image;
     
     public UnityEvent<CardUI> OnClick;
     
@@ -42,6 +44,8 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         {
             _size.SetActive(true);
         }
+
+        Image.sprite = _cardData.cardImage;
     }
 
     public void OnPointerClick(PointerEventData eventData)

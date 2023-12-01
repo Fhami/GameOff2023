@@ -448,7 +448,7 @@ namespace DefaultNamespace
             if (!_prefab) return;
             
             var _particle = Instantiate(_prefab);
-            _particle.transform.position = transform.position;
+            _particle.transform.position = currentForm.effectPos.position;
             _particle.Play();
             
             PlayAudio(_key);

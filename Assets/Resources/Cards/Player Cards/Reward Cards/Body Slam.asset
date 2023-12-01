@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   cardSize: 1
+  cardImage: {fileID: 0}
   intentName: 
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: ad524a2de0e35b948ab4cb85fb70056e, type: 2}
-  - {fileID: 11400000, guid: ffcf42a9dbe14447f93e6814138b19a2, type: 2}
+  - {fileID: 11400000, guid: f23f9942bc83d8043a126b882d503182, type: 2}
   - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
   - {fileID: 11400000, guid: 9505bba0fc57a21418591b49c9ac27bd, type: 2}
   cardActiveSkills: []

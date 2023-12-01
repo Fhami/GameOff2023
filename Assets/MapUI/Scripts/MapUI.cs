@@ -25,7 +25,6 @@ public class MapUI : MonoBehaviour
     [SerializeField] ScrollRect _scroll_rect;
     [SerializeField] Material _line_material;
 
-
     [SerializeField] bool isShow = false;
     Tween _mapTween;
     Tween _player_tween;
@@ -247,6 +246,7 @@ public class MapUI : MonoBehaviour
     {
         if (selectedNode.isLock) return;
 
+        if(GameManager.Instance!=null) GameManager.Instance.currentNodeType = selectedNode.NodeInfo.nodeType;
         Debug.Log("Click " + selectedNode.NodeInfo.nodeType);
 
         //Lock same node row
@@ -256,6 +256,7 @@ public class MapUI : MonoBehaviour
             else node.Disable();
         }
 
+        selectedNode.DisableHighlightEfx();
         DisablePrevNode(selectedNode);
 
         _scroll_rect.enabled = false;

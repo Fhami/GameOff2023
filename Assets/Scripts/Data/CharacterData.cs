@@ -19,7 +19,6 @@ namespace DefaultNamespace
         public bool deathOnMin;
         public bool deathOnMax;
         public int handSize;
-        public DeckData deckData;
         [Expandable] public List<FormData> forms;
     }
 }

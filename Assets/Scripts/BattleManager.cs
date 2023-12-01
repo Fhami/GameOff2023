@@ -5,6 +5,8 @@ using System.Linq;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -55,15 +57,15 @@ namespace DefaultNamespace
 
         public Action OnWin;
 
-        [Header("Mockup")] 
-        public DeckData deckData;
-        public CharacterData playerData;
+        [Header("Mockup")]
         public EncounterData encounterData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
         //Use this to prevent player playing card while redraw
         public bool canPlayCard = true;
+
+        public Button endTurnBtn;
 
         public bool isDebug = false;
         public bool isInit;
@@ -82,17 +84,18 @@ namespace DefaultNamespace
 
             if (isDebug)
             {
-                foreach (var _cardData in deckData.Cards)
-                {
-                    GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
-                }
+                // foreach (var _cardData in deckData.Cards)
+                // {
+                //     GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
+                // }
                 
-                yield return InitializeBattle(CharacterFactory.Create(playerData.name), encounterData);
+                //yield return InitializeBattle(CharacterFactory.Create(GameManager.Instance.playerCharacterData.name), encounterData);
             }
             else
             {
                 
             }
+            yield break;
 
             //Add cards to player deck
         }
@@ -100,7 +103,10 @@ namespace DefaultNamespace
         public void StartBattle(Action _onWin)
         {
             OnWin = _onWin;
-            SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+            if (GameManager.Instance.currentEncounterData)
+            {
+                SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+            }
 
             var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
 
@@ -110,15 +116,16 @@ namespace DefaultNamespace
         private void SubscribeUIs()
         {
 
-            resultUI.OnClick_GoNext += () =>
+            resultUI.OnClick_BackToMenu += () =>
             {
-                RewardController.Show(GameManager.Instance.currentEncounterData.rewardPool);
+                GameManager.Instance.PlayerHP = GameManager.Instance.playerCharacterData.health;
+                SceneManager.LoadScene("TitleScene");
             };
             
             RewardController.SkipButton.onClick.AddListener(() =>
             {
-                runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
-                
+                GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+
                 RewardController.Hide();
                 MapUI.current.Show();
             });
@@ -128,6 +135,8 @@ namespace DefaultNamespace
                 RewardController.Hide();
                 MapUI.current.Show();
             });
+
+            
             
             //TODO: subscribe map ui to update encounter in GameManager when select node 
         }
@@ -251,7 +260,11 @@ namespace DefaultNamespace
         //This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            if (runtimePlayer == null) yield break;
+            
             FormData form = player.GetCurrentForm();
+
+            endTurnBtn.interactable = true;
 
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
@@ -283,6 +296,7 @@ namespace DefaultNamespace
         //This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            endTurnBtn.interactable = false;
             // Discard hand but since this discard is not initiated by a card we leave it null.
             yield return DiscardHand(null);
 
@@ -751,6 +765,14 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn just ended.</param>
         public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
         {
+
+            yield return ValidateWinLose();
+            
+            if (runtimePlayer == null)
+            {
+                yield break;
+            }
+
             // If enemy has decay debuff
             if (enemy.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(enemy) > 0)
             {
@@ -796,8 +818,6 @@ namespace DefaultNamespace
             {
                 yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
-            
-            yield return ValidateWinLose();
         }
 
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
@@ -1044,7 +1064,16 @@ namespace DefaultNamespace
 
             GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value;
             
-            resultUI.ShowWin();
+            if (GameManager.Instance.currentNodeType == NodeType.Boss)
+            {
+                resultUI.ShowWin();
+            }
+            else
+            {
+                RewardController.Show(GameManager.Instance.rewardPool);
+            }
+            
+            //
 
             yield return GameManager.Instance.WinBattle();
         }

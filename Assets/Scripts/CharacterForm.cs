@@ -8,5 +8,6 @@ public class CharacterForm : MonoBehaviour
     public SkeletonAnimation skeletonAnimation;
     public Transform frontPos;
     public Transform uiPos;
+    public Transform effectPos;
 
 }

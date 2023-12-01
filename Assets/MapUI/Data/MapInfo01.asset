@@ -31,17 +31,13 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value:
-        - {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455, type: 2}
+        - {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf, type: 2}
   - minMaxNode: {x: 3, y: 3}
     fixedNodes: []
     possibleNodes:
       _serializedList:
       - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
         Value: 5
-      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
-        Value: 1
-      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
-        Value: 1
     possibleEncounters:
       _serializedList:
       - Key: 0
@@ -54,18 +50,13 @@ MonoBehaviour:
       _serializedList:
       - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
         Value: 5
-      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
-        Value: 1
-      - Key: {fileID: 11400000, guid: d057c2275469f6041b88a178ececd26e, type: 2}
-        Value: 2
-      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
-        Value: 1
     possibleEncounters:
       _serializedList:
       - Key: 0
         Value:
-        - {fileID: 11400000, guid: c1863791c235bbf45bb779dba726a982, type: 2}
-        - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
+        - {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf, type: 2}
+        - {fileID: 11400000, guid: fac39a6a61e85402cba6359706bccf3c, type: 2}
+        - {fileID: 11400000, guid: bc83b2d0bf98a46c3871a807b6ef3bee, type: 2}
   - minMaxNode: {x: 4, y: 4}
     fixedNodes:
     - {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
@@ -73,9 +64,7 @@ MonoBehaviour:
       _serializedList:
       - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
         Value: 2
-      - Key: {fileID: 11400000, guid: c7d2a8c028d58834c898b22451b4c204, type: 2}
-        Value: 2
-      - Key: {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
+      - Key: {fileID: 11400000, guid: 7455740b4829ec543814dfedafdc3775, type: 2}
         Value: 2
     possibleEncounters:
       _serializedList:
@@ -83,12 +72,10 @@ MonoBehaviour:
         Value:
         - {fileID: 11400000, guid: 0f5743236a53cf44795e802bd899a38c, type: 2}
         - {fileID: 11400000, guid: 2bf95908e20642d40a3de33398e23da9, type: 2}
-        - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
-        - {fileID: 11400000, guid: c1863791c235bbf45bb779dba726a982, type: 2}
       - Key: 1
         Value:
-        - {fileID: 11400000, guid: 8d4bc783879863d459c6ebd67ed5f15e, type: 2}
-        - {fileID: 11400000, guid: 836084ddc96cd9e4aafd695abe567b36, type: 2}
+        - {fileID: 11400000, guid: fc78d1c897038404ba2e95e4753b671c, type: 2}
+        - {fileID: 11400000, guid: 250036d80e45c4fd9b5cb5e635e7f672, type: 2}
   - minMaxNode: {x: 1, y: 2}
     fixedNodes:
     - {fileID: 11400000, guid: 7455740b4829ec543814dfedafdc3775, type: 2}
@@ -100,6 +87,10 @@ MonoBehaviour:
         Value: 1
     possibleEncounters:
       _serializedList:
+      - Key: 0
+        Value:
+        - {fileID: 11400000, guid: 8d4bc783879863d459c6ebd67ed5f15e, type: 2}
+        - {fileID: 11400000, guid: 836084ddc96cd9e4aafd695abe567b36, type: 2}
       - Key: 1
         Value:
         - {fileID: 11400000, guid: 8d4bc783879863d459c6ebd67ed5f15e, type: 2}
@@ -121,14 +112,23 @@ MonoBehaviour:
         - {fileID: 11400000, guid: c1863791c235bbf45bb779dba726a982, type: 2}
         - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
   - minMaxNode: {x: 3, y: 3}
-    fixedNodes:
-    - {fileID: 11400000, guid: f5e2be0f3d86b5a4c8be0f9a322880d6, type: 2}
-    - {fileID: 11400000, guid: 6890cdc2c4bb4be44a6a96d558c69c24, type: 2}
-    - {fileID: 11400000, guid: d057c2275469f6041b88a178ececd26e, type: 2}
+    fixedNodes: []
     possibleNodes:
-      _serializedList: []
+      _serializedList:
+      - Key: {fileID: 11400000, guid: 7cd8c31b673fced4da5cc28deb34868d, type: 2}
+        Value: 2
+      - Key: {fileID: 11400000, guid: 7455740b4829ec543814dfedafdc3775, type: 2}
+        Value: 6
     possibleEncounters:
-      _serializedList: []
+      _serializedList:
+      - Key: 1
+        Value:
+        - {fileID: 11400000, guid: 836084ddc96cd9e4aafd695abe567b36, type: 2}
+        - {fileID: 11400000, guid: a983058568cc547d3b372270f775c395, type: 2}
+      - Key: 0
+        Value:
+        - {fileID: 11400000, guid: 28378df1ba3ed47088ac786483b6ac86, type: 2}
+        - {fileID: 11400000, guid: bc83b2d0bf98a46c3871a807b6ef3bee, type: 2}
   - minMaxNode: {x: 1, y: 1}
     fixedNodes:
     - {fileID: 11400000, guid: 019c5d0797b5f20489e0803be22332a7, type: 2}
