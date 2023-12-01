@@ -244,11 +244,14 @@ namespace DefaultNamespace
             //Play Enemies turn
             foreach (var _enemy in runtimeEnemies)
             {
-                yield return EnemyTurnStart(_enemy);
+                if (_enemy != null)
+                {
+                    yield return EnemyTurnStart(_enemy);
                 
-                yield return PlayEnemyTurn(_enemy, runtimePlayer, runtimeEnemies);
+                    yield return PlayEnemyTurn(_enemy, runtimePlayer, runtimeEnemies);
 
-                yield return EnemyTurnEnd(_enemy);
+                    yield return EnemyTurnEnd(_enemy);
+                }
             }
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
@@ -709,7 +712,7 @@ namespace DefaultNamespace
         public IEnumerator ChangeSize(int previousSize, int currentSize, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
             // TODO: VFX, animation etc
-            if (character == null || character.Character) yield break;
+            if (character == null || !character.Character) yield break;
 
             character.Character.PlayParticle(previousSize > currentSize ? FXKey.SIZE_DOWN : FXKey.SIZE_UP);
             yield return character.Character.UpdateSize(previousSize, currentSize);
