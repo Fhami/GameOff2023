@@ -1056,7 +1056,7 @@ namespace DefaultNamespace
             }
             else
             {
-                RewardController.Show(GameManager.Instance.currentEncounterData.rewardPool);
+                RewardController.Show(GameManager.Instance.rewardPool);
             }
             
             //

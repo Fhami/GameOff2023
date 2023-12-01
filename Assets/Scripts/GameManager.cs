@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -10,6 +11,9 @@ namespace DefaultNamespace
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
+
+        public List<CardData> rewardPool;
+        public DeckData DeckData;
 
         public RuntimeDeckData PlayerRuntimeDeck;
         public MapInfo MapInfo;
@@ -54,7 +58,7 @@ namespace DefaultNamespace
 
             PlayerHP = _characterData.health;
             
-            foreach (var _cardData in playerCharacterData.deckData.Cards)
+            foreach (var _cardData in DeckData.Cards)
             {
                 PlayerRuntimeDeck.AddCard(_cardData);
             }

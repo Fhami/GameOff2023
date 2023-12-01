@@ -2527,12 +2527,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3571057105549040381, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
         type: 3}
-      propertyPath: playerCharacterData
-      value: 
-      objectReference: {fileID: 11400000, guid: 4dafc39e278583541ac298096871670e,
-        type: 2}
-    - target: {fileID: 3571057105549040381, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
-        type: 3}
       propertyPath: currentEncounterData
       value: 
       objectReference: {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf,
