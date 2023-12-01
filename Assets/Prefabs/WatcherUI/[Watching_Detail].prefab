@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 313.36, y: 0}
+  m_AnchoredPosition: {x: 303.21, y: 0}
   m_SizeDelta: {x: 467.96, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1546760420925262911
@@ -371,9 +371,9 @@ MonoBehaviour:
   _s_color: {r: 0.22352943, g: 0.83921576, b: 0.9803922, a: 1}
   _m_color: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 1}
   _l_color: {r: 0.9960785, g: 0.4784314, b: 0.20784315, a: 1}
-  _s_sprite: {fileID: 21300000, guid: 56f81432ffe9c404fa410bda53b79403, type: 3}
-  _m_sprite: {fileID: 21300000, guid: 795628b5f723947498e05d489e266cc1, type: 3}
-  _l_sprite: {fileID: 21300000, guid: e68098ccb5a9656458fde7cd272f6d3f, type: 3}
+  _s_sprite: {fileID: 21300000, guid: c429629cd3872d844bf6b389f61d5bd8, type: 3}
+  _m_sprite: {fileID: 21300000, guid: aa0b240cf5caa024892a37c2911a75e8, type: 3}
+  _l_sprite: {fileID: 21300000, guid: 748aa83f49567cd49b9b38197fdd7c23, type: 3}
   comparisonSprite:
     _serializedList:
     - Key: 0
