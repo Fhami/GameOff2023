@@ -444,6 +444,8 @@ namespace DefaultNamespace
 
         public void PlayParticle(FXKey _key)
         {
+            PlayAudio(_key);
+            
             if (!particles.TryGetValue(_key, out var _prefab)) return;
             if (!_prefab) return;
             
@@ -451,7 +453,6 @@ namespace DefaultNamespace
             _particle.transform.position = currentForm.effectPos.position;
             _particle.Play();
             
-            PlayAudio(_key);
         }
 
         public void PlayAudio(FXKey _key)
