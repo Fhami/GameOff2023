@@ -28,6 +28,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1537818351842639164, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.833
+      objectReference: {fileID: 0}
     - target: {fileID: 1549978412333714366, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -89,6 +94,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4605278699214041558, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4825042608493409092, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: outlineTargets.Array.size
@@ -104,6 +114,11 @@ PrefabInstance:
       propertyPath: outlineTargets.Array.data[1].renderer
       value: 
       objectReference: {fileID: 4548742181920428268}
+    - target: {fileID: 4886656288530378671, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.22
+      objectReference: {fileID: 0}
     - target: {fileID: 5277126636092263056, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -112,7 +127,7 @@ PrefabInstance:
     - target: {fileID: 5320747359167984395, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5350604928482851002, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
@@ -154,6 +169,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256625755478657591, guid: efa602ec91d90704181176a0d14d2b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.404
       objectReference: {fileID: 0}
     - target: {fileID: 7304912489016288312, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
@@ -224,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 7976795393520801427, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8657454380522718106, guid: efa602ec91d90704181176a0d14d2b8b,
         type: 3}
