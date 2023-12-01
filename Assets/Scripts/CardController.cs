@@ -87,7 +87,7 @@ public class CardController : MonoBehaviour
         {
             DeckPile.AddCard(_recycledCard, true, Vector3.zero);
                 
-            yield return drawDelay;
+            yield return null;
         }
         DeckPile.Shuffle();
     }
