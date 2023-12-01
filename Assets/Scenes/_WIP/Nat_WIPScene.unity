@@ -193,7 +193,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
@@ -891,7 +891,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &246939810
@@ -1062,6 +1062,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 0
+  Collider: {fileID: 0}
 --- !u!114 &246939816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1306,7 +1307,7 @@ PrefabInstance:
     - target: {fileID: 4805408770143987996, guid: 2d4383d3fff52834782fb865c1c90d16,
         type: 3}
       propertyPath: m_Name
-      value: SoundUI_Canvas
+      value: '[SoundUI_Canvas]'
       objectReference: {fileID: 0}
     - target: {fileID: 8893274862159123283, guid: 2d4383d3fff52834782fb865c1c90d16,
         type: 3}
@@ -2628,6 +2629,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 0
+  Collider: {fileID: 0}
 --- !u!114 &621685728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2714,6 +2716,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TooltipUI: {fileID: 0}
+  resultUI: {fileID: 0}
+  RewardController: {fileID: 0}
+  mapUI: {fileID: 0}
   cardController: {fileID: 689958391}
   characterSpawner: {fileID: 689958395}
   characterSpawnDelay: 0.2
@@ -2736,6 +2741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be1e5c0e049c324e8004c196f19c02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCharacterData: {fileID: 0}
+  currentEncounterData: {fileID: 0}
   debugMode: 0
 --- !u!114 &689958395
 MonoBehaviour:
@@ -3465,7 +3472,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &922086823
@@ -4176,7 +4183,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!224 &953951058
@@ -4417,7 +4424,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1245676581
@@ -4619,7 +4626,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1631416541
@@ -5361,7 +5368,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1759532929
@@ -5413,6 +5420,124 @@ MonoBehaviour:
   Cards: []
   Container: {fileID: 257218870}
   count: {fileID: 1228934619}
+--- !u!1001 &1773947050
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2377771604240752117, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568230549143180411, guid: 98bab1c6f032a2142bf335671aefccb9,
+        type: 3}
+      propertyPath: m_Name
+      value: '[TopBar_Canvas]'
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 98bab1c6f032a2142bf335671aefccb9, type: 3}
 --- !u!1 &1787322596
 GameObject:
   m_ObjectHideFlags: 0
@@ -5649,7 +5774,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
@@ -5949,7 +6074,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1967037575
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2061301388
@@ -7524,3 +7649,4 @@ SceneRoots:
   - {fileID: 4758368666043178229}
   - {fileID: 1142348813}
   - {fileID: 422779383}
+  - {fileID: 1773947050}
