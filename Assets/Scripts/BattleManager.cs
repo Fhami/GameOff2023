@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DefaultNamespace
 {
@@ -55,9 +56,7 @@ namespace DefaultNamespace
 
         public Action OnWin;
 
-        [Header("Mockup")] 
-        public DeckData deckData;
-        public CharacterData playerData;
+        [Header("Mockup")]
         public EncounterData encounterData;
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
@@ -82,17 +81,18 @@ namespace DefaultNamespace
 
             if (isDebug)
             {
-                foreach (var _cardData in deckData.Cards)
-                {
-                    GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
-                }
+                // foreach (var _cardData in deckData.Cards)
+                // {
+                //     GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
+                // }
                 
-                yield return InitializeBattle(CharacterFactory.Create(playerData.name), encounterData);
+                //yield return InitializeBattle(CharacterFactory.Create(GameManager.Instance.playerCharacterData.name), encounterData);
             }
             else
             {
                 
             }
+            yield break;
 
             //Add cards to player deck
         }
@@ -100,7 +100,10 @@ namespace DefaultNamespace
         public void StartBattle(Action _onWin)
         {
             OnWin = _onWin;
-            SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+            if (GameManager.Instance.currentEncounterData)
+            {
+                SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+            }
 
             var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
 
@@ -110,9 +113,10 @@ namespace DefaultNamespace
         private void SubscribeUIs()
         {
 
-            resultUI.OnClick_GoNext += () =>
+            resultUI.OnClick_BackToMenu += () =>
             {
-                RewardController.Show(GameManager.Instance.currentEncounterData.rewardPool);
+                GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+                SceneManager.LoadScene("TitleScene");
             };
             
             RewardController.SkipButton.onClick.AddListener(() =>
