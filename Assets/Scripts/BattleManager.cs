@@ -117,8 +117,8 @@ namespace DefaultNamespace
             
             RewardController.SkipButton.onClick.AddListener(() =>
             {
-                runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
-                
+                GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+
                 RewardController.Hide();
                 MapUI.current.Show();
             });
@@ -128,6 +128,8 @@ namespace DefaultNamespace
                 RewardController.Hide();
                 MapUI.current.Show();
             });
+
+            
             
             //TODO: subscribe map ui to update encounter in GameManager when select node 
         }
@@ -1044,7 +1046,16 @@ namespace DefaultNamespace
 
             GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value;
             
-            resultUI.ShowWin();
+            if (GameManager.Instance.currentNodeType == NodeType.Boss)
+            {
+                resultUI.ShowWin();
+            }
+            else
+            {
+                RewardController.Show(GameManager.Instance.currentEncounterData.rewardPool);
+            }
+            
+            //
 
             yield return GameManager.Instance.WinBattle();
         }
