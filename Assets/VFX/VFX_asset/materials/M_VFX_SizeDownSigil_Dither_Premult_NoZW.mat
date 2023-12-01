@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_VFX_Sparkles_Add
-  m_Shader: {fileID: 4800000, guid: fef049b9f31336940bfebd90d5008952, type: 3}
+  m_Name: M_VFX_SizeDownSigil_Dither_Premult_NoZW
+  m_Shader: {fileID: 4800000, guid: 8b43b91956f52214fadd01b930517225, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -47,18 +47,30 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DissolveDirection:
+        m_Texture: {fileID: 2800000, guid: f983a4711a0296c49a3e1edc8744f290, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveMask:
+        m_Texture: {fileID: 2800000, guid: 247870543c33cb84b90e4de91faf2bc6, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _DistortMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradientMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 018ad09da65121d449f6d7f9b60261ea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GradientShape:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 917ed51cfa84c2649944900e6c8bb70f, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 1, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -79,8 +91,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _StaticAlphaTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: 9bb9e36c4da45d740bc16136d284a8b6, type: 3}
+        m_Texture: {fileID: 2800000, guid: f983a4711a0296c49a3e1edc8744f290, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -103,7 +119,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _Brightness: 2
+    - _Brightness: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -116,7 +132,13 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DifferentCoreColor: 0
-    - _Dst: 5
+    - _DissolveDirectionInvert: 0
+    - _DissolveDirectionRotation: 0
+    - _DissolveMaskInvert: 0
+    - _DissolveMaskRotation: 0
+    - _DistortMaskRotation: 0
+    - _DistortionPower: 0
+    - _Dst: 10
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -125,10 +147,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientMapDisplacement: 0
+    - _GradientMapDisplacement: -0.41
     - _GradientShapeRotation: 0
     - _InvertGradient: 0
     - _Metallic: 0
+    - _MoveWithTexture: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -136,12 +159,14 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Src: 3
+    - _Src: 5
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
+    - _StaticAlphaInvert: 0
+    - _StaticAlphaRotation: 0
     - _Surface: 0
     - _TextureRotation: 0
-    - _UseDepthFade: 1
+    - _UseDepthFade: 0
     - _WorkflowMode: 1
     - _ZTest: 2
     - _ZWrite: 0
@@ -149,10 +174,16 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoreColor: {r: 0, g: 0, b: 0, a: 0}
+    - _DissolveDirectionChannel: {r: 0, g: 0.5, b: 1, a: 0}
+    - _DissolveMaskChannel: {r: 0, g: 1, b: 0, a: 0}
+    - _DissolveMaskPanSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _DistortMaskChannel: {r: 0, g: 0, b: 0, a: 0}
+    - _DistortPanSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GradientShapeChannel: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TextureChannel: {r: 0, g: 0, b: 1, a: 0}
+    - _StaticAlphaChannel: {r: 1, g: 0, b: 0, a: 0}
+    - _TextureChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6184326343352367262
 MonoBehaviour:
