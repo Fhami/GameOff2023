@@ -212,7 +212,7 @@ public class CardController : MonoBehaviour
                 {
                     Debug.Log($"target {_target.GameObject.name} = true");
                 }
-                    
+                
                 card.transform.SetParent(null);
                 card.transform.DOMove(new Vector3(0, 1, 0), 0.2f);
                 card.transform.DOScale(new Vector3(1.03f, 1.03f, 1f), 0.1f);

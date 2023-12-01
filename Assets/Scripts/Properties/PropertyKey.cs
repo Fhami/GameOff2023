@@ -52,13 +52,10 @@
 
     public static class PropertyHelper
     {
+
         public static PropertyKey[] IntStatusKeys = new[]
         {
-            PropertyKey.HEALTH,
-            PropertyKey.MAX_HEALTH,
             PropertyKey.SIZE,
-            PropertyKey.MIN_SIZE,
-            PropertyKey.MAX_SIZE,
             PropertyKey.HAND_SIZE,
             PropertyKey.ATTACK,
             PropertyKey.SHIELD,

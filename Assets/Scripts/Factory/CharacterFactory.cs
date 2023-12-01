@@ -52,6 +52,7 @@ namespace DefaultNamespace
             runtimeCharacter.properties.Add(PropertyKey.VULNERABLE, new Property<int>(0, PropertyKey.VULNERABLE));
             runtimeCharacter.properties.Add(PropertyKey.WEAK, new Property<int>(0, PropertyKey.WEAK));
             runtimeCharacter.properties.Add(PropertyKey.HEAL, new Property<int>(0, PropertyKey.HEAL));
+            runtimeCharacter.properties.Add(PropertyKey.TIMES, new Property<int>(0, PropertyKey.TIMES));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT, new Property<int>(0, PropertyKey.CARDS_DISCARDED_ON_CURRENT_TURN_COUNT));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT, new Property<int>(0, PropertyKey.CARDS_DISCARDED_ON_CURRENT_BATTLE_COUNT));
             runtimeCharacter.properties.Add(PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT, new Property<int>(0, PropertyKey.CARDS_DESTROYED_ON_CURRENT_TURN_COUNT));
