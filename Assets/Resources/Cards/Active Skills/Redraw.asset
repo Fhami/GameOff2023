@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 6
   cardSize: 1
+  cardImage: {fileID: -858368614, guid: ac8ce9707cef520489db54d23f924cd8, type: 3}
   intentName: 
   cardDragTarget: 4
   effects:
