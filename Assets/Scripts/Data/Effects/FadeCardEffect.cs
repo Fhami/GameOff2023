@@ -19,7 +19,7 @@ namespace DefaultNamespace
 
         public override string GetDescriptionText()
         {
-            return "Fade.";
+            return $"<color={Colors.COLOR_STATUS}>Fade</color>.";
         }
 
         public override int GetEffectValue(
