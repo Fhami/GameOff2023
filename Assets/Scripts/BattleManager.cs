@@ -806,17 +806,17 @@ namespace DefaultNamespace
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention(), true);
             
             // Death by size (if player is at min size or max size at the end of the turn they will die)
-            int minSize = runtimePlayer.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
-            int maxSize = runtimePlayer.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
-            int size = runtimePlayer.properties.Get<int>(PropertyKey.SIZE).Value;
+            int minSize = enemy.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
+            int maxSize = enemy.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
+            int size = enemy.properties.Get<int>(PropertyKey.SIZE).Value;
 
             if (size == minSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.SMALL_DEATH);
+                yield return Kill(enemy, null, runtimePlayer, null, runtimeEnemies, FXKey.SMALL_DEATH);
             }
             else if (size == maxSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
+                yield return Kill(enemy, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
         }
 
