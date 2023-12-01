@@ -12,6 +12,7 @@ using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -36,6 +37,7 @@ namespace DefaultNamespace
         [SerializeField] private UIParticle destroyCardParticle;
 
         [Header("Visual")] 
+        [SerializeField] SpriteRenderer cardArt;
         [SerializeField] private DraggableLine draggableLine;
         [SerializeField] private SerializedDictionary<CardType, GameObject> visualDict;
         [SerializeField] private SerializedDictionary<Size, GameObject> borderDict;
@@ -82,7 +84,8 @@ namespace DefaultNamespace
             {
                 _size.SetActive(true);
             }
-            
+
+            cardArt.sprite = _runtimeCard.cardData.cardImage;
         }
 
         /// <summary>
