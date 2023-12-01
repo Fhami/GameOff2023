@@ -1007,6 +1007,10 @@ namespace DefaultNamespace
         
         public void TryTriggerPassives(GameEvent gameEvent, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            //StartCoroutine(ValidateWinLose());
+            
+            if (runtimePlayer == null || character == null) return;
+            
             var form = character.GetCurrentForm();
             foreach (var passive in character.passiveSlots[form])
             {
