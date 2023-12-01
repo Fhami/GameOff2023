@@ -17,6 +17,7 @@ namespace DefaultNamespace
         public CharacterData playerCharacterData;
         public EncounterData currentEncounterData;
         public int PlayerHP;
+        public NodeType currentNodeType;
 
         [SerializeField] private bool debugMode;
         

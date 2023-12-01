@@ -23,6 +23,9 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [SerializeField] Animator _animator;
     [SerializeField] ParticleSystem _unlockParticle;
 
+    [SerializeField] GameObject _selected_efx;
+    [SerializeField] GameObject _selected_boss_efx;
+
     [SerializeField] Color _enableDimColor;
     [SerializeField] Color _disableDimColor;
     [SerializeField] Color _disableEnemyColor;//464646
@@ -56,6 +59,15 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     {
         SetLock(false);
         _animator.SetTrigger("unlock");
+        if(nodeInfo.nodeType == NodeType.Boss)
+        {
+            SetEnableClickBoss();
+        }
+        else
+        {
+            SetEnableClick();
+        }
+
        // _unlockParticle.gameObject.SetActive(true);
     }
 
@@ -64,6 +76,7 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         SetLock(true);
         _ground_img.color = _disableDimColor;
         _icon_img.color = _disableEnemyColor;
+        DisableHighlightEfx();
         //_animator.SetTrigger("disable");
     }
 
@@ -92,5 +105,23 @@ public class MapNodeUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         o.transform.localScale = new Vector3(1, 1, 1);
         o.transform.localPosition = new Vector3(0, 0, 0);
         _icon_img.gameObject.SetActive(false);
+    }
+
+    public void SetEnableClick()
+    {
+        _selected_boss_efx.SetActive(false);
+        _selected_efx.SetActive(true);
+    }
+
+    public void SetEnableClickBoss()
+    {
+        _selected_boss_efx.SetActive(true);
+        _selected_efx.SetActive(false);
+    }
+
+    public void DisableHighlightEfx()
+    {
+        _selected_boss_efx.SetActive(false);
+        _selected_efx.SetActive(false);
     }
 }
