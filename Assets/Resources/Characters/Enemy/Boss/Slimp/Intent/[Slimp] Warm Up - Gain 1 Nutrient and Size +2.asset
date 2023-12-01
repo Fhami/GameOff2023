@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: '[Slimp] Warm Up - Gain 1 Nutrient and Size +2'
+  m_EditorClassIdentifier: 
+  cardType: 0
+  cardSize: 1
+  intentName: 
+  cardDragTarget: 0
+  effects:
+  - {fileID: 11400000, guid: 7fd77bc08048d46829507a8beb48063b, type: 2}
+  - {fileID: 11400000, guid: ddead6539431b814fb1f5cb71dfb8ad7, type: 2}
+  cardActiveSkills: []
