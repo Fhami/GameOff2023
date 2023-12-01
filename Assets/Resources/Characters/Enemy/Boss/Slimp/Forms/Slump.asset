@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Slump
+  m_EditorClassIdentifier: 
+  sizeMin: 7
+  sizeMax: 9
+  size: 2
+  activeSkill: {fileID: 0}
+  activeSkillSize: 2
+  passives: []
+  skills:
+  - {fileID: 11400000, guid: 50152b705597c423f88a71385b183b98, type: 2}
+  attackPattern:
+  - {fileID: 11400000, guid: 42665373f177c461f9143d742b989bb0, type: 2}
+  - {fileID: 11400000, guid: 9f3ae63b0efd8473180a9096be9b9a7b, type: 2}
+  - {fileID: 11400000, guid: f2448eeb6e2294e1582f1580530adbec, type: 2}
+  - {fileID: 11400000, guid: d231f9b89a5ff4ad5889920bf988b9b0, type: 2}
+  - {fileID: 11400000, guid: 3bcb9a1b6a89b4f739b6e573b57838db, type: 2}
+  - {fileID: 11400000, guid: b6fbfc3f33e5b42ab8a7fb32783b56ed, type: 2}

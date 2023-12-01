@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
   effectModifier: {fileID: 0}
-  cardToAdd: {fileID: 11400000, guid: 173b7fba1a72445688480e1a0ece0ef7, type: 2}
   timesValueSource: 1
   timesValue: 2
   customTimesValue: {fileID: 0}
-  timesValueDescription: 
+  customTimesDescription: 
+  cardToAdd: {fileID: 11400000, guid: 0e9fce9fe5ab81e42b508ab1b8b2f314, type: 2}

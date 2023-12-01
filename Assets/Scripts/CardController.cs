@@ -40,6 +40,11 @@ public class CardController : MonoBehaviour
         drawDelay = new WaitForSeconds(drawInterval);
     }
 
+    private void Update()
+    {
+        UpdateCardRotations();
+    }
+
     public IEnumerator InitializeDeck(RuntimeDeckData _deck)
     {
         DeckPile.Clear();
@@ -243,5 +248,26 @@ public class CardController : MonoBehaviour
                 }
             }
         });
+    }
+    
+    private void UpdateCardRotations() 
+    {
+        int numCards = HandPile.Cards.Count;
+        float totalAngleSpread = HandPile.Cards.Count * 2.5f;
+        float rotateSpeed = 2.5f;
+        
+        for (int i = 0; i < numCards; i++) 
+        {
+            Quaternion cardRotation = CalculateRotationForCard(i, numCards, totalAngleSpread);
+            HandPile.Cards[i].transform.rotation = Quaternion.Slerp(HandPile.Cards[i].transform.rotation, cardRotation, Time.deltaTime * rotateSpeed);
+        }
+    }
+
+    private Quaternion CalculateRotationForCard(int cardIndex, int totalCards, float angleSpread) 
+    {
+        float anglePerCard = angleSpread / Mathf.Max(1, totalCards - 1);
+        float angleForThisCard = -angleSpread / 2 + anglePerCard * cardIndex;
+        Quaternion rotation = Quaternion.Euler(0, 0, angleForThisCard);
+        return Quaternion.Normalize(rotation); // Normalize the quaternion
     }
 }

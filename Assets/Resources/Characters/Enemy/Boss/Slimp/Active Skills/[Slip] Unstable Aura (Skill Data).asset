@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
+  m_Name: '[Slip] Unstable Aura (Skill Data)'
+  m_EditorClassIdentifier: 
+  triggerGameEvent: 9
+  triggerConditions:
+  - {fileID: 11400000, guid: d32a2e8373eaa4e77b3e0e120c5b030c, type: 2}
+  rechargeGameEvent: 9
+  rechargeConditions: []
+  card: {fileID: 11400000, guid: 60c9d0a376b7e465ebe199827ffb930c, type: 2}

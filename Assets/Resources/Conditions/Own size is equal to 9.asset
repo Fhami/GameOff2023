@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
-  m_Name: Slup
+  m_Script: {fileID: 11500000, guid: dccf416c38e94dc6ab02f9f5de91ffe9, type: 3}
+  m_Name: Own size is equal to 9
   m_EditorClassIdentifier: 
-  sizeMin: 7
-  sizeMax: 9
-  size: 2
-  activeSkill: {fileID: 0}
-  activeSkillSize: 2
-  passives: []
-  skills: []
-  attackPattern: []
+  propertySource: 1
+  propertyComparer:
+    propertyKey: 3
+    comparison: 0
+    value: 9
