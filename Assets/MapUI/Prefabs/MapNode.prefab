@@ -313,7 +313,7 @@ MonoBehaviour:
   _rect: {fileID: 1779375333826202614}
   _parent_img: {fileID: 3363570296794408533}
   _ground_img: {fileID: 2483199657760538497}
-  _icon_parent: {fileID: 5639166739444197414}
+  _icon_parent: {fileID: 5651358023211377725}
   _icon_img: {fileID: 9002960652095859355}
   _name_txt: {fileID: 7616459307784614284}
   _prevNodes: []
