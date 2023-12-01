@@ -17,6 +17,5 @@ MonoBehaviour:
   intentName: 
   cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: ffc70cd6336a2d94b98d87f940a58bde, type: 2}
-  - {fileID: 11400000, guid: f686ec2ad1823564c85fe4e1b495c67b, type: 2}
+  - {fileID: 11400000, guid: d07b846315b5f2448b41ca81c18bfbd8, type: 2}
   cardActiveSkills: []
