@@ -6,10 +6,12 @@ using Radishmouse;
 using System;
 using DG.Tweening;
 using AYellowpaper.SerializedCollections;
+using DefaultNamespace;
 
 public class MapUI : MonoBehaviour
 {
     // Start is called before the first frame update
+   // [SerializeField] BattleMana
     [SerializeField] MapNodeUI _node_ui_prefab;
     [SerializeField] MapRowUI _row_ui_prefab;
     [SerializeField] MapLineUI _map_line_ui;
@@ -18,7 +20,7 @@ public class MapUI : MonoBehaviour
     [SerializeField] RectTransform _player_icon;
     [SerializeField] ScrollRect _scroll_rect;
     [SerializeField] CanvasGroup _canvasGroup;
-    bool isShow = true;
+    [SerializeField] bool isShow = false;
     Tween _mapTween;
     Tween _player_tween;
 
@@ -27,7 +29,7 @@ public class MapUI : MonoBehaviour
 
     public List<MapRowUI> MapRows { get => _mapRows; set => _mapRows = value; }
 
-    void LoadNewMap(MapInfo mapInfo)
+    public void LoadNewMap(MapInfo mapInfo)
     {
         //Start player at the first node, lock the node 
         StartCoroutine(ieGenerateMap(mapInfo, () => {
@@ -240,7 +242,9 @@ public class MapUI : MonoBehaviour
         _scroll_rect.enabled = false;
         _player_tween = _player_icon.DOMove(selectedNode.Parent_img.transform.position,0.4f).OnComplete(()=> {
             _scroll_rect.enabled = true;
-            StartEncounter(selectedNode,()=> { UnlockNextNode(selectedNode); });
+            StartEncounter(selectedNode,()=> { 
+                UnlockNextNode(selectedNode); 
+            });
             
         });
     }
@@ -260,19 +264,25 @@ public class MapUI : MonoBehaviour
         {
             //Start Minor Encounter
             // Do something with selectedNode.EncounterData
+            Hide();
+            BattleManager.current.StartBattle(onWin);
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Elite)
         {
             //Start Elite Encounter
             // Do something with selectedNode.EncounterData
+            Hide();
+            BattleManager.current.StartBattle(onWin);
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Boss)
         {
             //Start Boss Encounter
             // Do something with selectedNode.EncounterData
+            Hide();
+            BattleManager.current.StartBattle(onWin);
         }
 
-        UnlockNextNode(selectedNode);
+        //UnlockNextNode(selectedNode);
         Debug.Log("<b>Load Encounter</b> " + selectedNode.NodeInfo.nodeType);
     }
 
@@ -326,14 +336,16 @@ public class MapUI : MonoBehaviour
         return line;
     }
 
-    void Show()
+    public void Show()
     {
+        if (isShow) return;
         _mapTween = _canvasGroup.DOFade(1, 1).
             OnComplete(()=> { isShow = true; });
     }
 
-    void Hide()
+    public void Hide()
     {
+        if (!isShow) return;
         isShow = false;
         _canvasGroup.alpha = 0;
     }

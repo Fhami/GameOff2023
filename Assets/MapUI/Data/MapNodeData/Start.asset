@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeType: 6
   icon: {fileID: 0}
+  iconGameObject: {fileID: 8199086373528168136, guid: 9417c294ed092294083bd637d3073ce0,
+    type: 3}

@@ -50,6 +50,9 @@ TagManager:
   - name: Character
     uniqueID: 2585593811
     locked: 0
+  - name: Gameplay VFX
+    uniqueID: 1104303775
+    locked: 0
   - name: Card
     uniqueID: 2327929721
     locked: 0

@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbea335d1c1d4d5281e89e451da5107d, type: 3}
-  m_Name: Add 2 Slime into your draw pile
+  m_Name: Add 1 Slimed into your draw pile
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
-  effectModifier: {fileID: 0}
-  cardToAdd: {fileID: 11400000, guid: 173b7fba1a72445688480e1a0ece0ef7, type: 2}
+  cardToAdd: {fileID: 11400000, guid: 0e9fce9fe5ab81e42b508ab1b8b2f314, type: 2}
   timesValueSource: 1
-  timesValue: 2
+  timesValue: 1
   customTimesValue: {fileID: 0}
   timesValueDescription: 

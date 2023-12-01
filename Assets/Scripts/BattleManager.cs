@@ -53,7 +53,6 @@ namespace DefaultNamespace
         public RuntimeCharacter runtimePlayer;
         public List<Character> enemies = new List<Character>();
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
-
         
         
         [Header("Mockup")] 
@@ -66,7 +65,7 @@ namespace DefaultNamespace
         //Use this to prevent player playing card while redraw
         public bool canPlayCard = true;
 
-        private bool isDebug = true;
+        public bool isDebug = false;
         private void Awake()
         {
             current = this;
@@ -91,16 +90,21 @@ namespace DefaultNamespace
             }
             else
             {
-                SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
-
-                var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
-                
-                yield return StartBattle(player, GameManager.Instance.currentEncounterData);
+                mapUI.Show();
             }
 
             //Add cards to player deck
         }
 
+        public void StartBattle(Action _onWin)
+        {
+            SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+
+            var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
+
+            StartCoroutine(StartBattle(player, GameManager.Instance.currentEncounterData));
+        }
+        
         private void SubscribeUIs()
         {
             resultUI.OnClick_GoNext += () =>
@@ -113,6 +117,7 @@ namespace DefaultNamespace
                 runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
                 
                 RewardController.Hide();
+                mapUI.Toggle();
                 //TODO: show map
             });
             
@@ -189,12 +194,6 @@ namespace DefaultNamespace
             enemies.Remove(runtimeCharacter.Character);
 
             yield return OnGameEvent(GameEvent.ON_CHARACTER_FLEE, runtimeCharacter, runtimePlayer, runtimeEnemies);
-            
-            //If no remaining enemy win
-            if (runtimeEnemies.Count == 0)
-            {
-                yield return OnWin();
-            }
         }
         
         //Bind with button
@@ -371,6 +370,8 @@ namespace DefaultNamespace
             // This is where we finished playing the card, so all effects are executed. Now we can
             // safely (I think) reset some properties used by subsequent effects. Like this one.
             player.properties.Get<int>(PropertyKey.CARDS_DISCARDED_BY_CURRENTLY_BEING_PLAYED_CARD).Value = 0;
+
+            yield return ValidateWinLose();
         }
 
         // public IEnumerator PlayActiveSkill(RuntimeCard card, RuntimeCharacter player, RuntimeCharacter target,
@@ -405,7 +406,10 @@ namespace DefaultNamespace
             characterPlayingTheCard.properties.Get<int>(PropertyKey.CARDS_DESTROYED_ON_CURRENT_BATTLE_COUNT).Value++;
             
             // Handle visuals
-            yield return cardController.DestroyCard(card.Card);
+            if (card.Card)
+            {
+                yield return cardController.DestroyCard(card.Card);
+            }
             
             // Handle game event (skills etc. can trigger here)
             yield return OnGameEvent(GameEvent.ON_CARD_DESTROYED, characterPlayingTheCard, player, enemies);
@@ -554,8 +558,6 @@ namespace DefaultNamespace
                 yield return characterToKill.Character.OnKilled(condition);
                 runtimePlayer = null;
                 
-                //Game over
-                yield return OnLose();
             }
             else
             {
@@ -563,12 +565,6 @@ namespace DefaultNamespace
                 this.enemies.Remove(characterToKill.Character);
                 
                 yield return characterToKill.Character.OnKilled(condition);
-            }
-
-            
-            if (runtimeEnemies.Count == 0)
-            {
-                yield return OnWin();
             }
         }
 
@@ -789,6 +785,8 @@ namespace DefaultNamespace
             {
                 yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
+            
+            yield return ValidateWinLose();
         }
 
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
@@ -1008,6 +1006,21 @@ namespace DefaultNamespace
             return false;
         }
 
+        public IEnumerator ValidateWinLose()
+        {
+            //If no remaining enemy win
+            if (runtimeEnemies.Count == 0)
+            {
+                yield return OnWin();
+            }
+
+            if (runtimePlayer == null)
+            {
+                //Game over
+                yield return OnLose();
+            }
+        }
+        
         public IEnumerator OnLose()
         {
             resultUI.ShowLose();
@@ -1017,7 +1030,7 @@ namespace DefaultNamespace
         public IEnumerator OnWin()
         {
             resultUI.ShowWin();
-
+            cardController.ClearAllCards();
             yield return GameManager.Instance.WinBattle();
             runtimePlayer.ClearStatusEffectStackAtEndOfBattle();
         }
