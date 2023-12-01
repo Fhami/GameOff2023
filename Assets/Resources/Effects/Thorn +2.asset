@@ -18,6 +18,7 @@ MonoBehaviour:
   timesValue: 0
   customTimesValue: {fileID: 0}
   customTimesDescription: 
+  effectTarget: 2
   statusEffect: 33
   valueSource: 1
   value: 2
