@@ -11,6 +11,9 @@ namespace DefaultNamespace
     [CreateAssetMenu(menuName = "Gamejam/Effect/GainStatusEffect")]
     public class GainStatusEffect : EffectData
     {
+        [Header("Target")]
+        public EffectTarget effectTarget;
+        
         [SearchableEnum]
         public PropertyKey statusEffect;
         
@@ -31,12 +34,36 @@ namespace DefaultNamespace
         {
             // TODO: VFX
             
+            List<RuntimeCharacter> targets = new();
+            
+            // Get the affected targets for the heal effect
+            switch (effectTarget)
+            {
+                case EffectTarget.NONE:
+                    break;
+                case EffectTarget.PLAYER:
+                    throw new NotSupportedException();
+                case EffectTarget.CARD_PLAYER:
+                    targets.Add(characterPlayingTheCard);
+                    break;
+                case EffectTarget.TARGET:
+                    throw new NotSupportedException();
+                case EffectTarget.ALL_ENEMIES:
+                    targets.AddRange(enemies);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             for (int i = 0; i < time; i++)
             {
-                characterPlayingTheCard.properties.Get<int>(statusEffect).Value += value;
+                foreach (var target in targets)
+                {
+                    target.properties.Get<int>(statusEffect).Value += value;
+                }
             }
             
             yield break;
