@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ea424101cd499aa021d1b695fbefdd, type: 3}
+  m_Name: Strength +5
+  m_EditorClassIdentifier: 
+  intent: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
+  effectModifier: {fileID: 0}
+  timesValueSource: 0
+  timesValue: 0
+  customTimesValue: {fileID: 0}
+  customTimesDescription: 
+  statusEffect: 25
+  valueSource: 1
+  value: 5
+  customValue: {fileID: 0}
+  customDescription: 
