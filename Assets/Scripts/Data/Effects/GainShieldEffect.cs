@@ -56,7 +56,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} shield");
+                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} <color={Colors.COLOR_STATUS}>Shield</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);
@@ -93,7 +93,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue()} shield");
+                    sb.Append($"Gain {GetEffectValue()} <color={Colors.COLOR_STATUS}>Shield</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);

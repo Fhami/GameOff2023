@@ -86,13 +86,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Player size +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Player <color={Colors.COLOR_STATUS}>size</color> +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Player size -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Player <color={Colors.COLOR_STATUS}>size</color> -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set player size to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set player <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -102,13 +102,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Size +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"<color={Colors.COLOR_STATUS}>Size</color> +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Size -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"<color={Colors.COLOR_STATUS}>Size</color> -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set size to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -118,13 +118,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Target size +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Target <color={Colors.COLOR_STATUS}>size</color> +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Target size -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Target <color={Colors.COLOR_STATUS}>size</color> -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set target size to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set target <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -134,13 +134,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"All enemies size +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"All enemies <color={Colors.COLOR_STATUS}>size</color> +{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"All enemies size -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"All enemies <color={Colors.COLOR_STATUS}>size</color> -{GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set all enemies size to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                                    sb.Append($"Set all enemies <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -195,13 +195,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Player size +{GetEffectValue()}");
+                                    sb.Append($"Player <color={Colors.COLOR_STATUS}>size</color> +{GetEffectValue()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Player size -{GetEffectValue()}");
+                                    sb.Append($"Player <color={Colors.COLOR_STATUS}>size</color> -{GetEffectValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set player size to {GetEffectValue()}");
+                                    sb.Append($"Set player <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -211,13 +211,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Size +{GetEffectValue()}");
+                                    sb.Append($"<color={Colors.COLOR_STATUS}>Size</color> +{GetEffectValue()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Size -{GetEffectValue()}");
+                                    sb.Append($"<color={Colors.COLOR_STATUS}>Size</color> -{GetEffectValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set size to {GetEffectValue()}");
+                                    sb.Append($"Set <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -227,13 +227,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"Target size +{GetEffectValue()}");
+                                    sb.Append($"Target <color={Colors.COLOR_STATUS}>size</color> +{GetEffectValue()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"Target size -{GetEffectValue()}");
+                                    sb.Append($"Target <color={Colors.COLOR_STATUS}>size</color> -{GetEffectValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set target size to {GetEffectValue()}");
+                                    sb.Append($"Set target <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();
@@ -243,13 +243,13 @@ namespace DefaultNamespace
                             switch (operation)
                             {
                                 case Operation.INCREASE:
-                                    sb.Append($"All enemies size +{GetEffectValue()}");
+                                    sb.Append($"All enemies <color={Colors.COLOR_STATUS}>size</color> +{GetEffectValue()}");
                                     break;
                                 case Operation.DECREASE:
-                                    sb.Append($"All enemies size -{GetEffectValue()}");
+                                    sb.Append($"All enemies <color={Colors.COLOR_STATUS}>size</color> -{GetEffectValue()}");
                                     break;
                                 case Operation.SET:
-                                    sb.Append($"Set all enemies size to {GetEffectValue()}");
+                                    sb.Append($"Set all enemies <color={Colors.COLOR_STATUS}>size</color> to {GetEffectValue()}");
                                     break;
                                 default:
                                     throw new ArgumentOutOfRangeException();

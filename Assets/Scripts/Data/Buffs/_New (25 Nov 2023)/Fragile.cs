@@ -8,12 +8,12 @@ namespace DefaultNamespace
         public override string GetDescriptionWithModifier(RuntimeCharacter character)
         {
             int fragile = character.properties.Get<int>(PropertyKey.FRAGILE).GetValueWithModifiers(character);
-            return $"Shield gained from cards reduced by 25%. At the end of its turn, lose 1 stack.";
+            return $"<color={Colors.COLOR_STATUS}>Shield</color> gained from cards reduced by 25%. At the end of its turn, lose 1 stack.";
         }
 
         public override string GetDescription(int value)
         {
-            return $"Shield gained from cards reduced by 25%. At the end of its turn, lose 1 stack.";
+            return $"<color={Colors.COLOR_STATUS}>Shield</color> gained from cards reduced by 25%. At the end of its turn, lose 1 stack.";
         }
     }
 }

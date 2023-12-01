@@ -8,12 +8,12 @@ namespace DefaultNamespace
         public override string GetDescriptionWithModifier(RuntimeCharacter character)
         {
             int grow = character.properties.Get<int>(PropertyKey.GROW).GetValueWithModifiers(character);
-            return $"At the end of the turn, Size +{grow.ToString()}.";
+            return $"At the end of the turn, <color={Colors.COLOR_STATUS}>Size</color> +{grow.ToString()}.";
         }
 
         public override string GetDescription(int value)
         {
-            return $"At the end of the turn, Size +{value.ToString()}.";
+            return $"At the end of the turn, <color={Colors.COLOR_STATUS}>Size</color> +{value.ToString()}.";
         }
     }
 }

@@ -80,7 +80,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} {statusEffect.ToString()}");
+                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} <color={Colors.COLOR_STATUS}>{statusEffect.ToString()}</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customDescription);
@@ -117,7 +117,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue()} {statusEffect.ToString()}");
+                    sb.Append($"Gain {GetEffectValue()} <color={Colors.COLOR_STATUS}>{statusEffect.ToString()}</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customDescription);
@@ -131,7 +131,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue().ToString()} times");
+                    sb.Append($" {GetTimesValue()} times");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customTimesDescription);
