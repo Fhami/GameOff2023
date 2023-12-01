@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2afcdaf1c0dd5942bca47aed4983a69
+guid: 42c5d2e7658460b42a8e2fe636dd5e6d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 260
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,7 +95,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T_CardArts_Attack
+      name: T_CardArts_Transfer
       rect:
         serializedVersion: 2
         x: 0
@@ -103,20 +103,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f2482a91c7eb9245bf5e7207e72c5b9
-      internalID: 1501493903
+      spriteID: c318df18f5bd92a4d99bbe214a9bf804
+      internalID: -792130426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Defend
+      name: T_CardArts_Slime
       rect:
         serializedVersion: 2
         x: 256
@@ -124,20 +124,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4d61d07fd385f84aa54ee1c2fd528c2
-      internalID: -102922820
+      spriteID: 660d0fd69a93c354fb672dfc81294a60
+      internalID: 1965388172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Dropsy
+      name: T_CardArts_02_2
       rect:
         serializedVersion: 2
         x: 512
@@ -145,20 +145,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ff1866617451cc4d9653dc5d7663ab9
-      internalID: 479803184
+      spriteID: 4690717bea50a3940835e868eba1602e
+      internalID: 2007002100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Siphon
+      name: T_CardArts_02_3
       rect:
         serializedVersion: 2
         x: 768
@@ -166,20 +166,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc44df671750eb7478ac5c653262b05e
-      internalID: -1277246320
+      spriteID: 496bb3b6ef3161346ae281aa88022ac9
+      internalID: -1353012212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Study
+      name: T_CardArts_02_4
       rect:
         serializedVersion: 2
         x: 0
@@ -187,20 +187,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8732031cf8ab79d409700f17fe65d74c
-      internalID: 286351632
+      spriteID: bd7cfc75fa201184cbf21224cb5dcff1
+      internalID: 1252181216
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Splatter
+      name: T_CardArts_02_5
       rect:
         serializedVersion: 2
         x: 256
@@ -208,20 +208,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e5934230d3dc4d44a0fffa4d7c366ca
-      internalID: 1600420241
+      spriteID: 349ca1fb6f5d94842929eec19c1a0426
+      internalID: -217982006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_BodySlam
+      name: T_CardArts_02_6
       rect:
         serializedVersion: 2
         x: 512
@@ -229,20 +229,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e86478fc050ee34dbfb2c7bdad5e819
-      internalID: -1944442891
+      spriteID: 4ad183db022cb634fac961864988b580
+      internalID: -1745156901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Skewer
+      name: T_CardArts_02_7
       rect:
         serializedVersion: 2
         x: 768
@@ -250,20 +250,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 716755b3049e66a4296d94d13794eea2
-      internalID: 1383443242
+      spriteID: 92fb191364cc582438714e23847f26ca
+      internalID: -1626784148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Rupture
+      name: T_CardArts_02_8
       rect:
         serializedVersion: 2
         x: 0
@@ -271,20 +271,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dc447ed056212146b3c44c8096d8ca8
-      internalID: -1804550640
+      spriteID: b649643c10baf6e44956ce517749e3a7
+      internalID: -1207448595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_MomentousStrike
+      name: T_CardArts_02_9
       rect:
         serializedVersion: 2
         x: 256
@@ -292,20 +292,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4677d21185a05ac47b3d22e445b0f497
-      internalID: -1470196549
+      spriteID: 3bf7aa86109a3854cba1e9ab09e753bb
+      internalID: 1222478122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Chrysalis
+      name: T_CardArts_02_10
       rect:
         serializedVersion: 2
         x: 512
@@ -313,41 +313,41 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4609cbe649eecb246bed2951b0d6f73d
-      internalID: 1577596341
+      spriteID: e3dc3a03420e4924d867ab69c32a073d
+      internalID: -893378025
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_VowOfMajesty
+      name: T_CardArts_02_11
       rect:
         serializedVersion: 2
         x: 768
-        y: 259
+        y: 256
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 189551ba15fcfa44ea8002b32b8b6d16
-      internalID: -905602136
+      spriteID: 56714cb77562c8c459acb3adb671464e
+      internalID: 1488395012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_DirtyScheme
+      name: T_CardArts_02_12
       rect:
         serializedVersion: 2
         x: 0
@@ -355,20 +355,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 820d1baa1c7e90d4e88d274a48e378bb
-      internalID: -1958977029
+      spriteID: 2c34d417f2afe7b4294c6e68328dcac4
+      internalID: 41108900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_SubstantialGift
+      name: T_CardArts_02_13
       rect:
         serializedVersion: 2
         x: 256
@@ -376,20 +376,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21043fd6e0f83964ba772951c44926c0
-      internalID: 1477058559
+      spriteID: 23ca7832827ec6d4892e2986232584d1
+      internalID: -1225818104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_SleepingBeauty
+      name: T_CardArts_02_14
       rect:
         serializedVersion: 2
         x: 512
@@ -397,20 +397,20 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3269b342ad1698458ce7ac7fcb1f355
-      internalID: 500459645
+      spriteID: 3a3317f5ce5db9e40a047fd4e1a09021
+      internalID: 428862813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T_CardArts_Concentration
+      name: T_CardArts_02_15
       rect:
         serializedVersion: 2
         x: 768
@@ -418,14 +418,14 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d690f77dcaf673f429f1d3104ddd2165
-      internalID: 367043715
+      spriteID: 24a6ef3bd7e32c64cb17a369a7ecfa96
+      internalID: -891236895
       vertices: []
       indices: 
       edges: []
@@ -433,7 +433,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ac43d239e90e38d4380d01e637127992
+    spriteID: 7e4f9b6b438005444bfd17b33ae7c89a
     internalID: 0
     vertices: []
     indices: 
@@ -441,22 +441,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      T_CardArts_Attack: 1501493903
-      T_CardArts_BodySlam: -1944442891
-      T_CardArts_Chrysalis: 1577596341
-      T_CardArts_Concentration: 367043715
-      T_CardArts_Defend: -102922820
-      T_CardArts_DirtyScheme: -1958977029
-      T_CardArts_Dropsy: 479803184
-      T_CardArts_MomentousStrike: -1470196549
-      T_CardArts_Rupture: -1804550640
-      T_CardArts_Siphon: -1277246320
-      T_CardArts_Skewer: 1383443242
-      T_CardArts_SleepingBeauty: 500459645
-      T_CardArts_Splatter: 1600420241
-      T_CardArts_Study: 286351632
-      T_CardArts_SubstantialGift: 1477058559
-      T_CardArts_VowOfMajesty: -905602136
+      T_CardArts_02_10: -893378025
+      T_CardArts_02_11: 1488395012
+      T_CardArts_02_12: 41108900
+      T_CardArts_02_13: -1225818104
+      T_CardArts_02_14: 428862813
+      T_CardArts_02_15: -891236895
+      T_CardArts_02_2: 2007002100
+      T_CardArts_02_3: -1353012212
+      T_CardArts_02_4: 1252181216
+      T_CardArts_02_5: -217982006
+      T_CardArts_02_6: -1745156901
+      T_CardArts_02_7: -1626784148
+      T_CardArts_02_8: -1207448595
+      T_CardArts_02_9: 1222478122
+      T_CardArts_Slime: 1965388172
+      T_CardArts_Transfer: -792130426
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
