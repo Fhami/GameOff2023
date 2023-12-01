@@ -76,7 +76,7 @@ namespace DefaultNamespace
         /// This is for testing! Actual start is StartBattle
         /// </summary>
         /// <returns></returns>
-        public IEnumerator Start()
+        private IEnumerator Start()
         {
             SubscribeUIs();
 
@@ -91,16 +91,21 @@ namespace DefaultNamespace
             }
             else
             {
-                SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
-
-                var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
-                
-                yield return StartBattle(player, GameManager.Instance.currentEncounterData);
+                StartBattle();
             }
 
             //Add cards to player deck
         }
 
+        public void StartBattle()
+        {
+            SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+
+            var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
+
+            StartCoroutine(StartBattle(player, GameManager.Instance.currentEncounterData));
+        }
+        
         private void SubscribeUIs()
         {
             resultUI.OnClick_GoNext += () =>
