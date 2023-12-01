@@ -110,7 +110,7 @@ public class CardPile : MonoBehaviour
             if (_tween)
             {
                 _card.transform.DOLocalMove(Vector3.zero, 0.2f);
-                _card.transform.DOScale(_scaleTween, 0.2f);
+                _card.transform.DOScale(_scaleTween, 0.1f);
             }
             else
             {

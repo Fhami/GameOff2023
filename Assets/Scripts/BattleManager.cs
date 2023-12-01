@@ -1054,17 +1054,18 @@ namespace DefaultNamespace
 
         public IEnumerator ValidateWinLose()
         {
-            //If no remaining enemy win
-            if (runtimeEnemies.Count == 0)
-            {
-                yield return IEOnWin();
-            }
-
             if (runtimePlayer == null)
             {
                 //Game over
                 yield return IEOnLose();
             }
+            
+            //If no remaining enemy win
+            if (runtimeEnemies.Count == 0)
+            {
+                yield return IEOnWin();
+            }
+            
         }
         
         public IEnumerator IEOnLose()

@@ -67,6 +67,7 @@ public class CardController : MonoBehaviour
             _card.transform.position = DeckPile.transform.position;
 
             yield return drawDelay;
+            _card.transform.localScale = Vector3.one;
         }
     }
 
