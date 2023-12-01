@@ -18,7 +18,7 @@ namespace DefaultNamespace
 
         public static void Initialize()
         {
-            cardData = Resources.LoadAll<CardData>("Cards").ToDictionary(card => card.name);
+            cardData = Resources.LoadAll<CardData>("").ToDictionary(card => card.name);
             characterData = Resources.LoadAll<CharacterData>("Characters").ToDictionary(character => character.name);
             passiveData = Resources.LoadAll<PassiveData>("").ToDictionary(passive => passive.name);
             skillData = Resources.LoadAll<SkillData>("").ToDictionary(skill => skill.name);
