@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_VFX_Glow_Hard_Add
-  m_Shader: {fileID: 4800000, guid: 7c8daead53d4ee543b9eac6b042f7885, type: 3}
+  m_Shader: {fileID: 4800000, guid: fef049b9f31336940bfebd90d5008952, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
