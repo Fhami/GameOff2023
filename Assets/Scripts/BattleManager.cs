@@ -53,7 +53,6 @@ namespace DefaultNamespace
         public RuntimeCharacter runtimePlayer;
         public List<Character> enemies = new List<Character>();
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
-
         
         
         [Header("Mockup")] 
@@ -91,13 +90,13 @@ namespace DefaultNamespace
             }
             else
             {
-                StartBattle();
+                mapUI.Show();
             }
 
             //Add cards to player deck
         }
 
-        public void StartBattle()
+        public void StartBattle(Action _onWin)
         {
             SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
 
