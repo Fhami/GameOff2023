@@ -1806,6 +1806,18 @@ MonoBehaviour:
   draggingPlayer: {fileID: 0}
   lockClickPlayer: {fileID: 0}
   isDebug: 0
+--- !u!114 &634953616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7948852418450567089, guid: 080fdce735f88aa4eb01741ce7791c2f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2010590511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37091d0d034e9c4585bb47f40c8bee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &710596250
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,6 +5307,11 @@ PrefabInstance:
       propertyPath: RewardController
       value: 
       objectReference: {fileID: 1953407358}
+    - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
+        type: 3}
+      propertyPath: SoundManagerTesting
+      value: 
+      objectReference: {fileID: 634953616}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -15,7 +15,7 @@ public class SoundManagerTesting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.Instance.PlayBGM(normalBgm);
+        SoundManager.Instance.PlayBGM(mapBgm);
     }
 
     public void PlayBGM(SoundType type)

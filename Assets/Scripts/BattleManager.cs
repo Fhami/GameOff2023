@@ -39,6 +39,7 @@ namespace DefaultNamespace
     {
         public CardController CardController => cardController;
 
+        public SoundManagerTesting SoundManagerTesting;
         [Header("UI")]
         public TooltipUI TooltipUI;
         public ResultUI resultUI;
@@ -144,6 +145,20 @@ namespace DefaultNamespace
         public IEnumerator InitializeBattle(RuntimeCharacter _playerData, EncounterData _encounterData)
         {
             canPlayCard = true;
+
+            switch (_encounterData.type)
+            {
+                case NodeType.Minor:
+                case NodeType.Start:
+                    SoundManagerTesting.PlayBGM(SoundType.Normal);
+                    break;
+                case NodeType.Elite:
+                    SoundManagerTesting.PlayBGM(SoundType.Elite);
+                    break;
+                case NodeType.Boss:
+                    SoundManagerTesting.PlayBGM(SoundType.Boss);
+                    break;
+            }
             
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
 
