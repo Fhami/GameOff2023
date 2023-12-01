@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Slime v2
+  m_Name: Siphon
   m_EditorClassIdentifier: 
-  cardType: 4
-  cardSize: 0
+  cardType: 1
+  cardSize: 1
   intentName: 
-  cardDragTarget: 0
+  cardDragTarget: 1
   effects:
-  - {fileID: 11400000, guid: 68b2abccf8d800049a8354c20f73e466, type: 2}
-  - {fileID: 11400000, guid: 74eea5d8c93c7e04b9cabbb9cf99a55f, type: 2}
+  - {fileID: 11400000, guid: e1a36a2b0b538774d875963629b61705, type: 2}
+  - {fileID: 11400000, guid: 9505bba0fc57a21418591b49c9ac27bd, type: 2}
+  - {fileID: 11400000, guid: ddead6539431b814fb1f5cb71dfb8ad7, type: 2}
   cardActiveSkills: []

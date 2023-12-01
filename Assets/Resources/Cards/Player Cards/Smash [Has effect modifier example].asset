@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 'Smash [Has effect modifier example]'
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
   intentName: 
   cardDragTarget: 1
   effects:

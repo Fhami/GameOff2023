@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Mental Capacity
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
+  intentName: 
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 2532fd5ff5f447b4f906cf71747ce0c7, type: 2}
+  cardActiveSkills: []

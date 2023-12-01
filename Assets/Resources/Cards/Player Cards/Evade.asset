@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
   m_Name: Evade
   m_EditorClassIdentifier: 
-  cardType: 4
-  cardSize: 0
+  cardType: 2
+  cardSize: 1
   intentName: 
   cardDragTarget: 4
   effects:

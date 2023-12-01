@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Defend
   m_EditorClassIdentifier: 
   cardType: 2
-  cardSize: 0
+  cardSize: 1
   intentName: 
   cardDragTarget: 6
   effects:

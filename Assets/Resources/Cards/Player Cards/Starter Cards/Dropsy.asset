@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Slime
+  m_Name: Dropsy
   m_EditorClassIdentifier: 
-  cardType: 4
+  cardType: 2
+  cardSize: 1
   intentName: 
-  cardDragTarget: 0
+  cardDragTarget: 6
   effects:
-  - {fileID: 11400000, guid: c9c71f43360d8964a8aeb54a9fc26737, type: 2}
-  cardActiveSkills:
-  - {fileID: 11400000, guid: b17fcebbf6065ab4787dde01a12e794c, type: 2}
+  - {fileID: 11400000, guid: 083fd00ebf0985647902f217bc1fc252, type: 2}
+  - {fileID: 11400000, guid: e6bb44a8fefac3647a9ca301fe903899, type: 2}
+  cardActiveSkills: []

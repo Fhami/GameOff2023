@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Slimeshower
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
+  intentName: 
   cardDragTarget: 6
   effects:
   - {fileID: 11400000, guid: eaef4b35e986c044d8edd95ccde4014d, type: 2}
+  cardActiveSkills: []

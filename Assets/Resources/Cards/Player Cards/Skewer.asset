@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Skewer
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
+  intentName: 
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 8e969042ecdbced429c1d116ce1a581f, type: 2}
+  cardActiveSkills: []

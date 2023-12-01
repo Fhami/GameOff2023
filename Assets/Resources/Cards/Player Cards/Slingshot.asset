@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Slingshot
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
+  intentName: 
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 0f4ba61768058044f891282eeb2c104c, type: 2}
   - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
+  cardActiveSkills: []

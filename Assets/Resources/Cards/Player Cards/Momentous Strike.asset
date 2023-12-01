@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Momentous Strike
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
+  intentName: 
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 7d4e0974ed6288c429a8cdc3a70bc9ed, type: 2}
   - {fileID: 11400000, guid: e78655ab6449d3043b4580aeca6bf13d, type: 2}
+  cardActiveSkills: []

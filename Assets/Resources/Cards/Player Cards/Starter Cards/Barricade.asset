@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Full Defend
+  m_Name: Barricade
   m_EditorClassIdentifier: 
   cardType: 2
-  cardSize: 0
+  cardSize: 1
   intentName: 
   cardDragTarget: 6
   effects:
-  - {fileID: 11400000, guid: 083fd00ebf0985647902f217bc1fc252, type: 2}
-  - {fileID: 11400000, guid: e6bb44a8fefac3647a9ca301fe903899, type: 2}
+  - {fileID: 11400000, guid: fc2a503e913e64db6bffbea1d3eb4ca5, type: 2}
+  - {fileID: 11400000, guid: c190c32f17666bf4aa67b22eaeb0f154, type: 2}
   cardActiveSkills: []

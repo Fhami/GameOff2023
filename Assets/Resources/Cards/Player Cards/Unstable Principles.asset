@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Unstable Principles
   m_EditorClassIdentifier: 
   cardType: 1
+  cardSize: 1
+  intentName: 
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 214f5dcb2426be5428c9b2ceade23c55, type: 2}
+  cardActiveSkills: []
