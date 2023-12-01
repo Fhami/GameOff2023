@@ -18,4 +18,5 @@ MonoBehaviour:
   cardDragTarget: 1
   effects:
   - {fileID: 11400000, guid: 8e969042ecdbced429c1d116ce1a581f, type: 2}
+  - {fileID: 11400000, guid: ddead6539431b814fb1f5cb71dfb8ad7, type: 2}
   cardActiveSkills: []
