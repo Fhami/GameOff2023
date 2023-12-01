@@ -154,7 +154,7 @@ namespace DefaultNamespace
         /// </summary>
         public void ClearStatusEffectStackAtEndOfTurn()
         {
-            properties.Get<int>(PropertyKey.EVASION).Value = 0;
+            
         }
         
         /// <summary>
@@ -168,6 +168,7 @@ namespace DefaultNamespace
             properties.Get<int>(PropertyKey.STABLE).Value = 0;
             properties.Get<int>(PropertyKey.SHIELD).Value = 0;
             properties.Get<int>(PropertyKey.WEAK).Value = 0;
+            properties.Get<int>(PropertyKey.EVASION).Value = 0;
         }
         
         /// <summary>

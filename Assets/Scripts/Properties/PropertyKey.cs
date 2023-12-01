@@ -49,4 +49,43 @@
         VULNERABLE,
         WEAK
     }
+
+    public static class PropertyHelper
+    {
+        public static PropertyKey[] IntStatusKeys = new[]
+        {
+            PropertyKey.HEALTH,
+            PropertyKey.MAX_HEALTH,
+            PropertyKey.SIZE,
+            PropertyKey.MIN_SIZE,
+            PropertyKey.MAX_SIZE,
+            PropertyKey.HAND_SIZE,
+            PropertyKey.ATTACK,
+            PropertyKey.SHIELD,
+            PropertyKey.HEAL,
+            PropertyKey.TIMES,
+            PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES,
+            PropertyKey.STRENGTH,
+            PropertyKey.STRENGTH_DOWN,
+            PropertyKey.EVASION,
+            PropertyKey.STUN,
+            PropertyKey.DECAY,
+            PropertyKey.GROW,
+            PropertyKey.STABLE,
+            PropertyKey.UNSTABLE,
+            PropertyKey.THORNS,
+            PropertyKey.ARMOR,
+            PropertyKey.SHIELD_UP,
+            PropertyKey.SHIELD_DOWN,
+            PropertyKey.ENVENOMED,
+            PropertyKey.FRAGILE,
+            PropertyKey.INTEGRITY,
+            PropertyKey.NUTRIENT,
+            PropertyKey.PROTECTION,
+            PropertyKey.REGEN,
+            PropertyKey.REPEL,
+            PropertyKey.VULNERABLE,
+            PropertyKey.WEAK
+        };
+    }
 }
