@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Off 2023 Jam
+  m_text: Made for GitHub's Game Off 2023 Jam
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b574a82cf7cd34b63be46b472af0b3fb, type: 2}
   m_sharedMaterial: {fileID: 6943012109613343931, guid: b574a82cf7cd34b63be46b472af0b3fb,
@@ -1267,8 +1267,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42
-  m_fontSizeBase: 42
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1472,7 +1472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 33}
+  m_AnchoredPosition: {x: 0, y: 80}
   m_SizeDelta: {x: 1042.1, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2037458452
@@ -1495,7 +1495,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A game by Jussi, Nat, Kamee, Volk, Toffy, & Jirawat
+  m_text: 'A game by Jussi, Nat, Kamee, Volk, Toffy, & Jirawat
+
+    Music by Thieff'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b574a82cf7cd34b63be46b472af0b3fb, type: 2}
   m_sharedMaterial: {fileID: 6943012109613343931, guid: b574a82cf7cd34b63be46b472af0b3fb,

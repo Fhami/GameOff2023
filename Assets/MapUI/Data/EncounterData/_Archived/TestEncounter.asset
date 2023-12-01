@@ -15,21 +15,15 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 0}
   enemies:
-  - baseData: {fileID: 11400000, guid: fac0d641e39c3fc4f9035c9741618d2f, type: 2}
-    minMaxHpMod: {x: 0, y: 0}
-    startHp: 0
-    startShield: 0
-    startSize: 5
-    startAttackPattern: 0
   - baseData: {fileID: 11400000, guid: 745960deb81f3624a8551905485ef044, type: 2}
     minMaxHpMod: {x: 0, y: 0}
-    startHp: 0
+    startHp: 1
     startShield: 0
     startSize: 5
     startAttackPattern: 0
-  - baseData: {fileID: 11400000, guid: 367f03161af39114db2d0a40db99cef4, type: 2}
-    minMaxHpMod: {x: 0, y: 0}
-    startHp: 0
-    startShield: 0
-    startSize: 5
-    startAttackPattern: 0
+  rewardPool:
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  - {fileID: 11400000, guid: 4fa14b992ef0ffd46b559eada9c9d6ef, type: 2}
+  bgm: {fileID: 0}

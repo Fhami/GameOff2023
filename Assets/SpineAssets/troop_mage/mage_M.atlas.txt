@@ -1,0 +1,132 @@
+
+mage_M.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Mage_M/Body
+  rotate: false
+  xy: 600, 108
+  size: 125, 140
+  orig: 127, 142
+  offset: 1, 1
+  index: -1
+Mage_M/Eye_Close
+  rotate: false
+  xy: 280, 63
+  size: 36, 14
+  orig: 44, 22
+  offset: 4, 4
+  index: -1
+Mage_M/Eye_Open
+  rotate: true
+  xy: 102, 60
+  size: 37, 50
+  orig: 45, 59
+  offset: 4, 4
+  index: -1
+Mage_M/Fire_01
+  rotate: false
+  xy: 219, 60
+  size: 59, 100
+  orig: 67, 108
+  offset: 4, 4
+  index: -1
+Mage_M/Fire_02
+  rotate: false
+  xy: 2, 99
+  size: 215, 61
+  orig: 223, 69
+  offset: 4, 4
+  index: -1
+Mage_M/Fire_03
+  rotate: false
+  xy: 2, 2
+  size: 357, 45
+  orig: 365, 53
+  offset: 4, 4
+  index: -1
+Mage_M/Fire_04
+  rotate: false
+  xy: 2, 162
+  size: 437, 86
+  orig: 445, 94
+  offset: 4, 4
+  index: -1
+Mage_M/Head
+  rotate: true
+  xy: 441, 49
+  size: 199, 157
+  orig: 207, 165
+  offset: 4, 4
+  index: -1
+Mage_M/L_Arm
+  rotate: true
+  xy: 600, 11
+  size: 95, 59
+  orig: 98, 61
+  offset: 1, 1
+  index: -1
+Mage_M/R_Arm
+  rotate: false
+  xy: 280, 79
+  size: 72, 81
+  orig: 76, 85
+  offset: 2, 2
+  index: -1
+Mage_M/R_Finger
+  rotate: false
+  xy: 154, 55
+  size: 34, 42
+  orig: 42, 50
+  offset: 4, 4
+  index: -1
+Mage_M/Rod
+  rotate: false
+  xy: 361, 49
+  size: 73, 111
+  orig: 81, 119
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_01
+  rotate: false
+  xy: 54, 50
+  size: 46, 47
+  orig: 54, 55
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_02
+  rotate: true
+  xy: 2, 51
+  size: 46, 50
+  orig: 55, 58
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_03
+  rotate: false
+  xy: 724, 34
+  size: 56, 72
+  orig: 64, 80
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_04
+  rotate: false
+  xy: 727, 181
+  size: 57, 67
+  orig: 65, 76
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_05
+  rotate: false
+  xy: 661, 21
+  size: 61, 85
+  orig: 69, 93
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_06
+  rotate: false
+  xy: 727, 125
+  size: 52, 54
+  orig: 60, 62
+  offset: 4, 4
+  index: -1

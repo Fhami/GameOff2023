@@ -1,0 +1,48 @@
+
+rat_S.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Rat_S/Body
+  rotate: false
+  xy: 2, 36
+  size: 95, 45
+  orig: 103, 53
+  offset: 4, 4
+  index: -1
+Rat_S/L_Ear
+  rotate: false
+  xy: 37, 5
+  size: 28, 29
+  orig: 37, 37
+  offset: 5, 4
+  index: -1
+Rat_S/L_Eye
+  rotate: false
+  xy: 67, 29
+  size: 5, 5
+  orig: 13, 13
+  offset: 4, 4
+  index: -1
+Rat_S/R_Ear
+  rotate: false
+  xy: 2, 2
+  size: 33, 32
+  orig: 41, 40
+  offset: 4, 4
+  index: -1
+Rat_S/R_Eye
+  rotate: true
+  xy: 67, 21
+  size: 6, 5
+  orig: 14, 13
+  offset: 4, 4
+  index: -1
+Rat_S/Tail
+  rotate: true
+  xy: 99, 29
+  size: 52, 26
+  orig: 54, 29
+  offset: 1, 2
+  index: -1

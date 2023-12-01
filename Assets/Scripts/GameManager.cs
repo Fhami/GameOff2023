@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace DefaultNamespace
         public static GameManager Instance;
 
         public RuntimeDeckData PlayerRuntimeDeck;
+        public MapInfo MapInfo;
 
         public CharacterData playerCharacterData;
         public EncounterData currentEncounterData;
@@ -19,15 +21,27 @@ namespace DefaultNamespace
         
         private void Awake()
         {
+            if (Instance)
+            {
+                Destroy(gameObject);
+                return;
+            }
             Instance = this;
             DontDestroyOnLoad(this);
             Init();
+        }
+
+        private void Start()
+        {
+            MapUI.current.LoadNewMap(MapInfo);
+            MapUI.current.Show();
         }
 
         private void Init()
         {
             Database.Initialize();
             PlayerRuntimeDeck = new RuntimeDeckData();
+            SelectCharacter(playerCharacterData);
         }
 
         public void SelectCharacter(CharacterData _characterData)

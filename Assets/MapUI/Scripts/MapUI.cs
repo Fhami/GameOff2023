@@ -7,6 +7,7 @@ using System;
 using DG.Tweening;
 using AYellowpaper.SerializedCollections;
 using DefaultNamespace;
+using UnityEngine.SceneManagement;
 
 public class MapUI : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class MapUI : MonoBehaviour
     [SerializeField] MapInfo _map_info;
     [SerializeField] RectTransform _player_icon;
     [SerializeField] ScrollRect _scroll_rect;
+    [SerializeField] Material _line_material;
 
 
     [SerializeField] bool isShow = false;
@@ -32,6 +34,19 @@ public class MapUI : MonoBehaviour
     [SerializeField] List<MapLineUI> _mapLines = new List<MapLineUI>();
 
     public List<MapRowUI> MapRows { get => _mapRows; set => _mapRows = value; }
+
+    public static MapUI current;
+    
+    private void Awake()
+    {
+        if (current)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        current = this;
+        DontDestroyOnLoad(this);
+    }
 
     public void LoadNewMap(MapInfo mapInfo)
     {
@@ -127,7 +142,7 @@ public class MapUI : MonoBehaviour
         {
             tempNodes[i] = node.Key;
             sum[i] = x += node.Value;
-            Debug.Log(sum[i]);
+            //Debug.Log(sum[i]);
             i++;
         }
         int choose = UnityEngine.Random.Range(0, x+1);
@@ -135,7 +150,7 @@ public class MapUI : MonoBehaviour
         for(int j = 0; j <sum.Length; j++)
         {
 
-            Debug.Log(choose +": =>"+ sum[j]);
+            //Debug.Log(choose +": =>"+ sum[j]);
             if (choose <= sum[j]) return tempNodes[j];
         }
 
@@ -268,26 +283,44 @@ public class MapUI : MonoBehaviour
         {
             //Start Minor Encounter
             // Do something with selectedNode.EncounterData
-            Hide();
-            BattleManager.current.StartBattle(onWin);
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Elite)
         {
             //Start Elite Encounter
             // Do something with selectedNode.EncounterData
-            Hide();
-            BattleManager.current.StartBattle(onWin);
+            
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Boss)
         {
             //Start Boss Encounter
             // Do something with selectedNode.EncounterData
-            Hide();
-            BattleManager.current.StartBattle(onWin);
         }
 
+        GameManager.Instance.currentEncounterData = selectedNode.EncounterData;
+        
+        WaitForSceneLoad((() =>
+        {
+            Hide();
+            BattleManager.current.StartBattle(onWin);
+        }));
+        
         //UnlockNextNode(selectedNode);
         Debug.Log("<b>Load Encounter</b> " + selectedNode.NodeInfo.nodeType);
+    }
+    
+    private static IEnumerator LoadLevel (Action onComplete){
+        var asyncLoadLevel = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone){
+            Debug.Log("Loading the Scene"); 
+            yield return null;
+        }
+
+        onComplete?.Invoke();
+    }
+
+    public void WaitForSceneLoad(Action onComplete)
+    {
+        StartCoroutine(LoadLevel(onComplete));
     }
 
     #region helper

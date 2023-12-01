@@ -48,6 +48,8 @@ namespace DefaultNamespace
         [InfoBox("For graphic")]
         public Size cardSize;
 
+        public Sprite cardImage;
+        
         [InfoBox("Intent name can be used for enemies (e.g. Attack, Slam, Nom Nom, Poke, Stare etc." +
                  "For player we use the scriptable object as the card name.")]
         public string intentName;

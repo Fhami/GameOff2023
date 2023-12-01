@@ -1,0 +1,69 @@
+
+mage_S.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Mage_S/Eye_Close
+  rotate: false
+  xy: 2, 20
+  size: 39, 13
+  orig: 47, 21
+  offset: 4, 4
+  index: -1
+Mage_S/Eye_Open
+  rotate: false
+  xy: 188, 2
+  size: 36, 37
+  orig: 44, 45
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_01
+  rotate: false
+  xy: 299, 5
+  size: 46, 47
+  orig: 54, 55
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_02
+  rotate: false
+  xy: 251, 2
+  size: 46, 50
+  orig: 55, 58
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_03
+  rotate: false
+  xy: 251, 54
+  size: 56, 72
+  orig: 64, 80
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_04
+  rotate: false
+  xy: 309, 59
+  size: 57, 67
+  orig: 65, 76
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_05
+  rotate: false
+  xy: 188, 41
+  size: 61, 85
+  orig: 69, 93
+  offset: 4, 4
+  index: -1
+Mage_S/Fire_06
+  rotate: false
+  xy: 347, 3
+  size: 52, 54
+  orig: 60, 62
+  offset: 4, 4
+  index: -1
+Mage_S/Head
+  rotate: false
+  xy: 2, 35
+  size: 184, 91
+  orig: 192, 99
+  offset: 4, 4
+  index: -1

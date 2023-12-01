@@ -1,0 +1,55 @@
+
+troop_swordman_L.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Swordman_L/Body
+  rotate: false
+  xy: 2, 34
+  size: 269, 219
+  orig: 271, 221
+  offset: 1, 1
+  index: -1
+Swordman_L/Eye_Close
+  rotate: true
+  xy: 2, 2
+  size: 30, 17
+  orig: 38, 25
+  offset: 4, 4
+  index: -1
+Swordman_L/Eye_Open
+  rotate: false
+  xy: 331, 7
+  size: 39, 58
+  orig: 47, 66
+  offset: 4, 4
+  index: -1
+Swordman_L/Head
+  rotate: true
+  xy: 273, 67
+  size: 186, 158
+  orig: 194, 166
+  offset: 4, 4
+  index: -1
+Swordman_L/L_Arm
+  rotate: false
+  xy: 572, 62
+  size: 112, 191
+  orig: 116, 194
+  offset: 2, 2
+  index: -1
+Swordman_L/L_Leg
+  rotate: true
+  xy: 273, 2
+  size: 63, 56
+  orig: 65, 57
+  offset: 1, 1
+  index: -1
+Swordman_L/R_Arm
+  rotate: false
+  xy: 433, 58
+  size: 137, 195
+  orig: 140, 196
+  offset: 2, 1
+  index: -1

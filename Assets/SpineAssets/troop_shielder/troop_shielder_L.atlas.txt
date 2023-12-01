@@ -1,0 +1,62 @@
+
+troop_shielder_L.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Tanker_L/Body
+  rotate: true
+  xy: 2, 268
+  size: 239, 178
+  orig: 248, 186
+  offset: 4, 4
+  index: -1
+Tanker_L/Eye_Close
+  rotate: true
+  xy: 2, 8
+  size: 44, 14
+  orig: 52, 22
+  offset: 4, 4
+  index: -1
+Tanker_L/Eye_Open
+  rotate: true
+  xy: 18, 9
+  size: 43, 70
+  orig: 51, 78
+  offset: 4, 4
+  index: -1
+Tanker_L/Head
+  rotate: true
+  xy: 2, 54
+  size: 212, 134
+  orig: 221, 142
+  offset: 4, 4
+  index: -1
+Tanker_L/L_Arm
+  rotate: false
+  xy: 182, 306
+  size: 125, 201
+  orig: 133, 209
+  offset: 4, 4
+  index: -1
+Tanker_L/L_Leg
+  rotate: false
+  xy: 208, 3
+  size: 68, 58
+  orig: 76, 66
+  offset: 4, 4
+  index: -1
+Tanker_L/R_Arm
+  rotate: false
+  xy: 138, 63
+  size: 140, 203
+  orig: 148, 211
+  offset: 4, 4
+  index: -1
+Tanker_L/R_Leg
+  rotate: false
+  xy: 138, 2
+  size: 68, 59
+  orig: 76, 67
+  offset: 4, 4
+  index: -1

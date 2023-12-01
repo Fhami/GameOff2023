@@ -34,7 +34,10 @@ public class ActiveSkillIcon : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void SetSkill(CardData cardData, Action onClick)
     {
         this.cardData = cardData;
-        this._icon_img.sprite = cardData.effects[0].intent.icon;
+        if (cardData.effects[0].intent)
+        {
+            this._icon_img.sprite = cardData.effects[0].intent.icon;
+        }
         this._onClick = onClick;
     }
 

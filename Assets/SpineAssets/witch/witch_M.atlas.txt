@@ -1,0 +1,118 @@
+
+witch_M.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Witch_M/Hair_01
+  rotate: true
+  xy: 164, 53
+  size: 41, 48
+  orig: 49, 56
+  offset: 4, 4
+  index: -1
+Witch_M/Hair_02
+  rotate: true
+  xy: 131, 51
+  size: 32, 31
+  orig: 40, 39
+  offset: 4, 4
+  index: -1
+Witch_M/Hair_03
+  rotate: true
+  xy: 160, 4
+  size: 45, 51
+  orig: 53, 60
+  offset: 4, 5
+  index: -1
+Witch_M/Hat
+  rotate: true
+  xy: 2, 85
+  size: 169, 142
+  orig: 177, 150
+  offset: 4, 4
+  index: -1
+Witch_M/Head
+  rotate: true
+  xy: 255, 167
+  size: 87, 82
+  orig: 95, 90
+  offset: 4, 4
+  index: -1
+Witch_M/L_Eye_Close
+  rotate: false
+  xy: 82, 5
+  size: 15, 7
+  orig: 23, 16
+  offset: 4, 4
+  index: -1
+Witch_M/L_Eye_Open
+  rotate: false
+  xy: 213, 4
+  size: 17, 17
+  orig: 26, 25
+  offset: 5, 4
+  index: -1
+Witch_M/L_Hand
+  rotate: false
+  xy: 213, 23
+  size: 27, 28
+  orig: 35, 36
+  offset: 4, 4
+  index: -1
+Witch_M/L_Hood
+  rotate: true
+  xy: 214, 60
+  size: 84, 112
+  orig: 88, 114
+  offset: 2, 1
+  index: -1
+Witch_M/L_Side_Hair
+  rotate: true
+  xy: 82, 14
+  size: 32, 76
+  orig: 34, 79
+  offset: 1, 1
+  index: -1
+Witch_M/Neck
+  rotate: true
+  xy: 146, 96
+  size: 48, 47
+  orig: 56, 55
+  offset: 4, 4
+  index: -1
+Witch_M/R_Eye_Close
+  rotate: false
+  xy: 2, 2
+  size: 19, 6
+  orig: 27, 15
+  offset: 4, 4
+  index: -1
+Witch_M/R_Eye_Open
+  rotate: true
+  xy: 232, 2
+  size: 19, 15
+  orig: 27, 24
+  offset: 4, 4
+  index: -1
+Witch_M/R_Hood
+  rotate: true
+  xy: 146, 146
+  size: 108, 107
+  orig: 112, 109
+  offset: 2, 1
+  index: -1
+Witch_M/R_Side_Hair
+  rotate: true
+  xy: 2, 10
+  size: 36, 78
+  orig: 40, 81
+  offset: 1, 2
+  index: -1
+Witch_M/Rod
+  rotate: true
+  xy: 2, 48
+  size: 35, 127
+  orig: 43, 135
+  offset: 4, 4
+  index: -1

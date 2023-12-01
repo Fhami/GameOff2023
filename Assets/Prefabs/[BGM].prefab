@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 51177a67c2d620445a7b878deb0a6e7c, type: 3}
+  mapBgm: {fileID: 8300000, guid: e8dda65d61e8f4302a965169a0b6417a, type: 3}
+  normalBgm: {fileID: 8300000, guid: 7e5f50947f74c4f2480c5f304554b09d, type: 3}
+  eliteBgm: {fileID: 8300000, guid: 840ce721ba56a4117b3f191b77bd07e0, type: 3}
+  bossBgm: {fileID: 8300000, guid: 3a1bacf8e841347a9b76b40d91ec0737, type: 3}
