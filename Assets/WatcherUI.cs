@@ -74,6 +74,7 @@ public class WatcherUI : MonoBehaviour
 
     public void Show()
     {
+        if (_details.Count == 0) return;
         _canvasGroup.transform.position = new Vector3(-1, 2, 0);
         _canvasGroup.gameObject.SetActive(true);
         _canvasGroup.DOFade(1, 0.2f);

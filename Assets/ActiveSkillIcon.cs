@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using UnityEngine.EventSystems;
+using AYellowpaper.SerializedCollections;
 
 public class ActiveSkillIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -20,6 +21,8 @@ public class ActiveSkillIcon : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] Color _smallColor;
     [SerializeField] Color _mediumColor;
     [SerializeField] Color _bigColor;
+
+    [SerializeField] SerializedDictionary<CardData, Sprite> cardDataSprites;
 
     private CardData cardData;
     
@@ -36,7 +39,7 @@ public class ActiveSkillIcon : MonoBehaviour, IPointerEnterHandler, IPointerExit
         this.cardData = cardData;
         if (cardData.effects[0].intent)
         {
-            this._icon_img.sprite = cardData.cardImage;
+            this._icon_img.sprite = cardDataSprites[cardData];
         }
         this._onClick = onClick;
     }

@@ -39,6 +39,7 @@ namespace DefaultNamespace
     {
         public CardController CardController => cardController;
 
+        public SoundManagerTesting SoundManagerTesting;
         [Header("UI")]
         public TooltipUI TooltipUI;
         public ResultUI resultUI;
@@ -144,6 +145,20 @@ namespace DefaultNamespace
         public IEnumerator InitializeBattle(RuntimeCharacter _playerData, EncounterData _encounterData)
         {
             canPlayCard = true;
+
+            switch (_encounterData.type)
+            {
+                case NodeType.Minor:
+                case NodeType.Start:
+                    SoundManagerTesting.PlayBGM(SoundType.Normal);
+                    break;
+                case NodeType.Elite:
+                    SoundManagerTesting.PlayBGM(SoundType.Elite);
+                    break;
+                case NodeType.Boss:
+                    SoundManagerTesting.PlayBGM(SoundType.Boss);
+                    break;
+            }
             
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
 
@@ -806,17 +821,17 @@ namespace DefaultNamespace
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention(), true);
             
             // Death by size (if player is at min size or max size at the end of the turn they will die)
-            int minSize = runtimePlayer.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
-            int maxSize = runtimePlayer.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
-            int size = runtimePlayer.properties.Get<int>(PropertyKey.SIZE).Value;
+            int minSize = enemy.properties.Get<int>(PropertyKey.MIN_SIZE).Value;
+            int maxSize = enemy.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
+            int size = enemy.properties.Get<int>(PropertyKey.SIZE).Value;
 
             if (size == minSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.SMALL_DEATH);
+                yield return Kill(enemy, null, runtimePlayer, null, runtimeEnemies, FXKey.SMALL_DEATH);
             }
             else if (size == maxSize)
             {
-                yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
+                yield return Kill(enemy, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
         }
 
@@ -1039,17 +1054,20 @@ namespace DefaultNamespace
 
         public IEnumerator ValidateWinLose()
         {
-            //If no remaining enemy win
-            if (runtimeEnemies.Count == 0)
-            {
-                yield return IEOnWin();
-            }
-
             if (runtimePlayer == null)
             {
                 //Game over
                 yield return IEOnLose();
+                yield break;
             }
+            
+            //If no remaining enemy win
+            if (runtimeEnemies.Count == 0)
+            {
+                yield return IEOnWin();
+                yield break;
+            }
+            
         }
         
         public IEnumerator IEOnLose()

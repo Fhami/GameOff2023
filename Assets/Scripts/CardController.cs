@@ -67,6 +67,7 @@ public class CardController : MonoBehaviour
             _card.transform.position = DeckPile.transform.position;
 
             yield return drawDelay;
+            _card.transform.localScale = Vector3.one;
         }
     }
 
@@ -87,7 +88,7 @@ public class CardController : MonoBehaviour
         {
             DeckPile.AddCard(_recycledCard, true, Vector3.zero);
                 
-            yield return drawDelay;
+            yield return null;
         }
         DeckPile.Shuffle();
     }

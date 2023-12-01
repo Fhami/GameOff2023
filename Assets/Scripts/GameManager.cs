@@ -39,8 +39,22 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            MapUI.current.LoadNewMap(MapInfo);
-            MapUI.current.Show();
+            SetupMap();
+        }
+
+        public void SetupMap()
+        {
+            StartCoroutine(IEWait((() =>
+            {
+                MapUI.current.LoadNewMap(MapInfo);
+                MapUI.current.Show();
+            })));
+        }
+
+        public IEnumerator IEWait(Action _onComplete)
+        {
+            yield return new WaitForSeconds(0.1f);
+            _onComplete?.Invoke();
         }
 
         private void Init()
