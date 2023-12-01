@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Moon Fat] Pound - Deal damage equal to Size x 2'
+  m_Name: '[Moon Fat] Ground Pound - Deal damage equal to Size x 2'
   m_EditorClassIdentifier: 
   cardType: 0
   cardSize: 2
@@ -18,4 +18,5 @@ MonoBehaviour:
   cardDragTarget: 0
   effects:
   - {fileID: 11400000, guid: 7d4e0974ed6288c429a8cdc3a70bc9ed, type: 2}
+  - {fileID: 11400000, guid: 1836ae5315e67f34e992ddeaf0b87e7c, type: 2}
   cardActiveSkills: []
