@@ -5281,6 +5281,11 @@ PrefabInstance:
       objectReference: {fileID: 1769077729}
     - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
         type: 3}
+      propertyPath: endTurnBtn
+      value: 
+      objectReference: {fileID: 277861722}
+    - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
+        type: 3}
       propertyPath: encounterData
       value: 
       objectReference: {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf,

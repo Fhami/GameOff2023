@@ -35,20 +35,41 @@ public class BuffIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if(type == BuffType.Positive)
         {
             _buff_number_img.color = _positiveColor;
-            _positive_buff_efx?.gameObject.SetActive(true);
-            _negative_buff_efx?.gameObject.SetActive(false);
+            if (_positive_buff_efx)
+            {
+                _positive_buff_efx?.gameObject.SetActive(true);
+            }
+
+            if (_negative_buff_efx)
+            {
+                _negative_buff_efx?.gameObject.SetActive(false);
+            }
         }
         else if(type == BuffType.Negative)
         {
             _buff_number_img.color = _negativeColor;
-            _positive_buff_efx?.gameObject.SetActive(false);
-            _negative_buff_efx?.gameObject.SetActive(true);
+            if (_positive_buff_efx)
+            {
+                _positive_buff_efx?.gameObject.SetActive(false);
+            }
+
+            if (_negative_buff_efx)
+            {
+                _negative_buff_efx?.gameObject.SetActive(true);
+            }
         }
         else
         {
             _buff_number_img.color = _neutralColor;
-            _positive_buff_efx?.gameObject.SetActive(false);
-            _negative_buff_efx?.gameObject.SetActive(false);
+            if (_positive_buff_efx)
+            {
+                _positive_buff_efx?.gameObject.SetActive(false);
+            }
+
+            if (_negative_buff_efx)
+            {
+                _negative_buff_efx?.gameObject.SetActive(false);
+            }
         }
 
      }

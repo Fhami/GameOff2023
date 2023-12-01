@@ -6,6 +6,7 @@ using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -64,6 +65,8 @@ namespace DefaultNamespace
         //Use this to prevent player playing card while redraw
         public bool canPlayCard = true;
 
+        public Button endTurnBtn;
+
         public bool isDebug = false;
         public bool isInit;
         private void Awake()
@@ -115,7 +118,7 @@ namespace DefaultNamespace
 
             resultUI.OnClick_BackToMenu += () =>
             {
-                GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
+                GameManager.Instance.PlayerHP = GameManager.Instance.playerCharacterData.health;
                 SceneManager.LoadScene("TitleScene");
             };
             
@@ -257,7 +260,11 @@ namespace DefaultNamespace
         //This should be called when player turn starts before player can play cards
         public IEnumerator PlayerTurnStart(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            if (runtimePlayer == null) yield break;
+            
             FormData form = player.GetCurrentForm();
+
+            endTurnBtn.interactable = true;
 
             // Set character's hand size to match the form hand size
             // TODO: We could have modifiers (e.g. artifacts) which modify the base hand size value
@@ -289,6 +296,7 @@ namespace DefaultNamespace
         //This should be called when player turn ends before we start the enemy turn
         public IEnumerator PlayerTurnEnd(RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            endTurnBtn.interactable = false;
             // Discard hand but since this discard is not initiated by a card we leave it null.
             yield return DiscardHand(null);
 
@@ -757,6 +765,14 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn just ended.</param>
         public IEnumerator EnemyTurnEnd(RuntimeCharacter enemy)
         {
+
+            yield return ValidateWinLose();
+            
+            if (runtimePlayer == null)
+            {
+                yield break;
+            }
+
             // If enemy has decay debuff
             if (enemy.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(enemy) > 0)
             {
@@ -802,8 +818,6 @@ namespace DefaultNamespace
             {
                 yield return Kill(runtimePlayer, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
-            
-            yield return ValidateWinLose();
         }
 
         public void ClearCurrentBattleProperties(RuntimeCharacter player)
