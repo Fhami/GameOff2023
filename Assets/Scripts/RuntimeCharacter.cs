@@ -138,15 +138,21 @@ namespace DefaultNamespace
             properties.Get<int>(PropertyKey.FORM_CHANGED_COUNT_CURRENT_TURN).Value = 0;
             properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value = false;
             properties.Get<int>(PropertyKey.NEXT_CARD_PLAY_EXTRA_TIMES).Value = 0;
-            properties.Get<int>(PropertyKey.EVASION).Value = 0;
-            properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
-            properties.Get<int>(PropertyKey.THORNS).Value = 0;
-            properties.Get<int>(PropertyKey.STABLE).Value = 0;
-            properties.Get<int>(PropertyKey.SHIELD).Value = 0;
-            properties.Get<int>(PropertyKey.NUTRIENT).Value = 0;
-            properties.Get<int>(PropertyKey.DECAY).Value = 0;
-            properties.Get<int>(PropertyKey.GROW).Value = 0;
-            properties.Get<int>(PropertyKey.FRAGILE).Value = 0;
+
+            foreach (var propertyKey in PropertyHelper.IntStatusKeys)
+            {
+                properties.Get<int>(propertyKey).Value = 0;
+            }
+            
+            // properties.Get<int>(PropertyKey.EVASION).Value = 0;
+            // properties.Get<int>(PropertyKey.STRENGTH).Value = 0;
+            // properties.Get<int>(PropertyKey.THORNS).Value = 0;
+            // properties.Get<int>(PropertyKey.STABLE).Value = 0;
+            // properties.Get<int>(PropertyKey.SHIELD).Value = 0;
+            // properties.Get<int>(PropertyKey.NUTRIENT).Value = 0;
+            // properties.Get<int>(PropertyKey.DECAY).Value = 0;
+            // properties.Get<int>(PropertyKey.GROW).Value = 0;
+            // properties.Get<int>(PropertyKey.FRAGILE).Value = 0;
         }
         
         /// <summary>
