@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc105ef361d6417ab0c9a7c7ff2adfb8, type: 3}
   m_Name: '[Moon Cat] Scratch (Skill Data)'
   m_EditorClassIdentifier: 
-  triggerGameEvent: 15
-  triggerConditions: []
-  rechargeGameEvent: 15
+  triggerGameEvent: 9
+  triggerConditions:
+  - {fileID: 11400000, guid: 9a57912528f94488cbe4c049d901c6df, type: 2}
+  - {fileID: 11400000, guid: 079793eca8c1f40dda345c0ca3ecdc82, type: 2}
+  rechargeGameEvent: 9
   rechargeConditions: []
   card: {fileID: 11400000, guid: 024f9179f470e42c2984d9f40b93abba, type: 2}

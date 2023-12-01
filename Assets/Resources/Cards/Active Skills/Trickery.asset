@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: '[Moon Cat] Scratch (Card Data)'
+  m_Name: Trickery
   m_EditorClassIdentifier: 
-  cardType: 0
-  cardSize: 1
+  cardType: 6
+  cardSize: 0
   intentName: 
-  cardDragTarget: 0
+  cardDragTarget: 4
   effects:
-  - {fileID: 11400000, guid: d07b846315b5f2448b41ca81c18bfbd8, type: 2}
+  - {fileID: 11400000, guid: a395be4efba2dea46892b1683c8bdf92, type: 2}
+  - {fileID: 11400000, guid: aa54e837a3780ed48a7fc18b84fd92bb, type: 2}
+  - {fileID: 11400000, guid: 74eea5d8c93c7e04b9cabbb9cf99a55f, type: 2}
   cardActiveSkills: []

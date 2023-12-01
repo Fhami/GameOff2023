@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using DG.Tweening;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -84,4 +85,5 @@ public class SoundManager : Singleton<SoundManager>
         _sfxSource.PlayOneShot(audio);
     }
 
+    
 }
