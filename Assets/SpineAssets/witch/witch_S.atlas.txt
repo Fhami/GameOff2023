@@ -1,0 +1,69 @@
+
+witch_S.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Witch_S/B_Hat
+  rotate: true
+  xy: 249, 5
+  size: 120, 55
+  orig: 128, 63
+  offset: 4, 4
+  index: -1
+Witch_S/F_Hat
+  rotate: false
+  xy: 2, 23
+  size: 169, 102
+  orig: 177, 110
+  offset: 4, 4
+  index: -1
+Witch_S/Head
+  rotate: true
+  xy: 173, 26
+  size: 99, 74
+  orig: 107, 82
+  offset: 4, 4
+  index: -1
+Witch_S/L_Eye_Close
+  rotate: true
+  xy: 42, 3
+  size: 18, 12
+  orig: 26, 20
+  offset: 4, 4
+  index: -1
+Witch_S/L_Eye_Open
+  rotate: false
+  xy: 22, 3
+  size: 18, 18
+  orig: 26, 26
+  offset: 4, 4
+  index: -1
+Witch_S/L_Hair
+  rotate: false
+  xy: 306, 58
+  size: 54, 67
+  orig: 63, 75
+  offset: 4, 4
+  index: -1
+Witch_S/R_Eye_Close
+  rotate: true
+  xy: 56, 3
+  size: 18, 8
+  orig: 26, 16
+  offset: 4, 4
+  index: -1
+Witch_S/R_Eye_Open
+  rotate: true
+  xy: 2, 2
+  size: 19, 18
+  orig: 27, 26
+  offset: 4, 4
+  index: -1
+Witch_S/R_Hair
+  rotate: false
+  xy: 306, 9
+  size: 65, 47
+  orig: 73, 55
+  offset: 4, 4
+  index: -1

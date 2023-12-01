@@ -1,0 +1,27 @@
+
+troop_shielder_S.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Tanker_S/Eye_Close
+  rotate: true
+  xy: 199, 25
+  size: 39, 15
+  orig: 47, 23
+  offset: 4, 4
+  index: -1
+Tanker_S/Eye_Open
+  rotate: false
+  xy: 199, 66
+  size: 31, 48
+  orig: 39, 56
+  offset: 4, 4
+  index: -1
+Tanker_S/Head
+  rotate: false
+  xy: 2, 2
+  size: 195, 112
+  orig: 204, 120
+  offset: 4, 4
+  index: -1
