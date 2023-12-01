@@ -878,6 +878,7 @@ MonoBehaviour:
     - Key: 2
       Value: {fileID: 789079403041859297}
   cardData: {fileID: 0}
+  Image: {fileID: 8826592675989382369}
   OnClick:
     m_PersistentCalls:
       m_Calls: []
