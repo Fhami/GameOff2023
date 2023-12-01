@@ -46,6 +46,7 @@ namespace DefaultNamespace
         {
             StartCoroutine(IEWait((() =>
             {
+                SelectCharacter(playerCharacterData);
                 MapUI.current.LoadNewMap(MapInfo);
                 MapUI.current.Show();
             })));
