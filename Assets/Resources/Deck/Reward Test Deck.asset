@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf5b38227eee2a4ea1a738e241fef83, type: 3}
+  m_Name: Reward Test Deck
+  m_EditorClassIdentifier: 
+  Cards:
+  - {fileID: 11400000, guid: 471c4fafb1329504794ec49bae9ff223, type: 2}
+  - {fileID: 11400000, guid: efe92eeab7e7bf842996afb4a7931abe, type: 2}
+  - {fileID: 11400000, guid: fc3ddb192e003d84ea5234894c863dd6, type: 2}
+  - {fileID: 11400000, guid: 9630e60a71dd34906aeeed971e3b6bf6, type: 2}
+  - {fileID: 11400000, guid: 2c88d9d55aecdb347a7430c4e044763c, type: 2}
+  - {fileID: 11400000, guid: e220fea53a34f114282b2566b780e370, type: 2}
+  - {fileID: 11400000, guid: 79c4c7a4d08df0440adf0da8b90339de, type: 2}
+  - {fileID: 11400000, guid: b88f1a4542ab541438e66d95c8ac654f, type: 2}
+  - {fileID: 11400000, guid: 206ec7bb435df4ba6b6df3e9dc49e6ab, type: 2}
+  - {fileID: 11400000, guid: 6d114ce8aceb410418e6011a5a812af4, type: 2}

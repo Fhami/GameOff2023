@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Chrysalis
+  m_Name: Body Slam
   m_EditorClassIdentifier: 
-  cardType: 2
+  cardType: 1
   cardSize: 1
   intentName: 
-  cardDragTarget: 6
+  cardDragTarget: 1
   effects:
-  - {fileID: 11400000, guid: 644a2eba56f8786448e9b577763dbe30, type: 2}
-  - {fileID: 11400000, guid: e9c9f12c4d40de544a59b6dfa6c11177, type: 2}
+  - {fileID: 11400000, guid: ad524a2de0e35b948ab4cb85fb70056e, type: 2}
+  - {fileID: 11400000, guid: ffcf42a9dbe14447f93e6814138b19a2, type: 2}
+  - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
+  - {fileID: 11400000, guid: 9505bba0fc57a21418591b49c9ac27bd, type: 2}
   cardActiveSkills: []

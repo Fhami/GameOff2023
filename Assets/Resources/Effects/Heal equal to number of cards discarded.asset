@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a87e7941f4443c5b3344390d736e681, type: 3}
-  m_Name: Deal 3 damage
+  m_Script: {fileID: 11500000, guid: b706a7b9236f4c54a8cc302b0dfd8306, type: 3}
+  m_Name: Heal equal to number of cards discarded
   m_EditorClassIdentifier: 
-  intent: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
+  intent: {fileID: 0}
   effectModifier: {fileID: 0}
   timesValueSource: 0
   timesValue: 0
   customTimesValue: {fileID: 0}
   customTimesDescription: 
-  effectTarget: 3
-  damageValueSource: 1
-  damageValue: 3
-  customDamageValue: {fileID: 0}
-  customDamageDescription: 
+  effectTarget: 2
+  healValueSource: 2
+  healValue: 0
+  customHealValue: {fileID: 11400000, guid: 1255d8a4645b4774ab61c3740c6697d1, type: 2}
+  customHealDescription: Heal equal to number of cards discarded
