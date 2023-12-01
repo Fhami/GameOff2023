@@ -100,3 +100,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rect: {fileID: 7538765501889613413}
   _lineRenderer: {fileID: 4162776839209282689}
+  _line_material: {fileID: 2100000, guid: 1e37e9530933c18428882950d22ee3ee, type: 2}

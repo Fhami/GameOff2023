@@ -22,6 +22,7 @@ public class MapUI : MonoBehaviour
     [SerializeField] MapInfo _map_info;
     [SerializeField] RectTransform _player_icon;
     [SerializeField] ScrollRect _scroll_rect;
+    [SerializeField] Material _line_material;
 
 
     [SerializeField] bool isShow = false;
