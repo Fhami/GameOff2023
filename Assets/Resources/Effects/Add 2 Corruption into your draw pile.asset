@@ -9,18 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23ea424101cd499aa021d1b695fbefdd, type: 3}
-  m_Name: Apply 2 Fragile to player
+  m_Script: {fileID: 11500000, guid: dbea335d1c1d4d5281e89e451da5107d, type: 3}
+  m_Name: Add 2 Corruption into your draw pile
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
   effectModifier: {fileID: 0}
-  timesValueSource: 0
-  timesValue: 0
+  timesValueSource: 1
+  timesValue: 2
   customTimesValue: {fileID: 0}
   customTimesDescription: 
-  effectTarget: 1
-  statusEffect: 38
-  valueSource: 1
-  value: 2
-  customValue: {fileID: 0}
-  customDescription: 
+  cardToAdd: {fileID: 11400000, guid: 954dcefa9346aa849ba266bc4ff62e2c, type: 2}
