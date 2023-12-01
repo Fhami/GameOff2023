@@ -1041,6 +1041,8 @@ namespace DefaultNamespace
         public IEnumerator IEOnWin()
         {
             OnWin?.Invoke();
+
+            GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value;
             
             resultUI.ShowWin();
 
