@@ -297,10 +297,7 @@ public class MapUI : MonoBehaviour
 
         GameManager.Instance.currentEncounterData = selectedNode.EncounterData;
         
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
-
-        WaitFor((() =>
+        WaitForSceneLoad((() =>
         {
             Hide();
             BattleManager.current.StartBattle(onWin);
@@ -309,16 +306,20 @@ public class MapUI : MonoBehaviour
         //UnlockNextNode(selectedNode);
         Debug.Log("<b>Load Encounter</b> " + selectedNode.NodeInfo.nodeType);
     }
+    
+    private static IEnumerator LoadLevel (Action onComplete){
+        var asyncLoadLevel = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        while (!asyncLoadLevel.isDone){
+            Debug.Log("Loading the Scene"); 
+            yield return null;
+        }
 
-    public void WaitFor(Action onComplete)
-    {
-        StartCoroutine(IEWait(onComplete));
+        onComplete?.Invoke();
     }
 
-    public IEnumerator IEWait(Action onWin)
+    public void WaitForSceneLoad(Action onComplete)
     {
-        yield return new WaitForSeconds(0.2f);
-        onWin?.Invoke();
+        StartCoroutine(LoadLevel(onComplete));
     }
 
     #region helper
