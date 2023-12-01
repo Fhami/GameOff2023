@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Grimed
+  m_Name: Chrysalis
   m_EditorClassIdentifier: 
-  cardType: 4
+  cardType: 2
+  cardSize: 1
   intentName: 
-  cardDragTarget: 0
+  cardDragTarget: 6
   effects:
-  - {fileID: 11400000, guid: c9c71f43360d8964a8aeb54a9fc26737, type: 2}
-  cardActiveSkills:
-  - {fileID: 11400000, guid: b17fcebbf6065ab4787dde01a12e794c, type: 2}
+  - {fileID: 11400000, guid: fc2a503e913e64db6bffbea1d3eb4ca5, type: 2}
+  - {fileID: 11400000, guid: e9c9f12c4d40de544a59b6dfa6c11177, type: 2}
+  cardActiveSkills: []

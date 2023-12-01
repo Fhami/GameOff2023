@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Deal damage equal to your size times 2
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
-  effectTarget: 3
-  damageValueSource: 2
-  damageValue: 0
-  customDamageValue: {fileID: 11400000, guid: 4abda466ae12d8f408355f8e432950c0, type: 2}
-  customDamageDescription: Deal damage equal to your size
+  effectModifier: {fileID: 0}
   timesValueSource: 1
   timesValue: 2
   customTimesValue: {fileID: 0}
   customTimesDescription: 
+  effectTarget: 3
+  damageValueSource: 2
+  damageValue: 0
+  customDamageValue: {fileID: 11400000, guid: 4abda466ae12d8f408355f8e432950c0, type: 2}
+  customDamageDescription: Deal damage equal to your size x 2

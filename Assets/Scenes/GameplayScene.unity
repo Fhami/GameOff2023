@@ -2505,6 +2505,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3571057105549040381, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
+        type: 3}
+      propertyPath: playerCharacterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dafc39e278583541ac298096871670e,
+        type: 2}
+    - target: {fileID: 3571057105549040381, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
+        type: 3}
+      propertyPath: currentEncounterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455,
+        type: 2}
     - target: {fileID: 8121821331639675824, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5083,6 +5095,11 @@ PrefabInstance:
       objectReference: {fileID: 2076681468}
     - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
         type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
+        type: 3}
       propertyPath: resultUI
       value: 
       objectReference: {fileID: 26919071}
@@ -5095,7 +5112,7 @@ PrefabInstance:
         type: 3}
       propertyPath: encounterData
       value: 
-      objectReference: {fileID: 11400000, guid: fac39a6a61e85402cba6359706bccf3c,
+      objectReference: {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455,
         type: 2}
     - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
         type: 3}

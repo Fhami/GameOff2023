@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Dropsy
+  m_Name: Rupture
   m_EditorClassIdentifier: 
-  cardType: 2
+  cardType: 1
   cardSize: 1
   intentName: 
   cardDragTarget: 6
   effects:
-  - {fileID: 11400000, guid: 5457a744d4d9f26438d2faba353dd9ce, type: 2}
-  - {fileID: 11400000, guid: e6bb44a8fefac3647a9ca301fe903899, type: 2}
+  - {fileID: 11400000, guid: 2e6209a37b564724dabc1c387c037327, type: 2}
+  - {fileID: 11400000, guid: 68b2abccf8d800049a8354c20f73e466, type: 2}
   cardActiveSkills: []

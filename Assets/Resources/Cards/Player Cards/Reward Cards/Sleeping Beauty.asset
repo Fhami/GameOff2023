@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Dropsy
+  m_Name: Sleeping Beauty
   m_EditorClassIdentifier: 
   cardType: 2
   cardSize: 1
   intentName: 
   cardDragTarget: 6
   effects:
-  - {fileID: 11400000, guid: 5457a744d4d9f26438d2faba353dd9ce, type: 2}
-  - {fileID: 11400000, guid: e6bb44a8fefac3647a9ca301fe903899, type: 2}
+  - {fileID: 11400000, guid: 117b016389cf58c459bd52da1c59eeb7, type: 2}
+  - {fileID: 11400000, guid: 41184f327a5bb47408264d45f038e7e4, type: 2}
+  - {fileID: 11400000, guid: a92cc69df12af4ce3bf92a69a9716e16, type: 2}
   cardActiveSkills: []
