@@ -839,11 +839,11 @@ namespace DefaultNamespace
             int maxSize = enemy.properties.Get<int>(PropertyKey.MAX_SIZE).Value;
             int size = enemy.properties.Get<int>(PropertyKey.SIZE).Value;
 
-            if (size == minSize)
+            if (size == minSize && enemy.characterData.deathOnMin)
             {
                 yield return Kill(enemy, null, runtimePlayer, null, runtimeEnemies, FXKey.SMALL_DEATH);
             }
-            else if (size == maxSize)
+            else if (size == maxSize&& enemy.characterData.deathOnMax)
             {
                 yield return Kill(enemy, null, runtimePlayer, null, runtimeEnemies, FXKey.BIG_DEATH);
             }
