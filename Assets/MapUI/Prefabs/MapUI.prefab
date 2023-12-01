@@ -242,7 +242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3793860136072768429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -518,7 +518,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2638007065972676754}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1007,6 +1007,7 @@ MonoBehaviour:
   _player_icon: {fileID: 5566852966731422603}
   _scroll_rect: {fileID: 1736748789836464225}
   _canvasGroup: {fileID: 7321649623031402531}
+  isShow: 0
   _mapRows: []
   _mapLines: []
 --- !u!1 &5814401498778676637
@@ -1620,7 +1621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5315341937352144643
 RectTransform:
   m_ObjectHideFlags: 0

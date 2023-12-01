@@ -10,8 +10,8 @@ using DefaultNamespace;
 
 public class MapUI : MonoBehaviour
 {
-    [SerializeField] BattleManager _battleManager;
     // Start is called before the first frame update
+   // [SerializeField] BattleMana
     [SerializeField] MapNodeUI _node_ui_prefab;
     [SerializeField] MapRowUI _row_ui_prefab;
     [SerializeField] MapLineUI _map_line_ui;
@@ -20,22 +20,20 @@ public class MapUI : MonoBehaviour
     [SerializeField] RectTransform _player_icon;
     [SerializeField] ScrollRect _scroll_rect;
     [SerializeField] CanvasGroup _canvasGroup;
-    [SerializeField] MapNodeUI _currentNode;
-    bool isShow = true;
+    [SerializeField] bool isShow = false;
     Tween _mapTween;
     Tween _player_tween;
 
     [SerializeField] List<MapRowUI> _mapRows = new List<MapRowUI>();
     [SerializeField] List<MapLineUI> _mapLines = new List<MapLineUI>();
 
-
     public List<MapRowUI> MapRows { get => _mapRows; set => _mapRows = value; }
 
-    void LoadNewMap(MapInfo mapInfo)
+    public void LoadNewMap(MapInfo mapInfo)
     {
         //Start player at the first node, lock the node 
         StartCoroutine(ieGenerateMap(mapInfo, () => {
-            var _nodeToStart = _currentNode =_mapRows[0]._nodes[0];
+            var _nodeToStart = _mapRows[0]._nodes[0];
             _player_icon.SetAsLastSibling();
             _player_icon.position = _nodeToStart.transform.position;//Move player to first node always
             UnlockNextNode(_nodeToStart);//WIP Need to do something
@@ -229,7 +227,7 @@ public class MapUI : MonoBehaviour
     void OnClickMapNode(MapNodeUI selectedNode)
     {
         if (selectedNode.isLock) return;
-        _currentNode = selectedNode;
+
         Debug.Log("Click " + selectedNode.NodeInfo.nodeType);
 
         //Lock same node row
@@ -244,7 +242,9 @@ public class MapUI : MonoBehaviour
         _scroll_rect.enabled = false;
         _player_tween = _player_icon.DOMove(selectedNode.Parent_img.transform.position,0.4f).OnComplete(()=> {
             _scroll_rect.enabled = true;
-            StartEncounter(selectedNode);
+            StartEncounter(selectedNode,()=> { 
+                UnlockNextNode(selectedNode); 
+            });
             
         });
     }
@@ -254,34 +254,35 @@ public class MapUI : MonoBehaviour
     /// </summary>
     /// <param name="selectedNode"></param>
     /// <param name="onWin">what you want to do after win</param>
-    void StartEncounter(MapNodeUI selectedNode)
+    void StartEncounter(MapNodeUI selectedNode, Action onWin = null)
     {
-        GameManager.Instance.currentEncounterData = selectedNode.EncounterData;
-        if (selectedNode.NodeInfo.nodeType == NodeType.Start)
+        if(selectedNode.NodeInfo.nodeType == NodeType.Start)
         {
-            UnlockNextNode();
+            UnlockNextNode(_mapRows[0]._nodes[0]);
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Minor)
         {
+            //Start Minor Encounter
+            // Do something with selectedNode.EncounterData
             Hide();
-            StartCoroutine(BattleManager.current.star);
+            BattleManager.current.StartBattle(onWin);
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Elite)
         {
             //Start Elite Encounter
-            Hide();
-            StartCoroutine(BattleManager.current.star);
-            //StartCoroutine(_battleManager.StartBattle(selectedNode.EncounterData));
-
             // Do something with selectedNode.EncounterData
+            Hide();
+            BattleManager.current.StartBattle(onWin);
         }
         else if (selectedNode.NodeInfo.nodeType == NodeType.Boss)
         {
-            Hide();
-            StartCoroutine(BattleManager.current.star);
             //Start Boss Encounter
+            // Do something with selectedNode.EncounterData
+            Hide();
+            BattleManager.current.StartBattle(onWin);
         }
 
+        //UnlockNextNode(selectedNode);
         Debug.Log("<b>Load Encounter</b> " + selectedNode.NodeInfo.nodeType);
     }
 
@@ -289,14 +290,6 @@ public class MapUI : MonoBehaviour
     void UnlockNextNode(MapNodeUI mapNode)
     {
         foreach (var node in mapNode.NextNodes)
-        {
-            node.Unlock();
-        }
-    }
-
-    void UnlockNextNode()
-    {
-        foreach (var node in _currentNode.NextNodes)
         {
             node.Unlock();
         }
