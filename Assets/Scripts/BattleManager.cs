@@ -726,6 +726,13 @@ namespace DefaultNamespace
         /// <param name="enemy">The enemy whose turn it is now.</param>
         public IEnumerator EnemyTurnStart(RuntimeCharacter enemy)
         {
+            yield return ValidateWinLose();
+
+            if (runtimePlayer == null)
+            {
+                yield break;
+            }
+            
             enemy.ClearStatusEffectDurationAtTurnStart();
             
             yield return enemy.Character.UpdateIntention(enemy.Character.GetIntention(), true);
@@ -740,6 +747,13 @@ namespace DefaultNamespace
         /// <returns></returns>
         public IEnumerator PlayEnemyTurn(RuntimeCharacter enemy, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            yield return ValidateWinLose();
+
+            if (runtimePlayer == null)
+            {
+                yield break;
+            }
+            
             FormData form = enemy.GetCurrentForm();
 
             // Get enemy's next intent (the next card they plan to use)
