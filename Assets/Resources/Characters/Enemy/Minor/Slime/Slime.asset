@@ -21,6 +21,7 @@ MonoBehaviour:
   deathOnMin: 0
   deathOnMax: 0
   handSize: 0
+  deckData: {fileID: 0}
   forms:
   - {fileID: 11400000, guid: d6adf3aa5b784b140b36ca43c3c1c3f4, type: 2}
   - {fileID: 11400000, guid: 267c825e389fbb24d9b66069dac623da, type: 2}

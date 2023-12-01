@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeMin: 4
   sizeMax: 6
-  size: 0
+  size: 1
   activeSkill: {fileID: 0}
   activeSkillSize: 2
   passives: []

@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 1268478702914123795, guid: f5c9715e32c9aee47b62e061c0b5a64d,
     type: 3}
-  health: 40
-  startSize: 5
+  health: 80
+  startSize: 8
   minSize: 1
   maxSize: 9
   deathOnMin: 0
   deathOnMax: 0
   handSize: 0
+  deckData: {fileID: 0}
   forms:
   - {fileID: 11400000, guid: e94a94fd5cc9742ab9d35d666d58db8e, type: 2}
   - {fileID: 11400000, guid: dfc2df85c891b43d0a244669cf2bb37c, type: 2}

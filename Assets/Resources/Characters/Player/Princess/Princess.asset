@@ -18,8 +18,8 @@ MonoBehaviour:
   startSize: 5
   minSize: 0
   maxSize: 10
-  deathOnMin: 0
-  deathOnMax: 0
+  deathOnMin: 1
+  deathOnMax: 1
   handSize: 5
   deckData: {fileID: 11400000, guid: b1bf5b3fa4a3e46acbdb9d5d72dca741, type: 2}
   forms:
