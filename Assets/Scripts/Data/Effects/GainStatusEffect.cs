@@ -42,12 +42,14 @@ namespace DefaultNamespace
                 case EffectTarget.NONE:
                     break;
                 case EffectTarget.PLAYER:
-                    throw new NotSupportedException();
+                    targets.Add(player);
+                    break;
                 case EffectTarget.CARD_PLAYER:
                     targets.Add(characterPlayingTheCard);
                     break;
                 case EffectTarget.TARGET:
-                    throw new NotSupportedException();
+                    targets.Add(cardTarget);
+                    break;
                 case EffectTarget.ALL_ENEMIES:
                     targets.AddRange(enemies);
                     break;
