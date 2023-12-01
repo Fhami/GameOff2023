@@ -41,8 +41,7 @@ namespace DefaultNamespace
         public TooltipUI TooltipUI;
         public ResultUI resultUI;
         public RewardController RewardController;
-        public MapUI mapUI;
-        
+
         //Only player can play cards so we put this here
         [SerializeField] private CardController cardController;
         [SerializeField] private CharacterSpawner characterSpawner;
@@ -53,8 +52,9 @@ namespace DefaultNamespace
         public RuntimeCharacter runtimePlayer;
         public List<Character> enemies = new List<Character>();
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
-        
-        
+
+        public Action OnWin;
+
         [Header("Mockup")] 
         public DeckData deckData;
         public CharacterData playerData;
@@ -66,6 +66,7 @@ namespace DefaultNamespace
         public bool canPlayCard = true;
 
         public bool isDebug = false;
+        public bool isInit;
         private void Awake()
         {
             current = this;
@@ -86,11 +87,11 @@ namespace DefaultNamespace
                     GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
                 }
                 
-                yield return StartBattle(CharacterFactory.Create(playerData.name), encounterData);
+                yield return InitializeBattle(CharacterFactory.Create(playerData.name), encounterData);
             }
             else
             {
-                mapUI.Show();
+                
             }
 
             //Add cards to player deck
@@ -98,15 +99,17 @@ namespace DefaultNamespace
 
         public void StartBattle(Action _onWin)
         {
+            OnWin = _onWin;
             SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
 
             var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
 
-            StartCoroutine(StartBattle(player, GameManager.Instance.currentEncounterData));
+            StartCoroutine(InitializeBattle(CharacterFactory.Create(playerData.name), GameManager.Instance.currentEncounterData));
         }
         
         private void SubscribeUIs()
         {
+
             resultUI.OnClick_GoNext += () =>
             {
                 RewardController.Show(GameManager.Instance.currentEncounterData.rewardPool);
@@ -117,45 +120,50 @@ namespace DefaultNamespace
                 runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value = runtimePlayer.properties.Get<int>(PropertyKey.MAX_HEALTH).Value;
                 
                 RewardController.Hide();
-                mapUI.Toggle();
-                //TODO: show map
+                MapUI.current.Show();
             });
             
             RewardController.NextButton.onClick.AddListener(() =>
             {
                 RewardController.Hide();
-                //TODO: show map
+                MapUI.current.Show();
             });
             
             //TODO: subscribe map ui to update encounter in GameManager when select node 
         }
 
-        public void ClearBattleScene()
-        {
-            //TODO: call this before start next encounter
-        }
-
-        public IEnumerator StartBattle(RuntimeCharacter _playerData, EncounterData _encounterData)
+        public IEnumerator InitializeBattle(RuntimeCharacter _playerData, EncounterData _encounterData)
         {
             canPlayCard = true;
             
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
 
-            yield return InitializeCharacters(_playerData, _encounterData);
+            yield return InitializeCharacters(_playerData);
+            yield return InitializeEnemies(_encounterData);
             
             yield return BattleStart(runtimePlayer, runtimeEnemies);
 
             yield return PlayerTurnStart(runtimePlayer, runtimeEnemies);
         }
 
-        public IEnumerator InitializeCharacters(RuntimeCharacter _player, EncounterData _encounterData)
+        public IEnumerator InitializeCharacters(RuntimeCharacter _player)
         {
-            player = characterSpawner.SpawnPlayer(_player);
+            isInit = true;
+            
+            if (!player)
+            {
+                player = characterSpawner.SpawnPlayer(_player);
+            }
             player.cardController = cardController;
             
             cardController.Character = player;
             runtimePlayer = player.runtimeCharacter;
 
+            yield return new WaitForSeconds(characterSpawnDelay);
+        }
+
+        public IEnumerator InitializeEnemies(EncounterData _encounterData)
+        {
             if (_encounterData != null) // I added this null check so I can test cards without having any
             {
                 foreach (var _enemyData in _encounterData.enemies)
@@ -1011,28 +1019,29 @@ namespace DefaultNamespace
             //If no remaining enemy win
             if (runtimeEnemies.Count == 0)
             {
-                yield return OnWin();
+                yield return IEOnWin();
             }
 
             if (runtimePlayer == null)
             {
                 //Game over
-                yield return OnLose();
+                yield return IEOnLose();
             }
         }
         
-        public IEnumerator OnLose()
+        public IEnumerator IEOnLose()
         {
             resultUI.ShowLose();
             yield return GameManager.Instance.GameOver();
         }
 
-        public IEnumerator OnWin()
+        public IEnumerator IEOnWin()
         {
+            OnWin?.Invoke();
+            
             resultUI.ShowWin();
-            cardController.ClearAllCards();
+
             yield return GameManager.Instance.WinBattle();
-            runtimePlayer.ClearStatusEffectStackAtEndOfBattle();
         }
     }
 }
