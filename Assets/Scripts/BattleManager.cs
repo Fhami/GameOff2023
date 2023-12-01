@@ -690,6 +690,8 @@ namespace DefaultNamespace
         
         public IEnumerator ChangeForm(FormData previousForm, FormData currentForm, RuntimeCharacter character, RuntimeCharacter player, List<RuntimeCharacter> enemies)
         {
+            if (character == null || character.Character == null) yield break;
+            
             // TODO: VFX, animation etc
             character.DisablePassives(previousForm);
             character.EnablePassives(currentForm);
