@@ -39,6 +39,11 @@ namespace DefaultNamespace
 
         private void Start()
         {
+            SetupMap();
+        }
+
+        public void SetupMap()
+        {
             MapUI.current.LoadNewMap(MapInfo);
             MapUI.current.Show();
         }
