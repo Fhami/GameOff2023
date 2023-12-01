@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 54769321}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.71, y: -0.07, z: 0}
+  m_LocalPosition: {x: 2.46, y: -0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -282,10 +282,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 277861721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 2.4000015}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 209.3, y: 82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &71590725
 MonoBehaviour:
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: END TURN
+  m_text: End Turn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 339d6eab304ac4a5797bc212734c459a, type: 2}
   m_sharedMaterial: {fileID: -7425059005548875842, guid: 339d6eab304ac4a5797bc212734c459a,
@@ -345,9 +345,9 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 4.8
+  m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -20.43
+  m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1097,6 +1097,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 0}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  cardArt: {fileID: 0}
   draggableLine: {fileID: 0}
   visualDict:
     _serializedList: []
@@ -1194,8 +1195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 674, y: -277}
-  m_SizeDelta: {x: 176.53, y: 220.6}
+  m_AnchoredPosition: {x: 739, y: -253}
+  m_SizeDelta: {x: 210.1, y: 82.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277861722
 MonoBehaviour:
@@ -1291,7 +1292,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  m_DrawShape: 1
+  m_DrawShape: 3
   m_ImageType: 0
   m_StrokeWidth: 0
   m_FalloffDistance: 0.5
@@ -1302,7 +1303,7 @@ MonoBehaviour:
   m_FlipHorizontal: 0
   m_FlipVertical: 0
   m_CornerStyle: 0
-  m_RectangleCornerRadius: {x: 0, y: 0, z: 0, w: 0}
+  m_RectangleCornerRadius: {x: 20, y: 20, z: 20, w: 20}
   m_TriangleCornerRadius: {x: 0, y: 0, z: 0}
   m_TriangleUniformCornerRadius: 1
   m_RectangleUniformCornerRadius: 1
@@ -1775,6 +1776,7 @@ MonoBehaviour:
   existTargetPlayer: {fileID: 0}
   exhaustCardParticle: {fileID: 0}
   destroyCardParticle: {fileID: 0}
+  cardArt: {fileID: 0}
   draggableLine: {fileID: 0}
   visualDict:
     _serializedList: []
@@ -2520,6 +2522,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3571057105549040381, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
         type: 3}
+      propertyPath: debugMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571057105549040381, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
+        type: 3}
       propertyPath: playerCharacterData
       value: 
       objectReference: {fileID: 11400000, guid: 4dafc39e278583541ac298096871670e,
@@ -2528,7 +2535,7 @@ PrefabInstance:
         type: 3}
       propertyPath: currentEncounterData
       value: 
-      objectReference: {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455,
+      objectReference: {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf,
         type: 2}
     - target: {fileID: 8121821331639675824, guid: 71bfa4275d8ae6b4696d4a85cb3458f4,
         type: 3}
@@ -2610,7 +2617,7 @@ Transform:
   m_GameObject: {fileID: 1101900389}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.69, y: -0.07, z: 0}
+  m_LocalPosition: {x: 5.4800005, y: -0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2652,7 +2659,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 144.2, y: 220.6}
+  m_SizeDelta: {x: 185.5, y: 61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1105665662
 MonoBehaviour:
@@ -2684,7 +2691,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  m_DrawShape: 1
+  m_DrawShape: 3
   m_ImageType: 0
   m_StrokeWidth: 0
   m_FalloffDistance: 0.5
@@ -2695,7 +2702,7 @@ MonoBehaviour:
   m_FlipHorizontal: 0
   m_FlipVertical: 0
   m_CornerStyle: 0
-  m_RectangleCornerRadius: {x: 0, y: 0, z: 0, w: 0}
+  m_RectangleCornerRadius: {x: 10, y: 10, z: 10, w: 10}
   m_TriangleCornerRadius: {x: 0, y: 0, z: 0}
   m_TriangleUniformCornerRadius: 1
   m_RectangleUniformCornerRadius: 1
@@ -5260,8 +5267,14 @@ PrefabInstance:
     - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
         type: 3}
       propertyPath: isDebug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
+        type: 3}
+      propertyPath: deckData
+      value: 
+      objectReference: {fileID: 11400000, guid: b1bf5b3fa4a3e46acbdb9d5d72dca741,
+        type: 2}
     - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
         type: 3}
       propertyPath: resultUI
@@ -5276,7 +5289,7 @@ PrefabInstance:
         type: 3}
       propertyPath: encounterData
       value: 
-      objectReference: {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455,
+      objectReference: {fileID: 11400000, guid: a9120aabb5a1242a99f39e8ec2a770cf,
         type: 2}
     - target: {fileID: 6735472189734689342, guid: 943fb2331f8b2524ab35728b0445c720,
         type: 3}
