@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807396, b: 0.35872662, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1600,9 +1600,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A game by Jussi, Nat, Kamee, Volk, Toffy, & Jirawat
+  m_text: 'A game by Jussi, Nat, Kamee, Pong, Volk, Toffy, & Jirawat
 
-    Music by Thieff'
+    Music by
+    Thieff'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b574a82cf7cd34b63be46b472af0b3fb, type: 2}
   m_sharedMaterial: {fileID: 6943012109613343931, guid: b574a82cf7cd34b63be46b472af0b3fb,
