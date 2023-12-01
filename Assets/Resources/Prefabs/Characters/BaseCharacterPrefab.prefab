@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7304912489016288312}
   - component: {fileID: 8182812893953835477}
   - component: {fileID: 3426283045656471505}
+  - component: {fileID: 9126853367718376778}
   m_Layer: 7
   m_Name: BaseCharacterPrefab
   m_TagString: Untagged
@@ -162,6 +163,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!210 &9126853367718376778
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204950516362683512}
+  m_Enabled: 1
+  m_SortingLayerID: -1709373485
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &3587594766691871798
 GameObject:
   m_ObjectHideFlags: 0
