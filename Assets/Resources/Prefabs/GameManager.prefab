@@ -44,3 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be1e5c0e049c324e8004c196f19c02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewardPool:
+  - {fileID: 11400000, guid: 471c4fafb1329504794ec49bae9ff223, type: 2}
+  - {fileID: 11400000, guid: efe92eeab7e7bf842996afb4a7931abe, type: 2}
+  - {fileID: 11400000, guid: fc3ddb192e003d84ea5234894c863dd6, type: 2}
+  - {fileID: 11400000, guid: 9630e60a71dd34906aeeed971e3b6bf6, type: 2}
+  - {fileID: 11400000, guid: 2c88d9d55aecdb347a7430c4e044763c, type: 2}
+  - {fileID: 11400000, guid: e220fea53a34f114282b2566b780e370, type: 2}
+  - {fileID: 11400000, guid: 79c4c7a4d08df0440adf0da8b90339de, type: 2}
+  - {fileID: 11400000, guid: b88f1a4542ab541438e66d95c8ac654f, type: 2}
+  - {fileID: 11400000, guid: 206ec7bb435df4ba6b6df3e9dc49e6ab, type: 2}
+  - {fileID: 11400000, guid: 6d114ce8aceb410418e6011a5a812af4, type: 2}
+  DeckData: {fileID: 11400000, guid: b1bf5b3fa4a3e46acbdb9d5d72dca741, type: 2}
+  MapInfo: {fileID: 0}
+  playerCharacterData: {fileID: 11400000, guid: 4dafc39e278583541ac298096871670e,
+    type: 2}
+  currentEncounterData: {fileID: 0}
+  PlayerHP: 0
+  currentNodeType: 0
+  debugMode: 0

@@ -83,6 +83,7 @@ MonoBehaviour:
   skeletonAnimation: {fileID: 7530166509144427798}
   frontPos: {fileID: 9145563689754045342}
   uiPos: {fileID: 8763773034395071749}
+  effectPos: {fileID: 7282020889711262888}
 --- !u!61 &782283224680155510
 BoxCollider2D:
   m_ObjectHideFlags: 0
