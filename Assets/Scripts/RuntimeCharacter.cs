@@ -143,6 +143,9 @@ namespace DefaultNamespace
             {
                 properties.Get<int>(propertyKey).Value = 0;
             }
+
+            properties.Get<int>(PropertyKey.SIZE).Value = characterData.startSize;
+            
             
             // properties.Get<int>(PropertyKey.EVASION).Value = 0;
             // properties.Get<int>(PropertyKey.STRENGTH).Value = 0;

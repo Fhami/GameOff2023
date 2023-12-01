@@ -74,8 +74,11 @@ public class CardPile : MonoBehaviour
             RemoveCard(_card);
             return _card;
         }
-        
-        Debug.LogError($"Card {_card.name} doesn't exist in {name} pile!");
+
+        if (_card)
+        {
+            Debug.LogError($"Card {_card.name} doesn't exist in {name} pile!");
+        }
         
         return null;
     } 

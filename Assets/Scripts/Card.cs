@@ -103,7 +103,7 @@ namespace DefaultNamespace
 
         public IEnumerator ExhaustCard()
         {
-            yield return transform.DOScale(Vector3.zero, 0.3f).WaitForCompletion();//TODO: Play vfx here
+            yield return transform.DOScale(Vector3.zero, 0.3f).WaitForCompletion();
         }
 
         public bool ValidateTarget(ICardTarget _target)

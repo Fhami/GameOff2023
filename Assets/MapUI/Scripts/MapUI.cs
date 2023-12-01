@@ -326,13 +326,13 @@ public class MapUI : MonoBehaviour
         return line;
     }
 
-    void Show()
+    public void Show()
     {
         _mapTween = _canvasGroup.DOFade(1, 1).
             OnComplete(()=> { isShow = true; });
     }
 
-    void Hide()
+    public void Hide()
     {
         isShow = false;
         _canvasGroup.alpha = 0;

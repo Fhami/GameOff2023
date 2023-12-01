@@ -30,7 +30,17 @@ namespace DefaultNamespace
             PlayerRuntimeDeck = new RuntimeDeckData();
         }
 
-        
+        public void SelectCharacter(CharacterData _characterData)
+        {
+            PlayerRuntimeDeck = new RuntimeDeckData();
+            
+            playerCharacterData = _characterData;
+            
+            foreach (var _cardData in playerCharacterData.deckData.Cards)
+            {
+                PlayerRuntimeDeck.AddCard(_cardData);
+            }
+        }
         
         public IEnumerator GameOver()
         {
