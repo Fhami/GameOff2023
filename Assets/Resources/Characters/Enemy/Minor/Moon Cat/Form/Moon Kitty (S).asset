@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Moon Kitty (S)
+  m_EditorClassIdentifier: 
+  sizeMin: 1
+  sizeMax: 3
+  size: 0
+  activeSkill: {fileID: 0}
+  activeSkillSize: 0
+  passives:
+  - {fileID: 11400000, guid: 2543ee40298554823adb064aa26b61e2, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 48776a5ff465f4af9ab574be06d57c33, type: 2}
+  attackPattern:
+  - {fileID: 11400000, guid: daca60e5acbcd4d219a2bbc233c25f09, type: 2}
+  - {fileID: 11400000, guid: 2fd910324728c4486a5c979c098100c7, type: 2}
+  - {fileID: 11400000, guid: d847dfbafe5a7464aa2d2baabacc6e11, type: 2}
+  - {fileID: 11400000, guid: c2afcd002942f4be8abfc0f70ab66cbc, type: 2}
+  - {fileID: 11400000, guid: fb5bc550eeb4f4af882740aea08e171f, type: 2}

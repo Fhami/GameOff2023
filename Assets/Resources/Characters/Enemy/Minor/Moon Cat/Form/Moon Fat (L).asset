@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Moon Fat (L)
+  m_EditorClassIdentifier: 
+  sizeMin: 7
+  sizeMax: 9
+  size: 2
+  activeSkill: {fileID: 0}
+  activeSkillSize: 0
+  passives:
+  - {fileID: 11400000, guid: 2543ee40298554823adb064aa26b61e2, type: 2}
+  - {fileID: 0}
+  skills:
+  - {fileID: 11400000, guid: 48776a5ff465f4af9ab574be06d57c33, type: 2}
+  attackPattern:
+  - {fileID: 11400000, guid: d83aa1573db664b95a45796033be8e90, type: 2}
+  - {fileID: 11400000, guid: 30589db7eb0704616ba05e7b3d5e3755, type: 2}
+  - {fileID: 11400000, guid: 64b334c91c9bd4b07922261f2f05f21a, type: 2}
+  - {fileID: 11400000, guid: 784876c85a9ef4daa8e7926af9444ff9, type: 2}

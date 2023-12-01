@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
+  m_Name: '[Moon Cat] Sleep - Heal 10, Size -2'
+  m_EditorClassIdentifier: 
+  cardType: 0
+  cardSize: 1
+  intentName: 
+  cardDragTarget: 0
+  effects:
+  - {fileID: 11400000, guid: 630dd0d458ceb334ba3df454519200a3, type: 2}
+  - {fileID: 11400000, guid: 722840471b8caa24db663b9cd2be22ea, type: 2}
+  cardActiveSkills: []

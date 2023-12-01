@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86909e3d944fa780ff42ad8c04f1c2, type: 3}
+  m_Name: Moon Cat (M)
+  m_EditorClassIdentifier: 
+  sizeMin: 4
+  sizeMax: 6
+  size: 1
+  activeSkill: {fileID: 0}
+  activeSkillSize: 0
+  passives:
+  - {fileID: 11400000, guid: 2543ee40298554823adb064aa26b61e2, type: 2}
+  skills:
+  - {fileID: 11400000, guid: 48776a5ff465f4af9ab574be06d57c33, type: 2}
+  attackPattern:
+  - {fileID: 11400000, guid: 04ff3137a9b4b475bb09a4cd8ed921ff, type: 2}
+  - {fileID: 11400000, guid: bb97fc9f6955b43edb50baec8a8edf0c, type: 2}
+  - {fileID: 11400000, guid: 3f3a129022c9540d8a8a708cd4588f54, type: 2}
+  - {fileID: 11400000, guid: 1b49b0ecbe0d2475e8915ce358f17d0d, type: 2}
+  - {fileID: 11400000, guid: 4028a1b5b01a148b7a5ec72b72a048ef, type: 2}
+  - {fileID: 11400000, guid: 322821198857d45b5ba6d1762d6e8363, type: 2}
