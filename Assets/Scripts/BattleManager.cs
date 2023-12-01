@@ -1058,12 +1058,14 @@ namespace DefaultNamespace
             {
                 //Game over
                 yield return IEOnLose();
+                yield break;
             }
             
             //If no remaining enemy win
             if (runtimeEnemies.Count == 0)
             {
                 yield return IEOnWin();
+                yield break;
             }
             
         }
