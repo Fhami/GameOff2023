@@ -20,8 +20,8 @@ namespace DefaultNamespace
         {
             cardData = Resources.LoadAll<CardData>("Cards").ToDictionary(card => card.name);
             characterData = Resources.LoadAll<CharacterData>("Characters").ToDictionary(character => character.name);
-            passiveData = Resources.LoadAll<PassiveData>("Passives").ToDictionary(passive => passive.name);
-            skillData = Resources.LoadAll<SkillData>("Skills").ToDictionary(skill => skill.name);
+            passiveData = Resources.LoadAll<PassiveData>("").ToDictionary(passive => passive.name);
+            skillData = Resources.LoadAll<SkillData>("").ToDictionary(skill => skill.name);
             buffData = Resources.LoadAll<BuffData>("Buffs").ToDictionary(buff => buff.buffPropertyKey);
             intentData = Resources.LoadAll<IntentData>("Intents").ToDictionary(intent => intent.intentType);
         }

@@ -11,6 +11,7 @@ public class EncounterData : ScriptableObject
     public Sprite icon;
     public List<EnemyDataModifier> enemies;
     public List<CardData> rewardPool;
+    public AudioClip bgm;
 }
 
 [System.Serializable] public class EnemyDataModifier

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -25,7 +26,8 @@ namespace DefaultNamespace
         ON_CHARACTER_SPAWNED,
         ON_BATTLE_START,
         ON_PLAYER_SIZE_CHANGED,
-        ON_PLAYER_USE_SKILL
+        ON_PLAYER_USE_SKILL,
+        ON_CHARACTER_FLEE
     }
     
     /// <summary>
@@ -48,14 +50,12 @@ namespace DefaultNamespace
         public List<Character> enemies = new List<Character>();
         public List<RuntimeCharacter> runtimeEnemies = new List<RuntimeCharacter>();
 
+        public ResultUI resultUI;
+        
         [Header("Mockup")] 
         public DeckData deckData;
         public CharacterData playerData;
         public EncounterData encounterData;
-
-        [Foldout("Sound")] 
-        public AudioClip bgm;
-        //public AudioClip 
 
         //Static instance for easy access, this won't be singleton cuz we only need it in battle scene
         public static BattleManager current;
@@ -74,22 +74,35 @@ namespace DefaultNamespace
         /// <returns></returns>
         private IEnumerator Start()
         {
-            if (!isDebug) yield break;
-            
-            Database.Initialize();
-            //Add cards to player deck
-            foreach (var _cardData in deckData.Cards)
+            InitUI();
+
+            if (isDebug)
             {
-                GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
+                foreach (var _cardData in deckData.Cards)
+                {
+                    GameManager.Instance.PlayerRuntimeDeck.AddCard(_cardData);
+                }
+
+                yield return StartBattle(playerData, encounterData);
+            }
+            else
+            {
+                SoundManager.Instance.PlayBGM(GameManager.Instance.currentEncounterData.bgm);
+                
+                yield return StartBattle(GameManager.Instance.playerCharacterData,
+                    GameManager.Instance.currentEncounterData);
             }
 
-            yield return StartBattle(playerData, encounterData);
+            //Add cards to player deck
+        }
+
+        private void InitUI()
+        {
+            //resultUI.OnClick_BackToMenu += () => 
         }
 
         public IEnumerator StartBattle(CharacterData _playerData, EncounterData _encounterData)
         {
-            SoundManager.Instance.PlayBGM(bgm);
-            
             canPlayCard = true;
             
             yield return cardController.InitializeDeck(GameManager.Instance.PlayerRuntimeDeck);
@@ -140,8 +153,19 @@ namespace DefaultNamespace
         public IEnumerator FleeFromBattle(RuntimeCharacter runtimeCharacter)
         {
             runtimeCharacter.properties.Get<CharacterState>(PropertyKey.CHARACTER_STATE).Value = CharacterState.ESCAPED;
+
+            yield return runtimeCharacter.Character.transform.DOMoveX(10, 0.3f).WaitForCompletion();
+
+            runtimeEnemies.Remove(runtimeCharacter);
+            enemies.Remove(runtimeCharacter.Character);
+
+            yield return OnGameEvent(GameEvent.ON_CHARACTER_FLEE, runtimeCharacter, runtimePlayer, runtimeEnemies);
             
-            throw new NotImplementedException("TODO: Implement enemy flee logic");
+            //If no remaining enemy win
+            if (runtimeEnemies.Count == 0)
+            {
+                yield return OnWin();
+            }
         }
         
         //Bind with button
@@ -500,8 +524,9 @@ namespace DefaultNamespace
             {
                 yield return characterToKill.Character.OnKilled(condition);
                 runtimePlayer = null;
+                
                 //Game over
-                yield return GameManager.Instance.GameOver();
+                yield return OnLose();
             }
             else
             {
@@ -511,10 +536,10 @@ namespace DefaultNamespace
                 yield return characterToKill.Character.OnKilled(condition);
             }
 
+            
             if (runtimeEnemies.Count == 0)
             {
-                yield return GameManager.Instance.WinBattle();
-                player.ClearStatusEffectStackAtEndOfBattle();
+                yield return OnWin();
             }
         }
 
@@ -952,6 +977,19 @@ namespace DefaultNamespace
 
             // There's no trigger conditions assigned, therefore the skill can't trigger. :(
             return false;
+        }
+
+        public IEnumerator OnLose()
+        {
+            resultUI.ShowLose();
+            yield return GameManager.Instance.GameOver();
+        }
+
+        public IEnumerator OnWin()
+        {
+            resultUI.ShowWin();
+            yield return GameManager.Instance.WinBattle();
+            runtimePlayer.ClearStatusEffectStackAtEndOfBattle();
         }
     }
 }
