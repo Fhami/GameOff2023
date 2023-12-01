@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7e81af6a2fc6e40b84b76428d54db0, type: 3}
+  m_Name: Late_Elite_01_1Slimp
+  m_EditorClassIdentifier: 
+  type: 1
+  icon: {fileID: 0}
+  enemies:
+  - baseData: {fileID: 11400000, guid: 85717beb0c3b5fe448bb123fe8dc865c, type: 2}
+    minMaxHpMod: {x: 0, y: 0}
+    startHp: 300
+    startShield: 0
+    startSize: 8
+    startAttackPattern: 0
+  rewardPool: []
+  bgm: {fileID: 0}
