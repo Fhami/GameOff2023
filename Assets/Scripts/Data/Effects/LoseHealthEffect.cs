@@ -29,9 +29,8 @@ namespace DefaultNamespace
             cardTarget = characterPlayingTheCard;
             
             // The amount of health to lose
-            int health = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int health = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
 
-            // TODO: VFX
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             // Process the effect
             for (int i = 0; i < times; i++)
@@ -74,7 +73,8 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Lose {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} health");
+                    int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                    sb.Append($"Lose <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color> health");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customHealthDescription);
@@ -142,7 +142,13 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the health value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
             int health = healthValueSource switch
             {
@@ -151,6 +157,8 @@ namespace DefaultNamespace
                 ValueSource.CUSTOM => customHealthValue.GetValue(card, characterPlayingTheCard, player, cardTarget, enemies),
                 _ => throw new ArgumentOutOfRangeException()
             };
+
+            valueState = ValueState.NORMAL;
             
             return health;
         }

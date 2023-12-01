@@ -50,7 +50,7 @@ namespace DefaultNamespace
             }
 
             // Process the attack effect to every target
-            int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             for (int i = 0; i < times; i++)
@@ -91,8 +91,8 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append(
-                                $"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage");
+                            int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                            sb.Append($"Deal <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color> damage");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -108,8 +108,8 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             throw new NotSupportedException();
                         case ValueSource.CARD:
-                            sb.Append(
-                                $"Deal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} damage to all enemies");
+                            int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                            sb.Append($"Deal <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color> damage to all enemies");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(customDamageDescription);
@@ -286,8 +286,13 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the damage value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
-            RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
             int damage = damageValueSource switch
             {
@@ -298,16 +303,26 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            int playerAttackModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.ATTACK)
-                .GetValueWithModifiers(characterPlayingTheCard);
-            int playerStrengthModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH)
-                .GetValueWithModifiers(characterPlayingTheCard);
-            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK)
-                .GetValueWithModifiers(characterPlayingTheCard);
+            int playerAttackModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(characterPlayingTheCard);
+            int playerStrengthModifier = characterPlayingTheCard.properties.Get<int>(PropertyKey.STRENGTH).GetValueWithModifiers(characterPlayingTheCard);
+            int cardAttackModifier = card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(characterPlayingTheCard);
 
-            return damage + playerAttackModifier + playerStrengthModifier + cardAttackModifier;
+            int modifiers = playerAttackModifier + playerStrengthModifier + cardAttackModifier;
+
+            int damageWithModifiers = damage + modifiers;
+
+            valueState = ValueState.NORMAL;
+            if (damageWithModifiers > damage)
+            {
+                valueState = ValueState.INCREASED;
+            }
+            else if (damageWithModifiers < damage)
+            {
+                valueState = ValueState.DECREASED;
+            }
+            
+            return damageWithModifiers;
         }
-
 
         /// <summary>
         /// Get damage value outside the battle. If you have a reference to the card instance
@@ -329,9 +344,7 @@ namespace DefaultNamespace
             return damageValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
-                ValueSource.CARD => (damageValue +
-                                     card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card))
-                    .ToString(),
+                ValueSource.CARD => (damageValue + card.properties.Get<int>(PropertyKey.ATTACK).GetValueWithModifiers(card)).ToString(),
                 ValueSource.CUSTOM => "X",
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -362,7 +375,7 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
 
-            int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int damage = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             int times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             for (int i = 0; i < times; i++)

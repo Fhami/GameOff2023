@@ -25,15 +25,12 @@ namespace DefaultNamespace
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: VFX
-            
-            int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             var times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
-            var fragile = characterPlayingTheCard.properties.Get<int>(PropertyKey.FRAGILE)
-                .GetValueWithModifiers(characterPlayingTheCard);
+            var fragile = characterPlayingTheCard.properties.Get<int>(PropertyKey.FRAGILE).GetValueWithModifiers(characterPlayingTheCard);
             
-            //Reduce shield gain by 25% if character have FRAGILE
+            // Reduce shield gain by 25% if character have FRAGILE
             var shieldReduc = fragile > 0 ? 0.25f : 0;
             var shieldMod = (1 - shieldReduc);
             
@@ -56,7 +53,8 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} <color={Colors.COLOR_STATUS}>Shield</color>");
+                    int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                    sb.Append($"Gain <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color> <color={Colors.COLOR_STATUS}>Shield</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customShieldDescription);
@@ -124,7 +122,13 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the shield value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
             int shield = shieldValueSource switch
             {
@@ -134,9 +138,21 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            int cardShieldModifier = GetShieldModifiers(card, characterPlayingTheCard);
+            int modifiers = GetShieldModifiers(card, characterPlayingTheCard);
 
-            return shield + cardShieldModifier;
+            int shieldWithModifiers = shield + modifiers;
+            
+            valueState = ValueState.NORMAL;
+            if (shieldWithModifiers > shield)
+            {
+                valueState = ValueState.INCREASED;
+            }
+            else if (shieldWithModifiers < shield)
+            {
+                valueState = ValueState.DECREASED;
+            }
+            
+            return shieldWithModifiers;
         }
         
         /// <summary>
@@ -177,7 +193,7 @@ namespace DefaultNamespace
         public override void PreviewEffect(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
             RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int shield = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             var times = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             var currentShield = characterPlayingTheCard.properties.Get<int>(PropertyKey.SHIELD).Value;
             
