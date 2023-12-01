@@ -12,6 +12,9 @@ namespace DefaultNamespace
 
         public RuntimeDeckData PlayerRuntimeDeck;
 
+        public CharacterData playerCharacterData;
+        public EncounterData currentEncounterData;
+
         [SerializeField] private bool debugMode;
         
         private void Awake()
@@ -27,6 +30,8 @@ namespace DefaultNamespace
             PlayerRuntimeDeck = new RuntimeDeckData();
         }
 
+        
+        
         public IEnumerator GameOver()
         {
             yield break;

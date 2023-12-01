@@ -46,11 +46,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8b2f5ef3e042e4da7685bad20a704e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TooltipUI: {fileID: 0}
   cardController: {fileID: 3027497806088810340}
   characterSpawner: {fileID: 5487534188396860056}
+  characterSpawnDelay: 0.2
+  stunDuration: 0.3
   player: {fileID: 0}
   enemies: []
-  deckData: {fileID: 0}
+  deckData: {fileID: 11400000, guid: b1bf5b3fa4a3e46acbdb9d5d72dca741, type: 2}
+  playerData: {fileID: 11400000, guid: 15913e68fda5abf46a9221e92a94a559, type: 2}
+  encounterData: {fileID: 11400000, guid: bc83b2d0bf98a46c3871a807b6ef3bee, type: 2}
+  bgm: {fileID: 0}
+  canPlayCard: 1
 --- !u!114 &5487534188396860056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +70,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcc954e28e7c0044a344135054a59e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesPos: []
+  enemiesPos:
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  - Transform: {fileID: 0}
+    Owner: {fileID: 0}
+  playerPos:
+    Transform: {fileID: 0}
+    Owner: {fileID: 0}
 --- !u!114 &3027497806088810340
 MonoBehaviour:
   m_ObjectHideFlags: 0
