@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayNextCardMultipleTimesEffect : EffectData
 {
     public int extraTimes = 1;
+    
     public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
         RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
     {
@@ -18,17 +19,23 @@ public class PlayNextCardMultipleTimesEffect : EffectData
     public override string GetDescriptionTextWithModifiers(RuntimeCard card, RuntimeCharacter characterPlayingTheCard,
         RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
     {
-        return $"Next card play {1 + extraTimes} times.";
+        return $"Next card is played {extraTimes.ToString()} times.";
     }
 
     public override string GetDescriptionText()
     {
-        return $"Next card play {1 + extraTimes} times.";
+        return $"Next card is played {extraTimes.ToString()} times.";
     }
 
-    public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-        RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+    public override int GetEffectValue(
+        RuntimeCard card,
+        RuntimeCharacter characterPlayingTheCard,
+        RuntimeCharacter player,
+        RuntimeCharacter cardTarget,
+        List<RuntimeCharacter> enemies,
+        out ValueState valueState)
     {
+        valueState = ValueState.NORMAL;
         return extraTimes;
     }
 

@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
+    public enum ValueState
+    {
+        NORMAL,
+        INCREASED,
+        DECREASED
+    }
+    
     public abstract class EffectData : ScriptableObject
     {
         public IntentData intent;
@@ -58,7 +65,14 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the effect value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public abstract int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies);
+        public abstract int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState);
+        
         /// <summary>
         /// Get effect value outside the battle. If you have a reference to the card instance
         /// the method will also calculate the card upgrades into the final value.
@@ -68,7 +82,12 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the times value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public int GetTimesValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public int GetTimesValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies)
         {
             int times = timesValueSource switch
             {
@@ -109,8 +128,7 @@ namespace DefaultNamespace
             };
         }
 
-        public virtual void PreviewEffect(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public virtual void PreviewEffect(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
             
         }

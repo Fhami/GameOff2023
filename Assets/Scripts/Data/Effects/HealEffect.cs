@@ -50,7 +50,7 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
             
-            int heal = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int heal = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             for (int i = 0; i < time; i++)
@@ -91,7 +91,8 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             break;
                         case ValueSource.CARD:
-                            sb.Append($"Heal {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                            sb.Append($"Heal <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color>");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(" " + customHealDescription);
@@ -110,7 +111,8 @@ namespace DefaultNamespace
                         case ValueSource.NONE:
                             break;
                         case ValueSource.CARD:
-                            sb.Append($"Heal all enemies by {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()}");
+                            int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                            sb.Append($"Heal all enemies by <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color>");
                             break;
                         case ValueSource.CUSTOM:
                             sb.Append(" " + customHealDescription);
@@ -187,9 +189,15 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the heal value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
-            int damage = healValueSource switch
+            int value = healValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => healValue,
@@ -197,9 +205,21 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
             
-            int cardShieldModifier = card.properties.Get<int>(PropertyKey.HEAL).GetValueWithModifiers(card);
+            int modifiers = card.properties.Get<int>(PropertyKey.HEAL).GetValueWithModifiers(card);
+
+            int valueWithModifiers = value + modifiers;
             
-            return damage + cardShieldModifier;
+            valueState = ValueState.NORMAL;
+            if (valueWithModifiers > value)
+            {
+                valueState = ValueState.INCREASED;
+            }
+            else if (valueWithModifiers < value)
+            {
+                valueState = ValueState.DECREASED;
+            }
+            
+            return valueWithModifiers;
         }
         
         /// <summary>

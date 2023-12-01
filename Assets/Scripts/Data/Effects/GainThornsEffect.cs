@@ -26,9 +26,7 @@ namespace DefaultNamespace
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: VFX
-            
-            int thorns = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int thorns = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.THORNS).Value += thorns;
             
@@ -44,7 +42,8 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} thorns");
+                    int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                    sb.Append($"Gain <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color> <color={Colors.COLOR_STATUS}>thorns</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customThornsDescription);
@@ -67,7 +66,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue()} thorns");
+                    sb.Append($"Gain {GetEffectValue()} <color={Colors.COLOR_STATUS}>thorns</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customThornsDescription);
@@ -84,7 +83,13 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the thorns value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
             int damage = thornsValueSource switch
             {
@@ -94,9 +99,21 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
             
-            int cardThornsModifier = card.properties.Get<int>(PropertyKey.THORNS).GetValueWithModifiers(card);
+            int modifiers = card.properties.Get<int>(PropertyKey.THORNS).GetValueWithModifiers(card);
+
+            int damageWithModifiers = damage + modifiers;
             
-            return damage + cardThornsModifier;
+            valueState = ValueState.NORMAL;
+            if (damageWithModifiers > damage)
+            {
+                valueState = ValueState.INCREASED;
+            }
+            else if (damageWithModifiers < damage)
+            {
+                valueState = ValueState.DECREASED;
+            }
+            
+            return damageWithModifiers;
         }
         
         /// <summary>

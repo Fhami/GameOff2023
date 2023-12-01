@@ -271,7 +271,7 @@ namespace DefaultNamespace
             foreach (var _effectData in _runtimeCard.cardData.effects)
             {
                 var _value = _effectData.GetEffectValue(_runtimeCard, runtimeCharacter, _battleManager.runtimePlayer,
-                    _battleManager.runtimePlayer, _battleManager.runtimeEnemies);
+                    _battleManager.runtimePlayer, _battleManager.runtimeEnemies, out _);
 
                 var _times = _effectData.GetTimesValue(_runtimeCard, runtimeCharacter, _battleManager.runtimePlayer,
                     _battleManager.runtimePlayer, _battleManager.runtimeEnemies);

@@ -57,14 +57,14 @@ namespace DefaultNamespace
                     throw new ArgumentOutOfRangeException();
             }
             
-            int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int effectValue = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
 
             for (int i = 0; i < time; i++)
             {
                 foreach (var target in targets)
                 {
-                    target.properties.Get<int>(statusEffect).Value += value;
+                    target.properties.Get<int>(statusEffect).Value += effectValue;
                 }
             }
             
@@ -80,7 +80,8 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} {statusEffect.ToString()}");
+                    int effectValue = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                    sb.Append($"Gain <color={Colors.GetNumberColor(valueState)}>{effectValue.ToString()}</color> <color={Colors.COLOR_STATUS}>{statusEffect.ToString()}</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customDescription);
@@ -117,7 +118,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue()} {statusEffect.ToString()}");
+                    sb.Append($"Gain {GetEffectValue()} <color={Colors.COLOR_STATUS}>{statusEffect.ToString()}</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customDescription);
@@ -131,7 +132,7 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($" {GetTimesValue().ToString()} times");
+                    sb.Append($" {GetTimesValue()} times");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customTimesDescription);
@@ -148,7 +149,13 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the thorns value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
             int damage = valueSource switch
             {
@@ -158,9 +165,21 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
             
-            int cardStatusModifier = card.properties.Get<int>(statusEffect).GetValueWithModifiers(card);
+            int modifiers = card.properties.Get<int>(statusEffect).GetValueWithModifiers(card);
+
+            int damageWithModifiers = damage + modifiers;
+
+            valueState = ValueState.NORMAL;
+            if (damageWithModifiers > damage)
+            {
+                valueState = ValueState.INCREASED;
+            }
+            else if (damageWithModifiers < damage)
+            {
+                valueState = ValueState.DECREASED;
+            }
             
-            return damage + cardStatusModifier;
+            return damageWithModifiers;
         }
         
         /// <summary>

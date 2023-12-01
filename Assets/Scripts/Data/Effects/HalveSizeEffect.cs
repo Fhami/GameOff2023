@@ -66,9 +66,15 @@ namespace DefaultNamespace
             }
         }
 
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
+            valueState = ValueState.NORMAL;
             return 1;
         }
 

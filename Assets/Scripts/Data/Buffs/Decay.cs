@@ -8,12 +8,12 @@ namespace DefaultNamespace
         public override string GetDescriptionWithModifier(RuntimeCharacter character)
         {
             int decay = character.properties.Get<int>(PropertyKey.DECAY).GetValueWithModifiers(character);
-            return $"At the end of the turn, Size -{decay.ToString()}.";
+            return $"At the end of the turn, <color={Colors.COLOR_STATUS}>Size</color> -{decay.ToString()}.";
         }
 
         public override string GetDescription(int value)
         {
-            return $"At the end of the turn, Size -{value.ToString()}.";
+            return $"At the end of the turn, <color={Colors.COLOR_STATUS}>Size</color> -{value.ToString()}.";
         }
     }
 }

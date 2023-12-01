@@ -14,7 +14,6 @@ public class RedrawEffect : EffectData
     {
         if (characterPlayingTheCard.properties.Get<bool>(PropertyKey.CANNOT_DRAW_ADDITIONAL_CARDS_CURRENT_TURN).Value)
         {
-            // TODO: VFX / visuals what happens when can't draw?
             yield break;
         }
         
@@ -29,12 +28,18 @@ public class RedrawEffect : EffectData
 
     public override string GetDescriptionText()
     {
-        return $"Discard {count} cards and draw the same amount.";
+        return $"Discard {count.ToString()} cards and draw the same amount.";
     }
 
-    public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-        RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+    public override int GetEffectValue(
+        RuntimeCard card,
+        RuntimeCharacter characterPlayingTheCard,
+        RuntimeCharacter player,
+        RuntimeCharacter cardTarget,
+        List<RuntimeCharacter> enemies,
+        out ValueState valueState)
     {
+        valueState = ValueState.NORMAL;
         return count;
     }
 

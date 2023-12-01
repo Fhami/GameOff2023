@@ -28,12 +28,18 @@ namespace DefaultNamespace
 
         public override string GetDescriptionText()
         {
-            return "Destroy.";
+            return $"<color={Colors.COLOR_STATUS}>Destroy</color>.";
         }
 
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player,
-            RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
+            valueState = ValueState.NORMAL;
             return 1;
         }
 

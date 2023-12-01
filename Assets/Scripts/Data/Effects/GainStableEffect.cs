@@ -25,9 +25,7 @@ namespace DefaultNamespace
         
         public override IEnumerator Execute(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
         {
-            // TODO: VFX
-            
-            int stable = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies);
+            int stable = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out _);
             var time = GetTimesValue(card, characterPlayingTheCard, player, cardTarget, enemies);
             
             characterPlayingTheCard.properties.Get<int>(PropertyKey.STABLE).Value += stable + time;
@@ -44,7 +42,8 @@ namespace DefaultNamespace
                 case ValueSource.NONE:
                     break;
                 case ValueSource.CARD:
-                    sb.Append($"Gain {GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies).ToString()} stable");
+                    int value = GetEffectValue(card, characterPlayingTheCard, player, cardTarget, enemies, out ValueState valueState);
+                    sb.Append($"Gain <color={Colors.GetNumberColor(valueState)}>{value.ToString()}</color> <color={Colors.COLOR_STATUS}>stable</color>");
                     break;
                 case ValueSource.CUSTOM:
                     sb.Append(" " + customStableDescription);
@@ -112,9 +111,15 @@ namespace DefaultNamespace
         /// <summary>
         /// Get the stable value inside a battle. Calculates the final value with all the modifiers.
         /// </summary>
-        public override int GetEffectValue(RuntimeCard card, RuntimeCharacter characterPlayingTheCard, RuntimeCharacter player, RuntimeCharacter cardTarget, List<RuntimeCharacter> enemies)
+        public override int GetEffectValue(
+            RuntimeCard card,
+            RuntimeCharacter characterPlayingTheCard,
+            RuntimeCharacter player,
+            RuntimeCharacter cardTarget,
+            List<RuntimeCharacter> enemies,
+            out ValueState valueState)
         {
-            int damage = stableValueSource switch
+            int stable = stableValueSource switch
             {
                 ValueSource.NONE => throw new NotSupportedException(),
                 ValueSource.CARD => stableValue,
@@ -122,9 +127,21 @@ namespace DefaultNamespace
                 _ => throw new ArgumentOutOfRangeException()
             };
             
-            int cardStableModifier = card.properties.Get<int>(PropertyKey.STABLE).GetValueWithModifiers(card);
+            int modifiers = card.properties.Get<int>(PropertyKey.STABLE).GetValueWithModifiers(card);
+
+            int stableWithModifiers = stable + modifiers;
             
-            return damage + cardStableModifier;
+            valueState = ValueState.NORMAL;
+            if (stableWithModifiers > stable)
+            {
+                valueState = ValueState.INCREASED;
+            }
+            else if (stableWithModifiers < stable)
+            {
+                valueState = ValueState.DECREASED;
+            }
+            
+            return stableWithModifiers;
         }
         
         /// <summary>
