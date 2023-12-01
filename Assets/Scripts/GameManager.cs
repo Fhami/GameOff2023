@@ -16,6 +16,7 @@ namespace DefaultNamespace
 
         public CharacterData playerCharacterData;
         public EncounterData currentEncounterData;
+        public int PlayerHP;
 
         [SerializeField] private bool debugMode;
         
@@ -49,6 +50,8 @@ namespace DefaultNamespace
             PlayerRuntimeDeck = new RuntimeDeckData();
             
             playerCharacterData = _characterData;
+
+            PlayerHP = _characterData.health;
             
             foreach (var _cardData in playerCharacterData.deckData.Cards)
             {

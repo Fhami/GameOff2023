@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c7cf6b7af1d37429f1f690bbdf5b66, type: 3}
-  m_Name: Poison
+  m_Name: '[Slimp] Attack 2x2'
   m_EditorClassIdentifier: 
-  cardType: 4
+  cardType: 0
+  cardSize: 1
   intentName: 
-  cardDragTarget: 4
+  cardDragTarget: 0
   effects:
-  - {fileID: 11400000, guid: 74eea5d8c93c7e04b9cabbb9cf99a55f, type: 2}
-  - {fileID: 11400000, guid: f23f9942bc83d8043a126b882d503182, type: 2}
-  - {fileID: 11400000, guid: 68b2abccf8d800049a8354c20f73e466, type: 2}
+  - {fileID: 11400000, guid: e53b7c9361548404d9f044b9ef08f602, type: 2}
   cardActiveSkills: []

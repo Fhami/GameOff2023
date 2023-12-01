@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a87e7941f4443c5b3344390d736e681, type: 3}
-  m_Name: Deal damage equal to player size times 3
+  m_Name: Deal 5 damage 2 times
   m_EditorClassIdentifier: 
   intent: {fileID: 11400000, guid: 71b53942f9569594b98a333cf43e2dbf, type: 2}
   effectModifier: {fileID: 0}
   timesValueSource: 1
-  timesValue: 3
+  timesValue: 2
   customTimesValue: {fileID: 0}
   customTimesDescription: 
   effectTarget: 3
-  damageValueSource: 2
-  damageValue: 0
-  customDamageValue: {fileID: 11400000, guid: 97ab28e5581c40d45a930b0411b7b583, type: 2}
-  customDamageDescription: Deal damage equal to your size x 3
+  damageValueSource: 1
+  damageValue: 5
+  customDamageValue: {fileID: 0}
+  customDamageDescription: 

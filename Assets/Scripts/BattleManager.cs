@@ -104,7 +104,7 @@ namespace DefaultNamespace
 
             var player = runtimePlayer ?? CharacterFactory.Create(GameManager.Instance.playerCharacterData.name);
 
-            StartCoroutine(InitializeBattle(CharacterFactory.Create(playerData.name), GameManager.Instance.currentEncounterData));
+            StartCoroutine(InitializeBattle(CharacterFactory.Create(GameManager.Instance.playerCharacterData.name), GameManager.Instance.currentEncounterData));
         }
         
         private void SubscribeUIs()
@@ -154,6 +154,9 @@ namespace DefaultNamespace
             {
                 player = characterSpawner.SpawnPlayer(_player);
             }
+
+            player.runtimeCharacter.properties.Get<int>(PropertyKey.HEALTH).Value = GameManager.Instance.PlayerHP;
+            
             player.cardController = cardController;
             
             cardController.Character = player;
@@ -1038,6 +1041,8 @@ namespace DefaultNamespace
         public IEnumerator IEOnWin()
         {
             OnWin?.Invoke();
+
+            GameManager.Instance.PlayerHP = runtimePlayer.properties.Get<int>(PropertyKey.HEALTH).Value;
             
             resultUI.ShowWin();
 

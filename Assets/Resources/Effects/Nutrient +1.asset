@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23ea424101cd499aa021d1b695fbefdd, type: 3}
-  m_Name: Apply 2 Fragile to player
+  m_Name: Nutrient +1
   m_EditorClassIdentifier: 
-  intent: {fileID: 11400000, guid: e0ab691a25fef034a8065d15204aeecc, type: 2}
+  intent: {fileID: 11400000, guid: 418ca8bbcc6c21045a46cdfdcee606b7, type: 2}
   effectModifier: {fileID: 0}
   timesValueSource: 0
   timesValue: 0
   customTimesValue: {fileID: 0}
   customTimesDescription: 
-  effectTarget: 1
-  statusEffect: 38
+  effectTarget: 2
+  statusEffect: 40
   valueSource: 1
-  value: 2
+  value: 1
   customValue: {fileID: 0}
   customDescription: 

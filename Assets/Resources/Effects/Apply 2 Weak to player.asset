@@ -21,6 +21,6 @@ MonoBehaviour:
   effectTarget: 1
   statusEffect: 45
   valueSource: 1
-  value: 1
+  value: 2
   customValue: {fileID: 0}
   customDescription: 
