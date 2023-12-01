@@ -34,8 +34,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value:
-        - {fileID: 11400000, guid: 0f5743236a53cf44795e802bd899a38c, type: 2}
-        - {fileID: 11400000, guid: d8369faeff28c9f44910cc7c0d3595be, type: 2}
+        - {fileID: 11400000, guid: 335c7eccdc3ad344092c8d74d0921455, type: 2}
   - minMaxNode: {x: 3, y: 3}
     fixedNodes: []
     possibleNodes:
